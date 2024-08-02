@@ -5,7 +5,12 @@ const MAX_CLIENTS = 2
 
 @export var net_ui : Control
 @export var game_ui : Control
+@export var timer : Timer 
+@export var cd_number_visual : Label
 
+var is_game_started : bool = false
+
+var is_countdown_started : bool = false # set this to true to start a countdown.
 
 var ip_address = "127.0.0.1"
 var peer
@@ -25,9 +30,26 @@ func _ready():
 	
 	net_ui.visible = true
 	game_ui.visible = false
+	game_ui.get_node("StartGameButton").visible = false
 
 func _process(delta):
+	if !is_game_started:
+		return
+	
+	if is_countdown_started:
+		# start countdown.
+		timer.start()
+		cd_number_visual.text = str(timer.time_left)
 	pass
+
+### GAMEPLAY ###
+# A visual label shrinks & fades to the center labelled 3 then 2 then 1. 
+# Afterwords, a transparent ring surrounds the circle appears 
+# and a white ring outside 
+# Player will need to press m1 when the 
+
+
+### NETWORKING ###
 
 # Creates a client given ip_address
 func innit_client():
@@ -66,6 +88,8 @@ func _on_host_button_button_down():
 	game_ui.visible = true
 	player_name = net_ui.get_child(1).text
 	(game_ui.get_child(0) as Label).text = "ID: " + str(multiplayer.get_unique_id()) + " (Server)"
+	game_ui.get_node("StartGameButton").visible = true
+
 	pass 
 
 
@@ -86,12 +110,16 @@ func _on_player_connect(id):
 	# call rpcs here and names....
 	friend_details["id"] = id
 	transfer_name.rpc(player_name)
+	
+	#if multiplayer.is_server():
+		#game_ui.get_node("StartGameButton").visible = true
 	pass
 
 func _on_player_disconnect(id):
 	friend_details["name"] = null
 	friend_details["id"] = null
 	game_ui.get_child(1).text = ""
+	game_ui.get_node("StartGameButton").visible = false
 	pass
 
 func _on_connection_failed():
@@ -110,3 +138,17 @@ func transfer_name(name):
 	else:
 		game_ui.get_child(1).text = "[center]" + "Connected to " + friend_details["name"]
 	pass
+
+@rpc("authority", "reliable", "call_local")
+func start_game():
+	is_game_started = true
+
+
+func _on_start_game_button_button_down():
+	is_game_started = true
+	
+	
+	#start_game.rpc()
+	game_ui.get_node("StartGameButton").visible = false
+	pass
+

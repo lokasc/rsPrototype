@@ -4,12 +4,29 @@
 
 [node name="BeatMain" type="Node"]
 
-[node name="MultiplayerController" type="Node" parent="." node_paths=PackedStringArray("net_ui", "game_ui")]
+[node name="MultiplayerController" type="Node" parent="." node_paths=PackedStringArray("net_ui", "game_ui", "timer", "cd_number_visual")]
 script = ExtResource("1_i0qxa")
 net_ui = NodePath("../UI/NetUI")
 game_ui = NodePath("../UI/InGameUI")
+timer = NodePath("../Countdowns/CDTimer")
+cd_number_visual = NodePath("../Countdowns/CenterContainer/CDVisual")
 
-[node name="GameController" type="Node" parent="."]
+[node name="Countdowns" type="Node" parent="."]
+
+[node name="CenterContainer" type="CenterContainer" parent="Countdowns"]
+offset_left = 610.0
+offset_top = 284.0
+offset_right = 667.0
+offset_bottom = 421.0
+pivot_offset = Vector2(29, 69)
+
+[node name="CDVisual" type="Label" parent="Countdowns/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "3"
+
+[node name="CDTimer" type="Timer" parent="Countdowns"]
+one_shot = true
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -77,5 +94,15 @@ theme_override_font_sizes/normal_font_size = 25
 bbcode_enabled = true
 fit_content = true
 
+[node name="StartGameButton" type="Button" parent="UI/InGameUI"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 0
+offset_left = 590.0
+offset_top = 335.0
+offset_right = 690.0
+offset_bottom = 385.0
+text = "Start"
+
 [connection signal="button_down" from="UI/NetUI/HBoxContainer/HostButton" to="MultiplayerController" method="_on_host_button_button_down"]
 [connection signal="button_down" from="UI/NetUI/HBoxContainer/JoinButton" to="MultiplayerController" method="_on_join_button_button_down"]
+[connection signal="button_down" from="UI/InGameUI/StartGameButton" to="MultiplayerController" method="_on_start_game_button_button_down"]
