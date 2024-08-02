@@ -12,7 +12,7 @@ extends Sprite2D
 @export var player : NodePath
 var count = 0
 
-func _process(delta):
+func _process(_delta):
 	if count <= 3:
 		count += 1
 		add_enemy()

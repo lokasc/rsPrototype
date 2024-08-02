@@ -21,12 +21,12 @@ var stats_dictionary = { # placed in a dictionary for easy understanding, will b
 func _ready():
 	attack_box.monitoring = false
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("attack"):
 		print("Attack!")
 		basic_attack()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	# Create a vector input for reference
 	var direction : Vector2 = Input.get_vector("left", "right", "up", "down")
 	

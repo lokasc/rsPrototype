@@ -7,7 +7,7 @@ var speed = 2
 func _init():
 	health = 100
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	# direction the pest needs to go towards:
 	var direction = target.global_position - global_position
 	var distance = global_position.distance_to(target.global_position)
