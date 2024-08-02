@@ -8,6 +8,8 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_erm30"]
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_4ffln")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -22,5 +24,6 @@ scale = Vector2(10, 10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
 shape = SubResource("CircleShape2D_erm30")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [connection signal="area_entered" from="AttackBox" to="." method="_on_attack_box_area_entered"]

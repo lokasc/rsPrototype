@@ -8,6 +8,8 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_85amp"]
 
 [node name="Pest" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_6d1pb")
 health = 100.0
 
