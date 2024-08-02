@@ -15,7 +15,7 @@ func _process(_delta):
 # Override this to change the calculation of taking damage.
 func _on_hit(dmg):
 	health -= dmg
-	print("ouch")
+	print("ouch ", health)
 	
 	if health <= 0: # Kill enemy
 		queue_free()
