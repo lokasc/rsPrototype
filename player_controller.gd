@@ -28,21 +28,13 @@ func _process(delta):
 
 func _physics_process(delta):
 	# Create a vector input for reference
-	var direction : Vector2 = Vector2(
-		Input.get_axis("left", "right"), 
-		Input.get_axis("down", "up")
-	)
+	var direction : Vector2 = Input.get_vector("left", "right", "up", "down")
 	
 	# Movement
-	if direction.x:
-		velocity.x = direction.x * SPEED
+	if direction:
+		velocity = direction * SPEED
 	else:
-		velocity.x = move_toward(velocity.x, 0, DECELERATION)
-		
-	if direction.y:
-		velocity.y = direction.y * SPEED * -1
-	else:
-		velocity.y = move_toward(velocity.y, 0, DECELERATION)
+		velocity = velocity.move_toward(Vector2.ZERO,DECELERATION)
 	
 	move_and_slide()
 
