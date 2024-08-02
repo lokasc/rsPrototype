@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://wqvp4oaam0wu"]
+
+[ext_resource type="Script" path="res://game_manager.gd" id="1_sjyyx"]
+[ext_resource type="PackedScene" uid="uid://woyetkfsjr7p" path="res://level.tscn" id="2_aoe4x"]
+[ext_resource type="PackedScene" uid="uid://d0b8cqs24tfpe" path="res://camera.tscn" id="3_revoy"]
+[ext_resource type="PackedScene" uid="uid://cpkr32elxa7a8" path="res://pest.tscn" id="3_t01sq"]
+[ext_resource type="PackedScene" uid="uid://d3lp2sqrwyacp" path="res://player.tscn" id="4_c2y1a"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_sjyyx")
+
+[node name="Level" parent="." instance=ExtResource("2_aoe4x")]
+enemy_scene = ExtResource("3_t01sq")
+player = NodePath("Player")
+
+[node name="Camera2D" parent="Level" instance=ExtResource("3_revoy")]
+target = NodePath("../Player")
+
+[node name="Player" parent="Level" instance=ExtResource("4_c2y1a")]
+
+[node name="Pest" parent="Level" node_paths=PackedStringArray("target") instance=ExtResource("3_t01sq")]
+target = NodePath("../Player")

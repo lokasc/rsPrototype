@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3lp2sqrwyacp"]
+
+[ext_resource type="Script" path="res://player_controller.gd" id="1_4ffln"]
+[ext_resource type="Texture2D" uid="uid://bj87if3xp5tym" path="res://icon.svg" id="2_bhcxd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g3diu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_erm30"]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_4ffln")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_g3diu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_bhcxd")
+
+[node name="AttackBox" type="Area2D" parent="."]
+scale = Vector2(10, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
+shape = SubResource("CircleShape2D_erm30")
+
+[connection signal="area_entered" from="AttackBox" to="." method="_on_attack_box_area_entered"]

@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cpkr32elxa7a8"]
+
+[ext_resource type="Script" path="res://pest.gd" id="1_6d1pb"]
+[ext_resource type="Texture2D" uid="uid://bj87if3xp5tym" path="res://icon.svg" id="2_naecx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2cp4r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_85amp"]
+
+[node name="Pest" type="CharacterBody2D"]
+script = ExtResource("1_6d1pb")
+health = 100.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_naecx")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_2cp4r")
+
+[node name="HurtBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_85amp")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://woyetkfsjr7p"]
+
+[ext_resource type="Texture2D" uid="uid://cuv4ylu711pup" path="res://bg_test_level.jpg" id="1_loatm"]
+[ext_resource type="Script" path="res://level_controller.gd" id="2_orr7y"]
+
+[node name="Level" type="Sprite2D"]
+texture = ExtResource("1_loatm")
+script = ExtResource("2_orr7y")
