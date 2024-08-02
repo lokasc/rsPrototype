@@ -9,6 +9,12 @@ const MAX_CLIENTS = 2
 
 var ip_address = "127.0.0.1"
 var peer
+var player_name : String = ""
+
+var friend_details = {
+	"name" : null,
+	"id" : null,
+}
 
 func _ready():
 	print(IP.get_local_addresses()[3])
@@ -22,8 +28,6 @@ func _ready():
 	game_ui.visible = false
 
 func _process(delta):
-	if peer != null:
-		print(peer.get_connection_status())
 	pass
 
 # Creates a client given ip_address
@@ -32,7 +36,7 @@ func innit_client():
 	var error = peer.create_client(ip_address, PORT)
 	
 	if error != OK:
-		OS.alert("Shit input?")
+		OS.alert("Check your input")
 		peer = null
 		error = null
 		return
@@ -41,12 +45,17 @@ func innit_client():
 	
 	net_ui.visible = false
 	game_ui.visible = true
+	player_name = net_ui.get_child(1).text
+	
 	(game_ui.get_child(0) as Label).text = "Connecting to: " + ip_address
 
 # Creates a server
 func innit_host():
 	peer = ENetMultiplayerPeer.new()
 	peer.create_server(PORT, MAX_CLIENTS)
+	
+	# TODO: Check for hosting issues
+
 	multiplayer.multiplayer_peer = peer
 	print("Server started on port " + str(PORT) + " with a maximum of " + str(MAX_CLIENTS) + " clients")
 
@@ -56,6 +65,7 @@ func _on_host_button_button_down():
 	# set initial ui
 	net_ui.visible = false
 	game_ui.visible = true
+	player_name = net_ui.get_child(1).text
 	(game_ui.get_child(0) as Label).text = "ID: " + str(multiplayer.get_unique_id()) + " (Server)"
 	pass 
 
@@ -74,9 +84,11 @@ func _on_join_button_button_down():
 		
 	innit_client()
 
-# TOOD: Want to set up showing whos on connected.
+# Whenever something else connects to you.
 func _on_player_connect(id):
-	print(id)
+	# call rpcs here and names....
+	friend_details["id"] = id
+	transfer_name.rpc(player_name)
 	pass
 
 func _on_player_disconnect(id):
@@ -87,4 +99,14 @@ func _on_connection_failed():
 
 func _on_connected_to_server():
 	(game_ui.get_child(0) as Label).text = "ID: " + str(multiplayer.get_unique_id()) + " (Client)"
+
+# call remote sends to others only. not to self.
+@rpc("any_peer", "unreliable", "call_remote")
+func transfer_name(name):
+	friend_details["name"] = name
+	
+	if multiplayer.is_server():
+		game_ui.get_child(1).text = "[center]" + friend_details["name"] + " Connected"
+	else:
+		game_ui.get_child(1).text = "[center]" + "Connected to " + friend_details["name"]
 	pass
