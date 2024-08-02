@@ -17,7 +17,6 @@ var friend_details = {
 }
 
 func _ready():
-	print(IP.get_local_addresses()[3])
 	# Initialise signals.
 	multiplayer.peer_connected.connect(_on_player_connect)
 	multiplayer.peer_disconnected.connect(_on_player_disconnect)
@@ -71,8 +70,6 @@ func _on_host_button_button_down():
 
 
 func _on_join_button_button_down():
-	print("CLIENT PRESSED!")
-	
 	var input_ip = (get_node("/root/BeatMain/UI/NetUI/HBoxContainer/IP") as TextEdit).text
 	if input_ip != "":
 		ip_address = input_ip
@@ -92,6 +89,9 @@ func _on_player_connect(id):
 	pass
 
 func _on_player_disconnect(id):
+	friend_details["name"] = null
+	friend_details["id"] = null
+	game_ui.get_child(1).text = ""
 	pass
 
 func _on_connection_failed():
