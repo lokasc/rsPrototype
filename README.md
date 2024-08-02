@@ -1,1 +1,2 @@
-A vampire survivor style prototype with only MVPs. 
+# Rhythm Survivors
+A game prototype  
