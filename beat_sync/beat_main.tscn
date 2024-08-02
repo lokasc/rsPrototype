@@ -55,10 +55,10 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="Name" type="Label" parent="UI/InGameUI"]
+[node name="OtherPlayerName" type="RichTextLabel" parent="UI/InGameUI"]
 layout_mode = 0
 offset_right = 40.0
-offset_bottom = 23.0
+offset_bottom = 40.0
 
 [connection signal="button_down" from="UI/NetUI/HBoxContainer/HostButton" to="MultiplayerController" method="_on_host_button_button_down"]
 [connection signal="button_down" from="UI/NetUI/HBoxContainer/JoinButton" to="MultiplayerController" method="_on_join_button_button_down"]
