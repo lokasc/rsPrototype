@@ -91,7 +91,6 @@ func _process(delta):
 
 # This function corresponds to the main gameplay
 func game_loop():
-	print(current_state)
 	match current_state:
 		GAME_STATE.STATE_IDLE:
 			await get_tree().create_timer(1).timeout
@@ -116,7 +115,6 @@ func game_loop():
 			# TODO: make it extend beyond.
 			# FIXME: Scaling buggy at the beginning.
 			opaque_ring.scale = opaque_ring_scale + ((transparent_ring_scale - opaque_ring_scale)/(seconds_per_four_beats-0)) * (min(total_cd_time - timer.time_left,seconds_per_four_beats)-0)
-			
 			# Check for Input & collect results.
 			if Input.is_action_just_pressed("attack"):
 				pressed_time = timer.time_left
@@ -129,22 +127,24 @@ func game_loop():
 				
 				# stop timer when hit 
 				current_state = GAME_STATE.STATE_RESULTS
-		
 		GAME_STATE.STATE_RESULTS:
 			# show results here, for x seconds then go next.
 			await get_tree().create_timer(result_screen_time).timeout
-			
-			
 			# check to leave.
-			if current_countdowns >= num_countdowns:
-				is_game_started = false
-				return
-			else:
+			
+			# for some reason, it is possible to enter here 
+			# without being in state_result
+			if current_state == GAME_STATE.STATE_RESULTS:
 				current_countdowns += 1
-				current_state = GAME_STATE.STATE_IDLE
-
+				if current_countdowns >= num_countdowns:
+					is_game_started = false
+					return
+			current_state = GAME_STATE.STATE_IDLE
+			return
 
 func _on_cd_timer_timeout():
+	if current_state != GAME_STATE.STATE_RUNNING:
+		return
 	accuracy = 99999
 	current_state = GAME_STATE.STATE_RESULTS
 
