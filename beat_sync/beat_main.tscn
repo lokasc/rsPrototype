@@ -14,6 +14,7 @@ cd_number_visual = NodePath("../Countdowns/CenterContainer/CDVisual")
 [node name="Countdowns" type="Node" parent="."]
 
 [node name="CenterContainer" type="CenterContainer" parent="Countdowns"]
+visible = false
 offset_left = 610.0
 offset_top = 284.0
 offset_right = 667.0
@@ -103,6 +104,7 @@ offset_right = 690.0
 offset_bottom = 385.0
 text = "Start"
 
+[connection signal="timeout" from="Countdowns/CDTimer" to="MultiplayerController" method="_on_cd_timer_timeout"]
 [connection signal="button_down" from="UI/NetUI/HBoxContainer/HostButton" to="MultiplayerController" method="_on_host_button_button_down"]
 [connection signal="button_down" from="UI/NetUI/HBoxContainer/JoinButton" to="MultiplayerController" method="_on_join_button_button_down"]
 [connection signal="button_down" from="UI/InGameUI/StartGameButton" to="MultiplayerController" method="_on_start_game_button_button_down"]

@@ -12,9 +12,29 @@ var is_game_started : bool = false
 
 var is_countdown_started : bool = false # set this to true to start a countdown.
 
+
 var ip_address = "127.0.0.1"
 var peer
 var player_name : String = ""
+
+
+# GAMEPLAY
+var BPM : float = 100
+
+enum GAME_STATE {STATE_IDLE, STATE_RUNNING, STATE_RESULTS}
+var current_state : GAME_STATE = GAME_STATE.STATE_IDLE
+
+var seconds_per_four_beats : float = BPM/60.0 * 4
+# this is a hard limit, if you dont press within these extra beats,
+# automatically count as failure
+var extra_seconds : float = seconds_per_four_beats/4 * 5 
+
+
+# Statistics
+var pressed_time
+
+# difference between the last crotchet and pressed time.
+var accuracy
 
 var friend_details = {
 	"name" : null,
@@ -31,23 +51,59 @@ func _ready():
 	net_ui.visible = true
 	game_ui.visible = false
 	game_ui.get_node("StartGameButton").visible = false
+	
+	current_state = GAME_STATE.STATE_IDLE
 
 func _process(delta):
 	if !is_game_started:
 		return
 	
-	if is_countdown_started:
-		# start countdown.
-		timer.start()
-		cd_number_visual.text = str(timer.time_left)
+	game_loop()
 	pass
 
 ### GAMEPLAY ###
-# A visual label shrinks & fades to the center labelled 3 then 2 then 1. 
 # Afterwords, a transparent ring surrounds the circle appears 
 # and a white ring outside 
-# Player will need to press m1 when the 
+# Player will need to press m1 when the rings overlap
 
+	# 1. Decide BPM.
+	# 2. Start counting down.
+	# 3. Check for hits.
+	# 4. get results, wait.
+
+# This function corresponds to the main gameplay
+func game_loop():
+	print(current_state)
+	match current_state:
+		GAME_STATE.STATE_IDLE:
+			await get_tree().create_timer(1).timeout
+			
+			# for 4 crotchets, how many seconds? + extra.
+			var total_cd_time = seconds_per_four_beats + extra_seconds
+			timer.start(total_cd_time)
+			current_state = GAME_STATE.STATE_RUNNING
+			
+		GAME_STATE.STATE_RUNNING:
+			# Check for Input & collect results.
+			if Input.is_action_just_pressed("attack"):
+				pressed_time = timer.time_left
+			
+				# negative implies early, positive implies late.
+				accuracy = seconds_per_four_beats - pressed_time
+				print("Time left: " + str(timer.time_left) + "\n Accuracy: " + str(accuracy))
+			
+				# stop timer when hit 
+				timer.stop()
+				current_state = GAME_STATE.STATE_RESULTS
+		
+		GAME_STATE.STATE_RESULTS:
+			# show results here, for x seconds then go next.
+			pass
+
+
+func _on_cd_timer_timeout():
+	accuracy = 99999
+	current_state = GAME_STATE.STATE_RESULTS
 
 ### NETWORKING ###
 
@@ -147,8 +203,9 @@ func start_game():
 func _on_start_game_button_button_down():
 	is_game_started = true
 	
-	
 	#start_game.rpc()
 	game_ui.get_node("StartGameButton").visible = false
 	pass
+
+
 
