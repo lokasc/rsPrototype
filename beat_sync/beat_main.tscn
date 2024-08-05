@@ -15,6 +15,8 @@ sound_timer = NodePath("../Countdowns/SoundTimer")
 transparent_ring = NodePath("../Countdowns/TransparentRing")
 opaque_ring = NodePath("../Countdowns/Ring")
 hihat_sound = NodePath("../Countdowns/HiHatSound")
+result_screen_time = 2.0
+num_countdowns = 2
 
 [node name="Countdowns" type="Node" parent="."]
 

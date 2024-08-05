@@ -3,6 +3,8 @@ extends Node
 const PORT = 28960
 const MAX_CLIENTS = 2
 
+
+
 @export var net_ui : Control
 @export var game_ui : Control
 @export var timer : Timer
@@ -12,23 +14,31 @@ const MAX_CLIENTS = 2
 @export var opaque_ring : Sprite2D
 @export var hihat_sound : AudioStreamPlayer
 
-var is_game_started : bool = false
-var is_countdown_started : bool = false # set this to true to start a countdown.
+@export_category("Game")
+@export var result_screen_time : float
+@export_range(1,15) var num_countdowns : int
 
+@export_subgroup("BPM")
+@export var min_BPM : int = 100
+@export var max_BPM : int = 30
+
+### NETWORKING
 var ip_address = "127.0.0.1"
 var peer
 var player_name : String = ""
 
 ### GAMEPLAY
+var is_game_started : bool = false
 enum GAME_STATE {STATE_IDLE, STATE_RUNNING, STATE_RESULTS}
 var current_state : GAME_STATE = GAME_STATE.STATE_IDLE
+var current_countdowns : int
 
-var BPM : float = 60
-var seconds_per_four_beats : float = BPM/60.0 * 4
+var BPM
+var seconds_per_four_beats : float
 # this is a hard limit, if you dont press within these extra beats,
 # automatically count as failure
-var extra_seconds : float = seconds_per_four_beats/4 * 2
-var total_cd_time
+var extra_seconds : float
+var total_cd_time : float
 
 var opaque_ring_scale
 var transparent_ring_scale
@@ -61,6 +71,7 @@ func _ready():
 	opaque_ring_scale = opaque_ring.scale
 	transparent_ring_scale = transparent_ring.scale
 	current_state = GAME_STATE.STATE_IDLE
+	current_countdowns = 0
 
 func _process(delta):
 	if !is_game_started:
@@ -70,9 +81,8 @@ func _process(delta):
 	pass
 
 ### GAMEPLAY ###
-# Afterwords, a transparent ring surrounds the circle appears 
-# and a white ring outside 
-# Player will need to press m1 when the rings overlap
+# Players need to press m0 when the opaque ring overlaps
+# the transparent ring
 
 	# 1. Decide BPM.
 	# 2. Start counting down.
@@ -85,6 +95,11 @@ func game_loop():
 	match current_state:
 		GAME_STATE.STATE_IDLE:
 			await get_tree().create_timer(1).timeout
+			
+			# Calculate a random BPM
+			BPM = randi_range(max_BPM, min_BPM)
+			seconds_per_four_beats = BPM/60.0 * 4
+			extra_seconds = seconds_per_four_beats/4 * 2
 			
 			# for 4 crotchets, how many seconds? + extra.
 			total_cd_time = seconds_per_four_beats + extra_seconds
@@ -102,8 +117,6 @@ func game_loop():
 			# FIXME: Scaling buggy at the beginning.
 			opaque_ring.scale = opaque_ring_scale + ((transparent_ring_scale - opaque_ring_scale)/(seconds_per_four_beats-0)) * (min(total_cd_time - timer.time_left,seconds_per_four_beats)-0)
 			
-			
-			
 			# Check for Input & collect results.
 			if Input.is_action_just_pressed("attack"):
 				pressed_time = timer.time_left
@@ -119,7 +132,16 @@ func game_loop():
 		
 		GAME_STATE.STATE_RESULTS:
 			# show results here, for x seconds then go next.
-			pass
+			await get_tree().create_timer(result_screen_time).timeout
+			
+			
+			# check to leave.
+			if current_countdowns >= num_countdowns:
+				is_game_started = false
+				return
+			else:
+				current_countdowns += 1
+				current_state = GAME_STATE.STATE_IDLE
 
 
 func _on_cd_timer_timeout():
