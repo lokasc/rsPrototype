@@ -13,6 +13,7 @@ const MAX_CLIENTS = 2
 @export var transparent_ring : Sprite2D
 @export var opaque_ring : Sprite2D
 @export var hihat_sound : AudioStreamPlayer
+@export var stats_container : VBoxContainer
 
 @export_category("Game")
 @export var result_screen_time : float
@@ -72,12 +73,14 @@ func _ready():
 	transparent_ring_scale = transparent_ring.scale
 	current_state = GAME_STATE.STATE_IDLE
 	current_countdowns = 0
+	
+	# TODO: Send number of countdowns to client
 
 func _process(delta):
 	if !is_game_started:
 		return
 	
-	game_loop()
+	game_loop(delta)
 	pass
 
 ### GAMEPLAY ###
@@ -90,13 +93,14 @@ func _process(delta):
 	# 4. get results, wait.
 
 # This function corresponds to the main gameplay
-func game_loop():
+func game_loop(_delta):
 	match current_state:
 		GAME_STATE.STATE_IDLE:
 			await get_tree().create_timer(1).timeout
 			
 			# Calculate a random BPM
-			BPM = randi_range(max_BPM, min_BPM)
+			#BPM = randi_range(max_BPM, min_BPM)
+			BPM = 60
 			seconds_per_four_beats = BPM/60.0 * 4
 			extra_seconds = seconds_per_four_beats/4 * 2
 			
@@ -106,32 +110,41 @@ func game_loop():
 			
 			## play a sound effect on first beat.
 			sound_count = 0
+			opaque_ring_scale = opaque_ring_scale
+			$"../Countdowns/Ring".modulate = Color(0,0,0)
 			sound_timer.start(seconds_per_four_beats/4)
-			
+
 			current_state = GAME_STATE.STATE_RUNNING
-			
 		GAME_STATE.STATE_RUNNING:
 			# Shrink visual image, via linear interpolation. 
-			# TODO: make it extend beyond.
-			# FIXME: Scaling buggy at the beginning.
-			opaque_ring.scale = opaque_ring_scale + ((transparent_ring_scale - opaque_ring_scale)/(seconds_per_four_beats-0)) * (min(total_cd_time - timer.time_left,seconds_per_four_beats)-0)
+			opaque_ring.scale = opaque_ring_scale + ((transparent_ring_scale - opaque_ring_scale)/(seconds_per_four_beats-0)) * (total_cd_time - timer.time_left-0)
+			if opaque_ring.scale.x < 0:
+				opaque_ring.scale = Vector2.ZERO
+			
+			if current_state != GAME_STATE.STATE_RUNNING:
+				return
+			
 			# Check for Input & collect results.
 			if Input.is_action_just_pressed("attack"):
+				$"../Countdowns/Ring".modulate = Color(0,1,0)
+				
 				pressed_time = timer.time_left
 				timer.stop()
 				sound_timer.stop()
-			
+				$"../Countdowns/CorrectBuzzerNoise".play(0.15)
 				# negative implies early, positive implies late.
 				accuracy =  total_cd_time - pressed_time - seconds_per_four_beats
-				print("Time left: " + str(pressed_time) + "\n Accuracy: " + str(accuracy))
+				#print("Time left: " + str(pressed_time) + "\n Accuracy: " + str(accuracy))
 				
 				# stop timer when hit 
 				current_state = GAME_STATE.STATE_RESULTS
 		GAME_STATE.STATE_RESULTS:
 			# show results here, for x seconds then go next.
-			await get_tree().create_timer(result_screen_time).timeout
-			# check to leave.
+			set_accuracy()
 			
+			await get_tree().create_timer(result_screen_time).timeout
+			
+			# check to end game.
 			# for some reason, it is possible to enter here 
 			# without being in state_result
 			if current_state == GAME_STATE.STATE_RESULTS:
@@ -145,7 +158,7 @@ func game_loop():
 func _on_cd_timer_timeout():
 	if current_state != GAME_STATE.STATE_RUNNING:
 		return
-	accuracy = 99999
+	accuracy = 123456789
 	current_state = GAME_STATE.STATE_RESULTS
 
 func _on_sound_timer_timeout():
@@ -157,6 +170,19 @@ func _on_sound_timer_timeout():
 		# play different sound
 		sound_timer.stop()
 
+# includes network code here.
+func set_accuracy():
+	var string
+	
+	# TODO: maybe turn green or something within a range
+	if sign(accuracy) == -1:
+		string = "Early by " + str(abs(accuracy)) + "s"
+	elif sign(accuracy) == 1:
+		string = "Late by " + str(abs(accuracy)) + "s"
+	else:
+		string = "Perfect!"
+	
+	stats_container.get_child(0).text = "Accuracy: " + string
 
 ### NETWORKING ###
 
@@ -198,9 +224,6 @@ func _on_host_button_button_down():
 	player_name = net_ui.get_child(1).text
 	(game_ui.get_child(0) as Label).text = "ID: " + str(multiplayer.get_unique_id()) + " (Server)"
 	game_ui.get_node("StartGameButton").visible = true
-
-	pass 
-
 
 func _on_join_button_button_down():
 	var input_ip = (get_node("/root/BeatMain/UI/NetUI/HBoxContainer/IP") as TextEdit).text
@@ -252,15 +275,12 @@ func transfer_name(name):
 func start_game():
 	is_game_started = true
 
-
 func _on_start_game_button_button_down():
 	is_game_started = true
 	
 	#start_game.rpc()
 	game_ui.get_node("StartGameButton").visible = false
 	pass
-
-
 
 
 

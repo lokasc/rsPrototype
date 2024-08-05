@@ -1,12 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://q4tmb5de6pvw"]
+[gd_scene load_steps=5 format=3 uid="uid://q4tmb5de6pvw"]
 
 [ext_resource type="Script" path="res://beat_sync/multiplayer_controller.gd" id="1_i0qxa"]
 [ext_resource type="Texture2D" uid="uid://b48bg22uuhx8x" path="res://beat_sync/WhiteCircle.png" id="2_wwqmy"]
 [ext_resource type="AudioStream" uid="uid://c3uin71rkug8o" path="res://beat_sync/808-closed-hi-hat.wav" id="3_bmxa6"]
+[ext_resource type="AudioStream" uid="uid://cyp7ue25ku7rf" path="res://beat_sync/noncopyrightbuzznoise.mp3" id="4_mfa8y"]
 
 [node name="BeatMain" type="Node"]
 
-[node name="MultiplayerController" type="Node" parent="." node_paths=PackedStringArray("net_ui", "game_ui", "timer", "sound_timer", "transparent_ring", "opaque_ring", "hihat_sound")]
+[node name="MultiplayerController" type="Node" parent="." node_paths=PackedStringArray("net_ui", "game_ui", "timer", "sound_timer", "transparent_ring", "opaque_ring", "hihat_sound", "stats_container")]
 script = ExtResource("1_i0qxa")
 net_ui = NodePath("../UI/NetUI")
 game_ui = NodePath("../UI/InGameUI")
@@ -15,8 +16,9 @@ sound_timer = NodePath("../Countdowns/SoundTimer")
 transparent_ring = NodePath("../Countdowns/TransparentRing")
 opaque_ring = NodePath("../Countdowns/Ring")
 hihat_sound = NodePath("../Countdowns/HiHatSound")
-result_screen_time = 2.0
-num_countdowns = 2
+stats_container = NodePath("../Countdowns/StatsContainer")
+result_screen_time = 1.0
+num_countdowns = 10
 
 [node name="Countdowns" type="Node" parent="."]
 
@@ -51,6 +53,33 @@ texture = ExtResource("2_wwqmy")
 
 [node name="HiHatSound" type="AudioStreamPlayer" parent="Countdowns"]
 stream = ExtResource("3_bmxa6")
+
+[node name="CorrectBuzzerNoise" type="AudioStreamPlayer" parent="Countdowns"]
+stream = ExtResource("4_mfa8y")
+
+[node name="StatsContainer" type="VBoxContainer" parent="Countdowns"]
+offset_left = 895.0
+offset_top = 302.0
+offset_right = 1195.0
+offset_bottom = 460.0
+
+[node name="Accuracy" type="RichTextLabel" parent="Countdowns/StatsContainer"]
+custom_minimum_size = Vector2(300, 25)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 15
+text = "Accuracy:"
+
+[node name="Ping" type="RichTextLabel" parent="Countdowns/StatsContainer"]
+custom_minimum_size = Vector2(300, 25)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 15
+text = "Client Delay:"
+
+[node name="ButtonPressDelay" type="RichTextLabel" parent="Countdowns/StatsContainer"]
+custom_minimum_size = Vector2(300, 25)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 15
+text = "Time between players:"
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
