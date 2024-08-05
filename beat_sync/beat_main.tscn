@@ -1,15 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://q4tmb5de6pvw"]
+[gd_scene load_steps=4 format=3 uid="uid://q4tmb5de6pvw"]
 
 [ext_resource type="Script" path="res://beat_sync/multiplayer_controller.gd" id="1_i0qxa"]
+[ext_resource type="Texture2D" uid="uid://b48bg22uuhx8x" path="res://beat_sync/WhiteCircle.png" id="2_wwqmy"]
+[ext_resource type="AudioStream" uid="uid://c3uin71rkug8o" path="res://beat_sync/808-closed-hi-hat.wav" id="3_bmxa6"]
 
 [node name="BeatMain" type="Node"]
 
-[node name="MultiplayerController" type="Node" parent="." node_paths=PackedStringArray("net_ui", "game_ui", "timer", "cd_number_visual")]
+[node name="MultiplayerController" type="Node" parent="." node_paths=PackedStringArray("net_ui", "game_ui", "timer", "sound_timer", "transparent_ring", "opaque_ring", "hihat_sound")]
 script = ExtResource("1_i0qxa")
 net_ui = NodePath("../UI/NetUI")
 game_ui = NodePath("../UI/InGameUI")
 timer = NodePath("../Countdowns/CDTimer")
-cd_number_visual = NodePath("../Countdowns/CenterContainer/CDVisual")
+sound_timer = NodePath("../Countdowns/SoundTimer")
+transparent_ring = NodePath("../Countdowns/TransparentRing")
+opaque_ring = NodePath("../Countdowns/Ring")
+hihat_sound = NodePath("../Countdowns/HiHatSound")
 
 [node name="Countdowns" type="Node" parent="."]
 
@@ -28,6 +33,22 @@ text = "3"
 
 [node name="CDTimer" type="Timer" parent="Countdowns"]
 one_shot = true
+
+[node name="SoundTimer" type="Timer" parent="Countdowns"]
+
+[node name="Ring" type="Sprite2D" parent="Countdowns"]
+position = Vector2(639, 366)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_wwqmy")
+
+[node name="TransparentRing" type="Sprite2D" parent="Countdowns"]
+modulate = Color(1, 1, 1, 0.117647)
+position = Vector2(639, 366)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_wwqmy")
+
+[node name="HiHatSound" type="AudioStreamPlayer" parent="Countdowns"]
+stream = ExtResource("3_bmxa6")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -105,6 +126,7 @@ offset_bottom = 385.0
 text = "Start"
 
 [connection signal="timeout" from="Countdowns/CDTimer" to="MultiplayerController" method="_on_cd_timer_timeout"]
+[connection signal="timeout" from="Countdowns/SoundTimer" to="MultiplayerController" method="_on_sound_timer_timeout"]
 [connection signal="button_down" from="UI/NetUI/HBoxContainer/HostButton" to="MultiplayerController" method="_on_host_button_button_down"]
 [connection signal="button_down" from="UI/NetUI/HBoxContainer/JoinButton" to="MultiplayerController" method="_on_join_button_button_down"]
 [connection signal="button_down" from="UI/InGameUI/StartGameButton" to="MultiplayerController" method="_on_start_game_button_button_down"]

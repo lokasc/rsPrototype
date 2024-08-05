@@ -5,32 +5,37 @@ const MAX_CLIENTS = 2
 
 @export var net_ui : Control
 @export var game_ui : Control
-@export var timer : Timer 
-@export var cd_number_visual : Label
+@export var timer : Timer
+
+@export var sound_timer : Timer
+@export var transparent_ring : Sprite2D
+@export var opaque_ring : Sprite2D
+@export var hihat_sound : AudioStreamPlayer
 
 var is_game_started : bool = false
-
 var is_countdown_started : bool = false # set this to true to start a countdown.
-
 
 var ip_address = "127.0.0.1"
 var peer
 var player_name : String = ""
 
-
-# GAMEPLAY
-var BPM : float = 100
-
+### GAMEPLAY
 enum GAME_STATE {STATE_IDLE, STATE_RUNNING, STATE_RESULTS}
 var current_state : GAME_STATE = GAME_STATE.STATE_IDLE
 
+var BPM : float = 60
 var seconds_per_four_beats : float = BPM/60.0 * 4
 # this is a hard limit, if you dont press within these extra beats,
 # automatically count as failure
-var extra_seconds : float = seconds_per_four_beats/4 * 5 
+var extra_seconds : float = seconds_per_four_beats/4 * 2
+var total_cd_time
 
+var opaque_ring_scale
+var transparent_ring_scale
 
-# Statistics
+var sound_count
+
+### Statistics
 var pressed_time
 
 # difference between the last crotchet and pressed time.
@@ -52,6 +57,9 @@ func _ready():
 	game_ui.visible = false
 	game_ui.get_node("StartGameButton").visible = false
 	
+	### GAMEPLAY
+	opaque_ring_scale = opaque_ring.scale
+	transparent_ring_scale = transparent_ring.scale
 	current_state = GAME_STATE.STATE_IDLE
 
 func _process(delta):
@@ -79,21 +87,34 @@ func game_loop():
 			await get_tree().create_timer(1).timeout
 			
 			# for 4 crotchets, how many seconds? + extra.
-			var total_cd_time = seconds_per_four_beats + extra_seconds
+			total_cd_time = seconds_per_four_beats + extra_seconds
 			timer.start(total_cd_time)
+			
+			## play a sound effect on first beat.
+			sound_count = 0
+			sound_timer.start(seconds_per_four_beats/4)
+			
 			current_state = GAME_STATE.STATE_RUNNING
 			
 		GAME_STATE.STATE_RUNNING:
+			# Shrink visual image, via linear interpolation. 
+			# TODO: make it extend beyond.
+			# FIXME: Scaling buggy at the beginning.
+			opaque_ring.scale = opaque_ring_scale + ((transparent_ring_scale - opaque_ring_scale)/(seconds_per_four_beats-0)) * (min(total_cd_time - timer.time_left,seconds_per_four_beats)-0)
+			
+			
+			
 			# Check for Input & collect results.
 			if Input.is_action_just_pressed("attack"):
 				pressed_time = timer.time_left
+				timer.stop()
+				sound_timer.stop()
 			
 				# negative implies early, positive implies late.
-				accuracy = seconds_per_four_beats - pressed_time
-				print("Time left: " + str(timer.time_left) + "\n Accuracy: " + str(accuracy))
-			
+				accuracy =  total_cd_time - pressed_time - seconds_per_four_beats
+				print("Time left: " + str(pressed_time) + "\n Accuracy: " + str(accuracy))
+				
 				# stop timer when hit 
-				timer.stop()
 				current_state = GAME_STATE.STATE_RESULTS
 		
 		GAME_STATE.STATE_RESULTS:
@@ -104,6 +125,16 @@ func game_loop():
 func _on_cd_timer_timeout():
 	accuracy = 99999
 	current_state = GAME_STATE.STATE_RESULTS
+
+func _on_sound_timer_timeout():
+	hihat_sound.stop()
+	sound_count += 1
+	hihat_sound.play()
+	
+	if sound_count >= 3:
+		# play different sound
+		sound_timer.stop()
+
 
 ### NETWORKING ###
 
@@ -206,6 +237,8 @@ func _on_start_game_button_button_down():
 	#start_game.rpc()
 	game_ui.get_node("StartGameButton").visible = false
 	pass
+
+
 
 
 
