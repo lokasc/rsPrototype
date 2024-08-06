@@ -3,7 +3,7 @@ extends Node
 const PORT = 28960
 const MAX_CLIENTS = 2
 
-
+signal client_ready_signal
 
 @export var net_ui : Control
 @export var game_ui : Control
@@ -13,13 +13,17 @@ const MAX_CLIENTS = 2
 @export var transparent_ring : Sprite2D
 @export var opaque_ring : Sprite2D
 @export var hihat_sound : AudioStreamPlayer
+
+@export_subgroup("Stats")
 @export var stats_container : VBoxContainer
+@export var players_delay_label : RichTextLabel
 
 @export_category("Game")
 @export var result_screen_time : float
 @export_range(1,15) var num_countdowns : int
 
 @export_subgroup("BPM")
+@export var BPM_CONSTANT : bool = false
 @export var min_BPM : int = 100
 @export var max_BPM : int = 30
 
@@ -27,10 +31,19 @@ const MAX_CLIENTS = 2
 var ip_address = "127.0.0.1"
 var peer
 var player_name : String = ""
+var is_bpm_sent : bool = false
+var is_delay_sent : bool = false
+
+var _ping_start_time : float
+var final_ping_time : float
+var delta_pings : float = 1
+var _current_ping_timer : float = 0
+
+
 
 ### GAMEPLAY
 var is_game_started : bool = false
-enum GAME_STATE {STATE_IDLE, STATE_RUNNING, STATE_RESULTS}
+enum GAME_STATE {STATE_IDLE, STATE_WAITING, STATE_RUNNING, STATE_RESULTS}
 var current_state : GAME_STATE = GAME_STATE.STATE_IDLE
 var current_countdowns : int
 
@@ -50,7 +63,9 @@ var sound_count
 var pressed_time
 
 # difference between the last crotchet and pressed time.
+# negative implies early, positive implies late.
 var accuracy
+var friend_accuracy = null
 
 var friend_details = {
 	"name" : null,
@@ -74,33 +89,54 @@ func _ready():
 	current_state = GAME_STATE.STATE_IDLE
 	current_countdowns = 0
 	
-	# TODO: Send number of countdowns to client
+	client_ready_signal.connect(on_client_ready_signal)
+	
+	BPM = null
 
 func _process(delta):
 	if !is_game_started:
 		return
 	
-	game_loop(delta)
+	
+	# SEND BPM DATA to other player.
+	# WAIT FOR CONFIRMATION BEFORE PROCEEDING
+	# CLIENT SEND PACKET TO SERVER FOR CONFIRMATION
+	# SERVER SEND TO CLIENTS TO START THE COUNTDOWN 
+	
+	await game_loop(delta)
+
+# call rpc here, ignores the await in game loop.
+func _physics_process(delta):
+	
+	_current_ping_timer += delta
+	
+	if _current_ping_timer >= delta_pings:
+		_current_ping_timer = 0
+		ping.rpc_id(1, Time.get_unix_time_from_system())
 	pass
 
 ### GAMEPLAY ###
 # Players need to press m0 when the opaque ring overlaps
 # the transparent ring
 
-	# 1. Decide BPM.
-	# 2. Start counting down.
-	# 3. Check for hits.
-	# 4. get results, wait.
-
 # This function corresponds to the main gameplay
 func game_loop(_delta):
+	#print(current_state)
 	match current_state:
 		GAME_STATE.STATE_IDLE:
-			await get_tree().create_timer(1).timeout
+			#await get_tree().create_timer(1).timeout
+			# Calculate BPM
+			if multiplayer.is_server() && is_bpm_sent == false:
+				if BPM_CONSTANT:
+					send_bpm_rpc.rpc(60)
+				else:
+					BPM = randi_range(max_BPM, min_BPM)
+					send_bpm_rpc.rpc(BPM)
+				is_bpm_sent = true
 			
-			# Calculate a random BPM
-			#BPM = randi_range(max_BPM, min_BPM)
-			BPM = 60
+			## waits for all clients.
+			await client_ready_signal
+			
 			seconds_per_four_beats = BPM/60.0 * 4
 			extra_seconds = seconds_per_four_beats/4 * 2
 			
@@ -113,8 +149,9 @@ func game_loop(_delta):
 			opaque_ring_scale = opaque_ring_scale
 			$"../Countdowns/Ring".modulate = Color(0,0,0)
 			sound_timer.start(seconds_per_four_beats/4)
-
-			current_state = GAME_STATE.STATE_RUNNING
+			
+			switch_state(current_state, GAME_STATE.STATE_RUNNING)
+			return
 		GAME_STATE.STATE_RUNNING:
 			# Shrink visual image, via linear interpolation. 
 			opaque_ring.scale = opaque_ring_scale + ((transparent_ring_scale - opaque_ring_scale)/(seconds_per_four_beats-0)) * (total_cd_time - timer.time_left-0)
@@ -132,16 +169,37 @@ func game_loop(_delta):
 				timer.stop()
 				sound_timer.stop()
 				$"../Countdowns/CorrectBuzzerNoise".play(0.15)
-				# negative implies early, positive implies late.
+				
 				accuracy =  total_cd_time - pressed_time - seconds_per_four_beats
 				#print("Time left: " + str(pressed_time) + "\n Accuracy: " + str(accuracy))
 				
+				if !multiplayer.is_server():
+					send_press_time.rpc_id(1, accuracy, Time.get_unix_time_from_system())
+				
+				set_accuracy()
+				$"../Countdowns/StatsContainer/ButtonPressDelay".text = "Time between players: WAITING"
 				# stop timer when hit 
-				current_state = GAME_STATE.STATE_RESULTS
+				switch_state(current_state, GAME_STATE.STATE_RESULTS)
 		GAME_STATE.STATE_RESULTS:
-			# show results here, for x seconds then go next.
-			set_accuracy()
+			if current_state != GAME_STATE.STATE_RESULTS:
+				return # sanity check, it can happen.
 			
+			# Synchronise step, wait until I get result
+			if friend_accuracy == null:
+				return
+			
+			# recieved result, go next.
+			if multiplayer.is_server() && is_delay_sent == false:
+				var player_diff = abs(friend_accuracy - accuracy)
+				pong_button_press_delay.rpc(player_diff)
+				is_delay_sent = true
+			
+			# client has recieved delay results
+			if !multiplayer.is_server() && is_delay_sent == false:
+				client_ready.rpc_id(1, multiplayer.get_unique_id())
+				is_delay_sent = true
+			
+			await client_ready_signal
 			await get_tree().create_timer(result_screen_time).timeout
 			
 			# check to end game.
@@ -149,17 +207,24 @@ func game_loop(_delta):
 			# without being in state_result
 			if current_state == GAME_STATE.STATE_RESULTS:
 				current_countdowns += 1
+				
+				# reset variables
+				friend_accuracy = null
+				accuracy = null
+				is_bpm_sent = false
+				is_delay_sent = false
+				reset_stat_strings()
 				if current_countdowns >= num_countdowns:
 					is_game_started = false
 					return
-			current_state = GAME_STATE.STATE_IDLE
+				switch_state(current_state, GAME_STATE.STATE_IDLE)
 			return
 
 func _on_cd_timer_timeout():
 	if current_state != GAME_STATE.STATE_RUNNING:
 		return
 	accuracy = 123456789
-	current_state = GAME_STATE.STATE_RESULTS
+	switch_state(current_state, GAME_STATE.STATE_RESULTS)
 
 func _on_sound_timer_timeout():
 	hihat_sound.stop()
@@ -170,7 +235,10 @@ func _on_sound_timer_timeout():
 		# play different sound
 		sound_timer.stop()
 
-# includes network code here.
+func reset_stat_strings():
+	$"../Countdowns/StatsContainer/Accuracy".text = "Accuracy"
+	$"../Countdowns/StatsContainer/Ping".text = "Client Delay"
+	$"../Countdowns/StatsContainer/ButtonPressDelay".text = "Time between players:"
 func set_accuracy():
 	var string
 	
@@ -183,6 +251,24 @@ func set_accuracy():
 		string = "Perfect!"
 	
 	stats_container.get_child(0).text = "Accuracy: " + string
+
+### DEBUG ###
+func switch_state(old, new):
+	if old == new: return
+	
+	current_state = new
+	if multiplayer.is_server():
+		return
+	
+	if old == 2 && new == 0:
+		pass
+	print("old:" + str(old) + " to " + "new:" + str(new))
+
+func on_client_ready_signal():
+	if multiplayer.is_server():
+		return
+	print("signal emitted")
+
 
 ### NETWORKING ###
 
@@ -223,7 +309,7 @@ func _on_host_button_button_down():
 	game_ui.visible = true
 	player_name = net_ui.get_child(1).text
 	(game_ui.get_child(0) as Label).text = "ID: " + str(multiplayer.get_unique_id()) + " (Server)"
-	game_ui.get_node("StartGameButton").visible = true
+	game_ui.get_node("StartGameButton").visible = true # SOLOTEST
 
 func _on_join_button_button_down():
 	var input_ip = (get_node("/root/BeatMain/UI/NetUI/HBoxContainer/IP") as TextEdit).text
@@ -243,14 +329,14 @@ func _on_player_connect(id):
 	friend_details["id"] = id
 	transfer_name.rpc(player_name)
 	
-	#if multiplayer.is_server():
-		#game_ui.get_node("StartGameButton").visible = true
+	if multiplayer.is_server():
+		game_ui.get_node("StartGameButton").visible = true
 	pass
 
 func _on_player_disconnect(id):
 	friend_details["name"] = null
 	friend_details["id"] = null
-	game_ui.get_child(1).text = ""
+	$"../UI/InGameUI/VBoxContainer/FriendID".text = ""
 	game_ui.get_node("StartGameButton").visible = false
 	pass
 
@@ -266,9 +352,9 @@ func transfer_name(name):
 	friend_details["name"] = name
 	
 	if multiplayer.is_server():
-		game_ui.get_child(1).text = "[center]" + friend_details["name"] + " Connected"
+		$"../UI/InGameUI/VBoxContainer/FriendID".text = "[center]" + friend_details["name"] + " Connected"
 	else:
-		game_ui.get_child(1).text = "[center]" + "Connected to " + friend_details["name"]
+		$"../UI/InGameUI/VBoxContainer/FriendID".text = "[center]" + "Connected to " + friend_details["name"]
 	pass
 
 @rpc("authority", "reliable", "call_local")
@@ -278,9 +364,61 @@ func start_game():
 func _on_start_game_button_button_down():
 	is_game_started = true
 	
-	#start_game.rpc()
+	start_game.rpc()
 	game_ui.get_node("StartGameButton").visible = false
 	pass
 
 
+# this sends and changes bpm on all machines
+@rpc("call_local", "reliable", "authority")
+func send_bpm_rpc(bpm):
+	change_bpm(bpm)
+	
+	# Let server know client has recieved and ready.
+	if !multiplayer.is_server():
+		#print("IM CALLING FROM CLIENT")
+		client_ready.rpc_id(1, multiplayer.get_unique_id())
+	return
 
+@rpc("unreliable", "any_peer")
+func client_ready(id):
+	if !multiplayer.is_server():
+		return
+	
+	# server understands client, tells all clients to start.
+	emit_all_client_ready_signal.rpc()
+	pass
+
+# tells all clients to continue.
+@rpc("any_peer", "reliable", "call_local")
+func emit_all_client_ready_signal():
+	client_ready_signal.emit()
+
+func change_bpm(new_bpm):
+	BPM = new_bpm
+	#print("I've changed BPM!")
+
+
+# only sent to server by client
+@rpc("any_peer")
+func send_press_time(pressed_time : float, unix_time : float):
+	friend_accuracy = pressed_time
+	#client_ready_signal.emit()
+
+@rpc("any_peer", "call_local")
+func pong_button_press_delay(delay : float):
+	players_delay_label.text = "Time between players: " + str(delay) + "s"
+	friend_accuracy = delay
+
+
+# pinging starts from the player, then to the server.
+@rpc("any_peer", "call_local")
+func ping(start_time : float):
+	var sender_id = multiplayer.get_remote_sender_id()
+	pong.rpc_id(sender_id, start_time)
+	pass
+
+@rpc("any_peer", "call_local")
+func pong(start_time :float):
+	final_ping_time = Time.get_unix_time_from_system() - start_time
+	$"../UI/InGameUI/VBoxContainer/Ping".text = "PING TO SERVER: " + str(final_ping_time) + "s"

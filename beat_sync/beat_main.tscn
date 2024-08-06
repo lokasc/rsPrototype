@@ -7,7 +7,7 @@
 
 [node name="BeatMain" type="Node"]
 
-[node name="MultiplayerController" type="Node" parent="." node_paths=PackedStringArray("net_ui", "game_ui", "timer", "sound_timer", "transparent_ring", "opaque_ring", "hihat_sound", "stats_container")]
+[node name="MultiplayerController" type="Node" parent="." node_paths=PackedStringArray("net_ui", "game_ui", "timer", "sound_timer", "transparent_ring", "opaque_ring", "hihat_sound", "stats_container", "players_delay_label")]
 script = ExtResource("1_i0qxa")
 net_ui = NodePath("../UI/NetUI")
 game_ui = NodePath("../UI/InGameUI")
@@ -17,7 +17,8 @@ transparent_ring = NodePath("../Countdowns/TransparentRing")
 opaque_ring = NodePath("../Countdowns/Ring")
 hihat_sound = NodePath("../Countdowns/HiHatSound")
 stats_container = NodePath("../Countdowns/StatsContainer")
-result_screen_time = 1.0
+players_delay_label = NodePath("../Countdowns/StatsContainer/ButtonPressDelay")
+result_screen_time = 20.0
 num_countdowns = 10
 
 [node name="Countdowns" type="Node" parent="."]
@@ -76,7 +77,7 @@ theme_override_font_sizes/normal_font_size = 15
 text = "Client Delay:"
 
 [node name="ButtonPressDelay" type="RichTextLabel" parent="Countdowns/StatsContainer"]
-custom_minimum_size = Vector2(300, 25)
+custom_minimum_size = Vector2(1000, 25)
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 15
 text = "Time between players:"
@@ -137,15 +138,23 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="FriendID" type="RichTextLabel" parent="UI/InGameUI"]
-custom_minimum_size = Vector2(400, 25)
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/InGameUI"]
 layout_mode = 0
-offset_left = 780.0
-offset_right = 1280.0
-offset_bottom = 35.0
+offset_left = 878.0
+offset_top = 1.0
+offset_right = 1278.0
+offset_bottom = 230.0
+
+[node name="FriendID" type="RichTextLabel" parent="UI/InGameUI/VBoxContainer"]
+custom_minimum_size = Vector2(400, 25)
+layout_mode = 2
 theme_override_font_sizes/normal_font_size = 25
 bbcode_enabled = true
 fit_content = true
+
+[node name="Ping" type="Label" parent="UI/InGameUI/VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
 
 [node name="StartGameButton" type="Button" parent="UI/InGameUI"]
 custom_minimum_size = Vector2(100, 50)
