@@ -18,7 +18,7 @@ opaque_ring = NodePath("../Countdowns/Ring")
 hihat_sound = NodePath("../Countdowns/HiHatSound")
 stats_container = NodePath("../Countdowns/StatsContainer")
 players_delay_label = NodePath("../Countdowns/StatsContainer/ButtonPressDelay")
-result_screen_time = 20.0
+result_screen_time = 2.0
 num_countdowns = 10
 
 [node name="Countdowns" type="Node" parent="."]

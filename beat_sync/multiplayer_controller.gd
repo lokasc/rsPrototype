@@ -4,6 +4,7 @@ const PORT = 28960
 const MAX_CLIENTS = 2
 
 signal client_ready_signal
+signal client_results_ready_signal
 
 @export var net_ui : Control
 @export var game_ui : Control
@@ -197,10 +198,10 @@ func game_loop(_delta):
 			
 			# client has recieved delay results
 			if !multiplayer.is_server() && is_delay_sent == false:
-				client_ready.rpc_id(1, multiplayer.get_unique_id())
+				client_results_ready.rpc_id(1)
 				is_delay_sent = true
 			
-			await client_ready_signal
+			await client_results_ready_signal
 			await get_tree().create_timer(result_screen_time).timeout
 			
 			# check to end game.
@@ -262,16 +263,14 @@ func switch_state(old, new):
 	if old == new: return
 	
 	current_state = new
-	if multiplayer.is_server():
-		return
-	
-	if old == 2 && new == 0:
-		pass
+	#if multiplayer.is_server():
+		#return
 	#print("old:" + str(old) + " to " + "new:" + str(new))
 
 func on_client_ready_signal():
-	if multiplayer.is_server():
-		return
+	pass
+	#if multiplayer.is_server():
+		#return
 	#print("signal emitted")
 
 
@@ -398,6 +397,17 @@ func client_ready(id):
 @rpc("any_peer", "reliable", "call_local")
 func emit_all_client_ready_signal():
 	client_ready_signal.emit()
+
+@rpc("unreliable", "any_peer")
+func client_results_ready():
+	if !multiplayer.is_server():
+		return
+	emit_all_results_ready_signal.rpc()
+
+# tells all clients to continue.
+@rpc("any_peer", "reliable", "call_local")
+func emit_all_results_ready_signal():
+	client_results_ready_signal.emit()
 
 func change_bpm(new_bpm):
 	BPM = new_bpm
