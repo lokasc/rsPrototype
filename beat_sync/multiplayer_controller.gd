@@ -24,6 +24,7 @@ signal client_results_ready_signal
 @export_range(1,15) var num_countdowns : int
 
 @export_subgroup("BPM")
+## If toggled on, the BPM will be set as the max BPM
 @export var BPM_CONSTANT : bool = false
 @export var min_BPM : int = 100
 @export var max_BPM : int = 30
@@ -93,6 +94,8 @@ func _ready():
 	client_ready_signal.connect(on_client_ready_signal)
 	
 	BPM = null
+	min_BPM = 3600/min_BPM
+	max_BPM = 3600/max_BPM
 
 func _process(delta):
 	if !is_game_started:
@@ -130,7 +133,7 @@ func game_loop(_delta):
 			# Calculate BPM
 			if multiplayer.is_server() && is_bpm_sent == false:
 				if BPM_CONSTANT:
-					send_bpm_rpc.rpc(60)
+					send_bpm_rpc.rpc(max_BPM)
 				else:
 					BPM = randi_range(max_BPM, min_BPM)
 					send_bpm_rpc.rpc(BPM)
