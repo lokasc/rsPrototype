@@ -138,6 +138,14 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 
+[node name="StateIndicator" type="Label" parent="UI/InGameUI"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 0
+offset_left = 1.0
+offset_top = 622.0
+offset_right = 201.0
+offset_bottom = 722.0
+
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/InGameUI"]
 layout_mode = 0
 offset_left = 878.0

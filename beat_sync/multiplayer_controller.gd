@@ -107,6 +107,7 @@ func _process(delta):
 
 # call rpc here, ignores the await in game loop.
 func _physics_process(delta):
+	state_indicator(current_state)
 	
 	_current_ping_timer += delta
 	
@@ -224,6 +225,10 @@ func _on_cd_timer_timeout():
 	if current_state != GAME_STATE.STATE_RUNNING:
 		return
 	accuracy = 123456789
+	if !multiplayer.is_server():
+		send_press_time.rpc_id(1, accuracy, Time.get_unix_time_from_system())
+	set_accuracy()
+	$"../Countdowns/StatsContainer/ButtonPressDelay".text = "Time between players: WAITING"
 	switch_state(current_state, GAME_STATE.STATE_RESULTS)
 
 func _on_sound_timer_timeout():
@@ -262,12 +267,12 @@ func switch_state(old, new):
 	
 	if old == 2 && new == 0:
 		pass
-	print("old:" + str(old) + " to " + "new:" + str(new))
+	#print("old:" + str(old) + " to " + "new:" + str(new))
 
 func on_client_ready_signal():
 	if multiplayer.is_server():
 		return
-	print("signal emitted")
+	#print("signal emitted")
 
 
 ### NETWORKING ###
@@ -309,7 +314,7 @@ func _on_host_button_button_down():
 	game_ui.visible = true
 	player_name = net_ui.get_child(1).text
 	(game_ui.get_child(0) as Label).text = "ID: " + str(multiplayer.get_unique_id()) + " (Server)"
-	game_ui.get_node("StartGameButton").visible = true # SOLOTEST
+	#game_ui.get_node("StartGameButton").visible = true # SOLOTEST
 
 func _on_join_button_button_down():
 	var input_ip = (get_node("/root/BeatMain/UI/NetUI/HBoxContainer/IP") as TextEdit).text
@@ -422,3 +427,16 @@ func ping(start_time : float):
 func pong(start_time :float):
 	final_ping_time = Time.get_unix_time_from_system() - start_time
 	$"../UI/InGameUI/VBoxContainer/Ping".text = "PING TO SERVER: " + str(final_ping_time) + "s"
+
+func state_indicator(state):
+	var string
+	match state:
+		GAME_STATE.STATE_IDLE: 
+			string = "IDLE"
+		GAME_STATE.STATE_RUNNING:
+			string = "RUNNING"
+		GAME_STATE.STATE_RESULTS:
+			string = "RESULTS"
+	$"../UI/InGameUI/StateIndicator".text = string
+	
+	
