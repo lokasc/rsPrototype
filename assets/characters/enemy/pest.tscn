@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cpkr32elxa7a8"]
 
-[ext_resource type="Script" path="res://pest.gd" id="1_6d1pb"]
-[ext_resource type="Texture2D" uid="uid://bj87if3xp5tym" path="res://icon.svg" id="2_naecx"]
+[ext_resource type="Script" path="res://assets/characters/enemy/pest.gd" id="1_6d1pb"]
+[ext_resource type="Texture2D" uid="uid://bj87if3xp5tym" path="res://assets/characters/player/icon.svg" id="2_naecx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2cp4r"]
 

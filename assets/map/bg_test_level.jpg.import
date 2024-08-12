@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://duyletdrrfofd"
-path="res://.godot/imported/wall_tile_capacitors.png-2b874563cb546cd9f25ff34c1946ea1a.ctex"
+uid="uid://cuv4ylu711pup"
+path="res://.godot/imported/bg_test_level.jpg-2b04a8b1b9f51bcc982775fa4005402a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://wall_tile_capacitors.png"
-dest_files=["res://.godot/imported/wall_tile_capacitors.png-2b874563cb546cd9f25ff34c1946ea1a.ctex"]
+source_file="res://assets/map/bg_test_level.jpg"
+dest_files=["res://.godot/imported/bg_test_level.jpg-2b04a8b1b9f51bcc982775fa4005402a.ctex"]
 
 [params]
 

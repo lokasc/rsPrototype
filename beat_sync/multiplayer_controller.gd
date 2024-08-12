@@ -140,7 +140,10 @@ func game_loop(_delta):
 				is_bpm_sent = true
 			
 			## waits for all clients.
+			# BUG: if server pressed too fast,
+			# client is not ready to recieve signal when server sends it.
 			await client_ready_signal
+		
 			
 			seconds_per_four_beats = BPM/60.0 * 4
 			extra_seconds = seconds_per_four_beats/4 * 2
@@ -218,6 +221,7 @@ func game_loop(_delta):
 				accuracy = null
 				is_bpm_sent = false
 				is_delay_sent = false
+				
 				reset_stat_strings()
 				if current_countdowns >= num_countdowns:
 					is_game_started = false
@@ -240,8 +244,8 @@ func _on_sound_timer_timeout():
 	sound_count += 1
 	hihat_sound.play()
 	
+	# stop countdown.
 	if sound_count >= 3:
-		# play different sound
 		sound_timer.stop()
 
 func reset_stat_strings():
@@ -362,7 +366,6 @@ func transfer_name(name):
 		$"../UI/InGameUI/VBoxContainer/FriendID".text = "[center]" + friend_details["name"] + " Connected"
 	else:
 		$"../UI/InGameUI/VBoxContainer/FriendID".text = "[center]" + "Connected to " + friend_details["name"]
-	pass
 
 @rpc("authority", "reliable", "call_local")
 func start_game():
@@ -387,7 +390,7 @@ func send_bpm_rpc(bpm):
 		client_ready.rpc_id(1, multiplayer.get_unique_id())
 	return
 
-@rpc("unreliable", "any_peer")
+@rpc("reliable", "any_peer")
 func client_ready(id):
 	if !multiplayer.is_server():
 		return
@@ -401,7 +404,7 @@ func client_ready(id):
 func emit_all_client_ready_signal():
 	client_ready_signal.emit()
 
-@rpc("unreliable", "any_peer")
+@rpc("reliable", "any_peer")
 func client_results_ready():
 	if !multiplayer.is_server():
 		return
@@ -450,6 +453,9 @@ func state_indicator(state):
 			string = "RUNNING"
 		GAME_STATE.STATE_RESULTS:
 			string = "RESULTS"
+	
+	if is_game_started == false:
+		string = "GAME_END"
 	$"../UI/InGameUI/StateIndicator".text = string
 	
 	

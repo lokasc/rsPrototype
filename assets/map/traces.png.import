@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://blje8et4nx6pa"
-path="res://.godot/imported/traces.png-7489599fa92d80cbc08bb0860663cdfb.ctex"
+path="res://.godot/imported/traces.png-dfc99877ff7823a572025c7fce0842ae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://traces.png"
-dest_files=["res://.godot/imported/traces.png-7489599fa92d80cbc08bb0860663cdfb.ctex"]
+source_file="res://assets/map/traces.png"
+dest_files=["res://.godot/imported/traces.png-dfc99877ff7823a572025c7fce0842ae.ctex"]
 
 [params]
 
