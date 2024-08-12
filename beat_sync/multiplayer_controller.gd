@@ -272,7 +272,7 @@ func _on_sound_timer_timeout():
 	hihat_sound.play()
 	
 	# stop countdown.
-	if sound_count >= 3:
+	if sound_count >= 7:
 		sound_timer.stop()
 
 func reset_stat_strings():
