@@ -176,7 +176,7 @@ func game_loop(_delta):
 			sound_count = 0
 			opaque_ring_scale = opaque_ring_scale
 			$"../Countdowns/Ring".modulate = Color(0,0,0)
-			sound_timer.start(seconds_per_four_beats/4)
+			sound_timer.start(seconds_per_four_beats/8)
 			
 			switch_state(current_state, GAME_STATE.STATE_RUNNING)
 			return
