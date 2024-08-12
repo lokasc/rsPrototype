@@ -41,7 +41,10 @@ var final_ping_time : float
 var delta_pings : float = 1
 var _current_ping_timer : float = 0
 
-
+# SYNC_VAR
+var sync_client_results_ready : bool
+var sync_client_ready : bool
+var same_state : bool
 
 ### GAMEPLAY
 var is_game_started : bool = false
@@ -68,6 +71,7 @@ var pressed_time
 # negative implies early, positive implies late.
 var accuracy
 var friend_accuracy = null
+var friend_state = null
 
 var friend_details = {
 	"name" : null,
@@ -91,7 +95,15 @@ func _ready():
 	current_state = GAME_STATE.STATE_IDLE
 	current_countdowns = 0
 	
+	#SYNC SIGNALS
 	client_ready_signal.connect(on_client_ready_signal)
+	client_results_ready_signal.connect(on_client_results_ready_signal)
+	
+	#SYNCVARS
+	sync_client_results_ready = false
+	sync_client_ready = false
+	same_state = false
+	
 	
 	BPM = null
 	min_BPM = 3600/min_BPM
@@ -129,20 +141,28 @@ func game_loop(_delta):
 	#print(current_state)
 	match current_state:
 		GAME_STATE.STATE_IDLE:
-			#await get_tree().create_timer(1).timeout
-			# Calculate BPM
-			if multiplayer.is_server() && is_bpm_sent == false:
-				if BPM_CONSTANT:
-					send_bpm_rpc.rpc(max_BPM)
-				else:
-					BPM = randi_range(max_BPM, min_BPM)
-					send_bpm_rpc.rpc(BPM)
-				is_bpm_sent = true
 			
+			if multiplayer.is_server():
+				if same_state == false:
+					ask_client_is_ready.rpc(current_state)
+					print("im sending RPC to check")
+					return
+				else:
+					# check if both clients are at the same state.
+					if is_bpm_sent == false:
+						if BPM_CONSTANT:
+							send_bpm_rpc.rpc(max_BPM)
+						else:
+							BPM = randi_range(max_BPM, min_BPM)
+							send_bpm_rpc.rpc(BPM)
+						is_bpm_sent = true
+
 			## waits for all clients.
 			# BUG: if server pressed too fast,
 			# client is not ready to recieve signal when server sends it.
-			await client_ready_signal
+			#	await client_ready_signal
+			if !sync_client_ready:
+				return 
 		
 			
 			seconds_per_four_beats = BPM/60.0 * 4
@@ -207,7 +227,11 @@ func game_loop(_delta):
 				client_results_ready.rpc_id(1)
 				is_delay_sent = true
 			
-			await client_results_ready_signal
+			
+			#await client_results_ready_signal
+			if !sync_client_results_ready:
+				return
+			
 			await get_tree().create_timer(result_screen_time).timeout
 			
 			# check to end game.
@@ -221,6 +245,9 @@ func game_loop(_delta):
 				accuracy = null
 				is_bpm_sent = false
 				is_delay_sent = false
+				sync_client_results_ready = false
+				sync_client_ready = false
+				same_state = false
 				
 				reset_stat_strings()
 				if current_countdowns >= num_countdowns:
@@ -275,11 +302,14 @@ func switch_state(old, new):
 	#print("old:" + str(old) + " to " + "new:" + str(new))
 
 func on_client_ready_signal():
+	sync_client_ready = true
 	pass
 	#if multiplayer.is_server():
 		#return
 	#print("signal emitted")
 
+func on_client_results_ready_signal():
+	sync_client_results_ready = true
 
 ### NETWORKING ###
 
@@ -385,7 +415,8 @@ func send_bpm_rpc(bpm):
 	change_bpm(bpm)
 	
 	# Let server know client has recieved and ready.
-	if !multiplayer.is_server():
+	# we need to continuously ask until it is ready.
+	if !multiplayer.is_server() && current_state == GAME_STATE.STATE_IDLE:
 		#print("IM CALLING FROM CLIENT")
 		client_ready.rpc_id(1, multiplayer.get_unique_id())
 	return
@@ -457,5 +488,23 @@ func state_indicator(state):
 	if is_game_started == false:
 		string = "GAME_END"
 	$"../UI/InGameUI/StateIndicator".text = string
+
+@rpc("unreliable")
+func ask_client_is_ready(state):
+	if multiplayer.is_server():
+		return
 	
-	
+	return_state_check.rpc_id(1, is_same_state(state))
+	pass
+
+# call to server only
+@rpc("unreliable", "call_local", "any_peer")
+func return_state_check(x : bool):
+	same_state = x
+
+#executed on the client
+func is_same_state(state) -> bool:
+	if state == current_state:
+		return true
+	else:
+		return false

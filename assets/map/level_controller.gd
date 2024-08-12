@@ -1,5 +1,5 @@
 class_name LevelController
-extends Sprite2D
+extends Node2D
 
 ## Controls aspects of a level, including but not limited to:
 ## Timer

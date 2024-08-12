@@ -20,8 +20,7 @@ enemy_spawn_delay = 2
 script = ExtResource("1_sjyyx")
 
 [node name="Level" parent="." instance=ExtResource("2_aoe4x")]
-enemy_scene = ExtResource("3_t01sq")
-player = NodePath("Player")
+script = null
 
 [node name="Camera2D" parent="Level" instance=ExtResource("3_revoy")]
 target = NodePath("../Player")
