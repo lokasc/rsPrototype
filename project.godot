@@ -21,6 +21,13 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 
+[file_customization]
+
+folder_colors={
+"res://beat_sync/": "gray",
+"res://ver_1/": "orange"
+}
+
 [input]
 
 right={
