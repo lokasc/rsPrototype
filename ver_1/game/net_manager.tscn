@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://o5mopq7q46cq"]
+
+[ext_resource type="Script" path="res://ver_1/game/net_manager.gd" id="1_2atps"]
+[ext_resource type="PackedScene" uid="uid://ce6nl4rbh16yy" path="res://ver_1/character/hero/Trebbie/trebbie.tscn" id="2_escgf"]
+[ext_resource type="PackedScene" uid="uid://cswrokaic6o8t" path="res://ver_1/game/net_ui.tscn" id="2_q0iv7"]
+[ext_resource type="Texture2D" uid="uid://c08a3eprxnjc" path="res://assets/main/square_floor_tile2.png" id="3_k2jae"]
+[ext_resource type="PackedScene" uid="uid://h4w7naqbhls5" path="res://assets/map/enemy_spawner.tscn" id="5_n273x"]
+
+[node name="NetManager" type="Node"]
+script = ExtResource("1_2atps")
+player_scene = ExtResource("2_escgf")
+
+[node name="AuthLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(100, 50)
+offset_left = -1.0
+offset_top = 160.0
+offset_right = 116.0
+offset_bottom = 223.0
+theme_override_font_sizes/font_size = 45
+text = "Label"
+
+[node name="IdLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(100, 50)
+offset_left = -1.0
+offset_top = 210.0
+offset_right = 99.0
+offset_bottom = 273.0
+theme_override_font_sizes/font_size = 45
+text = "Id"
+
+[node name="FriendLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(100, 50)
+offset_top = 273.0
+offset_right = 100.0
+offset_bottom = 336.0
+theme_override_font_sizes/font_size = 35
+text = "FID"
+
+[node name="NetUI" parent="." instance=ExtResource("2_q0iv7")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(529, 269)
+texture = ExtResource("3_k2jae")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
+
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("game_manager") instance=ExtResource("5_n273x")]
+game_manager = NodePath("..")

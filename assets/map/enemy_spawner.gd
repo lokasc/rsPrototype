@@ -1,11 +1,22 @@
+class_name EnemySpawner
 extends Node2D
 
 
+#Will change this in next patch
+@export var game_manager : NetManager
+@export var players : Array[BaseHero] = []
+
+@export var spawn_path : Node 
 @export var spawns: Array[Spawn_info] = []
 
-@onready var player = get_tree().get_first_node_in_group("player") #will be changed in multiplayer
+var player 
 
 @export var time = 0
+
+
+func _start_timer():
+	$Timer.start()
+
 
 func _on_timer_timeout():
 	time += 1
@@ -19,12 +30,16 @@ func _on_timer_timeout():
 				var new_enemy = info.enemy
 				var counter = 0
 				while  counter < info.enemy_num:
-					var enemy_spawn = new_enemy.instantiate()
+					var enemy_spawn = new_enemy.instantiate() as BaseEnemy
 					enemy_spawn.global_position = get_random_position()
-					add_child(enemy_spawn)
+					enemy_spawn.target = player
+					spawn_path.add_child(enemy_spawn)
 					counter += 1
 
 func get_random_position(): #this code may change when in multiplayer
+	var str = str(game_manager.connected_players[0])
+	var parent = get_parent()
+	player = parent.get_node(str)
 	var vpr = get_viewport_rect().size * randf_range(1.1,1.4)
 	
 	var top_left = Vector2(player.global_position.x - vpr.x/2, player.global_position.y - vpr.y/2)

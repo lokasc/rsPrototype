@@ -1,0 +1,149 @@
+@startuml
+!theme vibrant
+
+class GameManager{
+    + float timer
+    + bool is_started
+    
+    - PlayerScene[] players
+
+
+    PlayerScene get_other_player()
+    
+    void add_player()
+    void start_game()
+    void end_game()
+    void add_item()
+}
+
+
+class EnemySpawner{
+}
+
+class BeatController{
+    + int bpm_change_signal
+    + int BPM
+    + bool is_on_beat()
+    + void change_bpm()
+}   
+
+class NetManager{
+    void on_peer_connect()
+}
+
+class Ability {
+    +String name
+    +String type
+ 
+    void ability_logic()
+    void reset()
+}
+
+class Action{
+    +String name
+    +String description
+    +int cooldown
+    +int level
+   
+    +State item_state
+   
+    void upgrade()
+}
+
+class State{
+    +StateMachine sm
+    +args[] any_arguement_that_is_needed
+    void on_entry()
+    void on_update()
+    void on_exit()
+}
+
+
+class ActionSet{
+  +HeroScene owner
+  + Item item1
+  + Item item2
+  + Item item3
+  + Item item4
+  + Action attack
+  + Ability ability1
+  + Ability ability2
+  + Ability ultimate
+  + Ability passive
+}
+
+class HeroScene{
+  +Animations anims
+  +MultiplayerSynchronizer input
+  
+  + Action attack
+  + Ability ability1
+  + Ability ability2
+  + Ability ultimate
+  + Ability passive
+
+  void innit(HeroResource)
+  void add_item()
+  void on_death()
+}
+
+class Character{
+  +Stat char_stats
+  +String name
+  +StateMachine sm
+  -State current_state
+}
+class UIManager(){
+  void set_item_ui(Item)
+}
+
+
+class Item {
+    +Stat stats
+   
+   
+    void any_item_logic()
+}
+
+class Stat{
+    +int maxhp
+    +int spd
+    +int aoe
+    +int dur
+    +int rgn
+    +int anyotherstat
+    +String name
+}
+
+
+class Enemy{
+  void path()
+  void decide()
+}
+
+
+class ActionHelper{
+    +void SpawnCircle( function )
+}
+
+'This class spawns a pop_up text of whatever you want
+class TextPopUp{
+    -const DEFAULT_COLOR
+    -const DEFAULT_DURATION 
+    -bool started
+
+    +void on_fade_timeout()
+    +void reset()
+    +void set_text(text, gpos,color = DEFAULT_COLOR, duration = DEFAULT_COLOR)
+}
+
+Character <|-- Enemy
+Character <|-- HeroScene
+Action <|-- Item : is
+Action <|-- Ability : is
+HeroScene *-- ActionSet : part of
+GameManager *-- BeatController
+GameManager *-- NetManager 
+GameManager *-- EnemySpawner
+
+@enduml

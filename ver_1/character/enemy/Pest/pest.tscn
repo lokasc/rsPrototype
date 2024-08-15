@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cpkr32elxa7a8"]
 
-[ext_resource type="Script" path="res://assets/characters/enemy/pest.gd" id="1_6d1pb"]
+[ext_resource type="Script" path="res://ver_1/character/enemy/Pest/pest.gd" id="1_6d1pb"]
 [ext_resource type="Texture2D" uid="uid://bj87if3xp5tym" path="res://assets/characters/player/icon.svg" id="2_naecx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2cp4r"]
@@ -11,7 +11,9 @@
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_6d1pb")
-health = 100.0
+max_health = 10.0
+speed = 400.0
+char_name = "Pest"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 1)

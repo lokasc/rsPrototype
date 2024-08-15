@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://cswrokaic6o8t"]
+
+[ext_resource type="Script" path="res://ver_1/game/net_ui.gd" id="1_d13jg"]
+
+[node name="NetUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_d13jg")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 40.0
+
+[node name="HostButton" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 2.65
+text = "Host"
+
+[node name="JoinButton" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Join"
+
+[node name="IP" type="TextEdit" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Enter IP"
+
+[node name="TextEdit" type="TextEdit" parent="."]
+visible = false
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 0
+offset_left = -1.0
+offset_top = 70.0
+offset_right = 399.0
+offset_bottom = 120.0
+theme_override_font_sizes/font_size = 25
+placeholder_text = "Enter name"
+
+[connection signal="button_down" from="HBoxContainer/HostButton" to="." method="_on_host_button_down"]
+[connection signal="button_down" from="HBoxContainer/JoinButton" to="." method="_on_join_button_down"]

@@ -1,0 +1,64 @@
+[gd_scene load_steps=2 format=3 uid="uid://q4tmb5de6pvw"]
+
+[ext_resource type="Script" path="res://beat_sync/multiplayer_controller.gd" id="1_i0qxa"]
+
+[node name="BeatMain" type="Node"]
+
+[node name="MultiplayerController" type="Node" parent="." node_paths=PackedStringArray("net_ui", "game_ui")]
+script = ExtResource("1_i0qxa")
+net_ui = NodePath("../UI/NetUI")
+game_ui = NodePath("../UI/InGameUI")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NetUI" type="Control" parent="UI"]
+visible = false
+layout_mode = 2
+anchors_preset = 0
+offset_left = 1280.0
+offset_right = 1280.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/NetUI"]
+layout_mode = 0
+offset_left = -1280.0
+offset_bottom = 40.0
+
+[node name="HostButton" type="Button" parent="UI/NetUI/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 2.65
+text = "Host"
+
+[node name="JoinButton" type="Button" parent="UI/NetUI/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Join"
+
+[node name="IP" type="TextEdit" parent="UI/NetUI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Enter IP"
+
+[node name="InGameUI" type="Control" parent="UI"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PeerID" type="Label" parent="UI/InGameUI"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Name" type="Label" parent="UI/InGameUI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[connection signal="button_down" from="UI/NetUI/HBoxContainer/HostButton" to="MultiplayerController" method="_on_host_button_button_down"]
+[connection signal="button_down" from="UI/NetUI/HBoxContainer/JoinButton" to="MultiplayerController" method="_on_join_button_button_down"]

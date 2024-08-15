@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cygb46cfx7bom"]
+
+[ext_resource type="Script" path="res://ver_1/vfx/text_pop_up.gd" id="1_wpoxx"]
+
+[node name="TextPopUp" type="RichTextLabel"]
+bbcode_enabled = true
+text = "Default_text"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("1_wpoxx")
+
+[node name="FadeTimer" type="Timer" parent="."]
+one_shot = true
