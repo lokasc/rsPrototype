@@ -1,0 +1,8 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://bsbrd7cmn4jdp"]
+
+[ext_resource type="Texture2D" uid="uid://dppck42ep7yc1" path="res://assets/map/tilemaps/decals/chips.png" id="1_3ouhb"]
+[ext_resource type="Texture2D" uid="uid://cudv68a82urdt" path="res://assets/map/tilemaps/decals/chips_nm.png" id="2_5ul1o"]
+
+[resource]
+diffuse_texture = ExtResource("1_3ouhb")
+normal_texture = ExtResource("2_5ul1o")

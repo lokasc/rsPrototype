@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://duyletdrrfofd"
-path="res://.godot/imported/wall_tile_capacitors.png-cbed1ec52127ab27ca007431f90fb1f4.ctex"
+uid="uid://blje8et4nx6pa"
+path="res://.godot/imported/traces.png-e9d8d189208f28eb7279ecbdc1994ab6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/map/wall_tile_capacitors.png"
-dest_files=["res://.godot/imported/wall_tile_capacitors.png-cbed1ec52127ab27ca007431f90fb1f4.ctex"]
+source_file="res://assets/map/tilemaps/decals/traces.png"
+dest_files=["res://.godot/imported/traces.png-e9d8d189208f28eb7279ecbdc1994ab6.ctex"]
 
 [params]
 
