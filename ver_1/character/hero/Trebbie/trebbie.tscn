@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie.gd" id="1_4x4su"]
 [ext_resource type="PackedScene" uid="uid://dl6n7678g0f18" path="res://ver_1/character/hero/Trebbie/trebbie_attack.tscn" id="2_psvnt"]
-[ext_resource type="Texture2D" uid="uid://h2p4t7iiyded" path="res://trebs.png" id="2_vnlid"]
 [ext_resource type="Script" path="res://player_input.gd" id="3_tkpg3"]
+[ext_resource type="Texture2D" uid="uid://bjbqj24xb60e8" path="res://Trebbie_Sheet_32.png" id="4_3i3qh"]
 [ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/text_pop_up.tscn" id="4_ghe2d"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6jp8r"]
@@ -21,6 +21,8 @@ properties/3/spawn = true
 properties/3/replication_mode = 1
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g3diu"]
+radius = 9.0
+height = 32.0
 
 [node name="Trebbie" type="CharacterBody2D" node_paths=PackedStringArray("basic_attack")]
 collision_layer = 2
@@ -41,7 +43,8 @@ distance_to_center = 100.0
 shape = SubResource("CapsuleShape2D_g3diu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_vnlid")
-offset = Vector2(-10, 0)
+texture = ExtResource("4_3i3qh")
+offset = Vector2(9.4, -7.2)
+hframes = 4
 
 [node name="TextPopUp" parent="." instance=ExtResource("4_ghe2d")]

@@ -1,6 +1,8 @@
 class_name Pest
 extends BaseEnemy
 
+@onready var sprite : Sprite2D = $Sprite2D
+
 func _init():
 	super()
 	pass
@@ -19,6 +21,15 @@ func _physics_process(_delta):
 		velocity = Vector2.ZERO
 	else:
 		velocity = direction * char_stats.spd
+	
+	if direction.x <0:
+		sprite.scale.x = 1
+	elif direction.x >0:
+		sprite.scale.x = -1
+	else:
+		sprite.scale.x = -1
+			
+	
 	move_and_slide()
 
 func take_damage(dmg):
