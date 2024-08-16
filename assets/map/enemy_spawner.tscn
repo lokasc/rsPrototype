@@ -20,6 +20,7 @@ spawns = Array[ExtResource("3_l0tmy")]([SubResource("Resource_knfaa")])
 [node name="Timer" type="Timer" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("")
 spawn_path = NodePath("../Enemies")
 
 [node name="Enemies" type="Node" parent="."]

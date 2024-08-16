@@ -1,15 +1,23 @@
 class_name BaseHero
 extends BaseCharacter
 
-### This handles the logic for the player. Inherit this to create new hero.
+### Handles all gameplay logic for the player. 
+# Inherit this to create new hero.
+
+
+const DECELERATION = 80
 
 @onready var input : PlayerInput = $MultiplayerSynchronizer
 
-const DECELERATION = 80
-var pop_up
-
 @export_category("Actions")
 @export var basic_attack : BaseAbility
+@export var ability_1 : BaseAbility
+@export var ability_2 : BaseAbility
+@export var passive : BaseAbility
+@export var ult : BaseAbility
+@export var items : Array[BaseItem] = []
+
+var pop_up
 
 func _init():
 	super()
@@ -41,4 +49,3 @@ func _init_stats():
 	char_stats.atk = 100
 	char_stats.spd = 400
 	char_stats.maxhp = 100
-

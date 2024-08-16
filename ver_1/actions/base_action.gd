@@ -16,4 +16,3 @@ func _init():
 func _upgrade():
 	level += 1
 	pass
-

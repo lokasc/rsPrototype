@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://d3lp2sqrwyacp"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/base_hero.gd" id="1_g61si"]
-[ext_resource type="Texture2D" uid="uid://h2p4t7iiyded" path="res://assets/characters/player/Sprite-0002.png" id="2_j8yao"]
-[ext_resource type="Script" path="res://assets/characters/player/player_input.gd" id="3_xjkk8"]
+[ext_resource type="Texture2D" uid="uid://h2p4t7iiyded" path="res://Sprite-0002.png" id="2_j8yao"]
+[ext_resource type="Script" path="res://player_input.gd" id="3_xjkk8"]
 [ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/text_pop_up.tscn" id="4_8jjbb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g3diu"]

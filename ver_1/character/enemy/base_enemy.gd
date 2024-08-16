@@ -23,4 +23,3 @@ func _enter_tree():
 func take_damage(dmg):
 	current_health -= dmg
 	pass
-

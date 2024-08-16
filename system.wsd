@@ -4,20 +4,28 @@
 class GameManager{
     + float timer
     + bool is_started
-    
+    + BeatController bc
+    + NetManager net
+    + is_paused
+
     - PlayerScene[] players
-
-
-    PlayerScene get_other_player()
-    
-    void add_player()
+    PlayerScene get_other_player(id)
+    ----------------------------------
+    void rand_choose_actions()
+    void show_cards()
+    void add_item_rpc(BaseItem)
+    -------
+    void respawn_player()
+    ------------------------
     void start_game()
+    void pause_game()
     void end_game()
-    void add_item()
+    void add_player()
 }
 
 
 class EnemySpawner{
+  + SpawnResource[] list_of_spawns
 }
 
 class BeatController{
@@ -29,6 +37,8 @@ class BeatController{
 
 class NetManager{
     void on_peer_connect()
+    void add_player()
+
 }
 
 class Ability {

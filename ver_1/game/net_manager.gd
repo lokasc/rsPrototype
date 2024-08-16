@@ -13,31 +13,27 @@ const DEFAULT_PORT = 28960
 const MAX_CLIENTS = 2
 var peer : ENetMultiplayerPeer
 
-@export var connected_players = []
 @export var player_scene : PackedScene
+@onready var player_container : Node = $Players
 
-#Move this code to gamemanager
-@export var is_game_started : bool = false
+func _enter_tree() -> void:
+	GameManager.Instance.net = self
+	pass
 
 func _ready():
 	multiplayer.server_relay = false
-	
 	peer = ENetMultiplayerPeer.new()
-	_connect_net_signals()
+	_connect_signals()
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
 	if !multiplayer.is_server(): return
-	if !is_game_started && get_player_count() >= 1:
-		is_game_started = true
-		var enemy_spawner = $EnemySpawner as EnemySpawner
-		enemy_spawner._start_timer()
-		print("Game_started!!")
-	pass
+	if !GameManager.Instance.is_game_started() && get_player_count() >= 2:
+		GameManager.Instance.start_game()
 
 func get_player_count():
-	return connected_players.size()
+	return GameManager.Instance.players.size()
 
 func on_host_pressed():
 	peer.create_server(DEFAULT_PORT, MAX_CLIENTS)
@@ -46,7 +42,6 @@ func on_host_pressed():
 	# Set UI
 	$AuthLabel.text = "Server"
 	$IdLabel.text = str(multiplayer.get_unique_id())
-	connected_players.append(multiplayer.get_unique_id())
 	
 	# This line adds players.
 	multiplayer.peer_connected.connect(add_player)
@@ -64,7 +59,11 @@ func on_client_pressed():
 func on_start_pressed():
 	pass
 
-func _connect_net_signals():
+
+func _connect_signals():
+	# Player container
+	player_container.child_entered_tree.connect(_add_to_list)
+	
 	# Others
 	$NetUI.request_host.connect(on_host_pressed)
 	$NetUI.request_client.connect(on_client_pressed)
@@ -84,15 +83,17 @@ func _on_peer_connect(id):
 		$FriendLabel.text = "Connected to: " + str(id) 
 
 func add_player(id = 1):
-	#if connected_players.has(id):
-		#return
-	#
-	connected_players.append(id)
-	
 	var player = player_scene.instantiate()
 	player.name = str(id)
-	call_deferred("add_child", player)
-	player.call_deferred("add_to_group", "players")
+	player_container.call_deferred("add_child", player, true)
+
+func _add_to_list(node : Node):
+	var new_player = node as BaseHero
+	if new_player == null:
+		printerr("Trying to add a non-hero to player list") 
+		return
+	
+	GameManager.Instance.add_player_to_list(new_player)
 
 func _on_peer_disconnect(id):
 	pass
@@ -106,4 +107,3 @@ func _on_client_connect():
 
 func _on_client_disconnect():
 	pass
-

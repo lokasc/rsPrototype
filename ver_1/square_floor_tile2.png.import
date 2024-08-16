@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuv4ylu711pup"
-path="res://.godot/imported/bg_test_level.jpg-2b04a8b1b9f51bcc982775fa4005402a.ctex"
+uid="uid://c08a3eprxnjc"
+path="res://.godot/imported/square_floor_tile2.png-7b4ce658af3f6bcb8049451ff171d4c2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/map/bg_test_level.jpg"
-dest_files=["res://.godot/imported/bg_test_level.jpg-2b04a8b1b9f51bcc982775fa4005402a.ctex"]
+source_file="res://ver_1/square_floor_tile2.png"
+dest_files=["res://.godot/imported/square_floor_tile2.png-7b4ce658af3f6bcb8049451ff171d4c2.ctex"]
 
 [params]
 

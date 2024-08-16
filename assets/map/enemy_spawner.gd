@@ -3,9 +3,6 @@ extends Node2D
 
 
 #Will change this in next patch
-@export var game_manager : NetManager
-@export var players : Array[BaseHero] = []
-
 @export var spawn_path : Node 
 @export var spawns: Array[Spawn_info] = []
 
@@ -13,6 +10,13 @@ var player
 
 @export var time = 0
 
+func _enter_tree() -> void:
+	GameManager.Instance.spawner = self
+
+func _ready() -> void:
+	# add all enemies in spawner to spawn list.
+	for spawn : Spawn_info in spawns:
+		$MultiplayerSpawner.add_spawnable_scene(spawn.enemy.resource_path)
 
 func _start_timer():
 	$Timer.start()
@@ -36,10 +40,10 @@ func _on_timer_timeout():
 					spawn_path.add_child(enemy_spawn)
 					counter += 1
 
-func get_random_position(): #this code may change when in multiplayer
-	var str = str(game_manager.connected_players[0])
-	var parent = get_parent()
-	player = parent.get_node(str)
+# Consider a different algorithm for selecting location.
+func get_random_position():
+	player = GameManager.Instance.players[0]
+	
 	var vpr = get_viewport_rect().size * randf_range(1.1,1.4)
 	
 	var top_left = Vector2(player.global_position.x - vpr.x/2, player.global_position.y - vpr.y/2)

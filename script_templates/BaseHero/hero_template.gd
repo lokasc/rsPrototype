@@ -25,4 +25,3 @@ func _process(_delta):
 # Movement is handled here by super class
 func _physics_process(_delta):
 	super(_delta)
-
