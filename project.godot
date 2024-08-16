@@ -28,6 +28,11 @@ folder_colors={
 "res://ver_1/": "orange"
 }
 
+[global_group]
+
+pick_up=""
+loot=""
+
 [input]
 
 right={

@@ -5,7 +5,12 @@ enum Facing {LEFT, RIGHT}
 
 var sprite_dir : int
 
+@export var pick_up_radius : int = 40
+@export var xp_level : int = 0
+
+@onready var pick_up : CollisionShape2D = $PickUpRadius/CollisionShape2D
 @onready var sprite : Sprite2D = $Sprite2D
+@onready var levels = $LevelBar
 
 func _enter_tree():
 	super()
@@ -14,18 +19,21 @@ func _enter_tree():
 func _ready():
 	super()
 	initial_state = basic_attack
+	pick_up.shape.radius = pick_up_radius
 
 func _process(_delta):
 	super(_delta)
+	levels.value = xp_level
+	
 
 func _physics_process(_delta):
 	super(_delta)
 	
+	# Changing the sprite direction to the last moved direction
 	if input.direction.x <0:
 		sprite_dir = Facing.LEFT
 	elif input.direction.x >0:
 		sprite_dir = Facing.RIGHT
-	
 	match sprite_dir:
 		0:
 			sprite.scale.x = -1
@@ -40,3 +48,6 @@ func _init_stats():
 	char_stats.spd = 700
 	char_stats.aoe = 2
 	char_stats.atk = 100
+
+func on_xp_collected():
+	xp_level += 1

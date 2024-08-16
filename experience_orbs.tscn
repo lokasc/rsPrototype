@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqo707vlmdeen"]
+
+[ext_resource type="Script" path="res://experience_orbs.gd" id="1_861ga"]
+[ext_resource type="Texture2D" uid="uid://c4raa8pik23k4" path="res://Godlucdimje_Demo_Cubes.png" id="2_dwdm0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_154id"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u4hug"]
+radius = 5.0
+
+[node name="Experience orbs" type="RigidBody2D"]
+mass = 0.001
+gravity_scale = 0.0
+script = ExtResource("1_861ga")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_dwdm0")
+region_enabled = true
+region_rect = Rect2(190, 30, 100, 120)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 10
+collision_mask = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_154id")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_u4hug")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
