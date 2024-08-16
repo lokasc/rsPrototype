@@ -44,10 +44,53 @@ class NetManager{
 class Ability {
     +String name
     +String type
+    *State[] states 
  
     void ability_logic()
     void reset()
 }
+
+class HeroScene{
+  +Animations anims
+  +MultiplayerSynchronizer input
+  +StateMachine state_machine
+  
+  + Action attack
+  + Ability ability1
+  + Ability ability2
+  + Ability ultimate
+  + Ability passive
+
+  void innit(HeroResource)
+  void add_item()
+  void on_death()
+}
+
+class BaseState{
+    +StateMachine sm
+    +args[] any_arguement_that_is_needed
+    void enter()
+    void update()
+    void exit()
+}
+
+class StateMachine{
+    +BaseState[] states
+   -BaseState _current_state
+   ---------------------------
+   signal change_state(self, new_state)
+}
+
+class IdleState{
+  
+}
+
+class AutoState{
+
+}
+
+StateMachine <|-- BaseState : needs
+BaseState <|-- IdleState
 
 class Action{
     +String name
@@ -58,14 +101,6 @@ class Action{
     +State item_state
    
     void upgrade()
-}
-
-class State{
-    +StateMachine sm
-    +args[] any_arguement_that_is_needed
-    void on_entry()
-    void on_update()
-    void on_exit()
 }
 
 
@@ -82,26 +117,12 @@ class ActionSet{
   + Ability passive
 }
 
-class HeroScene{
-  +Animations anims
-  +MultiplayerSynchronizer input
-  
-  + Action attack
-  + Ability ability1
-  + Ability ability2
-  + Ability ultimate
-  + Ability passive
 
-  void innit(HeroResource)
-  void add_item()
-  void on_death()
-}
+
 
 class Character{
   +Stat char_stats
   +String name
-  +StateMachine sm
-  -State current_state
 }
 class UIManager(){
   void set_item_ui(Item)

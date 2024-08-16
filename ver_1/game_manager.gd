@@ -33,6 +33,7 @@ func _process(delta: float) -> void:
 func start_game():
 	time = 0
 	is_started = true
+	spawner._start_timer()
 
 func end_game():
 	is_started = false

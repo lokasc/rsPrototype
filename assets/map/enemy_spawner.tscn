@@ -20,7 +20,7 @@ spawns = Array[ExtResource("3_l0tmy")]([SubResource("Resource_knfaa")])
 [node name="Timer" type="Timer" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("")
+_spawnable_scenes = PackedStringArray("res://ver_1/character/enemy/Pest/pest.tscn")
 spawn_path = NodePath("../Enemies")
 
 [node name="Enemies" type="Node" parent="."]

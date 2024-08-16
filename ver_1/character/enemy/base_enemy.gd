@@ -16,6 +16,8 @@ func _init():
 
 # Export variables arent ready on innit
 func _enter_tree():
+	target = GameManager.Instance.players[0]
+	
 	char_stats.maxhp = max_health
 	char_stats.spd = speed
 	current_health = char_stats.maxhp

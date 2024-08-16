@@ -29,7 +29,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if !multiplayer.is_server(): return
-	if !GameManager.Instance.is_game_started() && get_player_count() >= 2:
+	if !GameManager.Instance.is_game_started() && get_player_count() >= 1:
 		GameManager.Instance.start_game()
 
 func get_player_count():
@@ -58,7 +58,6 @@ func on_client_pressed():
 # call this function to start a game.
 func on_start_pressed():
 	pass
-
 
 func _connect_signals():
 	# Player container

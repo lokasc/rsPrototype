@@ -19,8 +19,8 @@ func _ready() -> void:
 		$MultiplayerSpawner.add_spawnable_scene(spawn.enemy.resource_path)
 
 func _start_timer():
+	if !multiplayer.is_server(): return
 	$Timer.start()
-
 
 func _on_timer_timeout():
 	time += 1
@@ -36,8 +36,7 @@ func _on_timer_timeout():
 				while  counter < info.enemy_num:
 					var enemy_spawn = new_enemy.instantiate() as BaseEnemy
 					enemy_spawn.global_position = get_random_position()
-					enemy_spawn.target = player
-					spawn_path.add_child(enemy_spawn)
+					spawn_path.add_child(enemy_spawn, true)
 					counter += 1
 
 # Consider a different algorithm for selecting location.
