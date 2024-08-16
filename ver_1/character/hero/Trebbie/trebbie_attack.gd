@@ -12,7 +12,6 @@ extends BaseAbility
 @onready var hitbox : Area2D = $AttackHitBox
 @onready var hitbox_timer : Timer = $HitboxReset
 
-
 func _init():
 	super()
 
@@ -28,6 +27,25 @@ func _ready():
 	# connect signals
 	hitbox.area_entered.connect(on_hit)
 	hitbox_timer.timeout.connect(_hitbox_reset)
+
+func enter():
+	pass
+
+func exit():
+	pass
+
+# Automatically attack.
+func update(_delta: float):
+	if hero.input.is_use_mouse_auto_attack:
+		look_at(hero.input.mouse_pos)
+	use_ability()
+
+func physics_update(_delta: float):
+	if hero.input.direction:
+		hero.velocity = hero.input.direction * hero.char_stats.spd
+	else:
+		hero.velocity = hero.velocity.move_toward(Vector2.ZERO, hero.DECELERATION)
+	hero.move_and_slide()
 
 func _process(delta):
 	super(delta)

@@ -13,14 +13,10 @@ func _enter_tree():
 
 func _ready():
 	super()
+	initial_state = basic_attack
 
 func _process(_delta):
 	super(_delta)
-	
-	# TODO: Move this piece of code into trebbie's attack
-	if input.is_use_mouse_auto_attack:
-		basic_attack.look_at(input.mouse_pos)
-	basic_attack.use_ability()
 
 func _physics_process(_delta):
 	super(_delta)

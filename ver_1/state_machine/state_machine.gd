@@ -1,7 +1,6 @@
-extends Node
 class_name StateMachine
 
-@export var initial_state : BaseState
+var initial_state : BaseState
 
 var current_state : BaseState
 var states : Dictionary = {}

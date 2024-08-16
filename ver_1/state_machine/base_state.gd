@@ -1,11 +1,7 @@
-extends Node
 class_name BaseState
+extends Node
 
 signal state_change
-var hero_owner : BaseHero
-
-func initialise_states(hero : BaseHero):
-	hero_owner = hero
 
 func enter():
 	pass

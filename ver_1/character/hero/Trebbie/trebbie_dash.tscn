@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdi5x5j7h4olf"]
+
+[ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie_dash.gd" id="1_x8u2y"]
+
+[node name="TrebbieDash" type="Node2D"]
+script = ExtResource("1_x8u2y")
