@@ -4,6 +4,13 @@ extends BaseCharacter
 ### Handles all gameplay logic for the player. 
 # Inherit this to create new hero.
 
+#signals for ability/item conditions
+signal on_ability_used
+signal on_basic_attack
+signal on_attack_hit
+signal on_hit #enemy hit u
+
+
 const DECELERATION = 80
 
 @onready var input : PlayerInput = $MultiplayerSynchronizer
