@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://cn3n52t8ej5n4"]
+
+[ext_resource type="Script" path="res://ver_1/game/UI/ui_manager.gd" id="1_xdhrj"]
+
+[node name="Ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xdhrj")
+
+[node name="LevelBar" type="ProgressBar" parent="."]
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 230.0
+offset_bottom = 2.0
+scale = Vector2(0.2, 0.2)
+show_percentage = false

@@ -96,3 +96,6 @@ func _parse_abilities(x : BaseAbility):
 		x.hero = self
 		states[x.name.to_lower()] = x
 		x.state_change.connect(on_state_change)
+
+func on_xp_collected():
+	GameManager.Instance.add_xp(1)

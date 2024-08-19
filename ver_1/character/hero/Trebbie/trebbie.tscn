@@ -60,11 +60,3 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpRadius"]
 shape = SubResource("CircleShape2D_fdqo3")
 debug_color = Color(0.578613, 0.518871, 0.52597, 0.42)
-
-[node name="LevelBar" type="ProgressBar" parent="."]
-offset_left = -25.0
-offset_top = -25.0
-offset_right = 230.0
-offset_bottom = 2.0
-scale = Vector2(0.2, 0.2)
-show_percentage = false

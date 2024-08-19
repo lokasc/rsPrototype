@@ -23,9 +23,12 @@ var spawner : EnemySpawner
 var ui # ui manager 
 var bc # beat controller
 
+var current_xp : int
+
 func _init() -> void:
 	Instance = self
 	time = 0
+	current_xp = 0
 
 func _process(delta: float) -> void:
 	timer_logic(delta)
@@ -44,8 +47,11 @@ func timer_logic(delta):
 
 func add_player_to_list(new_player : BaseHero):
 	players.append(new_player)
-	return 
+	return
 
+func add_xp(_xp : int):
+	current_xp += _xp
+	pass
 
 ### Helper functions
 func is_game_started() -> bool:

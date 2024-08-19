@@ -1,5 +1,6 @@
 extends Node2D
 
+signal xp_collected
 # Speed of the xp orb going towards the players
 var speed = 1
 
@@ -8,14 +9,6 @@ var collected : bool = false
 # Getting the player who collected the xp orb
 var hero : CharacterBody2D
 
-signal xp_collected
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if collected == true:
 		# The movement may be more fancy than just moving towards the players
