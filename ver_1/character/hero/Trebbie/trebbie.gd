@@ -6,7 +6,7 @@ enum Facing {LEFT, RIGHT}
 var sprite_dir : int
 
 @export var pick_up_radius : int = 40
-@export var xp_level : int = 0
+@export var current_xp : int = 0
 
 @onready var pick_up : CollisionShape2D = $PickUpRadius/CollisionShape2D
 @onready var sprite : Sprite2D = $Sprite2D
@@ -23,7 +23,7 @@ func _ready():
 
 func _process(_delta):
 	super(_delta)
-	levels.value = xp_level
+	levels.value = current_xp
 	
 
 func _physics_process(_delta):
@@ -50,4 +50,4 @@ func _init_stats():
 	char_stats.atk = 100
 
 func on_xp_collected():
-	xp_level += 1
+	current_xp += 1

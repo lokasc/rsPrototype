@@ -7,13 +7,14 @@ var states : Dictionary = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	for child in get_children():
-		if child is BaseState:
-			states[child.name.to_lower()] = child
-			child.state_change.connect(on_state_change)
-	if initial_state:
-		initial_state.enter()
-		current_state = initial_state
+	pass
+	#for child in get_children():
+		#if child is BaseState:
+			#states[child.name.to_lower()] = child
+			#child.state_change.connect(on_state_change)
+	#if initial_state:
+		#initial_state.enter()
+		#current_state = initial_state
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
