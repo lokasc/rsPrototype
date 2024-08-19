@@ -51,9 +51,12 @@ func add_player_to_list(new_player : BaseHero):
 	return
 
 func add_xp(_xp : int):
+	# add client-prediction for future.
+	
 	# Sanity check
 	if !multiplayer.is_server(): return
-	sync_xp_bar.rpc(_xp)
+	current_xp += _xp
+	sync_xp_bar.rpc(current_xp)
 
 func change_ui():
 	ui.show_ui()
@@ -67,6 +70,5 @@ func is_game_stopped() -> bool:
 	return !is_started || is_paused
 
 @rpc("call_local", "unreliable_ordered")
-func sync_xp_bar(_xp):
-	current_xp += _xp
-	ui.update_xp(current_xp)
+func sync_xp_bar(xp):
+	ui.update_xp(xp)

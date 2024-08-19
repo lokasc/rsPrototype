@@ -5,7 +5,6 @@ extends Node2D
 #Will change this in next patch
 @export var spawn_path : Node 
 @export var spawns: Array[Spawn_info] = []
-
 var player 
 
 @export var time = 0
@@ -34,10 +33,14 @@ func _on_timer_timeout():
 				var new_enemy = info.enemy
 				var counter = 0
 				while  counter < info.enemy_num:
-					var enemy_spawn = new_enemy.instantiate() as BaseEnemy
-					enemy_spawn.global_position = get_random_position()
-					spawn_path.add_child(enemy_spawn, true)
+					instantiate_enemy(new_enemy)
 					counter += 1
+
+func instantiate_enemy(new_enemy):
+	var copy = new_enemy.instantiate() as BaseEnemy
+	copy.global_position = get_random_position()
+	spawn_path.add_child(copy, true)
+	pass
 
 # Consider a different algorithm for selecting location.
 func get_random_position():

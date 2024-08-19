@@ -6,6 +6,12 @@ extends BaseCharacter
 @export var max_health : float
 @export var speed : float
 
+
+# XP & Loot
+@onready var loot = get_tree().get_first_node_in_group("loot")
+@export var xp_worth = 1
+@onready var xp_orb = load("res://experience_orbs.tscn")
+
 var target : BaseHero
 
 ## Base class for all enemy types.
@@ -23,5 +29,15 @@ func _enter_tree():
 	current_health = char_stats.maxhp
 
 func take_damage(dmg):
+	# Client prediction
 	current_health -= dmg
-	pass
+	if current_health <= 0:
+		death.rpc()
+
+@rpc("unreliable_ordered", "call_local")
+func death():
+	for i in range(xp_worth):
+		var new_xp = xp_orb.instantiate()
+		loot.call_deferred("add_child", new_xp)
+		new_xp.position = position + Vector2(randi_range(-5,5),randi_range(-5,5))
+	queue_free()

@@ -51,7 +51,7 @@ func _process(delta):
 	super(delta)
 
 func on_hit(area : Area2D):
-	if !multiplayer.is_server() : return
+	if !multiplayer.is_server(): return
 	
 	# typecasting
 	var enemy = area.get_parent() as BaseEnemy
