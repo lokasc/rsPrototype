@@ -1,7 +1,6 @@
 class_name EnemySpawner
 extends Node2D
 
-
 #Will change this in next patch
 @export var spawn_path : Node 
 @export var spawns: Array[Spawn_info] = []

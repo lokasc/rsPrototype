@@ -46,7 +46,14 @@ func _init():
 func _enter_tree():
 	id = name.to_int()
 	set_multiplayer_authority(name.to_int())
+	
+	$ServerSynchronizer.set_multiplayer_authority(1)
 	$MultiplayerSynchronizer.set_multiplayer_authority(name.to_int())
+	
+	# if im the guy contorlling this mf object.
+	if multiplayer.get_unique_id() == get_multiplayer_authority():
+		GameManager.Instance.ui.my_player = self
+		
 	
 	_init_stats()
 	current_health = char_stats.maxhp

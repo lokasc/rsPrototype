@@ -1,10 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://ce6nl4rbh16yy"]
+[gd_scene load_steps=11 format=3 uid="uid://ce6nl4rbh16yy"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie.gd" id="1_4x4su"]
 [ext_resource type="PackedScene" uid="uid://dl6n7678g0f18" path="res://ver_1/character/hero/Trebbie/trebbie_attack.tscn" id="2_psvnt"]
 [ext_resource type="Script" path="res://player_input.gd" id="3_tkpg3"]
 [ext_resource type="Texture2D" uid="uid://bjbqj24xb60e8" path="res://Trebbie_Sheet_32.png" id="4_3i3qh"]
 [ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/text_pop_up.tscn" id="4_ghe2d"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_igvvo"]
+properties/0/path = NodePath(".:current_health")
+properties/0/spawn = true
+properties/0/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6jp8r"]
 properties/0/path = NodePath("MultiplayerSynchronizer:direction")
@@ -39,6 +44,9 @@ pick_up_radius = 100
 basic_attack = NodePath("TrebbieAttack")
 char_name = "Trebbie"
 char_id = 1
+
+[node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_igvvo")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_6jp8r")

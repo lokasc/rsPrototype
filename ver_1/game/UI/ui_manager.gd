@@ -1,9 +1,13 @@
 class_name UIManager
 extends Control
 
+var my_player : BaseHero
+
 @onready var card_scn = load("res://ver_1/game/UI/selection_card.tscn")
 @onready var selection_container = $SelctionContainer
 @onready var card_path = $SelctionContainer/HBox
+
+@onready var health_bar = $HealthBar
 
 var action_selected : bool
 
@@ -11,9 +15,14 @@ func _enter_tree() -> void:
 	GameManager.Instance.ui = self
 	GameManager.Instance.start_lvl_up_sequence.connect(build_selection_container)
 	GameManager.Instance.end_lvl_up_sequence.connect(on_ready_to_continue)
+
 func update_xp(xp : int):
 	$LevelBar.value = xp
 	pass
+
+func _process(delta: float) -> void:
+	if my_player:
+		health_bar.value = my_player.current_health
 
 func hide_ui():
 	visible = false

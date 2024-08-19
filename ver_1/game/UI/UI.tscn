@@ -17,6 +17,16 @@ offset_right = 6400.0
 offset_bottom = 165.0
 scale = Vector2(0.2, 0.2)
 
+[node name="HealthBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_top = 591.0
+offset_right = 6400.0
+offset_bottom = 756.0
+scale = Vector2(0.2, 0.2)
+theme_override_font_sizes/font_size = 100
+allow_greater = true
+show_percentage = false
+
 [node name="SelctionContainer" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
