@@ -16,6 +16,7 @@ var peer : ENetMultiplayerPeer
 @export var player_scene : PackedScene
 @onready var player_container : Node = $Players
 
+
 func _enter_tree() -> void:
 	GameManager.Instance.net = self
 	pass
@@ -29,7 +30,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if !multiplayer.is_server(): return
-	if !GameManager.Instance.is_game_started() && get_player_count() >= 1:
+	if !GameManager.Instance.is_game_started() && get_player_count() >= 2:
 		GameManager.Instance.start_game()
 
 func get_player_count():
@@ -95,6 +96,8 @@ func _add_to_list(node : Node):
 		return
 	# todo: move this to the game manager instead of in the net.
 	GameManager.Instance.add_player_to_list(new_player)
+
+
 
 func hide_ui():
 	$NetUI.visible = false

@@ -12,6 +12,36 @@ grow_vertical = 2
 script = ExtResource("1_xdhrj")
 
 [node name="LevelBar" type="ProgressBar" parent="."]
+layout_mode = 0
 offset_right = 6400.0
 offset_bottom = 165.0
 scale = Vector2(0.2, 0.2)
+
+[node name="SelctionContainer" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Waiting" type="Label" parent="SelctionContainer"]
+visible = false
+layout_mode = 2
+offset_left = 424.0
+offset_top = 322.0
+offset_right = 868.0
+offset_bottom = 391.0
+theme_override_font_sizes/font_size = 50
+text = "Waiting for players"
+
+[node name="HBox" type="HBoxContainer" parent="SelctionContainer"]
+layout_mode = 0
+offset_left = 258.0
+offset_top = 139.0
+offset_right = 1022.0
+offset_bottom = 591.0
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="SelctionContainer"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

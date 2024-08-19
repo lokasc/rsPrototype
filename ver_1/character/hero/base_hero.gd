@@ -10,12 +10,10 @@ signal on_basic_attack
 signal on_attack_hit
 signal on_hit #enemy hit u
 
-
 const DECELERATION = 80
 
 @onready var input : PlayerInput = $MultiplayerSynchronizer
-
-var xp : float # not sure how we calculate xp.... is the xp_to_lvl_up exponential or fixed? 
+var id
 
 # STATEMACHINE
 var states : Dictionary = {}
@@ -41,6 +39,7 @@ func _init():
 	pass
 
 func _enter_tree():
+	id = name.to_int()
 	set_multiplayer_authority(name.to_int())
 	$MultiplayerSynchronizer.set_multiplayer_authority(name.to_int())
 	

@@ -3,7 +3,7 @@ extends Node2D
 
 var hero : BaseHero
 
-@export var action_name : String #ACTION NAME 
+@export var action_name : String = "" #ACTION NAME 
 @export var desc : String
 @export var level : int
 var a_stats : Stats
