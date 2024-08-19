@@ -1,6 +1,8 @@
 class_name Pest
 extends BaseEnemy
+
 @onready var sprite : Sprite2D = $Sprite2D
+@onready var hitbox : Area2D = $HitBox
 
 func _init():
 	super()
@@ -9,7 +11,10 @@ func _init():
 func _enter_tree():
 	super()
 	pass
-	
+
+func _ready() -> void:
+	hitbox.area_entered.connect(on_hit)
+	pass
 
 func _physics_process(_delta):
 	# direction the pest needs to go towards:
@@ -27,8 +32,19 @@ func _physics_process(_delta):
 		sprite.scale.x = -1
 	else:
 		sprite.scale.x = -1
-
 	move_and_slide()
+
+func on_hit(area : Area2D):
+	if !multiplayer.is_server(): return
+	
+	# typecasting
+	var hero = area.get_parent() as BaseHero
+	if hero == null: return
+	
+	# TODO: not networked yet
+	# need to calculate how much damage based on 
+	# the attack value of this ability + my character's attack value
+	hero.take_damage(char_stats.atk)
 
 func take_damage(dmg):
 	super(dmg)

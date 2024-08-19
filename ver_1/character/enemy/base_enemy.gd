@@ -5,6 +5,7 @@ extends BaseCharacter
 @export_subgroup("Basic information")
 @export var max_health : float
 @export var speed : float
+@export var dmg : float
 
 
 # XP & Loot
@@ -20,13 +21,17 @@ var target : BaseHero
 func _init():
 	super()
 
+func _init_stats():
+	char_stats.maxhp = max_health
+	char_stats.spd = speed
+	char_stats.atk = dmg
+	current_health = char_stats.maxhp
+	pass
+
 # Export variables arent ready on innit
 func _enter_tree():
 	target = GameManager.Instance.players[0]
-	
-	char_stats.maxhp = max_health
-	char_stats.spd = speed
-	current_health = char_stats.maxhp
+	_init_stats()
 
 func take_damage(dmg):
 	# Client prediction

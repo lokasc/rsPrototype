@@ -39,7 +39,7 @@ func _physics_process(_delta):
 ### Overide this to modify the starting stats of your hero
 func _init_stats():
 	super()
-	char_stats.maxhp = 1000
+	char_stats.maxhp = 100
 	char_stats.spd = 700
 	char_stats.aoe = 2
 	char_stats.atk = 100

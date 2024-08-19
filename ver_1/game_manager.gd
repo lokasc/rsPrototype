@@ -10,9 +10,13 @@ extends Node2D
 
 static var Instance : GameManager
 
-#perhaps add signals for on_start_game, on_end_game, on_blah_blah_blah
+## TEST BOOLS
+@export var wait_for_player : bool = false
+
+signal end_game
 signal start_lvl_up_sequence(item : Array)
 signal end_lvl_up_sequence()
+
 
 var is_started : bool = false
 var is_paused : bool = false:
@@ -45,7 +49,8 @@ func _init() -> void:
 	Instance = self
 	time = 0
 	current_xp = 0
-	max_xp = 10
+	max_xp = 1000
+	end_game.connect(on_end_game)
 
 func _process(delta: float) -> void:
 	timer_logic(delta)
@@ -55,7 +60,7 @@ func start_game():
 	is_started = true
 	spawner._start_timer()
 
-func end_game():
+func on_end_game():
 	is_started = false
 
 func timer_logic(delta):
@@ -78,6 +83,7 @@ func add_xp(_xp : int):
 		current_xp = current_xp - max_xp
 		start_level_up_sequence()
 
+### Card Sequence 
 func start_level_up_sequence():
 	players_ready = 0
 	for player in players:
@@ -86,25 +92,30 @@ func start_level_up_sequence():
 
 # Algorithm for choosing actions for level up.
 func choose_items(hero : BaseHero) -> Array[BaseAction]:
-	
-	# Lets just return 3 Trebbie Attacks
-	var attack = TrebbieAttack.new()
-	
+	var attack = TrebbieAttack.new() # Lets just return 3 Trebbie Attacks
 	return [attack, attack, attack]
 
 func tell_server_client_is_ready(card : SelectionCard):
 	client_selection_ready.rpc_id(1, card)
 	pass
 
+func parse_action_card(id,card):
+	pass
+
+# Death & Strawberry
+func check_alive_players() -> void:
+	if !multiplayer.is_server(): return
+	for x in players:
+		if !x.IS_DEAD:
+			return
+	# End game, players all dead
+	tell_everyone_end_game.rpc()
+
 ### RPC Calls
 @rpc("call_local", "reliable")
 func client_level_up(items : Array):
 	is_paused = true
 	start_lvl_up_sequence.emit(items)
-
-@rpc("call_local", "unreliable_ordered")
-func sync_xp_bar(xp):
-	ui.update_xp(xp)
 
 # run on the server only.
 @rpc("call_local", "any_peer")
@@ -120,8 +131,13 @@ func tell_client_end_card_sequence():
 	is_paused = false
 	end_lvl_up_sequence.emit()
 
-func parse_action_card(id,card):
-	pass
+@rpc("call_local", "unreliable_ordered")
+func sync_xp_bar(xp):
+	ui.update_xp(xp)
+
+@rpc("call_local", "reliable")
+func tell_everyone_end_game():
+	end_game.emit()
 
 ### Helper functions
 func is_game_started() -> bool:

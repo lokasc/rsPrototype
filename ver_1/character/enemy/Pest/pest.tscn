@@ -1,15 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://cpkr32elxa7a8"]
+[gd_scene load_steps=7 format=3 uid="uid://cpkr32elxa7a8"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/Pest/pest.gd" id="1_6d1pb"]
 [ext_resource type="Texture2D" uid="uid://c4raa8pik23k4" path="res://Godlucdimje_Demo_Cubes.png" id="2_ha30i"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2cp4r"]
-radius = 54.0
-height = 168.0
+radius = 35.0
+height = 140.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1m36h"]
-radius = 43.0
-height = 124.0
+radius = 50.0
+height = 160.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gmdls"]
+radius = 27.6134
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_t27sw"]
 properties/0/path = NodePath(".:position")
@@ -21,8 +24,9 @@ scale = Vector2(0.2, 0.2)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_6d1pb")
-max_health = 10.0
-speed = 400.0
+max_health = 100.0
+speed = 20.0
+dmg = 50.0
 char_name = "Pest"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -40,6 +44,15 @@ shape = SubResource("CapsuleShape2D_2cp4r")
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_1m36h")
 debug_color = Color(0.930156, 0.224969, 0.360381, 0.42)
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+rotation = 1.5708
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_gmdls")
+debug_color = Color(0, 0.592183, 0.742917, 0.42)
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_t27sw")

@@ -9,8 +9,13 @@ signal on_ability_used
 signal on_basic_attack
 signal on_attack_hit
 signal on_hit #enemy hit u
+signal player_die #hero just die
 
 const DECELERATION = 80
+
+## FLAGS for player state
+var IS_DEAD : bool = false
+var IS_DOWNED : bool = false 
 
 @onready var input : PlayerInput = $MultiplayerSynchronizer
 var id
@@ -45,6 +50,7 @@ func _enter_tree():
 	
 	_init_stats()
 	current_health = char_stats.maxhp
+	player_die.connect(on_player_die)
 
 func _ready():
 	_init_states()
@@ -98,3 +104,19 @@ func _parse_abilities(x : BaseAbility):
 
 func on_xp_collected():
 	GameManager.Instance.add_xp(1)
+
+func take_damage(dmg):
+	if !multiplayer.is_server(): return
+	current_health -= dmg
+	check_death()
+
+func check_death():
+	if current_health <= 0:
+		player_die.emit()
+
+func on_player_die():
+	IS_DEAD = true
+	input.canMove = false
+	set_process(false)
+	set_physics_process(false)
+	

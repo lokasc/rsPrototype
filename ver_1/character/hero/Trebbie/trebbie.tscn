@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ce6nl4rbh16yy"]
+[gd_scene load_steps=10 format=3 uid="uid://ce6nl4rbh16yy"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie.gd" id="1_4x4su"]
 [ext_resource type="PackedScene" uid="uid://dl6n7678g0f18" path="res://ver_1/character/hero/Trebbie/trebbie_attack.tscn" id="2_psvnt"]
@@ -21,11 +21,15 @@ properties/3/spawn = true
 properties/3/replication_mode = 1
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g3diu"]
-radius = 9.0
+radius = 6.0
 height = 32.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fdqo3"]
 radius = 100.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n3y4w"]
+radius = 8.0
+height = 32.0
 
 [node name="Trebbie" type="CharacterBody2D" node_paths=PackedStringArray("basic_attack")]
 collision_layer = 10
@@ -60,3 +64,10 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpRadius"]
 shape = SubResource("CircleShape2D_fdqo3")
 debug_color = Color(0.578613, 0.518871, 0.52597, 0.42)
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CapsuleShape2D_n3y4w")
