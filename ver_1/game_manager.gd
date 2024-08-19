@@ -20,7 +20,7 @@ var players : Array[BaseHero] = []
 
 var net : NetManager
 var spawner : EnemySpawner
-var ui # ui manager 
+var ui : UIManager
 var bc # beat controller
 
 var current_xp : int
@@ -29,6 +29,7 @@ func _init() -> void:
 	Instance = self
 	time = 0
 	current_xp = 0
+
 
 func _process(delta: float) -> void:
 	timer_logic(delta)
@@ -50,12 +51,22 @@ func add_player_to_list(new_player : BaseHero):
 	return
 
 func add_xp(_xp : int):
-	current_xp += _xp
-	pass
+	# Sanity check
+	if !multiplayer.is_server(): return
+	sync_xp_bar.rpc(_xp)
+
+func change_ui():
+	ui.show_ui()
+	net.hide_ui()
 
 ### Helper functions
 func is_game_started() -> bool:
 	return is_started
 
 func is_game_stopped() -> bool:
-	return !is_started || is_paused 
+	return !is_started || is_paused
+
+@rpc("call_local", "unreliable_ordered")
+func sync_xp_bar(_xp):
+	current_xp += _xp
+	ui.update_xp(current_xp)

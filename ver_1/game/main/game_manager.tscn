@@ -15,3 +15,4 @@ script = ExtResource("1_btbqh")
 [node name="Loot" type="Node2D" parent="." groups=["loot"]]
 
 [node name="Ui" parent="." instance=ExtResource("4_u70ly")]
+visible = false

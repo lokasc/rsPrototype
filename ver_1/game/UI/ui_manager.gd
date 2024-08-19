@@ -7,3 +7,9 @@ func _enter_tree() -> void:
 func update_xp(xp : int):
 	$LevelBar.value = xp
 	pass
+
+func hide_ui():
+	visible = false
+
+func show_ui():
+	visible = true

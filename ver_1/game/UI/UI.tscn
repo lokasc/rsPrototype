@@ -12,9 +12,6 @@ grow_vertical = 2
 script = ExtResource("1_xdhrj")
 
 [node name="LevelBar" type="ProgressBar" parent="."]
-offset_left = -25.0
-offset_top = -25.0
-offset_right = 230.0
-offset_bottom = 2.0
+offset_right = 6400.0
+offset_bottom = 165.0
 scale = Vector2(0.2, 0.2)
-show_percentage = false

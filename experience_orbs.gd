@@ -15,8 +15,9 @@ func _process(delta: float) -> void:
 		position = position.move_toward(hero.position,speed)
 		speed *= 1.01
 		
-		# Destroys the node when the player collects it
-		if position == hero.position:
+		# Destroys the node when the player within the threshold (prevent floating calcs)
+		
+		if (position - hero.position).length() <= 0.1:
 			xp_collected.emit()
 			queue_free()
 

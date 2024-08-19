@@ -46,7 +46,7 @@ func on_host_pressed():
 	# This line adds players.
 	multiplayer.peer_connected.connect(add_player)
 	add_player()
-	$NetUI.visible = false
+	GameManager.Instance.change_ui()
 
 func on_client_pressed():
 	peer.create_client(DEFAULT_ADDRESS, DEFAULT_PORT)
@@ -55,8 +55,7 @@ func on_client_pressed():
 	# Set UI
 	$AuthLabel.text = "Client"
 	$IdLabel.text = str(multiplayer.get_unique_id())
-	$NetUI.visible = false
-	
+	GameManager.Instance.change_ui()
 
 # call this function to start a game.
 func on_start_pressed():
@@ -94,8 +93,13 @@ func _add_to_list(node : Node):
 	if new_player == null:
 		printerr("Trying to add a non-hero to player list") 
 		return
-	
+	# todo: move this to the game manager instead of in the net.
 	GameManager.Instance.add_player_to_list(new_player)
+
+func hide_ui():
+	$NetUI.visible = false
+func show_ui():
+	$NetUI.visible = true
 
 func _on_peer_disconnect(id):
 	pass
