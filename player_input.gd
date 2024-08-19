@@ -5,6 +5,7 @@ class_name PlayerInput
 @export var mouse_pos : Vector2
 @export var direction : Vector2
 @export var attack : bool
+@export var ability_1 : bool
 @export_subgroup("Conditions")
 @export var canMove : bool = true
 
@@ -22,4 +23,5 @@ func _process(delta):
 		else:
 			direction = Vector2.ZERO
 		attack = Input.is_action_just_pressed("attack")
+		ability_1 = Input.is_action_just_pressed("ability_1")
 		mouse_pos = get_viewport().get_mouse_position()

@@ -25,8 +25,8 @@ collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_6d1pb")
 max_health = 100.0
-speed = 20.0
-dmg = 50.0
+speed = 80.0
+dmg = 10.0
 char_name = "Pest"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -39,6 +39,8 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_2cp4r")
 
 [node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 rotation = 1.5708
@@ -46,7 +48,8 @@ shape = SubResource("CapsuleShape2D_1m36h")
 debug_color = Color(0.930156, 0.224969, 0.360381, 0.42)
 
 [node name="HitBox" type="Area2D" parent="."]
-collision_mask = 3
+collision_layer = 4
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 rotation = 1.5708

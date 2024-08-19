@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie_attack.gd" id="1_dmnqs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nwjjw"]
+size = Vector2(10.75, 14.25)
 
 [node name="TrebbieAttack" type="Node2D"]
 script = ExtResource("1_dmnqs")
@@ -13,8 +14,11 @@ desc = "Trebbie thrusts her spear forward, dealing damage to enemies in a thin l
 [node name="AttackHitBox" type="Area2D" parent="."]
 position = Vector2(200, 0)
 scale = Vector2(10, 2)
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitBox"]
+position = Vector2(-4.9, 0)
 shape = SubResource("RectangleShape2D_nwjjw")
 
 [node name="HitboxReset" type="Timer" parent="."]

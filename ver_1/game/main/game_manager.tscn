@@ -17,6 +17,6 @@ wait_for_player = true
 [node name="Loot" type="Node2D" parent="." groups=["loot"]]
 
 [node name="Ui" parent="." instance=ExtResource("4_u70ly")]
-visible = false
 
 [node name="Map" parent="." instance=ExtResource("5_68xy0")]
+z_index = -5

@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://ce6nl4rbh16yy"]
+[gd_scene load_steps=17 format=3 uid="uid://ce6nl4rbh16yy"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie.gd" id="1_4x4su"]
 [ext_resource type="PackedScene" uid="uid://dl6n7678g0f18" path="res://ver_1/character/hero/Trebbie/trebbie_attack.tscn" id="2_psvnt"]
 [ext_resource type="Script" path="res://player_input.gd" id="3_tkpg3"]
 [ext_resource type="Texture2D" uid="uid://bjbqj24xb60e8" path="res://Trebbie_Sheet_32.png" id="4_3i3qh"]
 [ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/text_pop_up.tscn" id="4_ghe2d"]
+[ext_resource type="PackedScene" uid="uid://cjm8swpik3u4m" path="res://ver_1/character/hero/Trebbie/trebbie_dash.tscn" id="4_s00wb"]
+[ext_resource type="Script" path="res://player_camera.gd" id="6_uirvx"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_igvvo"]
 properties/0/path = NodePath(".:current_health")
@@ -36,12 +38,90 @@ radius = 100.0
 radius = 8.0
 height = 32.0
 
-[node name="Trebbie" type="CharacterBody2D" node_paths=PackedStringArray("basic_attack")]
-collision_layer = 10
-collision_mask = 10
+[sub_resource type="Animation" id="Animation_43v52"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_qekaj"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [3.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_j7rjn"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w3did"]
+_data = {
+"RESET": SubResource("Animation_43v52"),
+"attack": SubResource("Animation_qekaj"),
+"idle": SubResource("Animation_j7rjn")
+}
+
+[node name="Trebbie" type="CharacterBody2D" node_paths=PackedStringArray("basic_attack", "ability_1", "animator")]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_4x4su")
-pick_up_radius = 100
+personal_camera = false
 basic_attack = NodePath("TrebbieAttack")
+ability_1 = NodePath("TrebbieDash")
+animator = NodePath("AnimationPlayer")
 char_name = "Trebbie"
 char_id = 1
 
@@ -52,8 +132,13 @@ replication_config = SubResource("SceneReplicationConfig_igvvo")
 replication_config = SubResource("SceneReplicationConfig_6jp8r")
 script = ExtResource("3_tkpg3")
 
-[node name="TrebbieAttack" parent="." instance=ExtResource("2_psvnt")]
+[node name="TrebbieAttack" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_psvnt")]
+camera = NodePath("../PlayerCamera")
 distance_to_center = 100.0
+
+[node name="TrebbieDash" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("4_s00wb")]
+camera = NodePath("../PlayerCamera")
+zero_cd = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_g3diu")
@@ -79,3 +164,13 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CapsuleShape2D_n3y4w")
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+script = ExtResource("6_uirvx")
+target = NodePath("..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_w3did")
+}

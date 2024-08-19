@@ -1,6 +1,55 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdi5x5j7h4olf"]
+[gd_scene load_steps=6 format=3 uid="uid://cjm8swpik3u4m"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie_dash.gd" id="1_x8u2y"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3denc"]
+size = Vector2(66, 151)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m8mob"]
+size = Vector2(25.3192, 74.3026)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i6g2u"]
+size = Vector2(25.3192, 74.3026)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_43nil"]
+radius = 26.0
+height = 134.0
+
 [node name="TrebbieDash" type="Node2D"]
 script = ExtResource("1_x8u2y")
+initial_dmg = 30
+initial_cd = 4
+speed = 10
+distance = 200
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(63.5, 9.53674e-07)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_3denc")
+debug_color = Color(0.861202, 0.309676, 0.485601, 0.42)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(27, -33)
+rotation = 1.74533
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_m8mob")
+debug_color = Color(0.861202, 0.309676, 0.485601, 0.42)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(27, 33)
+rotation = 1.39626
+shape = SubResource("RectangleShape2D_i6g2u")
+debug_color = Color(0.861202, 0.309676, 0.485601, 0.42)
+
+[node name="CollisionBox" type="CharacterBody2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionBox"]
+position = Vector2(66, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_43nil")

@@ -37,6 +37,9 @@ var initial_state : BaseAbility
 @export_subgroup("Items & Stat slots")
 @export var items : Array[BaseItem] = []
 
+@export_subgroup("Animation")
+@export var animator : AnimationPlayer
+
 var pop_up
 
 func _init():
