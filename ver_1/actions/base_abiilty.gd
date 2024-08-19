@@ -8,8 +8,6 @@ signal cooldown_finish
 var is_on_cd : bool
 var current_time : float
 
-var hero : BaseHero
-
 func enter():
 	pass
 

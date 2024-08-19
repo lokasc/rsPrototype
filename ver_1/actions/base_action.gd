@@ -1,7 +1,7 @@
 class_name BaseAction
 extends Node2D
 
-var action_owner : BaseHero
+var hero : BaseHero
 
 @export var action_name : String #ACTION NAME 
 @export var desc : String
