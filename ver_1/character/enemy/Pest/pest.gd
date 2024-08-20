@@ -13,6 +13,7 @@ func _enter_tree():
 	pass
 
 func _ready() -> void:
+	super()
 	hitbox.area_entered.connect(on_hit)
 	pass
 
