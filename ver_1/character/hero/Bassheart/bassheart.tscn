@@ -1,0 +1,169 @@
+[gd_scene load_steps=17 format=3 uid="uid://ck0rs6xq3084g"]
+
+[ext_resource type="Script" path="res://ver_1/game/net/player_input.gd" id="1_kj3tt"]
+[ext_resource type="Script" path="res://ver_1/character/hero/Bassheart/bassheart.gd" id="1_m8vi0"]
+[ext_resource type="Texture2D" uid="uid://bj87if3xp5tym" path="res://icon.svg" id="2_wc1rk"]
+[ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/text_pop_up.tscn" id="3_7eocm"]
+[ext_resource type="PackedScene" uid="uid://bwo8lp8xokw8t" path="res://ver_1/character/hero/Bassheart/bassheart_attack.tscn" id="3_yap6b"]
+[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="4_r0l7y"]
+[ext_resource type="PackedScene" uid="uid://d0b8cqs24tfpe" path="res://ver_1/game/camera/player_camera.tscn" id="5_4lu4u"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_x3g2c"]
+properties/0/path = NodePath(".:current_health")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_csrte"]
+properties/0/path = NodePath("MultiplayerSynchronizer:direction")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("MultiplayerSynchronizer:attack")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("MultiplayerSynchronizer:mouse_pos")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("MultiplayerSynchronizer:ability_1")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bf6yn"]
+radius = 12.0
+height = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dxm3o"]
+radius = 100.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_id2vd"]
+radius = 12.0
+height = 32.0
+
+[sub_resource type="Animation" id="Animation_43v52"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_qekaj"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayer:speed_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [3.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_j7rjn"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w3did"]
+_data = {
+"RESET": SubResource("Animation_43v52"),
+"attack": SubResource("Animation_qekaj"),
+"idle": SubResource("Animation_j7rjn")
+}
+
+[node name="Bassheart" type="CharacterBody2D" node_paths=PackedStringArray("basic_attack", "animator")]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_m8vi0")
+basic_attack = NodePath("BassheartAttack")
+animator = NodePath("AnimationPlayer")
+char_name = "Bassheart"
+char_id = 2
+
+[node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_x3g2c")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_csrte")
+script = ExtResource("1_kj3tt")
+
+[node name="BassheartAttack" parent="." instance=ExtResource("3_yap6b")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_bf6yn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3.8147e-06, -1.90735e-06)
+scale = Vector2(0.15625, 0.234375)
+texture = ExtResource("2_wc1rk")
+
+[node name="TextPopUp" parent="." instance=ExtResource("3_7eocm")]
+theme = ExtResource("4_r0l7y")
+
+[node name="PickUpRadius" type="Area2D" parent="." groups=["pick_up"]]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpRadius"]
+shape = SubResource("CircleShape2D_dxm3o")
+debug_color = Color(0.578613, 0.518871, 0.52597, 0.42)
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CapsuleShape2D_id2vd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_w3did")
+}
+
+[node name="PlayerCamera" parent="." instance=ExtResource("5_4lu4u")]
