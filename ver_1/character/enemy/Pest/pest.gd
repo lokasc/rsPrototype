@@ -3,6 +3,7 @@ extends BaseEnemy
 
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var hitbox : Area2D = $HitBox
+@onready var collidebox : CollisionShape2D = $CollisionBox
 
 func _init():
 	super()
@@ -20,8 +21,10 @@ func _ready() -> void:
 func _physics_process(_delta):
 	if can_move == true:
 		move_to_target(target)
+	if frozen:
+		collidebox.disabled = true
 	else:
-		return
+		collidebox.disabled = false
 
 func on_hit(area : Area2D):
 	if !multiplayer.is_server(): return
