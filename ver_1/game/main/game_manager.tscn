@@ -12,16 +12,16 @@ script = ExtResource("1_btbqh")
 wait_for_player = true
 dont_spawn_enemies = true
 
-[node name="NetManager" parent="." instance=ExtResource("2_188hs")]
-
 [node name="EnemySpawner" parent="." instance=ExtResource("3_l8iil")]
 
 [node name="Loot" type="Node2D" parent="." groups=["loot"]]
-
-[node name="Ui" parent="." instance=ExtResource("4_u70ly")]
 
 [node name="Map" parent="." instance=ExtResource("5_68xy0")]
 visible = false
 z_index = -5
 
 [node name="DummyLevel" parent="." instance=ExtResource("6_cbvl2")]
+
+[node name="Ui" parent="." instance=ExtResource("4_u70ly")]
+
+[node name="NetManager" parent="." instance=ExtResource("2_188hs")]
