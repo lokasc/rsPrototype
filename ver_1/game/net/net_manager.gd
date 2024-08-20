@@ -13,6 +13,10 @@ const DEFAULT_PORT = 28960
 const MAX_CLIENTS = 2
 var peer : ENetMultiplayerPeer
 
+@export var auth_label : Label
+@export var id_label : Label
+@export var friend_label : Label
+@export var net_ui : Control
 @export var player_scene : PackedScene
 @onready var player_container : Node = $Players
 
@@ -44,8 +48,8 @@ func on_host_pressed():
 	multiplayer.multiplayer_peer = peer
 	
 	# Set UI
-	$AuthLabel.text = "Server"
-	$IdLabel.text = str(multiplayer.get_unique_id())
+	auth_label.text = "Server"
+	id_label.text = str(multiplayer.get_unique_id())
 	
 	# This line adds players.
 	multiplayer.peer_connected.connect(add_player)
@@ -57,8 +61,8 @@ func on_client_pressed():
 	multiplayer.multiplayer_peer = peer
 	
 	# Set UI
-	$AuthLabel.text = "Client"
-	$IdLabel.text = str(multiplayer.get_unique_id())
+	auth_label.text = "Client"
+	id_label.text = str(multiplayer.get_unique_id())
 	GameManager.Instance.change_ui()
 
 # call this function to start a game.
@@ -70,8 +74,8 @@ func _connect_signals():
 	player_container.child_entered_tree.connect(_add_to_list)
 	
 	# Others
-	$NetUI.request_host.connect(on_host_pressed)
-	$NetUI.request_client.connect(on_client_pressed)
+	net_ui.request_host.connect(on_host_pressed)
+	net_ui.request_client.connect(on_client_pressed)
 	
 	# Godot signals
 	multiplayer.peer_connected.connect(_on_peer_connect)
@@ -83,9 +87,9 @@ func _connect_signals():
 # id is the person u've connected to
 func _on_peer_connect(id):
 	if multiplayer.is_server():
-		$FriendLabel.text = str(id) + " connected"
+		friend_label.text = str(id) + " connected"
 	else:
-		$FriendLabel.text = "Connected to: " + str(id) 
+		friend_label.text = "Connected to: " + str(id) 
 
 func add_player(id = 1):
 	var player = player_scene.instantiate()
@@ -103,9 +107,9 @@ func _add_to_list(node : Node):
 
 
 func hide_ui():
-	$NetUI.visible = false
+	net_ui.visible = false
 func show_ui():
-	$NetUI.visible = true
+	net_ui.visible = true
 
 func _on_peer_disconnect(id):
 	pass

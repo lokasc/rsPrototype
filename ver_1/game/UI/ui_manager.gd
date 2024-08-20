@@ -3,11 +3,14 @@ extends Control
 
 var my_player : BaseHero
 
-@onready var card_scn = load("res://ver_1/game/UI/selection_card.tscn")
-@onready var selection_container = $SelctionContainer
-@onready var card_path = $SelctionContainer/HBox
+@export var health_bar : TextureProgressBar
+@export var level_bar : TextureProgressBar
+@export var selection_container : Container
+@export var card_path : Container
 
-@onready var health_bar = $HealthBar
+@onready var card_scn = load("res://ver_1/game/UI/selection_card.tscn")
+
+
 
 var action_selected : bool
 
@@ -18,7 +21,7 @@ func _enter_tree() -> void:
 	hide_ui()
 
 func update_xp(xp : int):
-	$LevelBar.value = xp
+	level_bar.value = xp
 	pass
 
 func _process(delta: float) -> void:

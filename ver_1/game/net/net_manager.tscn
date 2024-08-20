@@ -1,11 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://o5mopq7q46cq"]
+[gd_scene load_steps=5 format=3 uid="uid://o5mopq7q46cq"]
 
 [ext_resource type="Script" path="res://ver_1/game/net/net_manager.gd" id="1_2atps"]
 [ext_resource type="PackedScene" uid="uid://ce6nl4rbh16yy" path="res://ver_1/character/hero/Trebbie/trebbie.tscn" id="2_escgf"]
 [ext_resource type="PackedScene" uid="uid://cswrokaic6o8t" path="res://ver_1/game/UI/net_ui.tscn" id="2_q0iv7"]
+[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="3_mdjmr"]
 
-[node name="NetManager" type="Node"]
+[node name="NetManager" type="Node" node_paths=PackedStringArray("auth_label", "id_label", "friend_label", "net_ui")]
 script = ExtResource("1_2atps")
+auth_label = NodePath("CanvasLayer/AuthLabel")
+id_label = NodePath("CanvasLayer/IdLabel")
+friend_label = NodePath("CanvasLayer/FriendLabel")
+net_ui = NodePath("CanvasLayer/NetUI")
 player_scene = ExtResource("2_escgf")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
@@ -14,30 +19,36 @@ spawn_path = NodePath("../Players")
 
 [node name="Players" type="Node2D" parent="."]
 
-[node name="AuthLabel" type="Label" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="AuthLabel" type="Label" parent="CanvasLayer"]
 custom_minimum_size = Vector2(100, 50)
 offset_left = -1.0
 offset_top = 160.0
-offset_right = 116.0
+offset_right = 179.0
 offset_bottom = 223.0
+theme = ExtResource("3_mdjmr")
 theme_override_font_sizes/font_size = 45
 text = "Label"
 
-[node name="IdLabel" type="Label" parent="."]
+[node name="IdLabel" type="Label" parent="CanvasLayer"]
 custom_minimum_size = Vector2(100, 50)
 offset_left = -1.0
 offset_top = 210.0
 offset_right = 99.0
 offset_bottom = 273.0
+theme = ExtResource("3_mdjmr")
 theme_override_font_sizes/font_size = 45
 text = "Id"
 
-[node name="FriendLabel" type="Label" parent="."]
+[node name="FriendLabel" type="Label" parent="CanvasLayer"]
 custom_minimum_size = Vector2(100, 50)
 offset_top = 273.0
 offset_right = 100.0
 offset_bottom = 336.0
+theme = ExtResource("3_mdjmr")
 theme_override_font_sizes/font_size = 35
 text = "FID"
 
-[node name="NetUI" parent="." instance=ExtResource("2_q0iv7")]
+[node name="NetUI" parent="CanvasLayer" instance=ExtResource("2_q0iv7")]
+top_level = true

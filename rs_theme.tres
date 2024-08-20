@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bi5qmx7rssrn2"]
+
+[ext_resource type="FontFile" uid="uid://cpm3dmvjuyn81" path="res://font/dogica/TTF/dogicapixel.ttf" id="1_u7q7c"]
+
+[resource]
+Button/fonts/font = ExtResource("1_u7q7c")
+Label/fonts/font = ExtResource("1_u7q7c")
+LineEdit/fonts/font = ExtResource("1_u7q7c")
+ProgressBar/fonts/font = ExtResource("1_u7q7c")
+TextEdit/fonts/font = ExtResource("1_u7q7c")

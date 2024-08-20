@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ce6nl4rbh16yy"]
+[gd_scene load_steps=18 format=3 uid="uid://ce6nl4rbh16yy"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie.gd" id="1_4x4su"]
 [ext_resource type="PackedScene" uid="uid://dl6n7678g0f18" path="res://ver_1/character/hero/Trebbie/trebbie_attack.tscn" id="2_psvnt"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bjbqj24xb60e8" path="res://Trebbie_Sheet_32.png" id="4_3i3qh"]
 [ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/text_pop_up.tscn" id="4_ghe2d"]
 [ext_resource type="PackedScene" uid="uid://cjm8swpik3u4m" path="res://ver_1/character/hero/Trebbie/trebbie_dash.tscn" id="4_s00wb"]
+[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="7_mxa2u"]
 [ext_resource type="PackedScene" uid="uid://d0b8cqs24tfpe" path="res://ver_1/game/camera/player_camera.tscn" id="7_wun86"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_igvvo"]
@@ -150,6 +151,7 @@ offset = Vector2(9.4, -7.2)
 hframes = 4
 
 [node name="TextPopUp" parent="." instance=ExtResource("4_ghe2d")]
+theme = ExtResource("7_mxa2u")
 
 [node name="PickUpRadius" type="Area2D" parent="." groups=["pick_up"]]
 collision_layer = 8

@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cn3n52t8ej5n4"]
+[gd_scene load_steps=3 format=3 uid="uid://cn3n52t8ej5n4"]
 
 [ext_resource type="Script" path="res://ver_1/game/UI/ui_manager.gd" id="1_xdhrj"]
+[ext_resource type="PackedScene" uid="uid://di3afbvqsygw0" path="res://player_ui.tscn" id="2_3208f"]
 
-[node name="Ui" type="Control"]
+[node name="UiManager" type="Control" node_paths=PackedStringArray("health_bar", "level_bar", "selection_container", "card_path")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,48 +11,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xdhrj")
+health_bar = NodePath("PlayerUi/VBoxContainer/BottomContainer/HealthBar")
+level_bar = NodePath("PlayerUi/VBoxContainer/BottomContainer/LevelBar")
+selection_container = NodePath("PlayerUi/VBoxContainer/SelectionContainer")
+card_path = NodePath("PlayerUi/VBoxContainer/SelectionContainer/HBox")
 
-[node name="LevelBar" type="ProgressBar" parent="."]
-layout_mode = 0
-offset_right = 6400.0
-offset_bottom = 165.0
-scale = Vector2(0.2, 0.2)
+[node name="PlayerUi" parent="." instance=ExtResource("2_3208f")]
 
-[node name="HealthBar" type="ProgressBar" parent="."]
-layout_mode = 0
-offset_top = 591.0
-offset_right = 6400.0
-offset_bottom = 756.0
-scale = Vector2(0.2, 0.2)
-theme_override_font_sizes/font_size = 100
-allow_greater = true
-show_percentage = false
-
-[node name="SelctionContainer" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Waiting" type="Label" parent="SelctionContainer"]
-visible = false
-layout_mode = 2
-offset_left = 424.0
-offset_top = 322.0
-offset_right = 868.0
-offset_bottom = 391.0
-theme_override_font_sizes/font_size = 50
-text = "Waiting for players"
-
-[node name="HBox" type="HBoxContainer" parent="SelctionContainer"]
-layout_mode = 0
-offset_left = 258.0
-offset_top = 139.0
-offset_right = 1022.0
-offset_bottom = 591.0
-alignment = 1
-
-[node name="ColorRect" type="ColorRect" parent="SelctionContainer"]
-visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[editable path="PlayerUi"]

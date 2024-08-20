@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://di3afbvqsygw0"]
+
+[ext_resource type="Texture2D" uid="uid://cabvgx33180x0" path="res://healthbar.png" id="1_e6fcw"]
+[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="2_v5p20"]
+[ext_resource type="Texture2D" uid="uid://t47qf2h3bwpv" path="res://LevelBar.png" id="3_dab46"]
+
+[node name="PlayerUi" type="CanvasLayer"]
+
+[node name="Waiting" type="Label" parent="."]
+visible = false
+offset_left = 424.0
+offset_top = 454.0
+offset_right = 879.0
+offset_bottom = 523.0
+theme_override_font_sizes/font_size = 50
+text = "Waiting for players"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="Spacer" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+
+[node name="SelectionContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBox" type="HBoxContainer" parent="VBoxContainer/SelectionContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="BottomContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="HealthBar" type="TextureProgressBar" parent="VBoxContainer/BottomContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+fill_mode = 5
+texture_under = ExtResource("1_e6fcw")
+texture_progress = ExtResource("1_e6fcw")
+tint_under = Color(0.223529, 0.223529, 0.223529, 0.913725)
+tint_progress = Color(0, 1, 0, 0.870588)
+
+[node name="LevelBar" type="TextureProgressBar" parent="VBoxContainer/BottomContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme = ExtResource("2_v5p20")
+nine_patch_stretch = true
+stretch_margin_top = 96
+stretch_margin_right = 960
+texture_under = ExtResource("3_dab46")
+texture_progress = ExtResource("3_dab46")
+tint_under = Color(0.160784, 0.160784, 0.160784, 0.858824)
+tint_progress = Color(0.992157, 0.772549, 0.243137, 0.909804)
+
+[node name="Spacer" type="Control" parent="VBoxContainer/BottomContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 10

@@ -2,10 +2,6 @@
 class_name TrebbieDash
 extends BaseAbility
 
-const CAMERA_OFFSET = Vector2(-640,-360)
-
-@export var camera : PlayerCamera
-
 @export_category("Game stats")
 @export var initial_dmg : int
 @export var initial_cd : int

@@ -25,6 +25,7 @@ window/stretch/mode="canvas_items"
 
 folder_colors={
 "res://beat_sync/": "gray",
+"res://font/pixel_2/": "red",
 "res://ver_1/": "orange"
 }
 
