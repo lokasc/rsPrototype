@@ -53,6 +53,7 @@ func enter():
 
 func exit():
 	super() # starts cd here.
+	start_cd()
 	# disable hitboxes
 	collisionbox.disabled = true
 	collisionbox.visible = false
@@ -71,7 +72,6 @@ func physics_update(_delta: float):
 	if hero.position == new_position:
 		state_change.emit(self, "TrebbieAttack")
 
-
 func _process(delta):
 	super(delta)
 	pass
@@ -87,6 +87,7 @@ func on_hit(area : Area2D):
 	# need to calculate how much damage based on 
 	# the attack value of this ability + my character's attack value
 	enemy.take_damage(initial_dmg)
+	hero.gain_health(initial_dmg*hero.char_stats.hsg)
 
 # This func is used for auto_attack, dont change this.
 func use_ability():

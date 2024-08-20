@@ -109,6 +109,7 @@ func _init_stats():
 	char_stats.atk = 100
 	char_stats.spd = 400
 	char_stats.maxhp = 100
+	char_stats.hsg = 0.01
 
 func _init_states():
 	_parse_abilities(basic_attack)
@@ -131,6 +132,13 @@ func _parse_abilities(x : BaseAbility):
 func on_xp_collected():
 	GameManager.Instance.add_xp(1)
 
+func gain_health(heal):
+	if !multiplayer.is_server(): return
+	if current_health + heal < char_stats.maxhp:
+		current_health += heal
+	else:
+		current_health = char_stats.maxhp
+	
 func take_damage(dmg):
 	if !multiplayer.is_server(): return
 	current_health -= dmg

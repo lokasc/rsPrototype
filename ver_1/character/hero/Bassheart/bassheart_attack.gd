@@ -79,6 +79,7 @@ func on_hit(area : Area2D):
 	# need to calculate how much damage based on 
 	# the attack value of this ability + my character's attack value
 	enemy.take_damage(initial_dmg)
+	hero.gain_health(initial_dmg*hero.char_stats.hsg)
 
 func _hitbox_reset():
 	hitbox.monitoring = false

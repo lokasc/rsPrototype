@@ -12,10 +12,10 @@ class_name Stats
 @export var cd : int	# Cooldown nb: atk speed
 @export var pick : int	# Pick up radius
 @export var mus : int	# Music multiplier (benefits from music sync)
-@export var gay : int	# Heal & Shield gain
+@export var hsg : float	# Heal & Shield gain
 @export var dur : int	# Duration of abilities
 
-func _init(_maxhp = 100, _aoe = 1, _arm = 1, _atk = 1, _spd = 1, _cd = 1, _pick = 1, _mus = 1, _gay = 1, _dur = 1):
+func _init(_maxhp = 100, _aoe = 1, _arm = 1, _atk = 1, _spd = 1, _cd = 1, _pick = 1, _mus = 1, _hsg = 1, _dur = 1):
 	maxhp = _maxhp
 	aoe = _aoe
 	arm = _arm
@@ -24,5 +24,5 @@ func _init(_maxhp = 100, _aoe = 1, _arm = 1, _atk = 1, _spd = 1, _cd = 1, _pick 
 	cd = _cd
 	pick = _pick
 	mus = _mus
-	gay = _gay
+	hsg = _hsg
 	dur = _dur

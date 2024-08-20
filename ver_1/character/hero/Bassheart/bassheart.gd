@@ -4,11 +4,12 @@ extends BaseHero
 @export var is_personal_camera : bool = true
 
 @export_category("Stats")
-@export var damage = 100
-@export var max_hp = 100
-@export var speed = 200
-@export var area_of_effect = 2
+@export var damage : int = 100
+@export var max_hp : int = 100
+@export var speed : int = 200
+@export var area_of_effect : float = 2
 @export var pick_up_radius : int = 40
+@export var heal_shield_gain : float = 0.01
 
 @onready var pick_up : CollisionShape2D = $PickUpRadius/CollisionShape2D
 
@@ -42,6 +43,7 @@ func _init_stats():
 	char_stats.spd = speed
 	char_stats.aoe = area_of_effect
 	char_stats.atk = damage
+	char_stats.hsg = heal_shield_gain
 
 # this function overrides the base hero one because of the current sprite
 # will be deleted after bassheart sprite is done

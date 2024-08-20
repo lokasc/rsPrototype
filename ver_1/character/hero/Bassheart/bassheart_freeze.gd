@@ -95,6 +95,7 @@ func on_hit(area : Area2D) -> void:
 	# need to calculate how much damage based on 
 	# the attack value of this ability + my character's attack value
 	enemy.take_damage(initial_dmg)
+	hero.gain_health(initial_dmg*hero.char_stats.hsg)
 	
 	#This comparison has to be added to prevent applying status twice, also bugs out freeze code
 	if enemy.frozen == false:
