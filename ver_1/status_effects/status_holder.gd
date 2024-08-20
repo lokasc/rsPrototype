@@ -10,6 +10,7 @@ func add_status(status : BaseStatus):
 	status.character = character
 	status.holder = self
 	
+	
 	status.on_added()
 	statuses.append(status)
 	add_child(status)

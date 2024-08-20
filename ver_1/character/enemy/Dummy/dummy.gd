@@ -16,6 +16,10 @@ func _ready() -> void:
 	hitbox.area_entered.connect(on_hit)
 	pass
 
+func _process(delta: float) -> void:
+	# display my health please thank u very much
+	$Label.text = str(current_health)
+
 func on_hit(area : Area2D):
 	if !multiplayer.is_server(): return
 	
