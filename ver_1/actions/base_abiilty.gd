@@ -9,11 +9,11 @@ var is_on_cd : bool
 var current_time : float
 
 func enter():
-	pass
+	hero.ability_used.emit(self)
 
 func exit():
 	if !is_on_cd:
-		is_on_cd = true
+		start_cd()
 	else:
 		printerr("Used ability when on cooldown! check if ability is ready before changing state")
 
@@ -35,7 +35,12 @@ func _process(delta):
 		if current_time >= a_stats.cd:
 			cooldown_finish.emit()
 
-# starts cd if not on cd.
+# Starts the cooldown of the ability.
+func start_cd():
+	if !is_on_cd:
+		is_on_cd = true
+
+# FIXME: Refactor & change name
 func use_ability():
 	if !is_on_cd:
 		is_on_cd = true

@@ -42,6 +42,7 @@ func _ready() -> void:
 		a_stats.cd = 0
 
 func enter():
+	super()
 	# Store hero position and the direction when the ability is used
 	original_pos = hero.position
 	
@@ -53,7 +54,6 @@ func enter():
 	collisionbox.visible = true
 	hitbox.monitoring = true
 	hitbox.visible = true
-	pass
 
 func exit():
 	super() # starts cd here.

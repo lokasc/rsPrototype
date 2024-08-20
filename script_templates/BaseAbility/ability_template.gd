@@ -16,11 +16,11 @@ func _enter_tree():
 # use variable HERO to access hero's variables and functions
 # Emit state_change(self, "new state name") to change out of state. 
 func enter():
+	super()
 	pass
 
 func exit():
 	super() # starts cd here.
-
 
 func update(_delta: float):
 	super(_delta)
@@ -29,6 +29,10 @@ func update(_delta: float):
 func physics_update(_delta: float):
 	super(_delta)
 	pass
+
+# Call this to start cooldown.
+func start_cd():
+	super()
 
 # This func is used for auto_attack, dont change this.
 func use_ability():
