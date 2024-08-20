@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://ck0rs6xq3084g"]
+[gd_scene load_steps=18 format=3 uid="uid://ck0rs6xq3084g"]
 
 [ext_resource type="Script" path="res://ver_1/game/net/player_input.gd" id="1_kj3tt"]
 [ext_resource type="Script" path="res://ver_1/character/hero/Bassheart/bassheart.gd" id="1_m8vi0"]
 [ext_resource type="Texture2D" uid="uid://bj87if3xp5tym" path="res://icon.svg" id="2_wc1rk"]
 [ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/text_pop_up.tscn" id="3_7eocm"]
 [ext_resource type="PackedScene" uid="uid://bwo8lp8xokw8t" path="res://ver_1/character/hero/Bassheart/bassheart_attack.tscn" id="3_yap6b"]
+[ext_resource type="PackedScene" uid="uid://dqbf2f5u4tq66" path="res://ver_1/character/hero/Bassheart/bassheart_freeze.tscn" id="4_dw3mb"]
 [ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="4_r0l7y"]
 [ext_resource type="PackedScene" uid="uid://d0b8cqs24tfpe" path="res://ver_1/game/camera/player_camera.tscn" id="5_4lu4u"]
 
@@ -117,11 +118,12 @@ _data = {
 "idle": SubResource("Animation_j7rjn")
 }
 
-[node name="Bassheart" type="CharacterBody2D" node_paths=PackedStringArray("basic_attack", "animator")]
+[node name="Bassheart" type="CharacterBody2D" node_paths=PackedStringArray("basic_attack", "ability_1", "animator")]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_m8vi0")
 basic_attack = NodePath("BassheartAttack")
+ability_1 = NodePath("BassheartFreeze")
 animator = NodePath("AnimationPlayer")
 char_name = "Bassheart"
 char_id = 2
@@ -134,6 +136,8 @@ replication_config = SubResource("SceneReplicationConfig_csrte")
 script = ExtResource("1_kj3tt")
 
 [node name="BassheartAttack" parent="." instance=ExtResource("3_yap6b")]
+
+[node name="BassheartFreeze" parent="." instance=ExtResource("4_dw3mb")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_bf6yn")

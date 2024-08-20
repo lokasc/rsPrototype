@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqbf2f5u4tq66"]
+
+[ext_resource type="Script" path="res://ver_1/character/hero/Bassheart/bassheart_freeze.gd" id="1_sjmx2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ww1ts"]
+size = Vector2(119.5, 20)
+
+[node name="BassheartFreeze" type="Node2D"]
+script = ExtResource("1_sjmx2")
+initial_dmg = 10
+initial_cd = 4
+charge_duration = 0.5
+duration = 0.5
+freeze_duration = 3.0
+unfreeze_dmg = 100
+dmg_threshold = 50
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="HitBox"]
+scale = Vector2(12, 6)
+polygon = PackedVector2Array(0, -2, 10, -10, 10, 10, 0, 2)
+
+[node name="IndicatorBox" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="IndicatorBox"]
+position = Vector2(60.25, -1)
+shape = SubResource("RectangleShape2D_ww1ts")
+
+[node name="ChargeTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="WaveTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="ChargeTimer" to="." method="_on_charge_timer_timeout"]
+[connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
