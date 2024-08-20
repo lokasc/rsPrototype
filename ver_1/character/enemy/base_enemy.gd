@@ -1,12 +1,13 @@
 class_name BaseEnemy
 extends BaseCharacter
 
+signal hit(dmg) # hit by enemy
+
 # For inspector view only, cant modify class stats in inspector. 
 @export_subgroup("Basic information")
 @export var max_health : float
 @export var speed : float
 @export var dmg : float
-
 
 # XP & Loot
 @onready var loot = get_tree().get_first_node_in_group("loot")
@@ -36,6 +37,7 @@ func _enter_tree():
 func take_damage(dmg):
 	# Client prediction
 	current_health -= dmg
+	hit.emit(dmg)
 	if current_health <= 0:
 		death.rpc()
 

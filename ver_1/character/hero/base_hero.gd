@@ -13,6 +13,11 @@ signal player_die() #hero just die
 
 const DECELERATION = 80
 
+# Sprite direction
+enum Facing {LEFT, RIGHT}
+var sprite_dir : int
+@onready var sprite : Sprite2D = $Sprite2D
+
 ## FLAGS for player state
 var IS_DEAD : bool = false
 var IS_DOWNED : bool = false 
@@ -73,6 +78,7 @@ func _process(_delta):
 func _physics_process(_delta):
 	if current_state:
 		current_state.physics_update(_delta)
+	sprite_direction()
 
 func on_state_change(state_old, state_new_name):
 	if state_old != current_state:
@@ -136,3 +142,15 @@ func on_player_die():
 
 func is_alive() -> bool:
 	return !(IS_DOWNED || IS_DEAD)
+
+func sprite_direction():
+	# Changing the sprite direction to the last moved direction
+	if input.direction.x <0:
+		sprite_dir = Facing.LEFT
+	elif input.direction.x >0:
+		sprite_dir = Facing.RIGHT
+	match sprite_dir:
+		0:
+			sprite.scale.x = -1
+		1:
+			sprite.scale.x = 1

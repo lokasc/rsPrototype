@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://assets/map/enemy_spawner.gd" id="1_utdqr"]
 [ext_resource type="PackedScene" uid="uid://cpkr32elxa7a8" path="res://ver_1/character/enemy/Pest/pest.tscn" id="2_8xhio"]
-[ext_resource type="Script" path="res://ver_1/game/spawn_info.gd" id="3_l0tmy"]
+[ext_resource type="Script" path="res://ver_1/game/spawn_system/spawn_info.gd" id="3_l0tmy"]
 
 [sub_resource type="Resource" id="Resource_knfaa"]
 script = ExtResource("3_l0tmy")

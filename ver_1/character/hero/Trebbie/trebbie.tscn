@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie.gd" id="1_4x4su"]
 [ext_resource type="PackedScene" uid="uid://dl6n7678g0f18" path="res://ver_1/character/hero/Trebbie/trebbie_attack.tscn" id="2_psvnt"]
-[ext_resource type="Script" path="res://player_input.gd" id="3_tkpg3"]
+[ext_resource type="Script" path="res://ver_1/game/net/player_input.gd" id="3_tkpg3"]
 [ext_resource type="Texture2D" uid="uid://bjbqj24xb60e8" path="res://Trebbie_Sheet_32.png" id="4_3i3qh"]
 [ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/text_pop_up.tscn" id="4_ghe2d"]
 [ext_resource type="PackedScene" uid="uid://cjm8swpik3u4m" path="res://ver_1/character/hero/Trebbie/trebbie_dash.tscn" id="4_s00wb"]
-[ext_resource type="Script" path="res://player_camera.gd" id="6_uirvx"]
+[ext_resource type="Script" path="res://ver_1/game/player_camera.gd" id="6_uirvx"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_igvvo"]
 properties/0/path = NodePath(".:current_health")

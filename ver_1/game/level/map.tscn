@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=4 uid="uid://bj6y0wjixg1si"]
+[gd_scene load_steps=3 format=4 uid="uid://bspypir426weo"]
 
 [ext_resource type="Texture2D" uid="uid://bwdjcqgl5tl4i" path="res://green_tile_32x32.png" id="1_u8ap3"]
 [ext_resource type="TileSet" uid="uid://c6h2xyay8oksc" path="res://assets/map/tilemaps/floor_decals.tres" id="2_6m6pg"]

@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://bb7rqi7a0m3fd"]
+
+[ext_resource type="Script" path="res://ver_1/character/enemy/Dummy/dummy.gd" id="1_t3ry6"]
+[ext_resource type="Texture2D" uid="uid://c4raa8pik23k4" path="res://Godlucdimje_Demo_Cubes.png" id="2_pbgnb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2cp4r"]
+radius = 35.0
+height = 140.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1m36h"]
+radius = 50.0
+height = 160.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gmdls"]
+radius = 27.6134
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_t27sw"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Dummy" type="CharacterBody2D"]
+script = ExtResource("1_t3ry6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_pbgnb")
+region_enabled = true
+region_rect = Rect2(500, 530, 120, 80)
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_2cp4r")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_1m36h")
+debug_color = Color(0.930156, 0.224969, 0.360381, 0.42)
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+rotation = 1.5708
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_gmdls")
+debug_color = Color(0, 0.592183, 0.742917, 0.42)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_t27sw")

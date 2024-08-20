@@ -7,7 +7,8 @@ extends RichTextLabel
 var started : bool
 
 func _enter_tree() -> void:
-	get_parent().ability_used.connect(print_ability)
+	if get_parent() is BaseHero:
+		get_parent().ability_used.connect(print_ability)
 
 func _ready():
 	$FadeTimer.timeout.connect(on_fade_timeout)
