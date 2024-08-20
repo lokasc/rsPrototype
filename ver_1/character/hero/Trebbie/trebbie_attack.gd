@@ -1,10 +1,6 @@
 class_name TrebbieAttack
 extends BaseAbility
 
-const CAMERA_OFFSET = Vector2(-640,-360)
-
-@export var camera : PlayerCamera
-
 @export_category("Game stats")
 @export var initial_dmg = 100
 @export var initial_cd = 2
@@ -43,12 +39,7 @@ func exit():
 # Automatically attack.
 func update(_delta: float):
 	if hero.input.is_use_mouse_auto_attack:
-		if hero.personal_camera == true:
-			#Offset is required to get the actual mouse position
-			var mouse_pos_actual = hero.input.mouse_pos + camera.global_position + CAMERA_OFFSET
-			look_at(mouse_pos_actual)
-		else: 
-			look_at(hero.input.mouse_pos)
+		look_at(hero.input.get_mouse_position())
 	use_ability()
 	
 

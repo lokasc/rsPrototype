@@ -1,16 +1,14 @@
 class_name Bleed
 extends BaseStatus
 
-var bleed_dmg
-var current_time
-var rate
+var bleed_dmg # Dmg dealt per rate
+var rate # time taken for one instance of dmg dealt
+var duration # Total duration of effect
 
 var duration_time
-var duration
+var current_time
 
-
-
-
+# Constructor, affects new() function for creating new copies of Bleed.
 func _init(_bleed_dmg, _duration, _rate):
 	bleed_dmg = _bleed_dmg
 	duration = _duration

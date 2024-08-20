@@ -47,6 +47,7 @@ var initial_state : BaseAbility
 @export var animator : AnimationPlayer
 
 var pop_up : TextPopUp
+var camera : PlayerCamera
 
 func _init():
 	super()
@@ -71,7 +72,14 @@ func _enter_tree():
 func _ready():
 	super()
 	_init_states()
+	
+	# Get references
 	pop_up = $TextPopUp as TextPopUp
+	camera = $PlayerCamera as PlayerCamera
+	
+	# Set this camera to viewport if I'm controlling it
+	if is_multiplayer_authority():
+		camera.make_current()
 
 func _process(_delta):
 	if current_state:

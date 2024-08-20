@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://d3lp2sqrwyacp"]
+[gd_scene load_steps=9 format=3 uid="uid://d3lp2sqrwyacp"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/base_hero.gd" id="1_g61si"]
 [ext_resource type="Texture2D" uid="uid://h2p4t7iiyded" path="res://trebs.png" id="2_j8yao"]
 [ext_resource type="Script" path="res://ver_1/game/net/player_input.gd" id="3_xjkk8"]
 [ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/text_pop_up.tscn" id="4_8jjbb"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="5_njwas"]
+[ext_resource type="PackedScene" uid="uid://d0b8cqs24tfpe" path="res://ver_1/game/camera/player_camera.tscn" id="6_p1dga"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6jp8r"]
 properties/0/path = NodePath("MultiplayerSynchronizer:direction")
@@ -38,3 +39,5 @@ texture = ExtResource("2_j8yao")
 [node name="TextPopUp" parent="." instance=ExtResource("4_8jjbb")]
 
 [node name="StatusHolder" parent="." instance=ExtResource("5_njwas")]
+
+[node name="PlayerCamera" parent="." instance=ExtResource("6_p1dga")]

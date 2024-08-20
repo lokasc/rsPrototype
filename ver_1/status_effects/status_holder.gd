@@ -5,6 +5,7 @@ extends Node
 var statuses : Array[BaseStatus]
 var character : BaseCharacter
 
+# Bug: a status effect is applied twice (perhaps a collision layer issue)
 func add_status(status : BaseStatus):
 	status.character = character
 	status.holder = self
@@ -21,3 +22,4 @@ func remove_status(status : BaseStatus):
 	status.on_removed()
 	statuses.erase(status)
 	remove_child(status)
+	status.queue_free()

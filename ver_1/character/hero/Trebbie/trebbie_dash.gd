@@ -44,14 +44,9 @@ func _ready() -> void:
 func enter():
 	# Store hero position and the direction when the ability is used
 	original_pos = hero.position
-	if hero.personal_camera == true:
-		#Offset is required to get the actual mouse position
-		var mouse_pos_actual = hero.input.mouse_pos + camera.global_position + CAMERA_OFFSET
-		look_at(mouse_pos_actual)
-		direction = original_pos.direction_to(mouse_pos_actual)
-	else: 
-		look_at(hero.input.mouse_pos)
-		direction =  original_pos.direction_to(hero.input.mouse_pos)
+	
+	look_at(hero.input.get_mouse_position())
+	direction = original_pos.direction_to(hero.input.get_mouse_position())
 	
 	# enable hitboxes
 	collisionbox.disabled = false

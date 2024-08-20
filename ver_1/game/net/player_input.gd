@@ -1,6 +1,8 @@
 extends MultiplayerSynchronizer
 class_name PlayerInput
 
+const CAMERA_OFFSET = Vector2(-640,-360)
+var player : BaseHero
 
 @export var mouse_pos : Vector2
 @export var direction : Vector2
@@ -14,6 +16,14 @@ var is_use_mouse_auto_attack : bool = true
 
 func _enter_tree() -> void:
 	root_path = NodePath("..")
+	player = get_parent()
+
+func get_mouse_position() -> Vector2:
+	if player.is_personal_camera:
+		# Offset is required to get the actual mouse position
+		return player.input.mouse_pos + player.camera.global_position + CAMERA_OFFSET
+	else:
+		return mouse_pos
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

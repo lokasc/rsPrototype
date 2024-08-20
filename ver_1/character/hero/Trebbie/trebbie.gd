@@ -2,7 +2,7 @@ class_name Trebbie
 extends BaseHero
 
 #Currently doesn't work in multiplayer
-@export var personal_camera : bool = true
+@export var is_personal_camera : bool = true
 
 @export_category("Stats")
 @export var damage = 100
@@ -23,9 +23,9 @@ func _ready():
 	pick_up.shape.radius = pick_up_radius
 	
 	#Temporarily disable the camera lock
-	if personal_camera == false:
-		$PlayerCamera.enabled = false
-		$PlayerCamera.zoom = Vector2.ONE
+	if is_personal_camera == false:
+		camera.enabled = false
+		camera.zoom = Vector2.ONE
 
 func _process(_delta):
 	super(_delta)

@@ -35,7 +35,6 @@ debug_color = Color(0.861202, 0.309676, 0.485601, 0.42)
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(27, -33)
 rotation = 1.74533
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_m8mob")
 debug_color = Color(0.861202, 0.309676, 0.485601, 0.42)
 
