@@ -14,4 +14,3 @@ func _physics_process(_delta):
 		
 		#position_smoothing_enabled = true
 		#position_smoothing_speed = 2.5
-

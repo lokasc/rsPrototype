@@ -1,0 +1,16 @@
+class_name StatusHolder
+extends Node
+
+# save computation by caching, in node order?
+var statuses : Array[BaseStatus]
+var character : BaseCharacter
+
+func add_status(status : BaseStatus):
+	status.character = character
+	status.on_added()
+	statuses.append(status)
+	add_child(status)
+
+func _process(_delta):
+	for status : BaseStatus in statuses:
+		status.update(_delta)

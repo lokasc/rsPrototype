@@ -23,6 +23,7 @@ var IS_DEAD : bool = false
 var IS_DOWNED : bool = false 
 
 @onready var input : PlayerInput = $MultiplayerSynchronizer
+
 var id
 
 # STATEMACHINE
@@ -68,6 +69,7 @@ func _enter_tree():
 	player_die.connect(to_clients_player_died)
 
 func _ready():
+	super()
 	_init_states()
 	pop_up = $TextPopUp as TextPopUp
 

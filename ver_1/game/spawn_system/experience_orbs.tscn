@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dqo707vlmdeen"]
 
-[ext_resource type="Script" path="res://ver_1/character/hero/experience_orbs.gd" id="1_861ga"]
+[ext_resource type="Script" path="res://ver_1/game/spawn_system/experience_orbs.gd" id="1_861ga"]
 [ext_resource type="Texture2D" uid="uid://c4raa8pik23k4" path="res://Godlucdimje_Demo_Cubes.png" id="2_dwdm0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_154id"]

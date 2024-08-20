@@ -12,7 +12,7 @@ signal hit(dmg) # hit by enemy
 # XP & Loot
 @onready var loot = get_tree().get_first_node_in_group("loot")
 @export var xp_worth = 1
-@onready var xp_orb = load("res://experience_orbs.tscn")
+@onready var xp_orb = load("res://ver_1/game/spawn_system/experience_orbs.tscn")
 
 var target : BaseHero
 
@@ -21,6 +21,8 @@ var target : BaseHero
 
 func _init():
 	super()
+
+
 
 func _init_stats():
 	char_stats.maxhp = max_health

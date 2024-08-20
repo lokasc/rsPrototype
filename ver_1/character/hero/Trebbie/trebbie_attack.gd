@@ -76,6 +76,8 @@ func on_hit(area : Area2D):
 	var enemy = area.get_parent() as BaseEnemy
 	if enemy == null: return
 	
+	enemy.add_status(Bleed.new(5, 2, 1))
+	
 	# TODO: not networked yet
 	# need to calculate how much damage based on 
 	# the attack value of this ability + my character's attack value
