@@ -29,8 +29,8 @@ func _ready() -> void:
 	else:
 		status_holder.character = self
 
-func add_status(status):
-	status_holder.add_status(status)
+func add_status(effect_name, args):
+	status_holder.add_status(effect_name, args)
 
 # Override this in enemy and hero to change logic
 func take_damage(dmg):

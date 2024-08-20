@@ -11,6 +11,13 @@ func _init():
 func _enter_tree():
 	_init_stats()
 
+func _init_stats():
+	char_stats.maxhp = 10000
+	char_stats.spd = 0
+	char_stats.atk = 0
+	current_health = char_stats.maxhp
+	
+
 func _ready() -> void:
 	super()
 	hitbox.area_entered.connect(on_hit)
@@ -34,3 +41,4 @@ func on_hit(area : Area2D):
 
 func take_damage(dmg):
 	super(dmg)
+	$TextPopUp.set_pop(str(dmg), self.global_position)

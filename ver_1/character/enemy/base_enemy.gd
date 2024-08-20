@@ -22,8 +22,6 @@ var target : BaseHero
 func _init():
 	super()
 
-
-
 func _init_stats():
 	char_stats.maxhp = max_health
 	char_stats.spd = speed

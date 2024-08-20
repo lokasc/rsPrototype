@@ -37,7 +37,7 @@ var action_selected : bool
 var net : NetManager
 var spawner : EnemySpawner
 var ui : UIManager
-var bc # beat controller
+var bc # beat controllerx
 
 # XP
 var current_xp : int
@@ -60,8 +60,10 @@ func _process(delta: float) -> void:
 func start_game():
 	time = 0
 	is_started = true
-	if dont_spawn_enemies: return
-		
+	if dont_spawn_enemies: 
+		# for testing.
+		spawner.custom_spawn("res://ver_1/character/enemy/Dummy/dummy.tscn", Vector2(651,335))
+		return
 	spawner._start_timer()
 
 func on_end_game():

@@ -73,3 +73,12 @@ func get_random_position():
 	var x_spawn = randf_range(spawn_pos1.x, spawn_pos2.x)
 	var y_spawn = randf_range(spawn_pos1.y,spawn_pos2.y)
 	return Vector2(x_spawn,y_spawn)
+
+# used for debugging & custom spawn.
+
+# make sure it is in autospawn list.
+func custom_spawn(file_name, location):
+	var new_enemy = load(file_name)
+	var copy = new_enemy.instantiate() as BaseEnemy
+	copy.global_position = location
+	spawn_path.add_child(copy, true)

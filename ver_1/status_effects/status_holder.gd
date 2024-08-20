@@ -5,15 +5,8 @@ extends Node
 var statuses : Array[BaseStatus]
 var character : BaseCharacter
 
-# Bug: a status effect is applied twice (perhaps a collision layer issue)
-func add_status(status : BaseStatus):
-	status.character = character
-	status.holder = self
-	
-	
-	status.on_added()
-	statuses.append(status)
-	add_child(status)
+func add_status(effect_name, arg):
+	tell_clients_add_status.rpc(effect_name, arg)
 
 func _process(_delta):
 	for status : BaseStatus in statuses:
@@ -24,3 +17,14 @@ func remove_status(status : BaseStatus):
 	statuses.erase(status)
 	remove_child(status)
 	status.queue_free()
+
+@rpc("call_local")
+func tell_clients_add_status(effect_name, arg):
+	match effect_name:
+		"Bleed":
+			var copy = Bleed.new(arg[0], arg[1], arg[2])
+			copy.character = character
+			copy.holder = self
+			statuses.append(copy)
+			add_child(copy, true)
+			copy.on_added()
