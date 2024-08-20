@@ -25,12 +25,13 @@ func update(_delta):
 	current_time += _delta
 	duration_time += _delta
 	
-	if duration_time >= duration:
-		pass
-	
 	if current_time >= rate:
 		current_time = 0
 		bleed()
+	
+	# remove me
+	if duration_time >= duration:
+		holder.remove_status(self)
 
 func bleed():
 	character.take_damage(bleed_dmg)

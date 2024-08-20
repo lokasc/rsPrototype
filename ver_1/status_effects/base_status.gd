@@ -2,6 +2,7 @@ class_name BaseStatus
 extends Node
 
 var character : BaseCharacter
+var holder : StatusHolder
 
 ### Base class for all statuses.
 func on_added():

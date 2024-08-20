@@ -7,6 +7,8 @@ var character : BaseCharacter
 
 func add_status(status : BaseStatus):
 	status.character = character
+	status.holder = self
+	
 	status.on_added()
 	statuses.append(status)
 	add_child(status)
@@ -14,3 +16,8 @@ func add_status(status : BaseStatus):
 func _process(_delta):
 	for status : BaseStatus in statuses:
 		status.update(_delta)
+
+func remove_status(status : BaseStatus):
+	status.on_removed()
+	statuses.erase(status)
+	remove_child(status)
