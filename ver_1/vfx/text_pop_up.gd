@@ -6,11 +6,12 @@ extends RichTextLabel
 
 var started : bool
 
+func _enter_tree() -> void:
+	get_parent().ability_used.connect(print_ability)
 
 func _ready():
 	$FadeTimer.timeout.connect(on_fade_timeout)
 	reset()
-	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -18,6 +19,8 @@ func _process(delta):
 	
 	global_position.y += -40 * delta
 	
+func print_ability(abs):
+	set_pop(abs.action_name, get_parent().global_position)
 
 func set_pop (_text : String, _gpos : Vector2, _color : Color = DEFAULT_COLOR, _duration : float = DEFAULT_DURATION):
 	# Reset Text

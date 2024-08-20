@@ -135,10 +135,12 @@ script = ExtResource("3_tkpg3")
 [node name="TrebbieAttack" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_psvnt")]
 camera = NodePath("../PlayerCamera")
 distance_to_center = 100.0
+action_name = "Trebbie Attack"
 
 [node name="TrebbieDash" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("4_s00wb")]
 camera = NodePath("../PlayerCamera")
 zero_cd = true
+action_name = "Trebbie Dash"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_g3diu")

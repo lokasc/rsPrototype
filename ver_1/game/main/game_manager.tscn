@@ -4,11 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://o5mopq7q46cq" path="res://ver_1/game/net_manager.tscn" id="2_188hs"]
 [ext_resource type="PackedScene" uid="uid://h4w7naqbhls5" path="res://assets/map/enemy_spawner.tscn" id="3_l8iil"]
 [ext_resource type="PackedScene" uid="uid://cn3n52t8ej5n4" path="res://ver_1/game/UI/UI.tscn" id="4_u70ly"]
-[ext_resource type="PackedScene" uid="uid://bj6y0wjixg1si" path="res://map.tscn" id="5_68xy0"]
+[ext_resource type="PackedScene" path="res://map.tscn" id="5_68xy0"]
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_btbqh")
-wait_for_player = true
 
 [node name="NetManager" parent="." instance=ExtResource("2_188hs")]
 

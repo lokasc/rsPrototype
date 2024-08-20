@@ -59,12 +59,14 @@ func physics_update(_delta: float):
 		hero.velocity = hero.velocity.move_toward(Vector2.ZERO, hero.DECELERATION)
 	hero.move_and_slide()
 
+# TODO: Clean this up
 func _process(delta):
 	super(delta)
 	var ability_1_cd_display = int(hero.ability_1.a_stats.cd - hero.ability_1.current_time)
 	if hero.input.ability_1:
 		if hero.ability_1.is_on_cd == false:
 			state_change.emit(self, "TrebbieDash")
+			hero.ability_used.emit(hero.ability_1)
 		else: print("Ability 1 is on cooldown! ", ability_1_cd_display)
 
 func on_hit(area : Area2D):

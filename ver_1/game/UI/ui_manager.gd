@@ -15,6 +15,7 @@ func _enter_tree() -> void:
 	GameManager.Instance.ui = self
 	GameManager.Instance.start_lvl_up_sequence.connect(build_selection_container)
 	GameManager.Instance.end_lvl_up_sequence.connect(on_ready_to_continue)
+	hide_ui()
 
 func update_xp(xp : int):
 	$LevelBar.value = xp

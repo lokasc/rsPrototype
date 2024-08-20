@@ -5,7 +5,7 @@ extends BaseCharacter
 # Inherit this to create new hero.
 
 #signals for ability/item conditions
-signal on_ability_used
+signal ability_used(name)
 signal on_basic_attack
 signal on_attack_hit
 signal on_hit #enemy hit u
@@ -40,7 +40,7 @@ var initial_state : BaseAbility
 @export_subgroup("Animation")
 @export var animator : AnimationPlayer
 
-var pop_up
+var pop_up : TextPopUp
 
 func _init():
 	super()
