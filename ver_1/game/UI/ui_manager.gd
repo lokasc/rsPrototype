@@ -22,8 +22,12 @@ func update_xp(xp : int):
 	pass
 
 func _process(delta: float) -> void:
-	if my_player:
+	if !my_player: return
+	
+	if my_player.is_alive():
 		health_bar.value = my_player.current_health
+	else:
+		health_bar.value = 0
 
 func hide_ui():
 	visible = false

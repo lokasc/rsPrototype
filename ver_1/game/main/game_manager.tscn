@@ -8,6 +8,8 @@
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_btbqh")
+wait_for_player = true
+dont_spawn_enemies = true
 
 [node name="NetManager" parent="." instance=ExtResource("2_188hs")]
 

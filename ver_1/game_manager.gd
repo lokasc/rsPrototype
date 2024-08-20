@@ -11,7 +11,9 @@ extends Node2D
 static var Instance : GameManager
 
 ## TEST BOOLS
+@export_subgroup("Debug")
 @export var wait_for_player : bool = false
+@export var dont_spawn_enemies : bool = false
 
 signal end_game
 signal start_lvl_up_sequence(item : Array)
@@ -58,6 +60,8 @@ func _process(delta: float) -> void:
 func start_game():
 	time = 0
 	is_started = true
+	if dont_spawn_enemies: return
+		
 	spawner._start_timer()
 
 func on_end_game():

@@ -19,14 +19,12 @@ var direction = Vector2.ZERO
 @onready var hitbox : Area2D = $HitBox
 # Current knockback, this will be changed when knockback code is added
 @onready var collisionbox : CollisionShape2D = $CollisionBox/CollisionShape2D
-# Initialize abilities
-# WARNING: export variables wont be avaliable on init, use enter_tree
+
+
 func _init():
 	super()
 	pass
 
-# Initalize export variables, called before @onready or _ready()
-# WARNING: Child nodes have not entered the tree yet. 
 func _enter_tree():
 	a_stats.cd = initial_cd
 	a_stats.atk = initial_dmg
@@ -42,9 +40,7 @@ func _ready() -> void:
 	collisionbox.visible = false
 	if zero_cd:
 		a_stats.cd = 0
-# Use statemachine logic if ability requires it
-# use variable HERO to access hero's variables and functions
-# Emit state_change(self, "new state name") to change out of state. 
+
 func enter():
 	# Store hero position and the direction when the ability is used
 	original_pos = hero.position

@@ -9,7 +9,7 @@ signal ability_used(name)
 signal on_basic_attack
 signal on_attack_hit
 signal on_hit #enemy hit u
-signal player_die #hero just die
+signal player_die() #hero just die
 
 const DECELERATION = 80
 
@@ -56,11 +56,11 @@ func _enter_tree():
 	# if im the guy contorlling this mf object.
 	if multiplayer.get_unique_id() == get_multiplayer_authority():
 		GameManager.Instance.ui.my_player = self
-		
+
 	
 	_init_stats()
 	current_health = char_stats.maxhp
-	player_die.connect(on_player_die)
+	player_die.connect(to_clients_player_died)
 
 func _ready():
 	_init_states()
@@ -124,9 +124,15 @@ func check_death():
 	if current_health <= 0:
 		player_die.emit()
 
+func to_clients_player_died():
+	on_player_die.rpc()
+
+@rpc("call_local", "reliable")
 func on_player_die():
 	IS_DEAD = true
 	input.canMove = false
 	set_process(false)
 	set_physics_process(false)
-	
+
+func is_alive() -> bool:
+	return !(IS_DOWNED || IS_DEAD)
