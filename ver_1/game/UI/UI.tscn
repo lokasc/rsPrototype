@@ -3,7 +3,8 @@
 [ext_resource type="Script" path="res://ver_1/game/UI/ui_manager.gd" id="1_xdhrj"]
 [ext_resource type="PackedScene" uid="uid://di3afbvqsygw0" path="res://player_ui.tscn" id="2_3208f"]
 
-[node name="UiManager" type="Control" node_paths=PackedStringArray("health_bar", "level_bar", "selection_container", "card_path")]
+[node name="UiManager" type="Control" node_paths=PackedStringArray("player_container", "selection_container", "card_path")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,11 +12,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xdhrj")
-health_bar = NodePath("PlayerUi/VBoxContainer/BottomContainer/HealthBar")
-level_bar = NodePath("PlayerUi/VBoxContainer/BottomContainer/LevelBar")
-selection_container = NodePath("PlayerUi/VBoxContainer/SelectionContainer")
-card_path = NodePath("PlayerUi/VBoxContainer/SelectionContainer/HBox")
+player_container = NodePath("PlayerUi/PlayerContainer")
+selection_container = NodePath("PlayerUi/PlayerContainer/SelectionContainer")
+card_path = NodePath("PlayerUi/PlayerContainer/SelectionContainer/VBoxContainer/HBox")
 
 [node name="PlayerUi" parent="." instance=ExtResource("2_3208f")]
+
+[node name="Waiting" parent="PlayerUi/PlayerContainer/SelectionContainer/VBoxContainer" index="1"]
+text = " "
 
 [editable path="PlayerUi"]

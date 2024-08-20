@@ -3,13 +3,14 @@ extends Control
 
 var my_player : BaseHero
 
-@export var health_bar : TextureProgressBar
-@export var level_bar : TextureProgressBar
+@export var player_container : Container
 @export var selection_container : Container
 @export var card_path : Container
 
+@onready var health_bar = player_container.find_child("HealthBar")
+@onready var level_bar = player_container.find_child("LevelBar")
 @onready var card_scn = load("res://ver_1/game/UI/selection_card.tscn")
-
+@onready var waiting_label = player_container.find_child("Waiting")
 
 
 var action_selected : bool
@@ -60,7 +61,8 @@ func on_client_selection(card_info):
 	# disable all children
 	for x in card_path.get_children():
 		x.visible = false
-	$SelctionContainer/Waiting.visible = true
+	waiting_label.text = "Waiting for players"
 
 func on_ready_to_continue():
-	selection_container.visible = false
+	waiting_label.text = " "
+	pass

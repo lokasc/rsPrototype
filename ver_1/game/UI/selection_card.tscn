@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://clui1qoi1ohe7"]
+[gd_scene load_steps=3 format=3 uid="uid://b63rc61fnfhv0"]
 
 [ext_resource type="Script" path="res://ver_1/game/UI/selection_card.gd" id="1_hjopn"]
 [ext_resource type="Texture2D" uid="uid://sxavbsunw0tr" path="res://assets/UI/upgrade.png" id="1_y7nmh"]
