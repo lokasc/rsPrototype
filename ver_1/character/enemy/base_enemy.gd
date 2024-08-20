@@ -9,6 +9,10 @@ signal hit(dmg) # hit by enemy
 @export var speed : float
 @export var dmg : float
 
+@export_subgroup("Status")
+@export var can_move : bool
+@export var frozen : bool
+
 # XP & Loot
 @onready var loot = get_tree().get_first_node_in_group("loot")
 @export var xp_worth = 1
@@ -27,6 +31,9 @@ func _init_stats():
 	char_stats.spd = speed
 	char_stats.atk = dmg
 	current_health = char_stats.maxhp
+	
+	can_move = true
+	frozen = false
 	pass
 
 # Export variables arent ready on innit

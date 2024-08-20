@@ -18,22 +18,10 @@ func _ready() -> void:
 	pass
 
 func _physics_process(_delta):
-	# direction the pest needs to go towards:
-	var direction = global_position.direction_to(target.global_position)
-	var distance = global_position.distance_to(target.global_position)
-	
-	if distance < 15:
-		velocity = Vector2.ZERO
+	if can_move == true:
+		move_to_target(target)
 	else:
-		velocity = direction * char_stats.spd
-	
-	if direction.x < 0:
-		sprite.scale.x = 1
-	elif direction.x > 0:
-		sprite.scale.x = -1
-	else:
-		sprite.scale.x = -1
-	move_and_slide()
+		return
 
 func on_hit(area : Area2D):
 	if !multiplayer.is_server(): return
@@ -54,3 +42,21 @@ func take_damage(dmg):
 func _decide(target = null):
 	if target == null:
 		return
+
+func move_to_target(target = null):
+# direction the pest needs to go towards:
+	var direction = global_position.direction_to(target.global_position)
+	var distance = global_position.distance_to(target.global_position)
+	
+	if distance < 15:
+		velocity = Vector2.ZERO
+	else:
+		velocity = direction * char_stats.spd
+	
+	if direction.x < 0:
+		sprite.scale.x = 1
+	elif direction.x > 0:
+		sprite.scale.x = -1
+	else:
+		sprite.scale.x = -1
+	move_and_slide()
