@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ce6nl4rbh16yy"]
+[gd_scene load_steps=20 format=3 uid="uid://ce6nl4rbh16yy"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie.gd" id="1_4x4su"]
 [ext_resource type="PackedScene" uid="uid://dl6n7678g0f18" path="res://ver_1/character/hero/Trebbie/trebbie_attack.tscn" id="2_psvnt"]
@@ -6,8 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://bjbqj24xb60e8" path="res://Trebbie_Sheet_32.png" id="4_3i3qh"]
 [ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/text_pop_up.tscn" id="4_ghe2d"]
 [ext_resource type="PackedScene" uid="uid://cjm8swpik3u4m" path="res://ver_1/character/hero/Trebbie/trebbie_dash.tscn" id="4_s00wb"]
+[ext_resource type="PackedScene" uid="uid://d0tgdksvfqvbg" path="res://ver_1/character/hero/Trebbie/trebbie_buff.tscn" id="5_mxiub"]
 [ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="7_mxa2u"]
 [ext_resource type="PackedScene" uid="uid://d0b8cqs24tfpe" path="res://ver_1/game/camera/player_camera.tscn" id="7_wun86"]
+[ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="10_mee78"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_igvvo"]
 properties/0/path = NodePath(".:current_health")
@@ -30,6 +32,9 @@ properties/3/replication_mode = 1
 properties/4/path = NodePath("MultiplayerSynchronizer:ability_1")
 properties/4/spawn = true
 properties/4/replication_mode = 2
+properties/5/path = NodePath("MultiplayerSynchronizer:ability_2")
+properties/5/spawn = true
+properties/5/replication_mode = 2
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g3diu"]
 radius = 6.0
@@ -118,12 +123,14 @@ _data = {
 "idle": SubResource("Animation_j7rjn")
 }
 
-[node name="Trebbie" type="CharacterBody2D" node_paths=PackedStringArray("basic_attack", "ability_1", "animator")]
+[node name="Trebbie" type="CharacterBody2D" node_paths=PackedStringArray("basic_attack", "ability_1", "ability_2", "animator")]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_4x4su")
+damage = 65
 basic_attack = NodePath("TrebbieAttack")
-ability_1 = NodePath("TrebbieDash")
+ability_1 = NodePath("TrebbieBuff")
+ability_2 = NodePath("TrebbieDash")
 animator = NodePath("AnimationPlayer")
 char_name = "Trebbie"
 char_id = 1
@@ -141,6 +148,8 @@ action_name = "Trebbie Attack"
 
 [node name="TrebbieDash" parent="." instance=ExtResource("4_s00wb")]
 action_name = "Trebbie Dash"
+
+[node name="TrebbieBuff" parent="." instance=ExtResource("5_mxiub")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_g3diu")
@@ -174,3 +183,5 @@ libraries = {
 }
 
 [node name="PlayerCamera" parent="." instance=ExtResource("7_wun86")]
+
+[node name="StatusHolder" parent="." instance=ExtResource("10_mee78")]

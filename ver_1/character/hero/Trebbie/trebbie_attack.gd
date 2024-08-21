@@ -2,8 +2,8 @@ class_name TrebbieAttack
 extends BaseAbility
 
 @export_category("Game stats")
-@export var initial_dmg = 100
-@export var initial_cd = 2
+@export var initial_dmg : int
+@export var initial_cd : int = 2
 
 @export_subgroup("Tech")
 @export var hitbox_time_active : float = 0.1
@@ -53,11 +53,19 @@ func physics_update(_delta: float):
 # TODO: Clean this up
 func _process(delta):
 	super(delta)
+	
+	# calculating ability cooldown
 	var ability_1_cd_display = int(hero.ability_1.a_stats.cd - hero.ability_1.current_time)
-	if hero.input.ability_1:
-		if hero.ability_1.is_ready():
-			state_change.emit(self, "TrebbieDash")
-		else: print("Ability 1 is on cooldown! ", ability_1_cd_display)
+	var ability_2_cd_display = int(hero.ability_2.a_stats.cd - hero.ability_2.current_time)
+	
+	if hero.input.ability_1 and hero.ability_1.is_ready():
+		state_change.emit(self, "TrebbieBuff")
+	elif hero.input.ability_1: 
+		print("Ability 1 is on cooldown! ", ability_1_cd_display)
+	elif hero.input.ability_2 and hero.ability_2.is_ready():
+		state_change.emit(self, "TrebbieDash")
+	elif hero.input.ability_2:
+		print("Ability 2 is on cooldown! ", ability_2_cd_display)
 
 func on_hit(area : Area2D):
 	if !multiplayer.is_server(): return
@@ -71,8 +79,11 @@ func on_hit(area : Area2D):
 	# TODO: not networked yet
 	# need to calculate how much damage based on 
 	# the attack value of this ability + my character's attack value
-	enemy.take_damage(initial_dmg)
-	hero.gain_health(initial_dmg*hero.char_stats.hsg)
+	enemy.take_damage(a_stats.atk)
+	
+	# TODO: have to change how lifesteal works, 
+	# not relating it to the atk stat but the damage enemies receive
+	hero.gain_health(a_stats.atk * hero.char_stats.hsg)
 	
 func use_ability():
 	if is_on_cd: return

@@ -8,6 +8,7 @@ var player : BaseHero
 @export var direction : Vector2
 @export var attack : bool
 @export var ability_1 : bool
+@export var ability_2 : bool
 @export_subgroup("Conditions")
 @export var canMove : bool = true
 
@@ -34,4 +35,5 @@ func _process(delta):
 			direction = Vector2.ZERO
 		attack = Input.is_action_just_pressed("attack")
 		ability_1 = Input.is_action_just_pressed("ability_1")
+		ability_2 = Input.is_action_just_pressed("ability_2")
 		mouse_pos = get_viewport().get_mouse_position()

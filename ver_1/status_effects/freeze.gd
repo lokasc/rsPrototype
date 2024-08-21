@@ -10,7 +10,7 @@ var dmg_taken : int
 var dmg_threshold : int # damage required to unfreeze
 
 # Constructor, affects new() function for creating new copies of Freeze.
-func _init(_unfreeze_dmg, _duration, _dmg_threshold) -> void:
+func _init(_unfreeze_dmg : int, _duration : float, _dmg_threshold : int) -> void:
 	unfreeze_dmg = _unfreeze_dmg
 	duration = _duration
 	dmg_threshold = _dmg_threshold
