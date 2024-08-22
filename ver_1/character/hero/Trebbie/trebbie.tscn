@@ -36,17 +36,6 @@ properties/5/path = NodePath("MultiplayerSynchronizer:ability_2")
 properties/5/spawn = true
 properties/5/replication_mode = 2
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g3diu"]
-radius = 6.0
-height = 32.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_fdqo3"]
-radius = 100.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n3y4w"]
-radius = 8.0
-height = 32.0
-
 [sub_resource type="Animation" id="Animation_43v52"]
 length = 0.001
 tracks/0/type = "value"
@@ -123,6 +112,17 @@ _data = {
 "idle": SubResource("Animation_j7rjn")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g3diu"]
+radius = 6.0
+height = 32.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n3y4w"]
+radius = 8.0
+height = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fdqo3"]
+radius = 100.0
+
 [node name="Trebbie" type="CharacterBody2D" node_paths=PackedStringArray("basic_attack", "ability_1", "ability_2", "animator")]
 collision_layer = 2
 collision_mask = 0
@@ -143,24 +143,37 @@ replication_config = SubResource("SceneReplicationConfig_6jp8r")
 script = ExtResource("3_tkpg3")
 
 [node name="TrebbieAttack" parent="." instance=ExtResource("2_psvnt")]
+hitbox_time_active = 0.1
 distance_to_center = 100.0
 action_name = "Trebbie Attack"
+level = 0
 
 [node name="TrebbieDash" parent="." instance=ExtResource("4_s00wb")]
 action_name = "Trebbie Dash"
 
 [node name="TrebbieBuff" parent="." instance=ExtResource("5_mxiub")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_g3diu")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("4_3i3qh")
 offset = Vector2(9.4, -7.2)
 hframes = 4
 
-[node name="TextPopUp" parent="." instance=ExtResource("4_ghe2d")]
-theme = ExtResource("7_mxa2u")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_w3did")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_g3diu")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CapsuleShape2D_n3y4w")
+
+[node name="StatusHolder" parent="." instance=ExtResource("10_mee78")]
 
 [node name="PickUpRadius" type="Area2D" parent="." groups=["pick_up"]]
 collision_layer = 8
@@ -170,18 +183,9 @@ collision_mask = 8
 shape = SubResource("CircleShape2D_fdqo3")
 debug_color = Color(0.578613, 0.518871, 0.52597, 0.42)
 
-[node name="HurtBox" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-shape = SubResource("CapsuleShape2D_n3y4w")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_w3did")
-}
-
 [node name="PlayerCamera" parent="." instance=ExtResource("7_wun86")]
 
-[node name="StatusHolder" parent="." instance=ExtResource("10_mee78")]
+[node name="TextPopUp" parent="." instance=ExtResource("4_ghe2d")]
+offset_right = 95.0
+offset_bottom = 23.0
+theme = ExtResource("7_mxa2u")
