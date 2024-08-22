@@ -1,10 +1,25 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bi5qmx7rssrn2"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://bi5qmx7rssrn2"]
 
 [ext_resource type="FontFile" uid="uid://cpm3dmvjuyn81" path="res://font/dogica/TTF/dogicapixel.ttf" id="1_u7q7c"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g3l0h"]
+bg_color = Color(1, 1, 1, 0.270588)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ghuu"]
+bg_color = Color(1, 1, 1, 0.145098)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ocnjx"]
+bg_color = Color(0.490196, 0.490196, 0.490196, 0.529412)
+
 [resource]
 Button/fonts/font = ExtResource("1_u7q7c")
+Button/styles/hover = SubResource("StyleBoxFlat_g3l0h")
+Button/styles/normal = SubResource("StyleBoxFlat_8ghuu")
+Button/styles/pressed = SubResource("StyleBoxFlat_ocnjx")
 Label/fonts/font = ExtResource("1_u7q7c")
 LineEdit/fonts/font = ExtResource("1_u7q7c")
 ProgressBar/fonts/font = ExtResource("1_u7q7c")
+RichTextLabel/constants/line_separation = 5
+RichTextLabel/constants/outline_size = 1
+RichTextLabel/fonts/normal_font = ExtResource("1_u7q7c")
 TextEdit/fonts/font = ExtResource("1_u7q7c")
