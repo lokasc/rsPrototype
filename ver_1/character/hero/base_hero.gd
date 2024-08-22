@@ -190,6 +190,7 @@ func get_atk_mul() -> int:
 # Logic for leveling up, perhaps max_hp increase...
 func on_level_up(new_level) -> void:
 	# use new_level as x value to get the new hp as y value on the curve.
+	#current_health = char_stats.maxhp
 	pass
 
 # add an item, call from GM
@@ -205,14 +206,32 @@ func add_item(_item : BaseItem) -> void:
 func remove_item(name) -> void:
 	return
 
-
 func has_item(new_item : BaseItem) -> bool:
 	for _item : BaseItem in items:
-		if _item.get_script().get_global_name() == new_item.get_script().get_global_name():
+		if _item.get_class_name() == new_item.get_class_name():
 			return true
 	return false
 
+func get_action(new_action : BaseAction) -> BaseAction:
+	# Parse Items first.
+	for _item : BaseAction in items:
+		if _item.get_class_name() == new_action.get_class_name():
+			return _item
+	# Parse attack, abilities, passive, ultimates.
+	if basic_attack && basic_attack.get_class_name() == new_action.get_class_name():
+		return basic_attack
+	if ability_1 && ability_1.get_class_name() == new_action.get_class_name():
+		return ability_1
+	if ability_2 && ability_2.get_class_name() == new_action.get_class_name():
+		return ability_2
+	if ult && ult.get_class_name() == new_action.get_class_name():
+		return ult
+	if passive && passive.get_class_name() == new_action.get_class_name():
+		return passive
+	else:
+		return null
+
 func upgrade_item(item) -> void:
 	for _item : BaseItem in items:
-		if _item.get_script().get_global_name() == item.get_script().get_global_name():
+		if _item.get_class_name() == item.get_class_name():
 			_item._upgrade()

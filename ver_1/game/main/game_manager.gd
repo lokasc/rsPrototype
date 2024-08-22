@@ -19,7 +19,6 @@ signal end_game
 signal start_lvl_up_sequence(item : Array)
 signal end_lvl_up_sequence()
 
-
 var is_started : bool = false
 var is_paused : bool = false:
 	set(value):
@@ -43,6 +42,7 @@ var bc # beat controllerx
 var current_xp : int
 var max_xp : int # TODO: Change this for a func in futrue
 
+
 # LVL
 const max_lvl : int = 16
 var current_lvl : int:
@@ -58,7 +58,7 @@ func _init() -> void:
 	Instance = self
 	time = 0
 	current_xp = 0
-	max_xp = 10
+	max_xp = 1
 	end_game.connect(on_end_game)
 
 func _process(delta: float) -> void:
@@ -98,7 +98,7 @@ func add_xp(_xp : int):
 
 func change_max_xp() -> void:
 	# when we have a curve, set max_xp -> curve.y.value or sth
-	max_xp = max_xp
+	max_xp = sample(current_lvl)
 	ui.update_max_xp(max_xp)
 
 ### Card Sequence 
@@ -124,9 +124,6 @@ func tell_server_client_is_ready(action_name):
 @rpc("authority", "call_local", "reliable")
 func parse_action_card(id : int, _action_name):
 	var player : BaseHero = get_player(id)
-	
-	# Cast to BaseAction because returned 
-	# _action is of OBJ class (due to rpcs)
 	var action = deserialize(_action_name) as BaseAction
 	
 	# Parse item
@@ -140,6 +137,7 @@ func parse_action_card(id : int, _action_name):
 	if action is BaseAbility:
 		# parse ability
 		pass
+	action
 
 # Death & Strawberry
 func check_alive_players() -> void:
@@ -219,3 +217,6 @@ func script_name_to_item_scene(string) -> String:
 	filename = filename.get_file().get_slice(".", 0)
 	filename += ".tscn"
 	return "res://ver_1/actions/items/" + filename
+
+func sample(x : int) -> int:
+	return 100 + (10 * x)

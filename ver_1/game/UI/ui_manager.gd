@@ -61,7 +61,6 @@ func build_selection_container(info_array : Array):
 		var action = GameManager.Instance.deserialize(script_name)
 		
 		copy.action = action
-		
 		# SET UP NAMES HERE
 		# TODO: Build Selection card UI here...check what abilities are needed.
 		

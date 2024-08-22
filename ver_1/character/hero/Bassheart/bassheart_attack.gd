@@ -48,7 +48,6 @@ func update(_delta: float):
 	if hero.input.is_use_mouse_auto_attack:
 		look_at(hero.input.get_mouse_position())
 	use_ability()
-	
 
 func physics_update(_delta: float):
 	if hero.input.direction:

@@ -9,6 +9,7 @@ var current_time : float
 
 func _init() -> void:
 	action_name = "AOE_dmg"
+	desc = "Power of friendship!"
 
 func _enter_tree() -> void:
 	super()

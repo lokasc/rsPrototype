@@ -11,8 +11,6 @@ var a_stats : Stats
 # Visuals
 var action_icon
 
-
-
 func _init():
 	a_stats = Stats.new()
 
@@ -20,3 +18,6 @@ func _init():
 func _upgrade():
 	level += 1
 	pass
+
+func get_class_name() -> String:
+	return get_script().get_global_name()
