@@ -22,7 +22,6 @@ func _update(_delta) -> void:
 	if current_time >= a_stats.cd:
 		current_time = 0
 		aoe_dmg()
-	pass
 
 func aoe_dmg() -> void:
 	if !multiplayer.is_server(): return

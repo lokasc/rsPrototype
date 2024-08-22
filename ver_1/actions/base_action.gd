@@ -8,6 +8,9 @@ var hero : BaseHero
 @export var level : int
 var a_stats : Stats
 
+# Visuals
+var action_icon
+
 
 
 func _init():

@@ -193,12 +193,10 @@ func on_level_up(new_level) -> void:
 	pass
 
 # add an item, call from GM
-func add_item(action : BaseAction) -> void:
-	var filename : String = action.get_script().resource_path
-	filename = filename.get_file().get_slice(".", 0)
-	filename += ".tscn"
-	
+func add_item(_item : BaseItem) -> void:
+	var filename : String = GameManager.Instance.serialize(_item) + ".tscn"
 	var new_item = load("res://ver_1/actions/items/" + filename).instantiate() as BaseItem
+	_item.queue_free()
 	
 	new_item.hero = self
 	items.append(new_item)
@@ -208,7 +206,7 @@ func remove_item(name) -> void:
 	return
 
 
-func has_item(new_item) -> bool:
+func has_item(new_item : BaseItem) -> bool:
 	for _item : BaseItem in items:
 		if _item.get_script().get_global_name() == new_item.get_script().get_global_name():
 			return true

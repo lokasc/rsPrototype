@@ -15,4 +15,5 @@ func _ready() -> void:
 
 func _on_button_down() -> void:
 	GameManager.Instance.action_selected = true
-	client_card_selected.emit(action)
+	client_card_selected.emit(GameManager.Instance.serialize(action))
+	action.queue_free()

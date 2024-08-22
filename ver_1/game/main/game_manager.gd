@@ -58,7 +58,7 @@ func _init() -> void:
 	Instance = self
 	time = 0
 	current_xp = 0
-	max_xp = 1
+	max_xp = 10
 	end_game.connect(on_end_game)
 
 func _process(delta: float) -> void:
@@ -111,22 +111,24 @@ func start_level_up_sequence():
 		client_level_up.rpc_id(player.id, items)
 
 # Algorithm for choosing actions for level up.
-func choose_items(hero : BaseHero) -> Array[BaseAction]:
-	var new_item = AOEItem.new()
-	return [new_item, new_item, new_item]
+func choose_items(hero : BaseHero) -> Array[String]:
+	# 1. send file name
+	var item : BaseAction = AOEItem.new()
+	var script_name : String = serialize(item)
+	return [script_name, script_name, script_name]
 
 # refactor -> pass an  integer instead of an action
-func tell_server_client_is_ready(action):
-	client_selection_ready.rpc_id(1, action)
+func tell_server_client_is_ready(action_name):
+	client_selection_ready.rpc_id(1, action_name)
 
 # Process and give item
 @rpc("authority", "call_local", "reliable")
-func parse_action_card(id : int, _action):
+func parse_action_card(id : int, _action_name):
 	var player : BaseHero = get_player(id)
 	
 	# Cast to BaseAction because returned 
 	# _action is of OBJ class (due to rpcs)
-	var action = _action as BaseAction
+	var action = deserialize(_action_name) as BaseAction
 	
 	# Parse item
 	if action is BaseItem:
@@ -157,9 +159,9 @@ func client_level_up(items : Array):
 
 # run on the server only.
 @rpc("call_local", "any_peer")
-func client_selection_ready(card):
+func client_selection_ready(action_name):
 	players_ready += 1
-	parse_action_card.rpc(multiplayer.get_remote_sender_id(), card)
+	parse_action_card.rpc(multiplayer.get_remote_sender_id(), action_name)
 	
 	if players_ready == players.size():
 		tell_client_end_card_sequence.rpc()
@@ -200,3 +202,21 @@ func get_player(id) -> BaseHero:
 func change_ui():
 	ui.show_ui()
 	net.hide_ui()
+
+
+func serialize(action : BaseAction) -> String:
+	var rs : String = action.get_script().resource_path
+	rs = rs.get_file().get_slice(".", 0)
+	return rs
+
+func deserialize(string : String) -> BaseAction:
+	# add a check for abilities as well...
+	
+	var action = load("res://ver_1/actions/items/" + string + ".gd").new() as BaseAction
+	return action
+
+func script_name_to_item_scene(string) -> String:
+	var filename : String = string.resource_path
+	filename = filename.get_file().get_slice(".", 0)
+	filename += ".tscn"
+	return "res://ver_1/actions/items/" + filename
