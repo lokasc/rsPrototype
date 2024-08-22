@@ -96,7 +96,7 @@ func _physics_process(_delta) -> void:
 
 func process_items(_delta) -> void:
 	for item : BaseItem in items:
-		item.update(_delta)
+		item._update(_delta)
 
 func on_state_change(state_old, state_new_name):
 	if state_old != current_state:
@@ -194,15 +194,15 @@ func on_level_up(new_level) -> void:
 
 # add an item, call from GM
 func add_item(action : BaseAction) -> void:
-	return
-	var script : Script = action.get_script()
-	print(script.resource_path)
+	var filename : String = action.get_script().resource_path
+	filename = filename.get_file().get_slice(".", 0)
+	filename += ".tscn"
 	
+	var new_item = load("res://ver_1/actions/items/" + filename).instantiate() as BaseItem
 	
-	# create item with name? or....
-	return
-	item_holder.add_child(action)
-	items.append(action)
+	new_item.hero = self
+	items.append(new_item)
+	item_holder.add_child(new_item)
 
 func remove_item(name) -> void:
 	return

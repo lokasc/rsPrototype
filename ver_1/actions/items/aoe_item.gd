@@ -11,16 +11,13 @@ func _init() -> void:
 	action_name = "AOE_dmg"
 
 func _enter_tree() -> void:
-	action_name = "AOE_dmg"
+	super()
 	current_time = 0
 	a_stats.atk = damage_per_tick
 	a_stats.cd = initial_tick_time
-	
-	# ITEMFIX: move hero init to on_ready base class
-	hero = get_parent().get_parent()
 
 func _update(_delta) -> void:
-	#$HitBox.global_position = hero.global_position
+	global_position = hero.global_position
 	current_time += _delta
 	if current_time >= a_stats.cd:
 		current_time = 0
@@ -35,10 +32,6 @@ func aoe_dmg() -> void:
 func _ready() -> void:
 	# Detect only enemies, sanity check.
 	$HitBox.set_collision_mask_value(3, true)
-	
-	# both work, dont know which one is better
-	#$HitBox.global_position = hero.global_position
-	$HitBox.reparent(hero)
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	var enemy : BaseEnemy = area.get_parent() as BaseEnemy
