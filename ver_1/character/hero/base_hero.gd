@@ -172,3 +172,9 @@ func sprite_direction():
 			sprite.scale.x = -1
 		1:
 			sprite.scale.x = 1
+
+func get_atk() -> int:
+	return char_stats.atk
+
+func get_atk_mul() -> int:
+	return char_stats.atk_mul

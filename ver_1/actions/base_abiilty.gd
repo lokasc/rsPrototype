@@ -1,8 +1,6 @@
 class_name BaseAbility
 extends BaseAction
 
-# Cooldown logic
-
 signal state_change
 signal cooldown_finish
 var is_on_cd : bool
@@ -56,3 +54,7 @@ func _on_cd_finish():
 
 func is_ready() -> bool:
 	return !is_on_cd
+
+# applies atk multiplier from hero to the attack.
+func get_multiplied_atk() -> int:
+	return hero.get_atk_mul() * a_stats.atk

@@ -24,10 +24,10 @@ func _ready():
 	basic_attack.a_stats.atk = damage # sets basic_atk damage to hero damage
 	pick_up.shape.radius = pick_up_radius
 	
-	#Temporarily disable the camera lock
-	if is_personal_camera == false:
-		camera.enabled = false
-		camera.zoom = Vector2.ONE
+	##Temporarily disable the camera lock
+	#if is_personal_camera == false:
+		#camera.enabled = false
+		#camera.zoom = Vector2.ONE
 
 func _process(_delta):
 	super(_delta)

@@ -14,8 +14,10 @@ class_name Stats
 @export var mus : int	# Music multiplier (benefits from music sync)
 @export var hsg : float	# Heal & Shield gain
 @export var dur : int	# Duration of abilities
+@export var atk_mul : int	# Attack Multiplier
 
-func _init(_maxhp = 100, _aoe = 1, _arm = 1, _atk = 1, _spd = 1, _cd = 1, _pick = 1, _mus = 1, _hsg = 1, _dur = 1):
+
+func _init(_maxhp = 100, _aoe = 1, _arm = 1, _atk = 1, _spd = 1, _cd = 1, _pick = 1, _mus = 1, _hsg = 1, _dur = 1, _atk_mul = 1):
 	maxhp = _maxhp
 	aoe = _aoe
 	arm = _arm
@@ -26,3 +28,8 @@ func _init(_maxhp = 100, _aoe = 1, _arm = 1, _atk = 1, _spd = 1, _cd = 1, _pick 
 	mus = _mus
 	hsg = _hsg
 	dur = _dur
+	atk_mul = _atk_mul
+
+# Get dmg with multiplier
+func get_total_dmg() -> int:
+	return atk_mul * atk

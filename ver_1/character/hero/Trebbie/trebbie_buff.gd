@@ -30,9 +30,6 @@ func _ready() -> void:
 	hitbox.visible = false
 	hitbox.monitoring = false
 
-# Use statemachine logic if ability requires it
-# use variable HERO to access hero's variables and functions
-# Emit state_change(self, "new state name") to change out of state. 
 func enter() -> void:
 	hitbox.visible = true
 	hitbox.monitoring = true

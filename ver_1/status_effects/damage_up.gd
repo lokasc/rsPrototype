@@ -12,10 +12,8 @@ func _init(_dmg_multiplier : float, _duration : float) -> void:
 	pass
 
 func on_added() -> void:
-	print(character.basic_attack.a_stats.atk)
 	if character is BaseHero:
-		character.basic_attack.a_stats.atk *= dmg_multiplier
-	print(character.basic_attack.a_stats.atk)
+		character.char_stats.atk_mul *= dmg_multiplier
 	duration_time = 0
 	pass
 
@@ -27,5 +25,5 @@ func update(delta) -> void:
 
 func on_removed() -> void:
 	if character is BaseHero:
-		character.basic_attack.a_stats.atk /= dmg_multiplier
+		character.char_stats.atk_mul /= dmg_multiplier
 	pass

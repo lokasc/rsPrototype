@@ -58,6 +58,8 @@ func _process(delta):
 	var ability_1_cd_display = int(hero.ability_1.a_stats.cd - hero.ability_1.current_time)
 	var ability_2_cd_display = int(hero.ability_2.a_stats.cd - hero.ability_2.current_time)
 	
+	
+	# Process abilities
 	if hero.input.ability_1 and hero.ability_1.is_ready():
 		state_change.emit(self, "TrebbieBuff")
 	elif hero.input.ability_1: 
@@ -70,16 +72,11 @@ func _process(delta):
 func on_hit(area : Area2D):
 	if !multiplayer.is_server(): return
 	
-	# typecasting
+	# Find enemy, deal dmg.
 	var enemy = area.get_parent() as BaseEnemy
 	if enemy == null: return
-	
-	#enemy.add_status("Bleed", [5,2,1])
-	
-	# TODO: not networked yet
-	# need to calculate how much damage based on 
-	# the attack value of this ability + my character's attack value
-	enemy.take_damage(a_stats.atk)
+
+	enemy.take_damage(get_multiplied_atk())
 	
 	# TODO: have to change how lifesteal works, 
 	# not relating it to the atk stat but the damage enemies receive
@@ -88,8 +85,10 @@ func on_hit(area : Area2D):
 func use_ability():
 	if is_on_cd: return
 	super()
+
 	if hero.animator.has_animation("attack"):
 		hero.animator.play("attack")
+	
 	hitbox.monitoring = true
 	hitbox.get_child(0).debug_color = Color("dd488d6b")
 	hitbox_timer.start(hitbox_time_active)
@@ -97,6 +96,7 @@ func use_ability():
 func _hitbox_reset():
 	hitbox.monitoring = false
 	hitbox.get_child(0).debug_color = Color("0099b36b") 
+	
 	if hero.animator.has_animation("idle"):
 		hero.animator.play("idle")
 
