@@ -59,11 +59,20 @@ func physics_update(_delta: float):
 # TODO: Clean this up
 func _process(delta):
 	super(delta)
+	
+	# calculating ability cooldown
 	var ability_1_cd_display = int(hero.ability_1.a_stats.cd - hero.ability_1.current_time)
-	if hero.input.ability_1:
-		if hero.ability_1.is_ready():
-			state_change.emit(self, "BassheartFreeze")
-		else: print("Ability 1 is on cooldown! ", ability_1_cd_display)
+	var ability_2_cd_display = int(hero.ability_2.a_stats.cd - hero.ability_2.current_time)
+	
+	# Process abilities
+	if hero.input.ability_1 and hero.ability_1.is_ready():
+		state_change.emit(self, "BassheartFreeze")
+	elif hero.input.ability_1: 
+		print("Ability 1 is on cooldown! ", ability_1_cd_display)
+	elif hero.input.ability_2 and hero.ability_2.is_ready():
+		state_change.emit(self, "BassheartJump")
+	elif hero.input.ability_2:
+		print("Ability 2 is on cooldown! ", ability_2_cd_display)
 
 func on_hit(area : Area2D):
 	if !multiplayer.is_server(): return

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://ck0rs6xq3084g"]
+[gd_scene load_steps=21 format=3 uid="uid://ck0rs6xq3084g"]
 
 [ext_resource type="Script" path="res://ver_1/game/net/player_input.gd" id="1_kj3tt"]
 [ext_resource type="Script" path="res://ver_1/character/hero/Bassheart/bassheart.gd" id="1_m8vi0"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dqbf2f5u4tq66" path="res://ver_1/character/hero/Bassheart/bassheart_freeze.tscn" id="4_dw3mb"]
 [ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="4_r0l7y"]
 [ext_resource type="PackedScene" uid="uid://d0b8cqs24tfpe" path="res://ver_1/game/camera/player_camera.tscn" id="5_4lu4u"]
+[ext_resource type="PackedScene" uid="uid://bm6iw661eugd7" path="res://ver_1/character/hero/Bassheart/bassheart_jump.tscn" id="5_6f1kf"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="9_1s0eh"]
 [ext_resource type="PackedScene" uid="uid://brce2a12qkj7v" path="res://ver_1/character/hero/item_holder.tscn" id="10_2w6wo"]
 
@@ -120,12 +121,13 @@ _data = {
 "idle": SubResource("Animation_j7rjn")
 }
 
-[node name="Bassheart" type="CharacterBody2D" node_paths=PackedStringArray("basic_attack", "ability_1", "animator")]
+[node name="Bassheart" type="CharacterBody2D" node_paths=PackedStringArray("basic_attack", "ability_1", "ability_2", "animator")]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_m8vi0")
 basic_attack = NodePath("BassheartAttack")
 ability_1 = NodePath("BassheartFreeze")
+ability_2 = NodePath("BassheartJump")
 animator = NodePath("AnimationPlayer")
 char_name = "Bassheart"
 char_id = 2
@@ -140,6 +142,8 @@ script = ExtResource("1_kj3tt")
 [node name="BassheartAttack" parent="." instance=ExtResource("3_yap6b")]
 
 [node name="BassheartFreeze" parent="." instance=ExtResource("4_dw3mb")]
+
+[node name="BassheartJump" parent="." instance=ExtResource("5_6f1kf")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_bf6yn")
@@ -177,3 +181,10 @@ libraries = {
 [node name="StatusHolder" parent="." instance=ExtResource("9_1s0eh")]
 
 [node name="ItemHolder" parent="." instance=ExtResource("10_2w6wo")]
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -67.0
+offset_top = -44.0
+offset_right = 68.0
+offset_bottom = -17.0
+show_percentage = false

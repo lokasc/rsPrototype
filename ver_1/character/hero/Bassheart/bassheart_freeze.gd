@@ -11,19 +11,22 @@ extends BaseAbility
 @export var duration : float
 @export var zero_cd : bool = false
 
+@export_category("Empowered game stats")
+@export var area_multiplier : float
+
 @export_category("Freeze stats")
 @export var freeze_duration : float
 @export var unfreeze_dmg : int
 @export var dmg_threshold : int
 
 var is_charging : bool
+var is_enlarged : bool
 
 @onready var wave_timer : Timer = $WaveTimer
 @onready var charge_timer : Timer = $ChargeTimer
 @onready var hitbox : Area2D = $HitBox
+@onready var hitbox_shape : CollisionPolygon2D = $HitBox/CollisionShape2D
 @onready var indicator : Area2D = $IndicatorBox
-
-
 
 # Initialize abilities
 # WARNING: export variables wont be avaliable on init, use enter_tree
@@ -56,6 +59,10 @@ func enter() -> void:
 	charge_timer.start(charge_duration)
 	indicator.visible = true
 	indicator.monitoring = true
+	
+	if hero.is_empowered:
+		hitbox_shape.scale *= area_multiplier
+		is_enlarged = true
 
 func _on_charge_timer_timeout() -> void:
 	hitbox.monitoring = true
@@ -75,6 +82,10 @@ func _on_wave_timer_timeout() -> void:
 func exit() -> void:
 	super() # starts cd here.
 	start_cd()
+	hero.reset_meter()
+	
+	if is_enlarged:
+		hitbox_shape.scale /= area_multiplier
 
 func update(_delta: float) -> void:
 	super(_delta)

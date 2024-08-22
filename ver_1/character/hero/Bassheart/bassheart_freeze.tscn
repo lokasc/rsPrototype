@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://ver_1/character/hero/Bassheart/bassheart_freeze.gd" id="1_sjmx2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ww1ts"]
-size = Vector2(119.5, 20)
+size = Vector2(120, 20)
 
 [node name="BassheartFreeze" type="Node2D"]
 script = ExtResource("1_sjmx2")
@@ -11,6 +11,7 @@ initial_dmg = 10
 initial_cd = 4
 charge_duration = 0.5
 duration = 0.5
+area_multiplier = 5.0
 freeze_duration = 3.0
 unfreeze_dmg = 100
 dmg_threshold = 50
@@ -30,6 +31,7 @@ monitorable = false
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="IndicatorBox"]
 position = Vector2(60.25, -1)
 shape = SubResource("RectangleShape2D_ww1ts")
+debug_color = Color(0.52991, 0.535456, 0.550666, 0.42)
 
 [node name="ChargeTimer" type="Timer" parent="."]
 one_shot = true
