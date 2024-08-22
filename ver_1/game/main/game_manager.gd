@@ -112,7 +112,6 @@ func start_level_up_sequence():
 
 # Algorithm for choosing actions for level up.
 func choose_items(hero : BaseHero) -> Array[String]:
-	# 1. send file name
 	var item : BaseAction = AOEItem.new()
 	var script_name : String = serialize(item)
 	return [script_name, script_name, script_name]

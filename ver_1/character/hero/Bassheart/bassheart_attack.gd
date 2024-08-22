@@ -37,7 +37,6 @@ func _ready() -> void:
 # use variable HERO to access hero's variables and functions
 # Emit state_change(self, "new state name") to change out of state. 
 func enter():
-	super()
 	hitbox.visible = true
 
 # normal attacks dont super() exit
