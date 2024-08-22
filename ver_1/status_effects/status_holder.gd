@@ -42,3 +42,10 @@ func tell_clients_add_status(effect_name, arg):
 			statuses.append(copy)
 			add_child(copy, true)
 			copy.on_added()
+		"HealShieldGainUp":
+			var copy = HealShieldGainUp.new(arg[0], arg[1])
+			copy.character = character
+			copy.holder = self
+			statuses.append(copy)
+			add_child(copy, true)
+			copy.on_added()

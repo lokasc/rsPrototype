@@ -5,6 +5,7 @@ extends BaseAbility
 @export var initial_dur : float # duration of the ability applying the effect
 @export var initial_hsg : float
 @export var dmg_multiplier : float
+@export var hsg_multiplier : float
 @export var status_duration : float # duration of the status effects
 
 var duration_time : float
@@ -71,6 +72,7 @@ func on_hit(area : Area2D) -> void:
 	if character == null: return
 	
 	character.add_status("DamageUp", [dmg_multiplier, status_duration])
+	character.add_status("HealShieldGainUp", [hsg_multiplier, status_duration])
 
 # Increments level by 1, override virtual func to change upgrade logic.
 func _upgrade() -> void:

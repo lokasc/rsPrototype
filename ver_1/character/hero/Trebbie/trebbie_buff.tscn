@@ -11,7 +11,8 @@ initial_cd = 4
 initial_dur = 0.5
 initial_hsg = 3.0
 dmg_multiplier = 2.0
-status_duration = 4.0
+hsg_multiplier = 3.0
+status_duration = 2.0
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 0

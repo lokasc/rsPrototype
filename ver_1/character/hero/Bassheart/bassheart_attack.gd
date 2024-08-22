@@ -75,7 +75,7 @@ func on_hit(area : Area2D):
 	if enemy == null: return
 
 	enemy.take_damage(get_multiplied_atk())
-	hero.gain_health(initial_dmg*hero.char_stats.hsg)
+	hero.gain_health(get_multiplied_atk()*hero.char_stats.hsg)
 
 func _hitbox_reset():
 	hitbox.monitoring = false

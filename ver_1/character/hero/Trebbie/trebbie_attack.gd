@@ -81,7 +81,7 @@ func on_hit(area : Area2D):
 	
 	# TODO: have to change how lifesteal works, 
 	# not relating it to the atk stat but the damage enemies receive
-	hero.gain_health(a_stats.atk * hero.char_stats.hsg)
+	hero.gain_health(get_multiplied_atk() * hero.char_stats.hsg)
 	
 func use_ability():
 	if is_on_cd: return
