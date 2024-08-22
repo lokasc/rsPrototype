@@ -45,6 +45,7 @@ size_flags_vertical = 10
 [node name="HealthBar" type="TextureProgressBar" parent="PlayerContainer/BottomContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
+allow_greater = true
 fill_mode = 5
 texture_under = ExtResource("1_e6fcw")
 texture_progress = ExtResource("1_e6fcw")
@@ -67,6 +68,13 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 50
 text = "0
 "
+
+[node name="ShieldBar" type="TextureProgressBar" parent="PlayerContainer/BottomContainer/HealthBar"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+fill_mode = 5
+texture_progress = ExtResource("1_e6fcw")
 
 [node name="LevelBar" type="TextureProgressBar" parent="PlayerContainer/BottomContainer"]
 layout_mode = 2

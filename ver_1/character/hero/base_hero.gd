@@ -21,7 +21,8 @@ var sprite_dir : int
 
 ## FLAGS for player state
 var IS_DEAD : bool = false
-var IS_DOWNED : bool = false 
+var IS_DOWNED : bool = false
+var IS_INVINCIBLE : bool = false 
 
 @onready var input : PlayerInput = $MultiplayerSynchronizer
 
@@ -69,6 +70,7 @@ func _enter_tree():
 	
 	_init_stats()
 	current_health = char_stats.maxhp
+	current_shield = char_stats.shields
 	player_die.connect(to_clients_player_died)
 	level_up.connect(on_level_up)
 
@@ -146,10 +148,22 @@ func gain_health(heal):
 		current_health += heal
 	else:
 		current_health = char_stats.maxhp
-	
+
+func gain_shield(shield):
+	if !multiplayer.is_server(): return
+	current_shield += shield
+
 func take_damage(dmg):
 	if !multiplayer.is_server(): return
-	current_health -= dmg
+	if IS_INVINCIBLE: return
+	# Player damage logic
+	if current_shield == 0:
+		current_health -= dmg
+	elif dmg <= current_shield:
+		current_shield -= dmg
+	elif dmg > char_stats.shields:
+		current_health -= (dmg - current_shield)
+		current_shield = 0
 	check_death()
 
 func check_death():

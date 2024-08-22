@@ -6,6 +6,7 @@ extends Control
 @export var card_path : Container
 
 @onready var health_bar : TextureProgressBar = player_container.find_child("HealthBar")
+@onready var shield_bar : TextureProgressBar = player_container.find_child("ShieldBar")
 @onready var level_label : Label = health_bar.get_child(0)
 @onready var level_bar : TextureProgressBar = player_container.find_child("LevelBar")
 @onready var card_scn : PackedScene = load("res://ver_1/game/UI/selection_card.tscn")
@@ -38,8 +39,11 @@ func _process(delta: float) -> void:
 	
 	if my_player.is_alive():
 		health_bar.value = my_player.current_health
+		shield_bar.value = my_player.current_shield
 	else:
 		health_bar.value = 0
+	var shield_init_angle = health_bar.value/health_bar.max_value * 360
+	shield_bar.radial_initial_angle = -shield_init_angle
 
 func hide_ui():
 	visible = false

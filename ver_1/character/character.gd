@@ -10,6 +10,7 @@ var status_holder : StatusHolder
 
 var char_stats : Stats
 var current_health : float
+var current_shield : float
 
 func _init():
 	char_stats = Stats.new()
