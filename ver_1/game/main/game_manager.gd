@@ -114,7 +114,8 @@ func start_level_up_sequence():
 func choose_items(hero : BaseHero) -> Array[String]:
 	var item : BaseAction = AOEItem.new()
 	var script_name : String = serialize(item)
-	return [script_name, script_name, script_name]
+	# For testing purposes only
+	return ["turret_item", "aoe_item", script_name]
 
 # refactor -> pass an  integer instead of an action
 func tell_server_client_is_ready(action_name):

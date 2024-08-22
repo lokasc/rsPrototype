@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5y5ri5hcom0n"]
+
+[ext_resource type="Script" path="res://ver_1/actions/items/turret.gd" id="1_4q33v"]
+[ext_resource type="Texture2D" uid="uid://cabvgx33180x0" path="res://healthbar.png" id="1_ndtoy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oyowo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ex4ed"]
+radius = 314.006
+
+[node name="Turret" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_4q33v")
+damage_per_tick = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_oyowo")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_ex4ed")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_ndtoy")
+
+[node name="HitTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]
