@@ -12,6 +12,7 @@ extends BaseAbility
 @onready var hitbox : Area2D = $AttackHitBox
 @onready var hitbox_timer : Timer = $HitboxReset
 
+
 # Initialize abilities
 # WARNING: export variables wont be avaliable on init, use enter_tree
 func _init():

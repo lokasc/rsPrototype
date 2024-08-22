@@ -1,6 +1,8 @@
 # meta-description: Skeleton for creating abilities, handles cooldowns & upgrading logic, shows all virtual functions. 
 extends BaseAbility
 
+
+
 # Initialize abilities
 # WARNING: export variables wont be avaliable on init, use enter_tree
 func _init():

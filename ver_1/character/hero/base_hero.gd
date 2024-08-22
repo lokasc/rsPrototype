@@ -12,7 +12,7 @@ signal on_hit #enemy hit u
 signal player_die() #hero just die
 signal level_up(new_level)
 
-const DECELERATION = 80
+const DECELERATION : int = 80
 
 # Sprite direction
 enum Facing {LEFT, RIGHT}
@@ -25,7 +25,7 @@ var IS_DOWNED : bool = false
 
 @onready var input : PlayerInput = $MultiplayerSynchronizer
 
-var id
+var id : int
 
 # STATEMACHINE
 var states : Dictionary = {}
@@ -43,6 +43,7 @@ var initial_state : BaseAbility
 
 @export_subgroup("Items & Stat slots")
 @export var items : Array[BaseItem] = []
+var item_holder : Node
 
 @export_subgroup("Animation")
 @export var animator : AnimationPlayer
@@ -78,19 +79,24 @@ func _ready():
 	# Get references
 	pop_up = $TextPopUp as TextPopUp
 	camera = $PlayerCamera as PlayerCamera
-	
+	item_holder = $ItemHolder as Node
 	# Set this camera to viewport if I'm controlling it
 	if is_multiplayer_authority():
 		camera.make_current()
 
-func _process(_delta):
+func _process(_delta) -> void:
 	if current_state:
 		current_state.update(_delta)
+	process_items(_delta)
 
-func _physics_process(_delta):
+func _physics_process(_delta) -> void:
 	if current_state:
 		current_state.physics_update(_delta)
 	sprite_direction()
+
+func process_items(_delta) -> void:
+	for item : BaseItem in items:
+		item.update(_delta)
 
 func on_state_change(state_old, state_new_name):
 	if state_old != current_state:
@@ -185,3 +191,30 @@ func get_atk_mul() -> int:
 func on_level_up(new_level) -> void:
 	# use new_level as x value to get the new hp as y value on the curve.
 	pass
+
+# add an item, call from GM
+func add_item(action : BaseAction) -> void:
+	return
+	var script : Script = action.get_script()
+	print(script.resource_path)
+	
+	
+	# create item with name? or....
+	return
+	item_holder.add_child(action)
+	items.append(action)
+
+func remove_item(name) -> void:
+	return
+
+
+func has_item(new_item) -> bool:
+	for _item : BaseItem in items:
+		if _item.get_script().get_global_name() == new_item.get_script().get_global_name():
+			return true
+	return false
+
+func upgrade_item(item) -> void:
+	for _item : BaseItem in items:
+		if _item.get_script().get_global_name() == item.get_script().get_global_name():
+			_item._upgrade()

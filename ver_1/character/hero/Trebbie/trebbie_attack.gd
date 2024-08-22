@@ -12,6 +12,7 @@ extends BaseAbility
 @onready var hitbox : Area2D = $AttackHitBox
 @onready var hitbox_timer : Timer = $HitboxReset
 
+
 func _init():
 	super()
 

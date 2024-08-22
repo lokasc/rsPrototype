@@ -7,3 +7,7 @@ func _enter_tree() -> void:
 	pass
 
 # Write logic below here....
+
+# Update is called by the main character
+func _update(_delta) -> void:
+	super(_delta)

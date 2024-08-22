@@ -23,6 +23,8 @@ var is_charging : bool
 @onready var hitbox : Area2D = $HitBox
 @onready var indicator : Area2D = $IndicatorBox
 
+
+
 # Initialize abilities
 # WARNING: export variables wont be avaliable on init, use enter_tree
 func _init() -> void:

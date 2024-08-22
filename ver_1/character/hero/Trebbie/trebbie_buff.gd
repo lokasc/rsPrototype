@@ -11,6 +11,7 @@ var duration_time : float
 
 @onready var hitbox : Area2D = $HitBox
 
+
 # Initialize abilities
 # WARNING: export variables wont be avaliable on init, use enter_tree
 func _init() -> void:

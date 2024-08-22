@@ -9,6 +9,7 @@ var hero : BaseHero
 var a_stats : Stats
 
 
+
 func _init():
 	a_stats = Stats.new()
 

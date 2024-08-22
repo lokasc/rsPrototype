@@ -54,13 +54,14 @@ func build_selection_container(info_array : Array):
 		n.queue_free()
 	
 	selection_container.visible = true
-	print(info_array.size())
 	
 	for action in info_array:
+		print(action.action_name)
 		var copy = card_scn.instantiate() as SelectionCard
 		copy.client_card_selected.connect(on_client_selection)
+		copy.action = action
 		
-		# TODO: Logic for filling in card details.
+		# TODO: Build Selection card UI here...check what abilities are needed.
 		
 		card_path.add_child(copy,true)
 

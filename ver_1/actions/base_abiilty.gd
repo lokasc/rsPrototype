@@ -6,6 +6,7 @@ signal cooldown_finish
 var is_on_cd : bool
 var current_time : float
 
+
 func enter():
 	hero.ability_used.emit(self)
 

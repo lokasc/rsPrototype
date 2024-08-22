@@ -58,7 +58,7 @@ func _init() -> void:
 	Instance = self
 	time = 0
 	current_xp = 0
-	max_xp = 5
+	max_xp = 1
 	end_game.connect(on_end_game)
 
 func _process(delta: float) -> void:
@@ -105,20 +105,40 @@ func change_max_xp() -> void:
 func start_level_up_sequence():
 	players_ready = 0
 	for player in players:
+		# the items for each player could be different
+		# lets set it to same for now
 		var items = choose_items(player)
 		client_level_up.rpc_id(player.id, items)
 
 # Algorithm for choosing actions for level up.
 func choose_items(hero : BaseHero) -> Array[BaseAction]:
-	var attack = TrebbieAttack.new() # Lets just return 3 Trebbie Attacks
-	return [attack, attack, attack]
+	var new_item = AOEItem.new()
+	return [new_item, new_item, new_item]
 
-func tell_server_client_is_ready(card : SelectionCard):
-	client_selection_ready.rpc_id(1, card)
-	pass
+# refactor -> pass an  integer instead of an action
+func tell_server_client_is_ready(action):
+	client_selection_ready.rpc_id(1, action)
 
-func parse_action_card(id,card):
-	pass
+# Process and give item
+@rpc("authority", "call_local", "reliable")
+func parse_action_card(id : int, _action):
+	var player : BaseHero = get_player(id)
+	
+	# Cast to BaseAction because returned 
+	# _action is of OBJ class (due to rpcs)
+	var action = _action as BaseAction
+	
+	# Parse item
+	if action is BaseItem:
+		if !player.has_item(action):
+			player.add_item(action)
+		else:
+			player.upgrade_item(action)
+	
+	# TODO: Parse ability
+	if action is BaseAbility:
+		# parse ability
+		pass
 
 # Death & Strawberry
 func check_alive_players() -> void:
@@ -128,8 +148,6 @@ func check_alive_players() -> void:
 			return
 	# End game, players all dead
 	tell_everyone_end_game.rpc()
-
-
 
 ### RPC Calls
 @rpc("call_local", "reliable")
@@ -141,7 +159,7 @@ func client_level_up(items : Array):
 @rpc("call_local", "any_peer")
 func client_selection_ready(card):
 	players_ready += 1
-	parse_action_card(multiplayer.get_remote_sender_id(), card)
+	parse_action_card.rpc(multiplayer.get_remote_sender_id(), card)
 	
 	if players_ready == players.size():
 		tell_client_end_card_sequence.rpc()
@@ -169,6 +187,14 @@ func is_game_started() -> bool:
 
 func is_game_stopped() -> bool:
 	return !is_started || is_paused
+
+# returns player given id
+func get_player(id) -> BaseHero:
+	for player in players:
+		if player.id == id:
+			return player
+	
+	return null 
 
 # turns net ui off and player_ui on
 func change_ui():
