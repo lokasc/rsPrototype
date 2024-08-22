@@ -1,11 +1,14 @@
 class_name Turret
-extends AOEItem
+extends BaseItem
 
 @export var turret_duration : float
 @export var turret_range : int
 @export var deploy_time : float
+@export var damage_per_tick : int = 1
+@export var initial_tick_time : float = 0.5
 
-#var enemies_in_hitbox : Array[BaseEnemy] = []
+var enemies_in_hitbox : Array[BaseEnemy] = []
+var current_time : float
 
 @onready var hitbox : Area2D = $HitBox
 @onready var hitbox_shape : CollisionShape2D = $HitBox/CollisionShape2D
@@ -20,8 +23,6 @@ func _enter_tree() -> void:
 	a_stats.atk = damage_per_tick
 	a_stats.cd = initial_tick_time
 
-
-
 func _ready() -> void:
 	# Detect only enemies, sanity check.
 	hitbox.set_collision_mask_value(3, true)
@@ -31,7 +32,7 @@ func _ready() -> void:
 	hitbox.area_entered.connect(_on_hit_box_area_entered)
 	hitbox.area_exited.connect(_on_hit_box_area_exited)
 	
-func _process(delta) -> void:
+func _update(delta) -> void:
 	current_time += delta
 	deploy_time += delta
 	if current_time >= a_stats.cd:
