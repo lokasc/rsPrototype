@@ -39,8 +39,8 @@ func enter():
 	super()
 	hitbox.visible = true
 
+# normal attacks dont super() exit
 func exit():
-	super() # starts cd here.
 	hitbox.visible = false
 
 # Automatically attack.
@@ -72,13 +72,8 @@ func on_hit(area : Area2D):
 	# typecasting
 	var enemy = area.get_parent() as BaseEnemy
 	if enemy == null: return
-	
-	#enemy.add_status("Bleed", [5,2,1])
-	
-	# TODO: not networked yet
-	# need to calculate how much damage based on 
-	# the attack value of this ability + my character's attack value
-	enemy.take_damage(initial_dmg)
+
+	enemy.take_damage(get_multiplied_atk())
 	hero.gain_health(initial_dmg*hero.char_stats.hsg)
 
 func _hitbox_reset():

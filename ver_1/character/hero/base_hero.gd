@@ -10,6 +10,7 @@ signal on_basic_attack
 signal on_attack_hit
 signal on_hit #enemy hit u
 signal player_die() #hero just die
+signal level_up(new_level)
 
 const DECELERATION = 80
 
@@ -62,12 +63,13 @@ func _enter_tree():
 	
 	# if im the guy contorlling this mf object.
 	if multiplayer.get_unique_id() == get_multiplayer_authority():
-		GameManager.Instance.ui.my_player = self
+		GameManager.Instance.local_player = self
 
 	
 	_init_stats()
 	current_health = char_stats.maxhp
 	player_die.connect(to_clients_player_died)
+	level_up.connect(on_level_up)
 
 func _ready():
 	super()
@@ -178,3 +180,8 @@ func get_atk() -> int:
 
 func get_atk_mul() -> int:
 	return char_stats.atk_mul
+
+# Logic for leveling up, perhaps max_hp increase...
+func on_level_up(new_level) -> void:
+	# use new_level as x value to get the new hp as y value on the curve.
+	pass

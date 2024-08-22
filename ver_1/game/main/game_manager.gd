@@ -27,8 +27,8 @@ var is_paused : bool = false:
 		get_tree().paused = value
 
 var time : float
-
 var players : Array[BaseHero] = []
+var local_player : BaseHero
 
 # For selecting cards.
 var players_ready : int
@@ -45,13 +45,20 @@ var max_xp : int # TODO: Change this for a func in futrue
 
 # LVL
 const max_lvl : int = 16
-var current_lvl : int
+var current_lvl : int:
+	set(value):
+		for x in players:
+			x.level_up.emit(value)
+		
+		current_lvl = value
+		if !local_player || !ui : return
+		ui.update_lvl_label(value)
 
 func _init() -> void:
 	Instance = self
 	time = 0
 	current_xp = 0
-	max_xp = 1000
+	max_xp = 5
 	end_game.connect(on_end_game)
 
 func _process(delta: float) -> void:
@@ -89,6 +96,11 @@ func add_xp(_xp : int):
 		current_xp = current_xp - max_xp
 		start_level_up_sequence()
 
+func change_max_xp() -> void:
+	# when we have a curve, set max_xp -> curve.y.value or sth
+	max_xp = max_xp
+	ui.update_max_xp(max_xp)
+
 ### Card Sequence 
 func start_level_up_sequence():
 	players_ready = 0
@@ -117,6 +129,8 @@ func check_alive_players() -> void:
 	# End game, players all dead
 	tell_everyone_end_game.rpc()
 
+
+
 ### RPC Calls
 @rpc("call_local", "reliable")
 func client_level_up(items : Array):
@@ -135,6 +149,10 @@ func client_selection_ready(card):
 @rpc("call_local",  "unreliable_ordered")
 func tell_client_end_card_sequence():
 	is_paused = false
+	
+	# FIXME: Currently assume that its always an lvl up for card. 
+	change_max_xp()
+	current_lvl += 1
 	end_lvl_up_sequence.emit()
 
 @rpc("call_local", "unreliable_ordered")
@@ -152,6 +170,7 @@ func is_game_started() -> bool:
 func is_game_stopped() -> bool:
 	return !is_started || is_paused
 
+# turns net ui off and player_ui on
 func change_ui():
 	ui.show_ui()
 	net.hide_ui()

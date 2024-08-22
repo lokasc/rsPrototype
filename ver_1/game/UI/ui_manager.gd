@@ -1,16 +1,15 @@
 class_name UIManager
 extends Control
 
-var my_player : BaseHero
-
 @export var player_container : Container
 @export var selection_container : Container
 @export var card_path : Container
 
-@onready var health_bar = player_container.find_child("HealthBar")
-@onready var level_bar = player_container.find_child("LevelBar")
-@onready var card_scn = load("res://ver_1/game/UI/selection_card.tscn")
-@onready var waiting_label = player_container.find_child("Waiting")
+@onready var health_bar : TextureProgressBar = player_container.find_child("HealthBar")
+@onready var level_label : Label = health_bar.get_child(0)
+@onready var level_bar : TextureProgressBar = player_container.find_child("LevelBar")
+@onready var card_scn : PackedScene = load("res://ver_1/game/UI/selection_card.tscn")
+@onready var waiting_label : Label = player_container.find_child("Waiting")
 
 
 var action_selected : bool
@@ -21,11 +20,20 @@ func _enter_tree() -> void:
 	GameManager.Instance.end_lvl_up_sequence.connect(on_ready_to_continue)
 	hide_ui()
 
+func _ready() -> void:
+	update_max_xp(GameManager.Instance.max_xp)
+
 func update_xp(xp : int):
 	level_bar.value = xp
-	pass
+
+func update_max_xp(max_xp : int) -> void:
+	level_bar.max_value = max_xp
+
+func update_lvl_label(new_lvl : int) -> void:
+	level_label.text = str(new_lvl)
 
 func _process(delta: float) -> void:
+	var my_player = GameManager.Instance.local_player
 	if !my_player: return
 	
 	if my_player.is_alive():

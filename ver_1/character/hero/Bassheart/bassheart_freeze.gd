@@ -58,11 +58,11 @@ func enter() -> void:
 func _on_charge_timer_timeout() -> void:
 	hitbox.monitoring = true
 	hitbox.visible = true
+	
 	indicator.visible = false
 	indicator.monitoring = false
 	is_charging = false
 	wave_timer.start(duration)
-	pass # Replace with function body.
 
 func _on_wave_timer_timeout() -> void:
 	hero.input.canMove = true
@@ -94,14 +94,12 @@ func on_hit(area : Area2D) -> void:
 	# TODO: not networked yet
 	# need to calculate how much damage based on 
 	# the attack value of this ability + my character's attack value
-	enemy.take_damage(initial_dmg)
+	enemy.take_damage(get_multiplied_atk())
 	hero.gain_health(initial_dmg*hero.char_stats.hsg)
 	
 	#This comparison has to be added to prevent applying status twice, also bugs out freeze code
 	if enemy.frozen == false:
 		enemy.add_status("Freeze", [unfreeze_dmg,freeze_duration,dmg_threshold])
-	
-	
 
 # Call this to start cooldown.
 func start_cd() -> void:
