@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=4 uid="uid://woyetkfsjr7p"]
 
-[ext_resource type="TileSet" uid="uid://bunv4g6qwbghd" path="res://assets/map/tilemaps/floor.tres" id="1_ihwaa"]
+[ext_resource type="TileSet" uid="uid://bdfq1nitrqrq" path="res://assets/map/tilemaps/floor.tres" id="1_ihwaa"]
 [ext_resource type="TileSet" uid="uid://c6h2xyay8oksc" path="res://assets/map/tilemaps/floor_decals.tres" id="3_smn75"]
 
-[sub_resource type="Gradient" id="Gradient_s0emw"]
+[sub_resource type="Gradient" id="Gradient_daafe"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_01ree"]
-gradient = SubResource("Gradient_s0emw")
+gradient = SubResource("Gradient_daafe")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
@@ -17,7 +17,6 @@ texture_filter = 2
 texture_repeat = 2
 
 [node name="Background" type="Sprite2D" parent="."]
-visible = false
 texture_filter = 2
 texture_repeat = 2
 region_enabled = true
