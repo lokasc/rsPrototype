@@ -1,15 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://v0at42vajw4j"]
+[gd_scene load_steps=2 format=3 uid="uid://kl3nikrccv07"]
 
 [ext_resource type="Script" path="res://ver_1/actions/items/turret_item.gd" id="1_gjlcd"]
 
 [node name="TurretItem" type="Node2D"]
 script = ExtResource("1_gjlcd")
 deploy_range = 200
-deploy_tick_time = 4.0
+deploy_cd = 4.0
 deploy_amount = 1
 damage_per_tick = 20
 damage_tick_time = 1.0
 turret_range = 100
 turret_duration = 5.0
-
-[node name="Turrets" type="Node" parent="."]

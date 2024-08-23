@@ -18,6 +18,7 @@ var peer : ENetMultiplayerPeer
 @export var friend_label : Label
 @export var net_ui : Control
 @export var player_scene : PackedScene
+@onready var spawnable_path : Node2D = $Spawnables
 @onready var player_container : Node = $Players
 
 

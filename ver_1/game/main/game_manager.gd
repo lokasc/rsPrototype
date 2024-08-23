@@ -113,9 +113,11 @@ func start_level_up_sequence():
 # Algorithm for choosing actions for level up.
 func choose_items(hero : BaseHero) -> Array[String]:
 	var item : BaseAction = AOEItem.new()
+	var turret_item : BaseAction = TurretItem.new()
+	var turret_name : String = serialize(turret_item)
 	var script_name : String = serialize(item)
 	# For testing purposes only
-	return ["turret_item", "aoe_item", script_name]
+	return [turret_name, script_name, turret_name]
 
 # refactor -> pass an  integer instead of an action
 func tell_server_client_is_ready(action_name):
@@ -193,7 +195,6 @@ func get_player(id) -> BaseHero:
 	for player in players:
 		if player.id == id:
 			return player
-	
 	return null 
 
 # turns net ui off and player_ui on
