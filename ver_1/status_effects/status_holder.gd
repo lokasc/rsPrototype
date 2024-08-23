@@ -6,6 +6,7 @@ var statuses : Array[BaseStatus]
 var character : BaseCharacter
 
 func add_status(effect_name, arg):
+	if !multiplayer.is_server(): return
 	tell_clients_add_status.rpc(effect_name, arg)
 
 func _process(_delta):

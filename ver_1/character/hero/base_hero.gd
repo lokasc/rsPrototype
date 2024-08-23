@@ -60,7 +60,12 @@ func _enter_tree():
 	id = name.to_int()
 	set_multiplayer_authority(name.to_int())
 	
+	# only server can determine health, items and statuses.
 	$ServerSynchronizer.set_multiplayer_authority(1)
+	$StatusHolder.set_multiplayer_authority(1)
+	$ItemHolder.set_multiplayer_authority(1)
+	
+	# let control be on the player
 	$MultiplayerSynchronizer.set_multiplayer_authority(name.to_int())
 	
 	# if im the guy contorlling this mf object.

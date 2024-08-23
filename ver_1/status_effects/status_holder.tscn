@@ -1,16 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://c48dnnj6ck6nx"]
+[gd_scene load_steps=2 format=3 uid="uid://c48dnnj6ck6nx"]
 
 [ext_resource type="Script" path="res://ver_1/status_effects/status_holder.gd" id="1_c4jrb"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_oofoa"]
-properties/0/path = NodePath(".:statuses")
-properties/0/spawn = true
-properties/0/replication_mode = 2
-
 [node name="StatusHolder" type="Node2D"]
 script = ExtResource("1_c4jrb")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_oofoa")
-
-[connection signal="delta_synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_delta_synchronized"]

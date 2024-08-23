@@ -1,0 +1,18 @@
+# any peer implies that any multiplayer auth can run this func (call and remote recieve)
+@rpc("call_local")
+func test_func():
+	print("called by: " + str(multiplayer.get_remote_sender_id()) +" "+ str(multiplayer.is_server()) +" "+ "character:" + str(character.name) + ": test_func")
+
+Example:
+called by: 1 false character:1: test_func
+called by: 1 false character:1824665408: test_func
+called by: 1 true character:1: test_func
+called by: 1 true character:1824665408: test_func
+
+The second line will not run as the multiplayer auth is not the server (1)
+This applies to remote only, as the last line runs even though multiplayer
+auth is not 1. 
+
+FIX: make sure the object ur calling on has auth = 1 on remote devices. 
+* if you want to ensure that clients dont cant start the rpc call. 
+* if ur feeling lazy, just add "any_peer" it becomes less of a server-client.

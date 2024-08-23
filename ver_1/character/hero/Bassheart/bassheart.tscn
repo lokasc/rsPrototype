@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dqbf2f5u4tq66" path="res://ver_1/character/hero/Bassheart/bassheart_freeze.tscn" id="4_dw3mb"]
 [ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="4_r0l7y"]
 [ext_resource type="PackedScene" uid="uid://d0b8cqs24tfpe" path="res://ver_1/game/camera/player_camera.tscn" id="5_4lu4u"]
-[ext_resource type="PackedScene" uid="uid://bm6iw661eugd7" path="res://ver_1/character/hero/Bassheart/bassheart_jump.tscn" id="5_6f1kf"]
+[ext_resource type="PackedScene" path="res://ver_1/character/hero/Bassheart/bassheart_jump.tscn" id="5_6f1kf"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="9_1s0eh"]
 [ext_resource type="PackedScene" uid="uid://brce2a12qkj7v" path="res://ver_1/character/hero/item_holder.tscn" id="10_2w6wo"]
 
@@ -16,6 +16,9 @@
 properties/0/path = NodePath(".:current_health")
 properties/0/spawn = true
 properties/0/replication_mode = 2
+properties/1/path = NodePath(".:current_shield")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_csrte"]
 properties/0/path = NodePath("MultiplayerSynchronizer:direction")
@@ -33,6 +36,9 @@ properties/3/replication_mode = 1
 properties/4/path = NodePath("MultiplayerSynchronizer:ability_1")
 properties/4/spawn = true
 properties/4/replication_mode = 2
+properties/5/path = NodePath("MultiplayerSynchronizer:ability_2")
+properties/5/spawn = true
+properties/5/replication_mode = 2
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bf6yn"]
 radius = 12.0
