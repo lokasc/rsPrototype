@@ -41,12 +41,14 @@ func _update_all_turrets(delta) -> void:
 		x._update(delta)
 
 func _upgrade():
+	super()
 	if level % 2 == 0:
 		deploy_amount += 1
 	deploy_range += 20
 	damage_per_tick += 20
 	turret_range += 5
 	
+	set_item_stats()
 
 # Server decides location, passes to all clients.
 func decide_spawn_location() -> Vector2:
@@ -76,3 +78,7 @@ func set_turret_stats(new_turret : Turret):
 	new_turret.damage_per_tick = damage_per_tick
 	new_turret.turret_duration = turret_duration
 	new_turret.turret_range = turret_range
+
+func set_item_stats():
+	a_stats.atk = damage_per_tick
+	a_stats.cd = deploy_cd
