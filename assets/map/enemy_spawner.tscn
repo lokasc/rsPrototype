@@ -1,21 +1,30 @@
-[gd_scene load_steps=5 format=3 uid="uid://h4w7naqbhls5"]
+[gd_scene load_steps=7 format=3 uid="uid://h4w7naqbhls5"]
 
 [ext_resource type="Script" path="res://assets/map/enemy_spawner.gd" id="1_utdqr"]
 [ext_resource type="PackedScene" uid="uid://cpkr32elxa7a8" path="res://ver_1/character/enemy/Pest/pest.tscn" id="2_8xhio"]
 [ext_resource type="Script" path="res://ver_1/game/spawn_system/spawn_info.gd" id="3_l0tmy"]
+[ext_resource type="PackedScene" uid="uid://ye6jjalknsgf" path="res://ver_1/character/enemy/Big Pest/bigpest.tscn" id="4_v22m4"]
 
 [sub_resource type="Resource" id="Resource_knfaa"]
 script = ExtResource("3_l0tmy")
-time_start = 2
+time_start = 0
 time_end = 100
 enemy = ExtResource("2_8xhio")
 enemy_num = 3
 enemy_spawn_delay = 0
 
+[sub_resource type="Resource" id="Resource_2gl8i"]
+script = ExtResource("3_l0tmy")
+time_start = 30
+time_end = 100
+enemy = ExtResource("4_v22m4")
+enemy_num = 2
+enemy_spawn_delay = 5
+
 [node name="EnemySpawner" type="Node2D" node_paths=PackedStringArray("spawn_path")]
 script = ExtResource("1_utdqr")
 spawn_path = NodePath("Enemies")
-spawns = Array[ExtResource("3_l0tmy")]([SubResource("Resource_knfaa")])
+spawns = Array[ExtResource("3_l0tmy")]([SubResource("Resource_knfaa"), SubResource("Resource_2gl8i")])
 
 [node name="Timer" type="Timer" parent="."]
 
