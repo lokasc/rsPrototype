@@ -7,6 +7,7 @@ size = Vector2(10.75, 14.25)
 
 [node name="TrebbieAttack" type="Node2D"]
 script = ExtResource("1_dmnqs")
+initial_dmg = 100
 hitbox_time_active = null
 distance_to_center = 150.0
 action_name = "TrebbieAttack"
