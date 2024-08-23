@@ -1,0 +1,128 @@
+[gd_scene load_steps=15 format=3 uid="uid://b5lyoa88yp8di"]
+
+[ext_resource type="Script" path="res://ver_1/character/enemy/MajorBug/major_bug.gd" id="1_g078x"]
+[ext_resource type="Texture2D" uid="uid://d35ibc8htkf6w" path="res://MajorBug.png" id="2_f43th"]
+[ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="3_a8vn7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xqb2h"]
+atlas = ExtResource("2_f43th")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_urfw1"]
+atlas = ExtResource("2_f43th")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rc7up"]
+atlas = ExtResource("2_f43th")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mp2o"]
+atlas = ExtResource("2_f43th")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e7gsg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xqb2h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_urfw1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rc7up")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mp2o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2cp4r"]
+radius = 28.0
+height = 164.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1m36h"]
+radius = 42.5
+height = 190.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7f8rx"]
+radius = 40.0
+height = 200.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ixlk4"]
+radius = 11.25
+height = 58.3333
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nfipq"]
+radius = 30.0
+height = 190.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_t27sw"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="MajorBug" type="CharacterBody2D"]
+scale = Vector2(0.2, 0.2)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_g078x")
+max_health = 600.0
+speed = 50.0
+dmg = 50.0
+xp_worth = 20
+xp_drop_spread = 20
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(8, 8)
+sprite_frames = SubResource("SpriteFrames_e7gsg")
+frame = 2
+frame_progress = 0.0568761
+offset = Vector2(0, -2)
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+position = Vector2(5, -20)
+rotation = 1.5708
+scale = Vector2(2.5, 2.5)
+shape = SubResource("CapsuleShape2D_2cp4r")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(25, -25)
+rotation = 1.5708
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_1m36h")
+debug_color = Color(0.930156, 0.224969, 0.360381, 0.42)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(-105, 20)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_7f8rx")
+debug_color = Color(0.929412, 0.223529, 0.360784, 0.419608)
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(25, -20)
+rotation = 1.5708
+scale = Vector2(6, 6)
+shape = SubResource("CapsuleShape2D_ixlk4")
+debug_color = Color(0, 0.592183, 0.742917, 0.42)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-90, 18.36)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_nfipq")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_t27sw")
+
+[node name="StatusHolder" parent="." instance=ExtResource("3_a8vn7")]

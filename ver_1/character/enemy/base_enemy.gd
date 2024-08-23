@@ -4,7 +4,7 @@ extends BaseCharacter
 signal hit(dmg) # hit by enemy
 
 # For inspector view only, cant modify class stats in inspector. 
-@export_subgroup("Basic information")
+@export_category("Basic information")
 @export var max_health : float
 @export var speed : float
 @export var dmg : float
@@ -14,8 +14,10 @@ signal hit(dmg) # hit by enemy
 @export var frozen : bool
 
 # XP & Loot
+@export_subgroup("XP")
+@export var xp_worth : int = 1
+@export var xp_drop_spread : int
 @onready var loot = get_tree().get_first_node_in_group("loot")
-@export var xp_worth = 1
 @onready var xp_orb = load("res://ver_1/game/spawn_system/experience_orbs.tscn")
 
 var target : BaseHero
@@ -53,5 +55,5 @@ func death():
 	for i in range(xp_worth):
 		var new_xp = xp_orb.instantiate()
 		loot.call_deferred("add_child", new_xp)
-		new_xp.position = position + Vector2(randi_range(-5,5),randi_range(-5,5))
+		new_xp.position = position + Vector2(randi_range(-xp_drop_spread,xp_drop_spread),randi_range(-xp_drop_spread,xp_drop_spread))
 	queue_free()

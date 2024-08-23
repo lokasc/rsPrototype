@@ -1,41 +1,71 @@
-[gd_scene load_steps=8 format=3 uid="uid://ye6jjalknsgf"]
+[gd_scene load_steps=12 format=3 uid="uid://ye6jjalknsgf"]
 
-[ext_resource type="Script" path="res://ver_1/character/enemy/Big Pest/bigpest.gd" id="1_atini"]
-[ext_resource type="Texture2D" uid="uid://c4raa8pik23k4" path="res://Godlucdimje_Demo_Cubes.png" id="2_0cppx"]
+[ext_resource type="Script" path="res://ver_1/character/enemy/MinorBug/minor_bug.gd" id="1_atini"]
+[ext_resource type="Texture2D" uid="uid://dy7hpx0c7gkrt" path="res://CommonBug.png" id="2_gy68r"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="3_q356f"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3fvn6"]
+atlas = ExtResource("2_gy68r")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d31sg"]
+atlas = ExtResource("2_gy68r")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4rdm1"]
+atlas = ExtResource("2_gy68r")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e7gsg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3fvn6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d31sg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4rdm1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2cp4r"]
-radius = 35.0
-height = 140.0
+radius = 25.0
+height = 60.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1m36h"]
-radius = 50.0
-height = 160.0
+radius = 35.0
+height = 90.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gmdls"]
-radius = 27.6134
+radius = 16.4412
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_t27sw"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="BigPest" type="CharacterBody2D"]
+[node name="MinorBug" type="CharacterBody2D"]
 scale = Vector2(0.2, 0.2)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_atini")
-max_health = 1000.0
+max_health = 200.0
 speed = 50.0
-dmg = 40.0
-xp_worth = 20
+dmg = 10.0
+xp_worth = 2
+xp_drop_spread = 10
 char_name = "Big Pest"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
-texture = ExtResource("2_0cppx")
-region_enabled = true
-region_rect = Rect2(500, 530, 120, 80)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_e7gsg")
+frame_progress = 0.912963
+offset = Vector2(0, -2)
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
 rotation = 1.5708

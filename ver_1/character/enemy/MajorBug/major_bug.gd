@@ -1,9 +1,11 @@
-class_name Pest
+class_name MajorBug
 extends BaseEnemy
 
-@onready var sprite : Sprite2D = $Sprite2D
+@onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var hitbox : Area2D = $HitBox
 @onready var collidebox : CollisionShape2D = $CollisionBox
+
+var x_scale : int
 
 func _init():
 	super()
@@ -16,7 +18,8 @@ func _enter_tree():
 func _ready() -> void:
 	super()
 	hitbox.area_entered.connect(on_hit)
-	pass
+	sprite.play("default")
+	x_scale = sprite.scale.x #Sets initial x scale dimension
 
 func _physics_process(_delta):
 	if can_move == true:
@@ -57,9 +60,9 @@ func move_to_target(target = null):
 		velocity = direction * char_stats.spd
 	
 	if direction.x < 0:
-		sprite.scale.x = 1
+		sprite.scale.x = x_scale
 	elif direction.x > 0:
-		sprite.scale.x = -1
+		sprite.scale.x = x_scale * -1
 	else:
-		sprite.scale.x = -1
+		sprite.scale.x = x_scale * -1
 	move_and_slide()
