@@ -72,7 +72,8 @@ func sprite_direction():
 
 func take_damage(dmg):
 	super(dmg)
-	meter += dmg * meter_multiplier
+	if not IS_INVINCIBLE:
+		meter += dmg * meter_multiplier
 
 func reset_meter():
 	meter = 0

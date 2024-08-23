@@ -12,6 +12,7 @@ extends BaseAbility
 @export var zero_cd : bool = false
 
 @export_category("Empowered game stats")
+@export var is_empowered : bool
 @export var area_multiplier : float
 
 @export_category("Freeze stats")
@@ -56,11 +57,12 @@ func _ready() -> void:
 func enter() -> void:
 	super()
 	is_charging = true
+	is_empowered = hero.is_empowered
 	charge_timer.start(charge_duration)
 	indicator.visible = true
 	indicator.monitoring = true
 	
-	if hero.is_empowered:
+	if is_empowered:
 		hitbox_shape.scale *= area_multiplier
 		is_enlarged = true
 
@@ -82,7 +84,8 @@ func _on_wave_timer_timeout() -> void:
 func exit() -> void:
 	super() # starts cd here.
 	start_cd()
-	hero.reset_meter()
+	if is_empowered:
+		hero.reset_meter()
 	
 	if is_enlarged:
 		hitbox_shape.scale /= area_multiplier

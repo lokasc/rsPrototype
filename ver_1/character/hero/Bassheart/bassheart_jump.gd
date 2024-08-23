@@ -3,6 +3,7 @@ extends BaseAbility
 
 @export_category("Game stats")
 @export var initial_shields : int
+@export var shield_duration : float
 @export var hit_duration : float
 @export var initial_cd : int
 @export var zero_cd : bool = false
@@ -12,6 +13,7 @@ extends BaseAbility
 @export var landing_time : float
 
 @export_category("Empowered game stats")
+@export var is_empowered : bool
 @export var initial_dmg : int
 @export var shield_multiplier : float
 
@@ -75,6 +77,7 @@ func enter() -> void:
 	curve_amp = curve_amp_reset
 	
 	hero.IS_INVINCIBLE = true
+	is_empowered = hero.is_empowered # Checks on enter
 	
 	# Setting curve values
 	original_pos = hero.position
@@ -93,7 +96,7 @@ func exit() -> void:
 	hitbox.monitoring = false
 	
 	hero.IS_INVINCIBLE = false
-	if hero.is_empowered:
+	if is_empowered:
 		hero.reset_meter()
 	
 func update(delta: float) -> void:
@@ -129,7 +132,7 @@ func on_hit(area : Area2D) -> void:
 	# do not execute on non-characters or nulls
 	if !character && !(character is BaseCharacter): return
 	
-	if hero.is_empowered:
+	if is_empowered:
 		if character is BaseEnemy:
 			character.take_damage(get_multiplied_atk())
 		if character is BaseHero:
