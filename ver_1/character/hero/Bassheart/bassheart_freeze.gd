@@ -14,6 +14,8 @@ extends BaseAbility
 @export_category("Empowered game stats")
 @export var is_empowered : bool
 @export var area_multiplier : float
+@export var freeze_duration_multiplier : float
+@export var damage_multiplier : float
 
 @export_category("Freeze stats")
 @export var freeze_duration : float
@@ -69,7 +71,6 @@ func enter() -> void:
 func _on_charge_timer_timeout() -> void:
 	hitbox.monitoring = true
 	hitbox.visible = true
-	
 	indicator.visible = false
 	indicator.monitoring = false
 	is_charging = false
@@ -83,12 +84,9 @@ func _on_wave_timer_timeout() -> void:
 
 func exit() -> void:
 	super() # starts cd here.
-	start_cd()
 	if is_empowered:
-		hero.reset_meter()
-	
-	if is_enlarged:
 		hitbox_shape.scale /= area_multiplier
+		hero.reset_meter()
 
 func update(_delta: float) -> void:
 	super(_delta)
@@ -110,12 +108,17 @@ func on_hit(area : Area2D) -> void:
 	# TODO: not networked yet
 	# need to calculate how much damage based on 
 	# the attack value of this ability + my character's attack value
-	enemy.take_damage(get_multiplied_atk())
 	hero.gain_health(initial_dmg*hero.char_stats.hsg)
-	
+	if is_empowered:
+		enemy.take_damage(get_multiplied_atk() * damage_multiplier)
+		if enemy.frozen == false:
+			enemy.add_status("Freeze", [unfreeze_dmg,freeze_duration * freeze_duration_multiplier,dmg_threshold])
 	#This comparison has to be added to prevent applying status twice, also bugs out freeze code
-	if enemy.frozen == false:
-		enemy.add_status("Freeze", [unfreeze_dmg,freeze_duration,dmg_threshold])
+	elif not is_empowered:
+		enemy.take_damage(get_multiplied_atk())
+		if enemy.frozen == false:
+			enemy.add_status("Freeze", [unfreeze_dmg,freeze_duration,dmg_threshold])
+	
 
 # Call this to start cooldown.
 func start_cd() -> void:

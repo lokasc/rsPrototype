@@ -39,7 +39,7 @@ func _process(_delta):
 	super(_delta)
 	# temporary way of seeing meter, will probably end up in UI
 	$ProgressBar.value = meter
-	if meter == 100:
+	if meter >= 100:
 		is_empowered = true
 
 # Movement is handled here by super class
