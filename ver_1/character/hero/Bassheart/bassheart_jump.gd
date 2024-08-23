@@ -1,4 +1,3 @@
-# meta-description: Skeleton for creating abilities, handles cooldowns & upgrading logic, shows all virtual functions. 
 class_name BassheartJump
 extends BaseAbility
 
@@ -100,10 +99,12 @@ func exit() -> void:
 func update(delta: float) -> void:
 	super(delta)
 	air_time += delta
+	
 	if air_time >= landing_time:
 		hit_time += delta
 		hitbox.visible = true
 		hitbox.monitoring = true
+		
 		if hit_time >= hit_duration:
 			state_change.emit(self, "BassheartAttack")
 
@@ -119,39 +120,24 @@ func _process(delta) -> void:
 	
 func on_hit(area : Area2D) -> void:
 	if !multiplayer.is_server(): return
-	var character : BaseHero = null
-	var enemy : BaseEnemy = null
-	# typecasting
-	if area.get_parent() is BaseHero:
+	
+	var character : BaseCharacter = null 
+	
+	if area.get_parent() is BaseCharacter:
 		character = area.get_parent()
-	if area.get_parent() is BaseEnemy:
-		enemy = area.get_parent()
-	if character == null and enemy == null: return
+
+	# do not execute on non-characters or nulls
+	if !character && !(character is BaseCharacter): return
 	
 	if hero.is_empowered:
-		if enemy != null:
-			enemy.take_damage(get_multiplied_atk())
-		if character != null:
+		if character is BaseEnemy:
+			character.take_damage(get_multiplied_atk())
+		if character is BaseHero:
 			character.gain_shield(initial_shields * shield_multiplier)
 		hero.gain_health(get_multiplied_atk() * hero.char_stats.hsg)
-	elif character != null:
-		character.gain_shield(initial_shields)
-# This func is used for auto_attack, dont change this.
-func use_ability() -> void:
-	if is_on_cd: return
-	super()
-
-# Increments level by 1, override virtual func to change upgrade logic.
-func _upgrade() -> void:
-	super()
-
-# Called automatically when ability cd finishes, override this to addd functionality when cd finishes
-func _on_cd_finish() -> void:
-	_reset()
-
-# Resets ability, lets players to use it again, override this to add functionality.
-func _reset() -> void:
-	super()
+	else:
+		if character is BaseHero:
+			character.gain_shield(initial_shields)
 
 func get_curve_points() -> void:
 	if direction.x <0: # so that the hero jumps upwards when moving left
@@ -171,3 +157,17 @@ func set_curve_points() -> void:
 	path.curve.set_point_position(1,inter_pos)
 	path.curve.set_point_out(1, inter_out_pos)
 	path.curve.set_point_position(2,landing_pos)
+
+func use_ability() -> void:
+	if is_on_cd: return
+	super()
+
+# Increments level by 1, override virtual func to change upgrade logic.
+func _upgrade() -> void:
+	super()
+
+func _on_cd_finish() -> void:
+	_reset()
+
+func _reset() -> void:
+	super()
