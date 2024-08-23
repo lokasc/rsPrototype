@@ -3,9 +3,13 @@
 [ext_resource type="Script" path="res://ver_1/actions/items/aoe_item.gd" id="1_ptwnf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qflad"]
+radius = 5.0
 
 [node name="AoeItem" type="Node2D"]
 script = ExtResource("1_ptwnf")
+damage_per_tick = 5
+initial_tick_time = 0.5
+area_of_effect = 5
 
 [node name="HitBox" type="Area2D" parent="."]
 scale = Vector2(10, 10)

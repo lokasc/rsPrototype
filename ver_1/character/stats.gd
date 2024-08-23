@@ -9,7 +9,7 @@ class_name Stats
 @export var arm : int		# Armour
 @export var atk : int		# Attack Damage
 @export var spd : int		# Movement Speed
-@export var cd : int		# Cooldown nb: atk speed
+@export var cd : float		# Cooldown nb: atk speed
 @export var pick : int		# Pick up radius
 @export var mus : int		# Music multiplier (benefits from music sync)
 @export var hsg : float		# Heal & Shield gain

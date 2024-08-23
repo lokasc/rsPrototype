@@ -6,6 +6,8 @@ var hero : BaseHero
 @export var action_name : String = "" #ACTION NAME 
 @export var desc : String
 @export var level : int
+
+@export var is_ascended : bool = false
 var a_stats : Stats
 
 # Visuals
@@ -16,7 +18,13 @@ func _init():
 
 # Override virtual func to change upgrade logic.
 func _upgrade():
-	level += 1
+	if level == 5:
+		is_ascended = true
+	if level >= 5: 
+		level = 5
+		return # Upgraded a maximum of 5 times
+	else:
+		level += 1
 	pass
 
 func get_class_name() -> String:

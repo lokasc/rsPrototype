@@ -40,6 +40,14 @@ func _update_all_turrets(delta) -> void:
 	for x : Turret in turret_list:
 		x._update(delta)
 
+func _upgrade():
+	if level % 2 == 0:
+		deploy_amount += 1
+	deploy_range += 20
+	damage_per_tick += 20
+	turret_range += 5
+	
+
 # Server decides location, passes to all clients.
 func decide_spawn_location() -> Vector2:
 	if !multiplayer.is_server(): return Vector2.ZERO
