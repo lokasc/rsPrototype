@@ -2,8 +2,8 @@ class_name BassheartAttack
 extends BaseAbility
 
 @export_category("Game stats")
-@export var initial_dmg = 100
-@export var initial_cd = 2
+@export var initial_dmg : int
+@export var initial_cd : int = 2
 
 @export_subgroup("Tech")
 @export var hitbox_time_active : float = 0.1

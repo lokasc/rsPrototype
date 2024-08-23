@@ -149,6 +149,7 @@ replication_config = SubResource("SceneReplicationConfig_csrte")
 script = ExtResource("1_kj3tt")
 
 [node name="BassheartAttack" parent="." instance=ExtResource("3_yap6b")]
+initial_dmg = 70
 
 [node name="BassheartFreeze" parent="." instance=ExtResource("4_dw3mb")]
 

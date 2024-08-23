@@ -21,7 +21,6 @@ func _enter_tree():
 func _ready():
 	super()
 	initial_state = basic_attack
-	basic_attack.a_stats.atk = damage # sets basic_atk damage to hero damage
 	pick_up.shape.radius = pick_up_radius
 	
 	##Temporarily disable the camera lock

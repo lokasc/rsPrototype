@@ -131,7 +131,6 @@ radius = 100.0
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_4x4su")
-damage = 65
 basic_attack = NodePath("TrebbieAttack")
 ability_1 = NodePath("TrebbieBuff")
 ability_2 = NodePath("TrebbieDash")
@@ -156,6 +155,9 @@ level = 0
 action_name = "Trebbie Dash"
 
 [node name="TrebbieBuff" parent="." instance=ExtResource("5_mxiub")]
+dmg_multiplier = 3.0
+hsg_multiplier = 4.0
+status_duration = 5.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("4_3i3qh")
