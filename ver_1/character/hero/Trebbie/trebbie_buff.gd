@@ -2,7 +2,7 @@ class_name TrebbieBuff
 extends BaseAbility
 
 @export var initial_cd : int
-@export var initial_dur : float # duration of the ability applying the effect
+@export var active_duration : float # duration of the ability applying the effect
 @export var initial_hsg : float
 @export var dmg_multiplier : float
 @export var hsg_multiplier : float
@@ -23,7 +23,7 @@ func _init() -> void:
 # WARNING: Child nodes have not entered the tree yet. 
 func _enter_tree() -> void:
 	a_stats.cd = initial_cd
-	a_stats.dur = initial_dur
+	a_stats.dur = active_duration
 	a_stats.hsg = initial_hsg
 	pass
 
@@ -47,7 +47,7 @@ func exit() -> void:
 func update(delta: float) -> void:
 	super(delta)
 	duration_time += delta
-	if duration_time >= initial_dur:
+	if duration_time >= active_duration:
 		state_change.emit(self, "TrebbieAttack")
 
 func physics_update(_delta: float) -> void:

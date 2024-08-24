@@ -7,8 +7,7 @@ extends BaseAbility
 
 @export_subgroup("Tech")
 @export var hitbox_time_active : float = 0.1
-@export var distance_to_center : float = 2000
-
+@export var distance_to_center : float
 @onready var hitbox : Area2D = $AttackHitBox
 @onready var hitbox_timer : Timer = $HitboxReset
 

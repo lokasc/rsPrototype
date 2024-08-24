@@ -4,7 +4,7 @@ extends BaseAbility
 @export_category("Game stats")
 @export var initial_shields : int
 @export var shield_duration : float
-@export var hit_duration : float
+@export var active_duration : float
 @export var initial_cd : int
 @export var zero_cd : bool = false
 ## How far the hero jumps
@@ -108,7 +108,7 @@ func update(delta: float) -> void:
 		hitbox.visible = true
 		hitbox.monitoring = true
 		
-		if hit_time >= hit_duration:
+		if hit_time >= active_duration:
 			state_change.emit(self, "BassheartAttack")
 
 func physics_update(delta: float) -> void:

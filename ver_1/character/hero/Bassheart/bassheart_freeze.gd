@@ -8,7 +8,7 @@ extends BaseAbility
 ## time it takes to charge
 @export var charge_duration : float
 ## time it takes to shoot out the wave
-@export var duration : float
+@export var active_duration : float
 @export var zero_cd : bool = false
 
 @export_category("Empowered game stats")
@@ -74,7 +74,7 @@ func _on_charge_timer_timeout() -> void:
 	indicator.visible = false
 	indicator.monitoring = false
 	is_charging = false
-	wave_timer.start(duration)
+	wave_timer.start(active_duration)
 
 func _on_wave_timer_timeout() -> void:
 	hero.input.canMove = true
