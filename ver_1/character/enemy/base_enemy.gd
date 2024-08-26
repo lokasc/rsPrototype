@@ -21,6 +21,8 @@ signal hit(dmg) # hit by enemy
 @onready var xp_orb = load("res://ver_1/game/spawn_system/experience_orbs.tscn")
 
 var target : BaseHero
+var sprite
+var x_scale
 
 ## Base class for all enemy types.
 ## Has a position and health.
