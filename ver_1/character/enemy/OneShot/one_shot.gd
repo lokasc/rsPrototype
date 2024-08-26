@@ -50,6 +50,7 @@ func _decide(target = null):
 		return
 
 func move_to_target(target = null):
+	if target == null: return
 # direction the pest needs to go towards:
 	var direction = global_position.direction_to(target.global_position)
 	var distance = global_position.distance_to(target.global_position)
