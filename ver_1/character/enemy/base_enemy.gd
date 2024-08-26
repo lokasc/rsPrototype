@@ -22,7 +22,7 @@ signal hit(dmg) # hit by enemy
 
 var target : BaseHero
 var sprite
-var x_scale
+var x_scale : int
 
 ## Base class for all enemy types.
 ## Has a position and health.
