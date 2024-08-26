@@ -31,10 +31,12 @@ func _ready() -> void:
 	hitbox.area_entered.connect(on_hit)
 	hitbox.visible = false
 	hitbox.monitoring = false
+	$Sprite2D.visible = false
 
 func enter() -> void:
 	hitbox.visible = true
 	hitbox.monitoring = true
+	$Sprite2D.visible = true
 	duration_time = 0 
 	super()
 
@@ -43,7 +45,7 @@ func exit() -> void:
 	start_cd()
 	hitbox.visible = false
 	hitbox.monitoring = false
-
+	$Sprite2D.visible = false
 func update(delta: float) -> void:
 	super(delta)
 	duration_time += delta

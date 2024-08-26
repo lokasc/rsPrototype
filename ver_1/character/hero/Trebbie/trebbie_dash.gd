@@ -32,6 +32,7 @@ func _ready() -> void:
 	# initialise hitboxes
 	hitbox.visible = false
 	hitbox.monitoring = false
+	$Sprite2D.visible = false
 	collisionbox.disabled = true
 	collisionbox.visible = false
 	if zero_cd:
@@ -49,6 +50,7 @@ func enter():
 	collisionbox.disabled = false
 	collisionbox.visible = true
 	hitbox.monitoring = true
+	$Sprite2D.visible = true
 	hitbox.visible = true
 
 func exit():
@@ -57,6 +59,7 @@ func exit():
 	# disable hitboxes
 	collisionbox.disabled = true
 	collisionbox.visible = false
+	$Sprite2D.visible = false
 	hitbox.visible = false
 	hitbox.monitoring = false
 	

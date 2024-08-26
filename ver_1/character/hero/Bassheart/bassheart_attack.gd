@@ -12,7 +12,6 @@ extends BaseAbility
 @onready var hitbox : Area2D = $AttackHitBox
 @onready var hitbox_timer : Timer = $HitboxReset
 
-
 # Initialize abilities
 # WARNING: export variables wont be avaliable on init, use enter_tree
 func _init():
@@ -27,6 +26,7 @@ func _enter_tree():
 func _ready() -> void:
 	hitbox.position.x = distance_to_center
 	hitbox.monitoring = false
+	$Sprite2D.visible = false
 	hitbox.get_child(0).debug_color = Color("0099b36b")
 	
 	# connect signals
@@ -38,11 +38,11 @@ func _ready() -> void:
 # Emit state_change(self, "new state name") to change out of state. 
 func enter():
 	hitbox.visible = true
-
+	$Sprite2D.visible = true
 # normal attacks dont super() exit
 func exit():
 	hitbox.visible = false
-
+	$Sprite2D.visible = false
 # Automatically attack.
 func update(_delta: float):
 	if hero.input.is_use_mouse_auto_attack:

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://68ap44gt6hrw"]
+[gd_scene load_steps=5 format=3 uid="uid://68ap44gt6hrw"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Bassheart/bassheart_jump.gd" id="1_u42c2"]
+[ext_resource type="Texture2D" uid="uid://bj87if3xp5tym" path="res://icon.svg" id="2_y67xa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3kpo6"]
 radius = 109.073
@@ -14,7 +15,7 @@ point_count = 3
 [node name="BassheartJump" type="Node2D"]
 script = ExtResource("1_u42c2")
 initial_shields = 50
-hit_duration = 0.1
+shield_duration = 5.0
 initial_cd = 6
 distance = 200
 landing_time = 0.5
@@ -39,3 +40,8 @@ curve = SubResource("Curve2D_qj0fq")
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
 rotation = -0.463648
 loop = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2, -3)
+scale = Vector2(1.70312, 1.70313)
+texture = ExtResource("2_y67xa")

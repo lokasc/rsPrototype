@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bwo8lp8xokw8t"]
+[gd_scene load_steps=4 format=3 uid="uid://bwo8lp8xokw8t"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Bassheart/bassheart_attack.gd" id="1_8324u"]
+[ext_resource type="Texture2D" uid="uid://bj87if3xp5tym" path="res://icon.svg" id="2_y0h7m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nwjjw"]
 size = Vector2(79.5387, 102.516)
@@ -18,3 +19,8 @@ position = Vector2(40, 0)
 shape = SubResource("RectangleShape2D_nwjjw")
 
 [node name="HitboxReset" type="Timer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(40, 4.76837e-07)
+scale = Vector2(0.609375, 0.796875)
+texture = ExtResource("2_y0h7m")
