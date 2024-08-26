@@ -1,14 +1,21 @@
 [gd_resource type="AudioStreamInteractive" load_steps=3 format=3 uid="uid://don0ll4pfq51n"]
 
-[ext_resource type="AudioStream" uid="uid://cxmuy47ahu132" path="res://Resources/06. The Junon Region.mp3" id="1_cpeiv"]
-[ext_resource type="AudioStream" uid="uid://b0yb7ig6j1rci" path="res://Resources/07. The Junon Region - Battle Edit.mp3" id="2_71qk4"]
+[ext_resource type="AudioStream" uid="uid://efnwmx2sgmqs" path="res://Resources/RS_Music_3_Calm.mp3" id="1_wrxr5"]
+[ext_resource type="AudioStream" uid="uid://s1pm1mrfkq5l" path="res://Resources/RS_Music_3_Hard.mp3" id="2_f2km2"]
 
 [resource]
-initial_clip = 1
 clip_count = 2
-clip_0/name = &"CalmVer"
-clip_0/stream = ExtResource("1_cpeiv")
+clip_0/name = &"Calm"
+clip_0/stream = ExtResource("1_wrxr5")
 clip_0/auto_advance = 0
-clip_1/name = &"BattleVer"
-clip_1/stream = ExtResource("2_71qk4")
+clip_1/name = &"Hard"
+clip_1/stream = ExtResource("2_f2km2")
 clip_1/auto_advance = 0
+_transitions = {
+Vector2i(-1, -1): {
+"fade_beats": 8,
+"fade_mode": 3,
+"from_time": 2,
+"to_time": 0
+}
+}
