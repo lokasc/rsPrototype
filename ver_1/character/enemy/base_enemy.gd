@@ -57,3 +57,24 @@ func death():
 		loot.call_deferred("add_child", new_xp)
 		new_xp.position = position + Vector2(randi_range(-xp_drop_spread,xp_drop_spread),randi_range(-xp_drop_spread,xp_drop_spread))
 	queue_free()
+
+func move_to_target(target = null):
+	if target == null: return
+
+# direction need to go towards
+	var direction = global_position.direction_to(target.global_position)
+	var distance = global_position.distance_to(target.global_position)
+	
+	if distance < 15:
+		velocity = Vector2.ZERO
+	else:
+		velocity = direction * char_stats.spd
+	
+	if direction.x < 0:
+		sprite.scale.x = x_scale
+	elif direction.x > 0:
+		sprite.scale.x = x_scale * -1
+	else:
+		sprite.scale.x = x_scale * -1
+	move_and_slide()
+
