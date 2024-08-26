@@ -8,10 +8,9 @@ extends BaseAbility
 @export_subgroup("Tech")
 @export var hitbox_time_active : float = 0.1
 @export var distance_to_center : float
-
-
 @onready var hitbox : Area2D = $AttackHitBox
 @onready var hitbox_timer : Timer = $HitboxReset
+
 
 func _init():
 	super()
@@ -23,7 +22,6 @@ func _enter_tree():
 func _ready():
 	hitbox.position.x = distance_to_center
 	hitbox.monitoring = false
-	$Sprite2D.visible = false
 	hitbox.get_child(0).debug_color = Color("0099b36b")
 	
 	# connect signals
@@ -32,17 +30,14 @@ func _ready():
 
 func enter():
 	hitbox.visible = true
-	$Sprite2D.visible = true
 	pass
 
 func exit():
 	hitbox.visible = false
-	$Sprite2D.visible = false
 	pass
 
 # Automatically attack.
 func update(_delta: float):
-
 	if hero.input.is_use_mouse_auto_attack:
 		look_at(hero.input.get_mouse_position())
 	use_ability()

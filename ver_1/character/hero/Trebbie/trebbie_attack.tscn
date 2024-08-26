@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dl6n7678g0f18"]
+[gd_scene load_steps=3 format=3 uid="uid://dl6n7678g0f18"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie_attack.gd" id="1_dmnqs"]
-[ext_resource type="Texture2D" uid="uid://bj87if3xp5tym" path="res://icon.svg" id="2_tskbl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nwjjw"]
 size = Vector2(163.688, 36.125)
@@ -21,8 +20,3 @@ position = Vector2(82, 0)
 shape = SubResource("RectangleShape2D_nwjjw")
 
 [node name="HitboxReset" type="Timer" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(82, 0)
-scale = Vector2(1.28125, 0.28125)
-texture = ExtResource("2_tskbl")

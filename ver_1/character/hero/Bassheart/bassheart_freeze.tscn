@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqbf2f5u4tq66"]
+[gd_scene load_steps=3 format=3 uid="uid://dqbf2f5u4tq66"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Bassheart/bassheart_freeze.gd" id="1_sjmx2"]
-[ext_resource type="Texture2D" uid="uid://bj87if3xp5tym" path="res://icon.svg" id="2_tko0v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ww1ts"]
 size = Vector2(120, 20)
@@ -11,6 +10,7 @@ script = ExtResource("1_sjmx2")
 initial_dmg = 10
 initial_cd = 4
 charge_duration = 0.5
+duration = 0.5
 area_multiplier = 5.0
 freeze_duration_multiplier = 1.5
 damage_multiplier = 3.0
@@ -40,20 +40,6 @@ one_shot = true
 
 [node name="WaveTimer" type="Timer" parent="."]
 one_shot = true
-
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(64, -24)
-rotation = -0.401426
-scale = Vector2(1, 0.199306)
-skew = -0.0872666
-texture = ExtResource("2_tko0v")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(60.5905, 22.8726)
-rotation = 0.392699
-scale = Vector2(1, 0.199306)
-skew = -0.0872665
-texture = ExtResource("2_tko0v")
 
 [connection signal="timeout" from="ChargeTimer" to="." method="_on_charge_timer_timeout"]
 [connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]

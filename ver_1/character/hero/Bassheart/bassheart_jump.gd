@@ -59,7 +59,6 @@ func _ready() -> void:
 	hitbox.area_entered.connect(on_hit)
 	# initialise hitboxes
 	hitbox.visible = false
-	$Sprite2D.visible = false
 	hitbox.monitoring = false
 	if zero_cd:
 		a_stats.cd = 0	
@@ -95,7 +94,7 @@ func exit() -> void:
 	# disable hitboxes
 	hitbox.visible = false
 	hitbox.monitoring = false
-	$Sprite2D.visible = false
+	
 	hero.IS_INVINCIBLE = false
 	if is_empowered:
 		hero.reset_meter()
@@ -108,7 +107,6 @@ func update(delta: float) -> void:
 		hit_time += delta
 		hitbox.visible = true
 		hitbox.monitoring = true
-		$Sprite2D.visible = true
 		
 		if hit_time >= active_duration:
 			state_change.emit(self, "BassheartAttack")

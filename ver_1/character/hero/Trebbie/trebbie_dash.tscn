@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://cjm8swpik3u4m"]
+[gd_scene load_steps=6 format=3 uid="uid://cjm8swpik3u4m"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie_dash.gd" id="1_x8u2y"]
-[ext_resource type="Texture2D" uid="uid://bj87if3xp5tym" path="res://icon.svg" id="2_x42i1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3denc"]
 size = Vector2(66, 151)
@@ -53,8 +52,3 @@ collision_mask = 4
 position = Vector2(66, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_43nil")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(63.5, 1.90735e-06)
-scale = Vector2(1.19531, 0.53125)
-texture = ExtResource("2_x42i1")

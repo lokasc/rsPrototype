@@ -52,9 +52,6 @@ func _ready() -> void:
 	indicator.monitoring = false
 	if zero_cd:
 		a_stats.cd = 0
-		
-	$Sprite2D.visible = false
-	$Sprite2D2.visible = false
 
 # Use statemachine logic if ability requires it
 # use variable HERO to access hero's variables and functions
@@ -74,8 +71,6 @@ func enter() -> void:
 func _on_charge_timer_timeout() -> void:
 	hitbox.monitoring = true
 	hitbox.visible = true
-	$Sprite2D.visible = true
-	$Sprite2D2.visible = true
 	indicator.visible = false
 	indicator.monitoring = false
 	is_charging = false
@@ -85,8 +80,6 @@ func _on_wave_timer_timeout() -> void:
 	hero.input.canMove = true
 	hitbox.monitoring = false
 	hitbox.visible = false
-	$Sprite2D.visible = false
-	$Sprite2D2.visible = false
 	state_change.emit(self, "BassheartAttack")
 
 func exit() -> void:
