@@ -52,7 +52,7 @@ func _process(delta: float) -> void:
 		#hihat_sound.play()
 	
 	previous_time = time
-	current_beat_time += delta
+	current_beat_time += time - previous_time
 	
 	if current_beat_time >= beat_duration:
 		current_beat_time = 0
@@ -62,8 +62,10 @@ func _process(delta: float) -> void:
 # use this function to check when a input is on beat.
 func is_on_beat() -> bool:
 	if current_beat_time <= grace_time || current_beat_time >= beat_duration - grace_time:
+		print("onbeat")
 		return true
 	else:
+		print("u sux")
 		return false 
 
 #region Internal
@@ -85,7 +87,7 @@ func change_clip():
 func change_music(new_music : AudioStreamInteractive) -> void:
 	current_music = new_music
 	main_music_player.stream = current_music
-	beat_duration = 60/120
+	beat_duration = 60.0/140.0
 
 @rpc("authority", "call_remote", "reliable")
 func stc_check_timestamp(time : float) -> void:
