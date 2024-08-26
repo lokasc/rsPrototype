@@ -57,8 +57,11 @@ func on_host_pressed():
 	add_player()
 	GameManager.Instance.change_ui()
 
-func on_client_pressed():
-	peer.create_client(DEFAULT_ADDRESS, DEFAULT_PORT)
+func on_client_pressed(ip):
+	if ip == "":
+		peer.create_client(DEFAULT_ADDRESS, DEFAULT_PORT)
+	else:
+		peer.create_client(ip, DEFAULT_PORT)
 	multiplayer.multiplayer_peer = peer
 	
 	# Set UI

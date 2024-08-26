@@ -24,6 +24,7 @@ window/stretch/mode="canvas_items"
 [file_customization]
 
 folder_colors={
+"res://Resources/": "pink",
 "res://beat_sync/": "gray",
 "res://font/pixel_2/": "red",
 "res://ver_1/": "orange"

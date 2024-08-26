@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cxmuy47ahu132"
+path="res://.godot/imported/06. The Junon Region.mp3-09819eda47d773ef1b0443e12b6b694b.mp3str"
+
+[deps]
+
+source_file="res://Resources/06. The Junon Region.mp3"
+dest_files=["res://.godot/imported/06. The Junon Region.mp3-09819eda47d773ef1b0443e12b6b694b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

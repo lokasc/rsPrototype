@@ -36,7 +36,7 @@ var action_selected : bool
 var net : NetManager
 var spawner : EnemySpawner
 var ui : UIManager
-var bc # beat controllerx
+var bc : BeatController
 
 # XP
 var current_xp : int

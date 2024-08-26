@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3ouif0d4g8f0"]
+[gd_scene load_steps=9 format=3 uid="uid://b3ouif0d4g8f0"]
 
 [ext_resource type="Script" path="res://ver_1/game/main/game_manager.gd" id="1_btbqh"]
 [ext_resource type="PackedScene" uid="uid://o5mopq7q46cq" path="res://ver_1/game/net/net_manager.tscn" id="2_188hs"]
@@ -6,11 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://cn3n52t8ej5n4" path="res://ver_1/game/UI/UI.tscn" id="4_u70ly"]
 [ext_resource type="PackedScene" uid="uid://bspypir426weo" path="res://ver_1/game/level/map.tscn" id="5_68xy0"]
 [ext_resource type="PackedScene" uid="uid://cign40xw4w43g" path="res://ver_1/game/level/dummy_level.tscn" id="6_cbvl2"]
+[ext_resource type="PackedScene" uid="uid://ck0rs6xq3084g" path="res://ver_1/character/hero/Bassheart/bassheart.tscn" id="7_rmtll"]
+[ext_resource type="PackedScene" uid="uid://bi6kxlphddvs2" path="res://ver_1/game/music/beat_controller.tscn" id="8_abtt5"]
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_btbqh")
 wait_for_player = true
-dont_spawn_enemies = true
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_l8iil")]
 
@@ -25,3 +26,6 @@ z_index = -5
 [node name="Ui" parent="." instance=ExtResource("4_u70ly")]
 
 [node name="NetManager" parent="." instance=ExtResource("2_188hs")]
+player_scene = ExtResource("7_rmtll")
+
+[node name="BeatController" parent="." instance=ExtResource("8_abtt5")]

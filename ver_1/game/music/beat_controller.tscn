@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bi6kxlphddvs2"]
+
+[ext_resource type="Script" path="res://ver_1/game/music/beat_controller.gd" id="1_a6whl"]
+[ext_resource type="AudioStream" uid="uid://c3uin71rkug8o" path="res://beat_sync/808-closed-hi-hat.wav" id="2_slhb0"]
+
+[node name="BeatController" type="Node"]
+script = ExtResource("1_a6whl")
+
+[node name="MainMusicPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"MainMusic"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_slhb0")
