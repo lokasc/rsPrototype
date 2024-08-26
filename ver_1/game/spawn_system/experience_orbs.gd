@@ -2,7 +2,7 @@ extends Node2D
 
 signal xp_collected
 # Speed of the xp orb going towards the players
-var speed : int = 1
+var speed : float = 1
 
 var collected : bool = false
 
@@ -13,7 +13,7 @@ func _process(delta: float) -> void:
 	if collected == true:
 		# The movement may be more fancy than just moving towards the players
 		position = position.move_toward(hero.position,speed)
-		speed *= 1.03
+		speed *= 1.01
 		
 		# Destroys the node when the player within the threshold (prevent floating calcs)
 		
