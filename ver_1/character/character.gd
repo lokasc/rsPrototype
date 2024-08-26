@@ -9,8 +9,8 @@ extends CharacterBody2D
 var status_holder : StatusHolder
 
 var char_stats : Stats
-var current_health : float
-var current_shield : float
+var current_health : int
+var current_shield : int
 
 func _init():
 	char_stats = Stats.new()
@@ -34,5 +34,5 @@ func add_status(effect_name, args):
 	status_holder.add_status(effect_name, args)
 
 # Override this in enemy and hero to change logic
-func take_damage(dmg):
+func take_damage(_dmg):
 	pass

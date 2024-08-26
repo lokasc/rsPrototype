@@ -62,4 +62,4 @@ func is_ready() -> bool:
 
 # applies atk multiplier from hero to the attack.
 func get_multiplied_atk() -> int:
-	return hero.get_atk_mul() * a_stats.atk
+	return int(hero.get_atk_mul() * a_stats.atk)

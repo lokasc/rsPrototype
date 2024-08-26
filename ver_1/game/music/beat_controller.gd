@@ -32,7 +32,7 @@ func _ready() -> void:
 	change_music(test_interactive)
 	start_music()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("attack"):
 		change_clip()
 	
@@ -62,10 +62,8 @@ func _process(delta: float) -> void:
 # use this function to check when a input is on beat.
 func is_on_beat() -> bool:
 	if current_beat_time <= grace_time || current_beat_time >= beat_duration - grace_time:
-		print("onbeat")
 		return true
 	else:
-		print("u sux")
 		return false 
 
 #region Internal
@@ -97,7 +95,7 @@ func stc_check_timestamp(time : float) -> void:
 
 # send to server client's time_stamp
 @rpc("any_peer", "reliable")
-func cts_return_time_stamp(client_time : float) -> void:
+func cts_return_time_stamp(_client_time : float) -> void:
 	pass
 
 # Pass timestamp and time left on timers 
@@ -115,31 +113,29 @@ func sync_music() -> void:
 # 7. the check for on-beat is client-side or has leniancy for the client.
 
 
-func transition_music(from_clip, to_clip):
+func transition_music(_from_clip, _to_clip):
 	pass
 func get_current_timestamp() -> float:
 	return 0
 
 enum BG_TRANSITION_TYPE {
-	const FRIENDLY_DEAD
-	const LOW_HP
-	const EARLY_GAME
-	const MID_GAME
-	const LATE_GAME
-}
+	FRIENDLY_DEAD,
+	LOW_HP,
+	EARLY_GAME,
+	MID_GAME,
+	LATE_GAME,
+	}
 
 ## Change background music
 func change_bg(type : BG_TRANSITION_TYPE) -> void:
 	match type:
 		BG_TRANSITION_TYPE.EARLY_GAME:
-			print(transition to early)
+			print("transition to early")
 		BG_TRANSITION_TYPE.MID_GAME:
-			print(transition to mid)
+			print("transition to mid")
 		BG_TRANSITION_TYPE.LATE_GAME:
-			print(transition to late)
+			print("transition to late")
 		_:
 			printerr("Error, wrong or no type given")
 		
 	pass
-
-

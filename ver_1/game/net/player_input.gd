@@ -27,7 +27,7 @@ func get_mouse_position() -> Vector2:
 		return mouse_pos
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if is_multiplayer_authority():
 		if canMove:
 			direction = Input.get_vector("left", "right", "up", "down")

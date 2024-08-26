@@ -225,11 +225,11 @@ func sprite_direction():
 func get_atk() -> int:
 	return char_stats.atk
 
-func get_atk_mul() -> int:
+func get_atk_mul() -> float:
 	return char_stats.atk_mul
 
 # Logic for leveling up, perhaps max_hp increase...
-func on_level_up(new_level) -> void:
+func on_level_up(_new_level) -> void:
 	# use new_level as x value to get the new hp as y value on the curve.
 	#current_health = char_stats.maxhp
 	pass
@@ -244,7 +244,7 @@ func add_item(_item : BaseItem) -> void:
 	items.append(new_item)
 	item_holder.add_child(new_item)
 
-func remove_item(name) -> void:
+func remove_item(_name) -> void:
 	return
 
 func has_item(new_item : BaseItem) -> bool:

@@ -111,7 +111,7 @@ func start_level_up_sequence():
 		client_level_up.rpc_id(player.id, items)
 
 # Algorithm for choosing actions for level up.
-func choose_items(hero : BaseHero) -> Array[String]:
+func choose_items(_hero : BaseHero) -> Array[String]:
 	var item : BaseAction = AOEItem.new()
 	var turret_item : BaseAction = TurretItem.new()
 	var turret_name : String = serialize(turret_item)
@@ -140,7 +140,7 @@ func parse_action_card(id : int, _action_name):
 	if action is BaseAbility:
 		# parse ability
 		pass
-	action
+	#action
 
 # Death & Strawberry
 func check_alive_players() -> void:

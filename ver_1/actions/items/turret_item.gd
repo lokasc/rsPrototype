@@ -68,9 +68,9 @@ func spawn_turret(spawn_location : Vector2) -> void:
 	turret_list.append(new_turret)
 	GameManager.Instance.net.spawnable_path.add_child(new_turret)
 	
-func on_destroy_turret(turret) -> void:
-	turret_list.erase(turret)
-	turret.queue_free()
+func on_destroy_turret(p_turret) -> void:
+	turret_list.erase(p_turret)
+	p_turret.queue_free()
 
 func set_turret_stats(new_turret : Turret) -> void:
 	new_turret.damage_per_tick = damage_per_tick

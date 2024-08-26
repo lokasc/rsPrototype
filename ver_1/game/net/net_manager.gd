@@ -33,7 +33,7 @@ func _ready():
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if !multiplayer.is_server(): return
 	
 	if !GameManager.Instance.is_game_started() && GameManager.Instance.wait_for_player && get_player_count() >= 2:
@@ -115,7 +115,7 @@ func hide_ui():
 func show_ui():
 	net_ui.visible = true
 
-func _on_peer_disconnect(id):
+func _on_peer_disconnect(_id):
 	pass
 
 func _on_connection_failed():

@@ -9,7 +9,7 @@ var collected : bool = false
 # Getting the player who collected the xp orb
 var hero : CharacterBody2D
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if collected == true:
 		# The movement may be more fancy than just moving towards the players
 		position = position.move_toward(hero.position,speed)

@@ -34,7 +34,7 @@ func update_max_xp(max_xp : int) -> void:
 func update_lvl_label(new_lvl : int) -> void:
 	level_label.text = str(new_lvl)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var my_player = GameManager.Instance.local_player
 	if !my_player: return
 	
@@ -74,7 +74,7 @@ func build_selection_container(info_array : Array):
 		card_path.add_child(copy,true)
 
 # change ui when you've selected something
-func on_client_selection(card_info):
+func on_client_selection(_card_info):
 	# disable all children
 	for x in card_path.get_children():
 		x.visible = false

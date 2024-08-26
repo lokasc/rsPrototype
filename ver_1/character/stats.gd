@@ -5,7 +5,7 @@ class_name Stats
 
 
 @export var maxhp : int 	# Max Health
-@export var aoe : int		# Area of Effect
+@export var aoe : float		# Area of Effect
 @export var arm : int		# Armour
 @export var atk : int		# Attack Damage
 @export var spd : int		# Movement Speed
@@ -13,7 +13,7 @@ class_name Stats
 @export var pick : int		# Pick up radius
 @export var mus : int		# Music multiplier (benefits from music sync)
 @export var hsg : float		# Heal & Shield gain
-@export var dur : int		# Duration of abilities
+@export var dur : float		# Duration of abilities
 @export var atk_mul : float # Attack Multiplier
 @export var shields : int	# Amount of shield health
 
@@ -33,4 +33,4 @@ func _init(_maxhp = 100, _aoe = 1, _arm = 1, _atk = 1, _spd = 1, _cd = 1, _pick 
 
 # Get dmg with multiplier
 func get_total_dmg() -> int:
-	return atk_mul * atk
+	return int(atk_mul * atk)

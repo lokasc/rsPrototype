@@ -39,10 +39,7 @@ func on_hit(area : Area2D) -> void:
 	# the attack value of this ability + my character's attack value
 	hero.take_damage(char_stats.atk)
 
-func take_damage(dmg) -> void:
-	super(dmg)
-
 # TODO: FSM or STATE MACHINE for enemy
-func _decide(target = null) -> void:
-	if target == null:
+func _decide(_target = null) -> void:
+	if _target == null:
 		return

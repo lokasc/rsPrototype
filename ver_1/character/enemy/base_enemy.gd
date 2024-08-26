@@ -5,9 +5,9 @@ signal hit(dmg) # hit by enemy
 
 # For inspector view only, cant modify class stats in inspector. 
 @export_category("Basic information")
-@export var max_health : float
-@export var speed : float
-@export var dmg : float
+@export var max_health : int
+@export var speed : int
+@export var dmg : int
 
 @export_subgroup("Status")
 @export var can_move : bool
@@ -45,10 +45,10 @@ func _enter_tree() -> void:
 	target = GameManager.Instance.players[0]
 	_init_stats()
 
-func take_damage(dmg:int) -> void:
+func take_damage(p_dmg:int) -> void:
 	# Client prediction
-	current_health -= dmg
-	hit.emit(dmg)
+	current_health -= p_dmg
+	hit.emit(p_dmg)
 	if current_health <= 0:
 		death.rpc()
 
@@ -60,12 +60,12 @@ func death() -> void:
 		new_xp.position = position + Vector2(randi_range(-xp_drop_spread,xp_drop_spread),randi_range(-xp_drop_spread,xp_drop_spread))
 	queue_free()
 
-func move_to_target(target = null) -> void:
-	if target == null: return
+func move_to_target(p_target = null) -> void:
+	if p_target == null: return
 
 # direction need to go towards
-	var direction : Vector2 = global_position.direction_to(target.global_position)
-	var distance : float = global_position.distance_to(target.global_position)
+	var direction : Vector2 = global_position.direction_to(p_target.global_position)
+	var distance : float = global_position.distance_to(p_target.global_position)
 	
 	if distance < 15:
 		velocity = Vector2.ZERO
