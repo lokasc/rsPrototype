@@ -1,11 +1,8 @@
 class_name MajorBug
 extends BaseEnemy
 
-@onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var hitbox : Area2D = $HitBox
 @onready var collidebox : CollisionShape2D = $CollisionBox
-
-var x_scale : int
 
 func _init():
 	super()
@@ -18,6 +15,7 @@ func _enter_tree():
 func _ready() -> void:
 	super()
 	hitbox.area_entered.connect(on_hit)
+	sprite = $AnimatedSprite2D
 	sprite.play("default")
 	x_scale = sprite.scale.x #Sets initial x scale dimension
 
