@@ -27,8 +27,8 @@ extends BaseAbility
 ## Determines how much the curve diminishes, the higher the number the more it reduces, the smaller the number the less it reduces up to a limit of 0.37
 @export var curve_red : float
 
+# Jumping Curve Variables
 var air_time : float		# Current time while jumping
-var hit_time : float		# Current time while hitting
 var direction : Vector2		# The normalised direction of the mouse from the hero position
 var curve_amp_reset : float	# The curve_amp set in the inspector
 var original_pos : Vector2	# The position of where the hero jumped from
@@ -38,11 +38,12 @@ var inter_in_pos : Vector2	# Determines how fast the hero curves into inter_pos
 var inter_out_pos : Vector2	# Determines how fast the hero curves out of inter_pos
 var landing_pos : Vector2	# The position of the landing point
 
-
+var has_triggered : bool = false
 
 @onready var hitbox : Area2D = $HitBox
 @onready var path_follow : PathFollow2D = $Path2D/PathFollow2D
 @onready var path : Path2D = $Path2D
+@onready var hit_timer : Timer = $HitTimer
 
 func _init() -> void:
 	super()
@@ -72,10 +73,9 @@ func enter() -> void:
 	super()
 	# Reseting variables
 	air_time = 0
-	hit_time = 0
 	path_follow.progress_ratio = 0
 	curve_amp = curve_amp_reset
-	
+	has_triggered = false
 	hero.IS_INVINCIBLE = true
 	is_empowered = hero.is_empowered # Checks on enter
 	
@@ -101,15 +101,14 @@ func exit() -> void:
 	
 func update(delta: float) -> void:
 	super(delta)
-	air_time += delta
 	
-	if air_time >= landing_time:
-		hit_time += delta
+	if air_time >= landing_time and has_triggered == false:
+		hit_timer.start(active_duration)
 		hitbox.visible = true
 		hitbox.monitoring = true
-		
-		if hit_time >= active_duration:
-			state_change.emit(self, "BassheartAttack")
+		has_triggered = true
+		print("triggered")
+	else: air_time += delta
 
 func physics_update(delta: float) -> void:
 	super(delta)
@@ -136,11 +135,13 @@ func on_hit(area : Area2D) -> void:
 		if character is BaseEnemy:
 			character.take_damage(get_multiplied_atk())
 		if character is BaseHero:
-			character.gain_shield(initial_shields * shield_multiplier)
+			character.gain_shield(initial_shields * shield_multiplier, shield_duration)
+			print("gain_yes", is_empowered)
 		hero.gain_health(get_multiplied_atk() * hero.char_stats.hsg)
 	else:
 		if character is BaseHero:
-			character.gain_shield(initial_shields)
+			character.gain_shield(initial_shields, shield_duration)
+			print("gain_not", is_empowered)
 
 func get_curve_points() -> void:
 	if direction.x <0: # so that the hero jumps upwards when moving left
@@ -174,3 +175,7 @@ func _on_cd_finish() -> void:
 
 func _reset() -> void:
 	super()
+
+
+func _on_hit_timer_timeout() -> void:
+	state_change.emit(self, "BassheartAttack")

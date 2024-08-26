@@ -52,6 +52,12 @@ var item_holder : Node
 var pop_up : TextPopUp
 var camera : PlayerCamera
 
+# Shield variables
+var shield_lost : int
+var shield_duration : float
+var shield_time : float
+var is_losing_shield : bool = false
+
 func _init():
 	super()
 	pass
@@ -95,6 +101,10 @@ func _process(_delta) -> void:
 	if current_state:
 		current_state.update(_delta)
 	process_items(_delta)
+	if is_losing_shield:
+		shield_time += _delta
+		if shield_time >= shield_duration:
+			lose_shield(shield_lost)
 
 func _physics_process(_delta) -> void:
 	if current_state:
@@ -154,9 +164,21 @@ func gain_health(heal):
 	else:
 		current_health = char_stats.maxhp
 
-func gain_shield(shield):
+func gain_shield(shield, duration):
 	if !multiplayer.is_server(): return
 	current_shield += shield
+	shield_lost = shield
+	shield_duration = duration
+	is_losing_shield = true
+
+func lose_shield(shield):
+	if !multiplayer.is_server(): return
+	if current_shield - shield < 0:
+		current_shield = 0
+	else:
+		current_shield -= shield
+	is_losing_shield = false
+	shield_time = 0
 
 func take_damage(dmg):
 	if !multiplayer.is_server(): return
