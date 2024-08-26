@@ -17,7 +17,7 @@ func _init():
 	a_stats = Stats.new()
 
 # Override virtual func to change upgrade logic.
-func _upgrade():
+func _upgrade() -> void:
 	if level == 5:
 		is_ascended = true
 	if level >= 5: 

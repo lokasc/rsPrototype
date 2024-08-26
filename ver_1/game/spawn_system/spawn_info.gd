@@ -13,6 +13,6 @@ class_name Spawn_info
 
 ##The amount of enemy spawned each time
 @export var enemy_num:int
+##The time delay between each spawn
 @export var enemy_spawn_delay:int
-
-var spawn_delay_counter = 0
+var spawn_delay_counter : int = 0

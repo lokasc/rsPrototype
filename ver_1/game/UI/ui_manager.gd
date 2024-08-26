@@ -63,7 +63,7 @@ func build_selection_container(info_array : Array):
 	selection_container.visible = true
 	
 	for script_name in info_array:
-		var copy = card_scn.instantiate() as SelectionCard
+		var copy := card_scn.instantiate() as SelectionCard
 		copy.client_card_selected.connect(on_client_selection)
 		var action = GameManager.Instance.deserialize(script_name)
 		

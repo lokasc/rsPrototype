@@ -6,6 +6,6 @@ extends Camera2D
 
 @export var target : NodePath #Assign the node this camera will follow.
 
-func _physics_process(_delta):
+func _physics_process(_delta:float):
 	if target:
 		global_position = get_node(target).global_position

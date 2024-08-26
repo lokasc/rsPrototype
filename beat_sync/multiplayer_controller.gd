@@ -59,17 +59,17 @@ var seconds_per_four_beats : float
 var extra_seconds : float
 var total_cd_time : float
 
-var opaque_ring_scale
-var transparent_ring_scale
+var opaque_ring_scale : Vector2
+var transparent_ring_scale : Vector2
 
-var sound_count
+var sound_count : int
 
 ### Statistics
-var pressed_time
+var pressed_time : float
 
 # difference between the last crotchet and pressed time.
 # negative implies early, positive implies late.
-var accuracy
+var accuracy 
 var friend_accuracy = null
 var friend_state = null
 
@@ -137,7 +137,7 @@ func _physics_process(delta):
 # the transparent ring
 
 # This function corresponds to the main gameplay
-func game_loop(_delta):
+func game_loop(_delta : float):
 	#print(current_state)
 	match current_state:
 		GAME_STATE.STATE_IDLE:
@@ -218,7 +218,7 @@ func game_loop(_delta):
 			
 			# recieved result, go next.
 			if multiplayer.is_server() && is_delay_sent == false:
-				var player_diff = abs(friend_accuracy - accuracy)
+				var player_diff : float = abs(friend_accuracy - accuracy)
 				pong_button_press_delay.rpc(player_diff)
 				is_delay_sent = true
 			
@@ -280,7 +280,7 @@ func reset_stat_strings():
 	$"../Countdowns/StatsContainer/Ping".text = "Client Delay"
 	$"../Countdowns/StatsContainer/ButtonPressDelay".text = "Time between players:"
 func set_accuracy():
-	var string
+	var string : String
 	
 	# TODO: maybe turn green or something within a range
 	if sign(accuracy) == -1:
@@ -353,7 +353,7 @@ func _on_host_button_button_down():
 	#game_ui.get_node("StartGameButton").visible = true # SOLOTEST
 
 func _on_join_button_button_down():
-	var input_ip = (get_node("/root/BeatMain/UI/NetUI/HBoxContainer/IP") as TextEdit).text
+	var input_ip : String = (get_node("/root/BeatMain/UI/NetUI/HBoxContainer/IP") as TextEdit).text
 	if input_ip != "":
 		ip_address = input_ip
 	

@@ -8,7 +8,7 @@ var holder : StatusHolder
 func on_added():
 	return null
 
-func update(_delta):
+func update(_delta:float):
 	return null
 
 func on_removed():

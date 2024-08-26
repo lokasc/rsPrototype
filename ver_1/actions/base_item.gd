@@ -4,5 +4,5 @@ extends BaseAction
 func _enter_tree() -> void:
 	a_stats = Stats.new()
 
-func _update(_delta) -> void:
+func _update(_delta:float) -> void:
 	pass

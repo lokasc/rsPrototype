@@ -3,14 +3,14 @@ extends BaseEnemy
 
 @onready var hitbox : Area2D = $HitBox
 
-func _init():
+func _init() -> void:
 	super()
 	pass
 
-func _enter_tree():
+func _enter_tree() -> void:
 	_init_stats()
 
-func _init_stats():
+func _init_stats() -> void:
 	char_stats.maxhp = 10000
 	char_stats.spd = 0
 	char_stats.atk = 0
@@ -39,6 +39,6 @@ func on_hit(area : Area2D):
 	# the attack value of this ability + my character's attack value
 	hero.take_damage(char_stats.atk)
 
-func take_damage(dmg):
+func take_damage(dmg) -> void:
 	super(dmg)
 	$TextPopUp.set_pop(str(dmg), self.global_position)

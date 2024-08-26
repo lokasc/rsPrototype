@@ -97,7 +97,7 @@ func _ready():
 	if is_multiplayer_authority():
 		camera.make_current()
 
-func _process(_delta) -> void:
+func _process(_delta:float) -> void:
 	if current_state:
 		current_state.update(_delta)
 	process_items(_delta)
@@ -106,16 +106,16 @@ func _process(_delta) -> void:
 		if shield_time >= shield_duration:
 			lose_shield(shield_lost)
 
-func _physics_process(_delta) -> void:
+func _physics_process(_delta:float) -> void:
 	if current_state:
 		current_state.physics_update(_delta)
 	sprite_direction()
 
-func process_items(_delta) -> void:
+func process_items(_delta:float) -> void:
 	for item : BaseItem in items:
 		item._update(_delta)
 
-func on_state_change(state_old, state_new_name):
+func on_state_change(state_old, state_new_name:String):
 	if state_old != current_state:
 		return
 	

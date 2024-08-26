@@ -39,7 +39,7 @@ func _process(delta: float) -> void:
 	if !is_playing: return
 	
 	# Compensate for delay.
-	var time = (Time.get_ticks_usec() - time_begin) / 1000000.0
+	var time : float = (Time.get_ticks_usec() - time_begin) / 1000000.0
 	# Compensate for latency.
 	time -= time_delay
 	# May be below 0 (did not begin yet).

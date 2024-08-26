@@ -17,8 +17,8 @@ signal hit(dmg) # hit by enemy
 @export_subgroup("XP")
 @export var xp_worth : int = 1
 @export var xp_drop_spread : int
-@onready var loot = get_tree().get_first_node_in_group("loot")
-@onready var xp_orb = load("res://ver_1/game/spawn_system/experience_orbs.tscn")
+@onready var loot : Node = get_tree().get_first_node_in_group("loot")
+@onready var xp_orb : Resource = load("res://ver_1/game/spawn_system/experience_orbs.tscn")
 
 var target : BaseHero
 var sprite
@@ -27,10 +27,10 @@ var x_scale : int
 ## Base class for all enemy types.
 ## Has a position and health.
 
-func _init():
+func _init() -> void:
 	super()
 
-func _init_stats():
+func _init_stats() -> void:
 	char_stats.maxhp = max_health
 	char_stats.spd = speed
 	char_stats.atk = dmg
@@ -41,11 +41,11 @@ func _init_stats():
 	pass
 
 # Export variables arent ready on innit
-func _enter_tree():
+func _enter_tree() -> void:
 	target = GameManager.Instance.players[0]
 	_init_stats()
 
-func take_damage(dmg):
+func take_damage(dmg:int) -> void:
 	# Client prediction
 	current_health -= dmg
 	hit.emit(dmg)
@@ -53,19 +53,19 @@ func take_damage(dmg):
 		death.rpc()
 
 @rpc("unreliable_ordered", "call_local")
-func death():
+func death() -> void:
 	for i in range(xp_worth):
 		var new_xp = xp_orb.instantiate()
 		loot.call_deferred("add_child", new_xp)
 		new_xp.position = position + Vector2(randi_range(-xp_drop_spread,xp_drop_spread),randi_range(-xp_drop_spread,xp_drop_spread))
 	queue_free()
 
-func move_to_target(target = null):
+func move_to_target(target = null) -> void:
 	if target == null: return
 
 # direction need to go towards
-	var direction = global_position.direction_to(target.global_position)
-	var distance = global_position.distance_to(target.global_position)
+	var direction : Vector2 = global_position.direction_to(target.global_position)
+	var distance : float = global_position.distance_to(target.global_position)
 	
 	if distance < 15:
 		velocity = Vector2.ZERO

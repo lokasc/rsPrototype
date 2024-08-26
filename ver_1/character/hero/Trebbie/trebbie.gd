@@ -14,11 +14,11 @@ extends BaseHero
 
 @onready var pick_up : CollisionShape2D = $PickUpRadius/CollisionShape2D
 
-func _enter_tree():
+func _enter_tree() -> void:
 	super()
 	pass
 
-func _ready():
+func _ready() -> void:
 	super()
 	initial_state = basic_attack
 	pick_up.shape.radius = pick_up_radius
@@ -28,10 +28,10 @@ func _ready():
 		#camera.enabled = false
 		#camera.zoom = Vector2.ONE
 
-func _process(_delta):
+func _process(_delta : float) -> void:
 	super(_delta)
 
-func _physics_process(_delta):
+func _physics_process(_delta : float) -> void:
 	super(_delta)
 
 

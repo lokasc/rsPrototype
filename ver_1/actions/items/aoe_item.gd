@@ -20,7 +20,7 @@ func _enter_tree() -> void:
 	a_stats.atk = damage_per_tick
 	a_stats.cd = initial_tick_time
 
-func _update(_delta) -> void:
+func _update(_delta:float) -> void:
 	global_position = hero.global_position
 	current_time += _delta
 	if current_time >= a_stats.cd:

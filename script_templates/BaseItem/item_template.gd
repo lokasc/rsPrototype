@@ -9,5 +9,5 @@ func _enter_tree() -> void:
 # Write logic below here....
 
 # Update is called by the main character
-func _update(_delta) -> void:
+func _update(_delta:float) -> void:
 	super(_delta)

@@ -40,7 +40,7 @@ func _update_all_turrets(delta) -> void:
 	for x : Turret in turret_list:
 		x._update(delta)
 
-func _upgrade():
+func _upgrade() -> void:
 	super()
 	if level % 2 == 0:
 		deploy_amount += 1
@@ -59,7 +59,7 @@ func decide_spawn_location() -> Vector2:
 # 2. Spawn on all clients with location
 # 3. Only sync the direction of the turret when a target changed. 
 @rpc("authority", "call_local")
-func spawn_turret(spawn_location : Vector2):
+func spawn_turret(spawn_location : Vector2) -> void:
 	var new_turret : Turret = turret.instantiate()
 	new_turret.global_position = spawn_location
 	new_turret.item = self
@@ -68,17 +68,17 @@ func spawn_turret(spawn_location : Vector2):
 	turret_list.append(new_turret)
 	GameManager.Instance.net.spawnable_path.add_child(new_turret)
 	
-func on_destroy_turret(turret):
+func on_destroy_turret(turret) -> void:
 	turret_list.erase(turret)
 	turret.queue_free()
 
-func set_turret_stats(new_turret : Turret):
+func set_turret_stats(new_turret : Turret) -> void:
 	new_turret.damage_per_tick = damage_per_tick
 	new_turret.initial_tick_time = damage_tick_time
 	new_turret.damage_per_tick = damage_per_tick
 	new_turret.turret_duration = turret_duration
 	new_turret.turret_range = turret_range
 
-func set_item_stats():
+func set_item_stats() -> void:
 	a_stats.atk = damage_per_tick
 	a_stats.cd = deploy_cd

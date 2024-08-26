@@ -5,11 +5,11 @@ extends Node
 var statuses : Array[BaseStatus]
 var character : BaseCharacter
 
-func add_status(effect_name, arg):
+func add_status(effect_name:String, arg):
 	if !multiplayer.is_server(): return
 	tell_clients_add_status.rpc(effect_name, arg)
 
-func _process(_delta):
+func _process(_delta:float):
 	for status : BaseStatus in statuses:
 		status.update(_delta)
 

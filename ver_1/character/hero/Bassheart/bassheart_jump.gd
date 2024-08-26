@@ -116,7 +116,7 @@ func physics_update(delta: float) -> void:
 	path_follow.progress_ratio += delta/landing_time
 	hero.position = path_follow.position
 
-func _process(delta) -> void:
+func _process(delta : float) -> void:
 	super(delta)
 	pass
 	

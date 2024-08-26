@@ -22,11 +22,11 @@ extends BaseHero
 
 # Initalize export variables, called before @onready or _ready()
 # WARNING: Child nodes have not entered the tree yet. 
-func _enter_tree():
+func _enter_tree() -> void:
 	super()
 
 # Node initalization.
-func _ready():
+func _ready() -> void:
 	super()
 	initial_state = basic_attack
 	pick_up.shape.radius = pick_up_radius
@@ -35,7 +35,7 @@ func _ready():
 		camera.enabled = false
 		camera.zoom = Vector2.ONE
 
-func _process(_delta):
+func _process(_delta:float) -> void:
 	super(_delta)
 	# temporary way of seeing meter, will probably end up in UI
 	$ProgressBar.value = meter
@@ -43,11 +43,11 @@ func _process(_delta):
 		is_empowered = true
 
 # Movement is handled here by super class
-func _physics_process(_delta):
+func _physics_process(_delta:float) -> void:
 	super(_delta)
 
 ### Overide this to modify the starting stats of your hero
-func _init_stats():
+func _init_stats() -> void:
 	super()
 	char_stats.maxhp = max_hp
 	char_stats.spd = speed
@@ -58,7 +58,7 @@ func _init_stats():
 
 # this function overrides the base hero one because of the current sprite
 # will be deleted after bassheart sprite is done
-func sprite_direction():
+func sprite_direction() -> void:
 	# Changing the sprite direction to the last moved direction
 	if input.direction.x <0:
 		sprite_dir = Facing.LEFT
@@ -70,11 +70,11 @@ func sprite_direction():
 		1:
 			sprite.scale.x = 0.156
 
-func take_damage(dmg):
+func take_damage(dmg) -> void:
 	super(dmg)
 	if not IS_INVINCIBLE:
 		meter += dmg * meter_multiplier
 
-func reset_meter():
+func reset_meter() -> void:
 	meter = 0
 	is_empowered = false

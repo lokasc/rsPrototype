@@ -23,7 +23,7 @@ func on_added() -> void:
 		initial_health = character.current_health
 		freeze()
 
-func update(delta) -> void:
+func update(delta:float) -> void:
 	duration_time += delta
 	dmg_taken = initial_health - character.current_health
 	

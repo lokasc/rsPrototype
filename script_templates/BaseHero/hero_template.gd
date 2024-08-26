@@ -2,19 +2,19 @@
 extends BaseHero
 
 # Sets starting stats, called in enter tree, Overide this to modify it.
-func _init_stats():
+func _init_stats() -> void:
 	super()
 
 # Initalize export variables, called before @onready or _ready()
 # WARNING: Child nodes have not entered the tree yet. 
-func _enter_tree():
+func _enter_tree() -> void:
 	super()
 
 # Node initalization.
-func _ready():
+func _ready() -> void:
 	super()
 
-func _process(_delta):
+func _process(_delta: float) -> void:
 	super(_delta)
 	
 	# Rotates attack based on mouse direction
@@ -23,5 +23,5 @@ func _process(_delta):
 	basic_attack.use_ability()
 
 # Movement is handled here by super class
-func _physics_process(_delta):
+func _physics_process(_delta:float) -> void:
 	super(_delta)

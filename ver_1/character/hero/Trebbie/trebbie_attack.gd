@@ -12,14 +12,14 @@ extends BaseAbility
 @onready var hitbox_timer : Timer = $HitboxReset
 
 
-func _init():
+func _init() -> void:
 	super()
 
-func _enter_tree():
+func _enter_tree() -> void:
 	a_stats.cd = initial_cd
 	a_stats.atk = initial_dmg
 
-func _ready():
+func _ready() -> void:
 	hitbox.position.x = distance_to_center
 	hitbox.monitoring = false
 	hitbox.get_child(0).debug_color = Color("0099b36b")
@@ -28,22 +28,22 @@ func _ready():
 	hitbox.area_entered.connect(on_hit)
 	hitbox_timer.timeout.connect(_hitbox_reset)
 
-func enter():
+func enter() -> void:
 	hitbox.visible = true
 	pass
 
-func exit():
+func exit() -> void:
 	hitbox.visible = false
 	pass
 
 # Automatically attack.
-func update(_delta: float):
+func update(_delta: float) -> void:
 	if hero.input.is_use_mouse_auto_attack:
 		look_at(hero.input.get_mouse_position())
 	use_ability()
 	
 
-func physics_update(_delta: float):
+func physics_update(_delta: float) -> void:
 	if hero.input.direction:
 		hero.velocity = hero.input.direction * hero.char_stats.spd
 	else:
@@ -51,12 +51,12 @@ func physics_update(_delta: float):
 	hero.move_and_slide()
 
 # TODO: Clean this up
-func _process(delta):
+func _process(delta : float) -> void:
 	super(delta)
 	
 	# calculating ability cooldown
-	var ability_1_cd_display = int(hero.ability_1.a_stats.cd - hero.ability_1.current_time)
-	var ability_2_cd_display = int(hero.ability_2.a_stats.cd - hero.ability_2.current_time)
+	var ability_1_cd_display : int = int(hero.ability_1.a_stats.cd - hero.ability_1.current_time)
+	var ability_2_cd_display : int = int(hero.ability_2.a_stats.cd - hero.ability_2.current_time)
 	
 	
 	# Process abilities
@@ -69,7 +69,7 @@ func _process(delta):
 	elif hero.input.ability_2:
 		print("Ability 2 is on cooldown! ", ability_2_cd_display)
 
-func on_hit(area : Area2D):
+func on_hit(area : Area2D) -> void:
 	if !multiplayer.is_server(): return
 	
 	# Find enemy, deal dmg.
@@ -82,7 +82,7 @@ func on_hit(area : Area2D):
 	# not relating it to the atk stat but the damage enemies receive
 	hero.gain_health(get_multiplied_atk() * hero.char_stats.hsg)
 	
-func use_ability():
+func use_ability() -> void:
 	if is_on_cd: return
 	super()
 
@@ -93,21 +93,21 @@ func use_ability():
 	hitbox.get_child(0).debug_color = Color("dd488d6b")
 	hitbox_timer.start(hitbox_time_active)
 
-func _hitbox_reset():
+func _hitbox_reset() -> void:
 	hitbox.monitoring = false
 	hitbox.get_child(0).debug_color = Color("0099b36b") 
 	
 	if hero.animator.has_animation("idle"):
 		hero.animator.play("idle")
 
-func _reset():
+func _reset() -> void:
 	super()
 
 # Override virtual func to change what happens on cooldown finish
-func _on_cd_finish():
+func _on_cd_finish() -> void:
 	super()
 
 # Trebbie's attack dmg is upgraded and cooldown is reduced.
-func _upgrade():
+func _upgrade() -> void:
 	super()
 	pass

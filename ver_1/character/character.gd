@@ -19,7 +19,7 @@ func _ready() -> void:
 	# Weird warning call, ignorable.
 	status_holder = get_node("StatusHolder")
 	if !status_holder:
-		var scene = load("res://ver_1/status_effects/status_holder.tscn")
+		var scene : Resource = load("res://ver_1/status_effects/status_holder.tscn")
 		if !scene:
 			printerr("Warning, no status holder or correct scene path")
 		else:

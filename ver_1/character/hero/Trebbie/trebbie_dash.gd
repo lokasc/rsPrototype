@@ -67,7 +67,7 @@ func update(_delta: float):
 func physics_update(_delta: float):
 	super(_delta)
 	# Ability movement
-	var new_position = original_pos + direction * distance
+	var new_position : Vector2 = original_pos + direction * distance
 	hero.position = hero.position.move_toward(new_position, speed)
 	if hero.position == new_position:
 		state_change.emit(self, "TrebbieAttack")
@@ -80,7 +80,7 @@ func on_hit(area : Area2D):
 	if !multiplayer.is_server(): return
 	
 	# typecasting
-	var enemy = area.get_parent() as BaseEnemy
+	var enemy : BaseEnemy = area.get_parent() as BaseEnemy
 	if enemy == null: return
 	
 	

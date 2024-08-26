@@ -23,7 +23,7 @@ func on_added():
 	duration_time = 0
 	visual_time = 0
 
-func update(_delta):
+func update(_delta:float):
 	current_time += _delta
 	duration_time += _delta
 	visual_time += _delta

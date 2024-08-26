@@ -17,7 +17,7 @@ func on_added() -> void:
 	duration_time = 0
 	pass
 
-func update(delta) -> void:
+func update(delta:float) -> void:
 	duration_time += delta
 	if duration_time >= duration:
 		holder.remove_status(self)
