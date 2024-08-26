@@ -41,10 +41,13 @@ func _process(delta: float) -> void:
 		#hihat_sound.play()
 		on_beat.emit()
 
-
-func is_on_beat() -> bool:
-	# calculate with grace period.
-	return true
+# TODO: change arguements to system time & BC script variables
+func is_on_beat(BPM : int, current_time : float, grace_time : float) -> bool:
+	var second_one_beat : float = 60.0/BPM
+	if abs(current_time - second_one_beat) <= grace_time:
+		return true
+	else:
+		return false 
 
 func start_music() -> void:
 	is_playing = true
@@ -61,14 +64,16 @@ func change_music(new_music : AudioStream) -> void:
 	main_music_player.stream = current_music
 	beat_duration = 60.0/120
 	
+	# Godot's StreamInteractive is not flexible enough,
+	# cant transition from this bar to the next bar.
 	# Transition from calm to fast quicker.
 	current_music.add_transition(
 		0,  # index 0 is calm 
 		1,  # index 1 is fast
 		AudioStreamInteractive.TRANSITION_FROM_TIME_IMMEDIATE,
 		AudioStreamInteractive.TRANSITION_TO_TIME_SAME_POSITION,
-		AudioStreamInteractive.FADE_DISABLED,
-		1
+		AudioStreamInteractive.FADE_AUTOMATIC,
+		0.5
 		 )
 	
 	# Transition from fast to calm slower
@@ -77,10 +82,12 @@ func change_music(new_music : AudioStream) -> void:
 		0, 
 		AudioStreamInteractive.TRANSITION_FROM_TIME_IMMEDIATE,
 		AudioStreamInteractive.TRANSITION_TO_TIME_SAME_POSITION,
-		AudioStreamInteractive.FADE_CROSS,
+		AudioStreamInteractive.FADE_AUTOMATIC,
 		1
 		 )
 
+func transition_music(from_clip, to_clip):
+	pass
 
 @rpc("authority", "call_remote", "reliable")
 func stc_check_timestamp(time : float) -> void:
