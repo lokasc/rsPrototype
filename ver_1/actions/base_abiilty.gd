@@ -3,8 +3,12 @@ extends BaseAction
 
 signal state_change
 signal cooldown_finish
+
+enum Timing {NULL, EARLY, ON_BEAT, LATE}
+
 var is_on_cd : bool
 var current_time : float
+var timing : int = Timing.NULL
 
 
 func enter():
