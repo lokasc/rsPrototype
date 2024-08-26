@@ -1,6 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://d0b8cqs24tfpe"]
+[gd_scene load_steps=3 format=3 uid="uid://d0b8cqs24tfpe"]
 
 [ext_resource type="Script" path="res://ver_1/game/camera/player_camera.gd" id="1_bdtns"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2x6ol"]
+
 [node name="PlayerCamera" type="Camera2D"]
 script = ExtResource("1_bdtns")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_2x6ol")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
