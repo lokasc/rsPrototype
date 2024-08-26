@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://h4w7naqbhls5"]
+[gd_scene load_steps=10 format=3 uid="uid://h4w7naqbhls5"]
 
 [ext_resource type="Script" path="res://assets/map/enemy_spawner.gd" id="1_utdqr"]
 [ext_resource type="PackedScene" uid="uid://cpkr32elxa7a8" path="res://ver_1/character/enemy/OneShot/one_shot.tscn" id="2_8xhio"]
@@ -20,20 +20,28 @@ time_start = 15
 time_end = 1200
 enemy = ExtResource("4_v22m4")
 enemy_num = 5
-enemy_spawn_delay = 1
+enemy_spawn_delay = 0
 
 [sub_resource type="Resource" id="Resource_q32yu"]
 script = ExtResource("3_l0tmy")
 time_start = 60
 time_end = 1200
 enemy = ExtResource("5_saef0")
-enemy_num = 1
-enemy_spawn_delay = 2
+enemy_num = 2
+enemy_spawn_delay = 0
+
+[sub_resource type="Resource" id="Resource_6xoj5"]
+script = ExtResource("3_l0tmy")
+time_start = 15
+time_end = 15
+enemy = ExtResource("4_v22m4")
+enemy_num = 15
+enemy_spawn_delay = 0
 
 [node name="EnemySpawner" type="Node2D" node_paths=PackedStringArray("spawn_path")]
 script = ExtResource("1_utdqr")
 spawn_path = NodePath("Enemies")
-spawns = Array[ExtResource("3_l0tmy")]([SubResource("Resource_knfaa"), SubResource("Resource_2gl8i"), SubResource("Resource_q32yu")])
+spawns = Array[ExtResource("3_l0tmy")]([SubResource("Resource_knfaa"), SubResource("Resource_2gl8i"), SubResource("Resource_q32yu"), SubResource("Resource_6xoj5")])
 
 [node name="Timer" type="Timer" parent="."]
 

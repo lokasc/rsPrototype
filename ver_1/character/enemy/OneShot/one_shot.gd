@@ -47,4 +47,3 @@ func take_damage(dmg):
 func _decide(target = null):
 	if target == null:
 		return
-

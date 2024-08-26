@@ -79,4 +79,3 @@ func move_to_target(target = null):
 	else:
 		sprite.scale.x = x_scale * -1
 	move_and_slide()
-
