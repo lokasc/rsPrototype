@@ -1,7 +1,6 @@
 class_name Dummy
 extends BaseEnemy
 
-@onready var sprite : Sprite2D = $Sprite2D
 @onready var hitbox : Area2D = $HitBox
 
 func _init():
@@ -20,6 +19,7 @@ func _init_stats():
 
 func _ready() -> void:
 	super()
+	sprite = $Sprite2D
 	hitbox.area_entered.connect(on_hit)
 	pass
 
