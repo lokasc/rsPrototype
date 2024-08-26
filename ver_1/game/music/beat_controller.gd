@@ -119,3 +119,27 @@ func transition_music(from_clip, to_clip):
 	pass
 func get_current_timestamp() -> float:
 	return 0
+
+enum BG_TRANSITION_TYPE {
+	const FRIENDLY_DEAD
+	const LOW_HP
+	const EARLY_GAME
+	const MID_GAME
+	const LATE_GAME
+}
+
+## Change background music
+func change_bg(type : BG_TRANSITION_TYPE) -> void:
+	match type:
+		BG_TRANSITION_TYPE.EARLY_GAME:
+			print(transition to early)
+		BG_TRANSITION_TYPE.MID_GAME:
+			print(transition to mid)
+		BG_TRANSITION_TYPE.LATE_GAME:
+			print(transition to late)
+		_:
+			printerr("Error, wrong or no type given")
+		
+	pass
+
+
