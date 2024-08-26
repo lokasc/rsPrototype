@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie_buff.gd" id="1_lcige"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1swjl"]
-radius = 213.038
+radius = 200.0
 
 [node name="TrebbieBuff" type="Node2D"]
 script = ExtResource("1_lcige")
@@ -13,6 +13,9 @@ initial_hsg = 3.0
 dmg_multiplier = 2.0
 hsg_multiplier = 3.0
 status_duration = 2.0
+initial_area = 150
+beat_sync_multiplier = 1.2
+recast_window = 1.0
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 0
@@ -22,4 +25,8 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_1swjl")
 debug_color = Color(0.680201, 0.300926, 0.99701, 0.42)
 
+[node name="BuffRecastTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="timeout" from="BuffRecastTimer" to="." method="_on_buff_recast_timer_timeout"]

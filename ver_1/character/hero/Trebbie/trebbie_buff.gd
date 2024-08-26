@@ -1,16 +1,34 @@
 class_name TrebbieBuff
 extends BaseAbility
 
+@export_category("Game Stats")
 @export var initial_cd : int
-@export var active_duration : float # duration of the ability applying the effect
+## duration of the ability applying the effect
+@export var active_duration : float
 @export var initial_hsg : float
 @export var dmg_multiplier : float
 @export var hsg_multiplier : float
-@export var status_duration : float # duration of the status effects
+## duration of the status effects
+@export var status_duration : float 
+## radius of the circle hitbox
+@export var initial_area : int
+@export var zero_cd : bool
 
+@export_category("Beat Sync Stats")
+## the area multiplier of the hitbox
+@export var beat_sync_multiplier : float
+## The time window allowed for a recast
+@export var recast_window : float
+## The amount of recast allowed
+@export var recast_amount : int = 3
+
+var recast : int
+var is_synced : bool = false
 var duration_time : float
 
+@onready var hitbox_shape : CollisionShape2D = $HitBox/CollisionShape2D
 @onready var hitbox : Area2D = $HitBox
+@onready var recast_timer : Timer = $BuffRecastTimer
 
 
 # Initialize abilities
@@ -31,11 +49,17 @@ func _ready() -> void:
 	hitbox.area_entered.connect(on_hit)
 	hitbox.visible = false
 	hitbox.monitoring = false
+	if zero_cd:
+		a_stats.cd = 0
 
 func enter() -> void:
 	hitbox.visible = true
 	hitbox.monitoring = true
 	duration_time = 0 
+	recast = 0
+	hitbox_shape.shape.radius = initial_area
+	if is_synced:
+		hitbox_shape.shape.radius *= beat_sync_multiplier
 	super()
 
 func exit() -> void:
@@ -46,10 +70,33 @@ func exit() -> void:
 
 func update(delta: float) -> void:
 	super(delta)
+	print(recast_timer.time_left)
 	duration_time += delta
-	if duration_time >= active_duration:
+	if duration_time >= active_duration and is_synced == false:
 		state_change.emit(self, "TrebbieAttack")
-
+	elif duration_time >= active_duration and is_synced == true: # Activated once, twice, thrice
+		## Recast Logic
+		# Stops the hitbox
+		hitbox.visible = false
+		hitbox.monitoring = false
+		# Starts checking if player will press within recast window
+		if recast_timer.is_stopped():
+			recast_timer.start(recast_window)
+		# Have to recast on beat
+		if hero.input.ability_1 and GameManager.Instance.bc.is_on_beat() and recast < recast_amount:	# Activated twice (reactivated)
+			hitbox_shape.shape.radius *= beat_sync_multiplier 
+			hitbox.visible = true
+			hitbox.monitoring = true
+			duration_time = 0
+			recast_timer.stop()
+			recast_timer.start(recast_window)
+			recast += 1
+		# Resets if recasted too many times or didn't press on beat
+		elif hero.input.ability_1:
+			if recast >= recast_amount or GameManager.Instance.bc.is_on_beat() == false:
+				recast_timer.timeout.emit()
+				state_change.emit(self, "TrebbieAttack")
+		
 func physics_update(_delta: float) -> void:
 	super(_delta)
 	if hero.input.direction:
@@ -57,7 +104,6 @@ func physics_update(_delta: float) -> void:
 	else:
 		hero.velocity = hero.velocity.move_toward(Vector2.ZERO, hero.DECELERATION)
 	hero.move_and_slide()
-
 	pass
 
 # Call this to start cooldown.
@@ -68,7 +114,7 @@ func on_hit(area : Area2D) -> void:
 	if !multiplayer.is_server(): return
 	
 	# typecasting
-	var character = area.get_parent() as BaseHero
+	var character : BaseHero = area.get_parent() as BaseHero
 	if character == null: return
 	
 	character.add_status("DamageUp", [dmg_multiplier, status_duration])
@@ -85,3 +131,7 @@ func _on_cd_finish() -> void:
 # Resets ability, lets players to use it again, override this to add functionality.
 func _reset() -> void:
 	super()
+
+func _on_buff_recast_timer_timeout() -> void:
+	if recast <= recast_amount:
+		state_change.emit(self, "TrebbieAttack")

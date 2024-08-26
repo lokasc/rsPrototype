@@ -8,9 +8,9 @@ extends BaseAbility
 @export_subgroup("Tech")
 @export var hitbox_time_active : float = 0.1
 @export var distance_to_center : float
+
 @onready var hitbox : Area2D = $AttackHitBox
 @onready var hitbox_timer : Timer = $HitboxReset
-
 
 func _init() -> void:
 	super()
@@ -62,6 +62,8 @@ func _process(delta : float) -> void:
 	# Process abilities
 	if hero.input.ability_1 and hero.ability_1.is_ready():
 		state_change.emit(self, "TrebbieBuff")
+		if GameManager.Instance.bc.is_on_beat(): #Entering buff state while in sync
+			hero.ability_1.is_synced = true
 	elif hero.input.ability_1: 
 		print("Ability 1 is on cooldown! ", ability_1_cd_display)
 	elif hero.input.ability_2 and hero.ability_2.is_ready():
