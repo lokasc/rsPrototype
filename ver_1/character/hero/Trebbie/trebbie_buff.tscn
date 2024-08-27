@@ -15,7 +15,7 @@ hsg_multiplier = 3.0
 status_duration = 2.0
 initial_area = 150
 beat_sync_multiplier = 1.2
-recast_window = 1.0
+recast_window = 0.5
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 0

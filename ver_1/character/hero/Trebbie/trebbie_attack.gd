@@ -69,12 +69,14 @@ func _process(delta : float) -> void:
 	
 	# Process abilities
 	if hero.input.ability_1 and hero.ability_1.is_ready():
-		state_change.emit(self, "TrebbieBuff")
 		if GameManager.Instance.bc.is_on_beat(): #Entering buff state while in sync
 			hero.ability_1.is_synced = true
+		state_change.emit(self, "TrebbieBuff")
 	elif hero.input.ability_1: 
 		print("Ability 1 is on cooldown! ", ability_1_cd_display)
 	elif hero.input.ability_2 and hero.ability_2.is_ready():
+		if GameManager.Instance.bc.is_on_beat(): #Entering buff state while in sync
+			hero.ability_2.is_synced = true
 		state_change.emit(self, "TrebbieDash")
 	elif hero.input.ability_2:
 		print("Ability 2 is on cooldown! ", ability_2_cd_display)
@@ -89,7 +91,6 @@ func on_hit(area : Area2D) -> void:
 	if not is_tip_hit: # The tip and normal hitbox are mutually exclusive
 		enemy.take_damage(get_multiplied_atk())
 		hero.gain_health(get_multiplied_atk() * hero.char_stats.hsg)
-		print(hero.current_health)
 	# TODO: have to change how lifesteal works, 
 	# not relating it to the atk stat but the damage enemies receive
 		

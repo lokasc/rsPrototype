@@ -9,6 +9,9 @@ extends BaseAbility
 @export var speed : int
 @export var distance : int
 
+@export_category("Music sync stats")
+@export var cd_reducion : float = 1.0
+
 var original_pos = Vector2.ZERO
 var direction = Vector2.ZERO
 
@@ -41,9 +44,12 @@ func enter():
 	super()
 	# Store hero position and the direction when the ability is used
 	original_pos = hero.position
-	
+	a_stats.cd = initial_cd
+	if is_synced:
+		a_stats.cd *= cd_reducion
 	look_at(hero.input.get_mouse_position())
 	direction = original_pos.direction_to(hero.input.get_mouse_position())
+	hero.IS_INVINCIBLE = true
 	
 	# enable hitboxes
 	collisionbox.disabled = false
@@ -59,6 +65,9 @@ func exit():
 	collisionbox.visible = false
 	hitbox.visible = false
 	hitbox.monitoring = false
+	hero.IS_INVINCIBLE = false
+	is_synced = false
+	
 	
 func update(_delta: float):
 	super(_delta)

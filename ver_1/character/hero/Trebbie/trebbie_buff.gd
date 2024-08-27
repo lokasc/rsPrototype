@@ -66,6 +66,7 @@ func exit() -> void:
 	start_cd()
 	hitbox.visible = false
 	hitbox.monitoring = false
+	is_synced = false
 
 func update(delta: float) -> void:
 	super(delta)

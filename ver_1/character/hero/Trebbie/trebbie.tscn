@@ -158,7 +158,6 @@ action_name = "Trebbie Dash"
 dmg_multiplier = 3.0
 hsg_multiplier = 4.0
 status_duration = 5.0
-recast_window = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("4_3i3qh")
