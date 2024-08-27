@@ -4,7 +4,7 @@ extends BaseEnemy
 @onready var hitbox : Area2D = $HitBox
 @onready var collidebox : CollisionShape2D = $CollisionBox
 
-var update_frequency : float = 5
+@export var update_frequency : float = 3
 var current_update_time : float = 0
 
 func _init() -> void:
