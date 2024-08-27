@@ -70,7 +70,6 @@ func exit() -> void:
 
 func update(delta: float) -> void:
 	super(delta)
-	print(recast_timer.time_left)
 	duration_time += delta
 	if duration_time >= active_duration and is_synced == false:
 		state_change.emit(self, "TrebbieAttack")
@@ -93,7 +92,7 @@ func update(delta: float) -> void:
 			recast += 1
 		# Resets if recasted too many times or didn't press on beat
 		elif hero.input.ability_1:
-			if recast >= recast_amount or GameManager.Instance.bc.is_on_beat() == false:
+d			if recast >= recast_amount or GameManager.Instance.bc.is_on_beat() == false:
 				recast_timer.timeout.emit()
 				state_change.emit(self, "TrebbieAttack")
 		
