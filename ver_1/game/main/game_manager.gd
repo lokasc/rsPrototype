@@ -14,6 +14,7 @@ static var Instance : GameManager
 @export_subgroup("Debug")
 @export var wait_for_player : bool = false
 @export var dont_spawn_enemies : bool = false
+@export var no_music : bool = false
 
 signal end_game
 signal start_lvl_up_sequence(item : Array)
@@ -67,6 +68,8 @@ func _process(delta: float) -> void:
 func start_game():
 	time = 0
 	is_started = true
+	if no_music:
+		bc.main_music_player.volume_db = -100
 	bc.stc_start_music.rpc()
 	if dont_spawn_enemies: 
 		# for testing.
