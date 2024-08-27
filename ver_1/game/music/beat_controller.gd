@@ -1,21 +1,21 @@
 class_name BeatController
 extends Node
 
-signal on_beat # signal for executing things on to the beat. 
+const BPM = 120 ## Beats per minute
+
+signal on_beat ## signal for executing things on to the beat. 
 
 @onready var main_music_player = $MainMusicPlayer
-@onready var hihat_sound = $AudioStreamPlayer
-@onready var test_interactive  : AudioStreamInteractive = load("res://Resources/test_interactive.tres")
+@onready var test_interactive  : AudioStream = load("res://Resources/test_interactive.tres")
 
-@export var grace_time : float # +- time for checks
 
-var beat_timer : Timer
-var current_beat_time : float # time until beat is hit. 
+@export_range(0.01 , 0.5, 0.01, "or_greater") var grace_time : float = 0.01 ## +- time for checks
+var current_beat_time : float ## time until beat is hit. 
+var is_playing : bool ## is music track playing?
+var current_music : AudioStream ## current music thats playing or set
 
-var is_playing : bool # is music track playing?
-var beat_duration : float # how many seconds a beat is (or till the next beat)
-var current_music : AudioStreamInteractive
-var counter : int = 0
+var beat_duration : float ## how many seconds a beat is (or till the next beat)
+var counter : int = 0 ## used for switching songs with m1
 
 # Latency
 var time_begin
@@ -28,38 +28,18 @@ func _enter_tree() -> void:
 	is_playing = false
 
 func _ready() -> void:
-	#beat_timer = $BeatTimer
 	change_music(test_interactive)
 	start_music()
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("attack"):
-		change_clip()
+		print(is_on_beat())
+		change_clip(counter%2)
 	
 	if !is_playing: return
-	
-	# Compensate for delay.
-	var time : float = (Time.get_ticks_usec() - time_begin) / 1000000.0
-	# Compensate for latency.
-	time -= time_delay
-	# May be below 0 (did not begin yet).
-	time = max(0, time)
-	
-	#current_beat_time += time - previous_time
-	#if current_beat_time >= beat_duration:
-		#current_beat_time = 0
-		#hihat_sound.stop()
-		#hihat_sound.play()
-	
-	previous_time = time
-	current_beat_time += time - previous_time
-	
-	if current_beat_time >= beat_duration:
-		current_beat_time = 0
-		#(main_music_player.stream as AudioStreamSynchronized).get_sync_stream(1).play()
-		on_beat.emit()
+	process_actual_audio_time()
 
-# use this function to check when a input is on beat.
+## Is the current moment on beat? (Accounting for grace)
 func is_on_beat() -> bool:
 	if current_beat_time <= grace_time || current_beat_time >= beat_duration - grace_time:
 		return true
@@ -74,18 +54,39 @@ func start_music() -> void:
 	# Get latency.
 	time_begin = Time.get_ticks_usec()
 	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
-	
 	main_music_player.play()
-	#beat_timer.start()
 
-func change_clip():
+## Calculates if exactly on beat and accounts for audio delay.
+func process_actual_audio_time(): 
+	# Get actual audio time independent of other systems.
+	var time = (Time.get_ticks_usec() - time_begin) / 1000000.0
+	# Compensate for latency.
+	time -= time_delay
+	# May be below 0 (did not begin yet).
+	time = max(0, time)
+	
+	# calculate time diff
+	current_beat_time += time - previous_time
+	previous_time = time
+	
+	# check if exactly on beat (useful for ui sync)
+	if current_beat_time >= beat_duration:
+		current_beat_time = 0
+		on_beat.emit()
+
+## Change clip on the current stream
+func change_clip(index : int) -> void:
 	counter += 1
 	(main_music_player.get_stream_playback().switch_to_clip(counter%2))
 
-func change_music(new_music : AudioStreamInteractive) -> void:
+## Change stream with default clip set to 0
+func change_stream(stream_index : int, clip_index: int  = 0) -> void:
+	pass
+
+func change_music(new_music : AudioStream) -> void:
 	current_music = new_music
 	main_music_player.stream = current_music
-	beat_duration = 60.0/140.0
+	beat_duration = 60.0/BPM
 
 @rpc("authority", "call_remote", "reliable")
 func stc_check_timestamp(time : float) -> void:
@@ -102,21 +103,18 @@ func cts_return_time_stamp(_client_time : float) -> void:
 func sync_music() -> void:
 	pass
 
+func get_current_timestamp() -> float:
+	return 0
+	
 #endregion
 ### Features we need
 # 1. a timer that sends a signal every beat [Done]
 # 2. a variable for grace period [Done]
 # 3. a boolean to check is something is on beat [Done]
-# 4: interactive music, switching to pieces of same bar/timestamp. [In progress]
-# 5:  a function for setting fades between different music pieces [In progress]
+# 4: interactive music, switching to pieces of same bar/timestamp. [Done]
+# 5:  a function for setting fades between different music pieces [Done]
 # 6. ensure music timestamps are similar, if not redirect.
 # 7. the check for on-beat is client-side or has leniancy for the client.
-
-
-func transition_music(_from_clip, _to_clip):
-	pass
-func get_current_timestamp() -> float:
-	return 0
 
 enum BG_TRANSITION_TYPE {
 	FRIENDLY_DEAD,
@@ -137,5 +135,3 @@ func change_bg(type : BG_TRANSITION_TYPE) -> void:
 			print("transition to late")
 		_:
 			printerr("Error, wrong or no type given")
-		
-	pass
