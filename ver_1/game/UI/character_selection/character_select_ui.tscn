@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://ds4octed2ry4r"]
+
+[ext_resource type="PackedScene" uid="uid://61v1jyejjt02" path="res://ver_1/game/UI/character_selection/character_selection_card.tscn" id="2_nl3ak"]
+[ext_resource type="Texture2D" uid="uid://h2p4t7iiyded" path="res://trebs.png" id="3_bbaun"]
+
+[node name="CharacterSelectUi" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 387.0
+offset_top = 121.0
+offset_right = 387.0
+offset_bottom = 121.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Trebbie" parent="." instance=ExtResource("2_nl3ak")]
+layout_mode = 2
+
+[node name="Name" parent="Trebbie/VBoxContainer" index="0"]
+text = "[center]Trebbie[/center]
+"
+
+[node name="TextureRect" parent="Trebbie/VBoxContainer" index="1"]
+texture = ExtResource("3_bbaun")
+
+[node name="Role" parent="Trebbie/VBoxContainer" index="2"]
+text = "[center]Support & Damage[/center]
+"
+
+[node name="Description" parent="Trebbie/VBoxContainer" index="3"]
+text = "[center] A quick and nimble healer, able to provide team boosts and take down foes fast[/center] 
+"
+
+[node name="Bass" parent="." instance=ExtResource("2_nl3ak")]
+layout_mode = 2
+
+[node name="Name" parent="Bass/VBoxContainer" index="0"]
+text = "[center]Bassheart[/center]
+"
+
+[node name="Role" parent="Bass/VBoxContainer" index="2"]
+text = "[center]Tank & Damage[/center]
+"
+
+[node name="Description" parent="Bass/VBoxContainer" index="3"]
+text = "[center]A tank[/center] 
+
+
+"
+
+[editable path="Trebbie"]
+[editable path="Bass"]

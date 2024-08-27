@@ -69,10 +69,13 @@ func _ready() -> void:
 	if no_music:
 		bc.main_music_player.volume_db = -100
 
+func on_character_selected(character_index : int):
+	pass
+
 func start_game():
 	time = 0
 	is_started = true
-	bc.stc_start_music.rpc()
+	bc.stc_start_music.rpc(Time.get_unix_time_from_system())
 	if dont_spawn_enemies: 
 		# for testing.
 		spawner.custom_spawn("res://ver_1/character/enemy/Dummy/dummy.tscn", Vector2(651,335))

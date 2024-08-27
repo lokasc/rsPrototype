@@ -65,14 +65,14 @@ func is_on_beat() -> bool:
 		return false 
 
 #region Internal
-func start_music() -> void:
+func start_music(start_position : float = 0) -> void:
 	is_playing = true
 	current_beat_time = beat_duration
 	
 	# Get latency.
 	time_begin = Time.get_ticks_usec()
 	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
-	main_music_player.play()
+	main_music_player.play(start_position)
 	playback = main_music_player.get_stream_playback()
 
 ## Calculates if exactly on beat and accounts for audio delay.
@@ -99,8 +99,16 @@ func stc_change_bg_music(type : BG_TRANSITION_TYPE):
 	change_bg(type)
 
 @rpc("authority", "reliable", "call_local")
-func stc_start_music():
-	start_music()
+func stc_start_music(sent_time : float):
+	# account for delay in sending in the rpc
+	var arrive_time : float =  Time.get_unix_time_from_system()
+	var diff : float = arrive_time - sent_time
+	
+	if diff <= 0.05:
+		start_music(0)
+		return
+	else:
+		start_music(diff)
 
 #endregion
 ### Features we need
@@ -109,7 +117,7 @@ func stc_start_music():
 # 3. a boolean to check is something is on beat [Done]
 # 4: interactive music, switching to pieces of same bar/timestamp. [Done]
 # 5:  a function for setting fades between different music pieces [Done]
-# 6. ensure music timestamps are similar, if not redirect.
+# 6. ensure music timestamps are similar, if not redirect -> done at the start [Done]
 # 7. the check for on-beat is client-side or has leniancy for the client.
 
 ## Returns if the current clip is a global clip (low, mid, late & boss)

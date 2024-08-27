@@ -202,9 +202,9 @@ func to_clients_player_died():
 	on_player_die.rpc()
 	# this is always ran by server.
 	if id == 1: GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.LOW_HP)
-	else: GameManager.Instance.bc.stc_change_bg_music.rpc_id(BeatController.BG_TRANSITION_TYPE.LOW_HP)
+	else: GameManager.Instance.bc.stc_change_bg_music.rpc_id(id, BeatController.BG_TRANSITION_TYPE.LOW_HP)
 
-@rpc("call_local", "reliable")
+@rpc("call_local", "reliable", "any_peer")
 func on_player_die():
 	# ran to all. 
 	IS_DEAD = true

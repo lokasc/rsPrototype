@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://don0ll4pfq51n" path="res://Resources/test_interactive.tres" id="2_4m55p"]
 
 [node name="BeatController" type="Node"]
+process_mode = 3
 script = ExtResource("1_a6whl")
 grace_time = 0.1
 

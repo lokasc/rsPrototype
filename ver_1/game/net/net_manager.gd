@@ -30,20 +30,16 @@ func _ready():
 	multiplayer.server_relay = false
 	peer = ENetMultiplayerPeer.new()
 	_connect_signals()
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if !multiplayer.is_server(): return
 	
 	if !GameManager.Instance.is_game_started() && GameManager.Instance.wait_for_player && get_player_count() >= 2:
-		await get_tree().create_timer(2).timeout
 		GameManager.Instance.start_game()
 	if !GameManager.Instance.is_game_started() && !GameManager.Instance.wait_for_player && get_player_count() >= 1:
 		GameManager.Instance.start_game()
 
-func get_player_count():
-	return GameManager.Instance.players.size()
 
 func on_host_pressed():
 	peer.create_server(DEFAULT_PORT, MAX_CLIENTS)
@@ -70,9 +66,18 @@ func on_client_pressed(ip):
 	id_label.text = str(multiplayer.get_unique_id())
 	GameManager.Instance.change_ui()
 
-# call this function to start a game.
-func on_start_pressed():
-	pass
+func add_player(id = 1):
+	var player = player_scene.instantiate()
+	player.name = str(id)
+	player_container.call_deferred("add_child", player, true)
+
+func _add_to_list(node : Node):
+	var new_player = node as BaseHero
+	if new_player == null:
+		printerr("Trying to add a non-hero to player list") 
+		return
+	# todo: move this to the game manager instead of in the net.
+	GameManager.Instance.add_player_to_list(new_player)
 
 func _connect_signals():
 	# Player container
@@ -89,6 +94,7 @@ func _connect_signals():
 	multiplayer.connected_to_server.connect(_on_client_connect)
 	multiplayer.server_disconnected.connect(_on_client_disconnect)
 
+#region UI
 # id is the person u've connected to
 func _on_peer_connect(id):
 	if multiplayer.is_server():
@@ -96,25 +102,17 @@ func _on_peer_connect(id):
 	else:
 		friend_label.text = "Connected to: " + str(id) 
 
-func add_player(id = 1):
-	var player = player_scene.instantiate()
-	player.name = str(id)
-	player_container.call_deferred("add_child", player, true)
-
-func _add_to_list(node : Node):
-	var new_player = node as BaseHero
-	if new_player == null:
-		printerr("Trying to add a non-hero to player list") 
-		return
-	# todo: move this to the game manager instead of in the net.
-	GameManager.Instance.add_player_to_list(new_player)
-
-
+#endregion UI
+#region Helper functions
+func get_player_count():
+	return GameManager.Instance.players.size()
 
 func hide_ui():
 	net_ui.visible = false
 func show_ui():
 	net_ui.visible = true
+#endregion
+
 
 func _on_peer_disconnect(_id):
 	pass

@@ -38,7 +38,6 @@ func instantiate_enemy(new_enemy)-> void:
 	var copy : BaseEnemy = new_enemy.instantiate() as BaseEnemy
 	copy.global_position = get_random_position()
 	spawn_path.add_child(copy, true)
-	pass
 
 # Consider a different algorithm for selecting location.
 func get_random_position():
