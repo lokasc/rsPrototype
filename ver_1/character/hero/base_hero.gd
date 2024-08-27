@@ -39,7 +39,6 @@ var initial_state : BaseAbility
 @export_subgroup("Abilities")
 @export var ability_1 : BaseAbility
 @export var ability_2 : BaseAbility
-@export var passive : BaseAbility
 @export var ult : BaseAbility
 
 @export_subgroup("Items & Stat slots")
@@ -272,8 +271,6 @@ func get_action(new_action : BaseAction) -> BaseAction:
 		return ability_2
 	if ult && ult.get_class_name() == new_action.get_class_name():
 		return ult
-	if passive && passive.get_class_name() == new_action.get_class_name():
-		return passive
 	else:
 		return null
 

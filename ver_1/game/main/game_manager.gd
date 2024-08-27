@@ -32,7 +32,10 @@ var local_player : BaseHero
 
 # For selecting cards.
 var players_ready : int
-var action_selected : bool
+
+# For selecting characters
+var players_selection_ready : int
+var char_selected : bool = false
 
 var net : NetManager
 var spawner : EnemySpawner
@@ -55,6 +58,7 @@ var current_lvl : int:
 		if !local_player || !ui : return
 		ui.update_lvl_label(value)
 
+#region Godot Functions
 func _init() -> void:
 	Instance = self
 	time = 0
@@ -62,15 +66,31 @@ func _init() -> void:
 	max_xp = 5
 	end_game.connect(on_end_game)
 
-func _process(delta: float) -> void:
-	timer_logic(delta)
-
 func _ready() -> void:
 	if no_music:
 		bc.main_music_player.volume_db = -100
 
+func _process(delta: float) -> void:
+	timer_logic(delta)
+#endregion
+
+#region character_selection
+# this func connected by signals from UI
 func on_character_selected(character_index : int):
-	pass
+	if char_selected: return
+	char_selected = true
+	ui.hide_character_select()
+	ui.show_player_ui()
+	
+	if !multiplayer.is_server():
+		cts_request_spawn.rpc_id(1, character_index)
+	else:
+		net.add_player(multiplayer.get_unique_id(), character_index)
+
+@rpc("any_peer", "reliable")
+func cts_request_spawn(index : int):
+	net.add_player(multiplayer.get_remote_sender_id(), index)
+#endregion
 
 func start_game():
 	time = 0
@@ -205,6 +225,10 @@ func get_player(id) -> BaseHero:
 		if player.id == id:
 			return player
 	return null 
+
+func show_character_select_screen(_arg = 1):
+	# this _arg is not used.
+	ui.show_character_select()
 
 # turns net ui off and player_ui on
 func change_ui():

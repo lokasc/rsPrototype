@@ -4,6 +4,8 @@ extends Control
 @export var player_container : Container
 @export var selection_container : Container
 @export var card_path : Container
+@export var char_select_layer : CanvasLayer
+@export var player_ui_layer : CanvasLayer
 
 
 @onready var health_bar : TextureProgressBar = player_container.find_child("HealthBar")
@@ -23,6 +25,8 @@ func _enter_tree() -> void:
 	hide_ui()
 
 func _ready() -> void:
+	hide_character_select()
+	hide_player_ui()
 	update_max_xp(GameManager.Instance.max_xp)
 
 func update_xp(xp : int):
@@ -53,6 +57,18 @@ func hide_ui():
 
 func show_ui():
 	visible = true
+
+func show_character_select():
+	char_select_layer.visible = true
+
+func hide_character_select():
+	char_select_layer.visible = false
+
+func show_player_ui():
+	player_ui_layer.visible = true
+
+func hide_player_ui():
+	player_ui_layer.visible = false
 
 func build_selection_container(info_array : Array):
 	action_selected = false

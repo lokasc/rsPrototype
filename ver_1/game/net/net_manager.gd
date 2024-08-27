@@ -11,6 +11,7 @@ extends Node
 const DEFAULT_ADDRESS = "127.0.0.1"
 const DEFAULT_PORT = 28960
 const MAX_CLIENTS = 2
+
 var peer : ENetMultiplayerPeer
 
 @export var auth_label : Label
@@ -21,6 +22,8 @@ var peer : ENetMultiplayerPeer
 @onready var spawnable_path : Node2D = $Spawnables
 @onready var player_container : Node = $Players
 
+var trebbie_scene : PackedScene = preload("res://ver_1/character/hero/Trebbie/trebbie.tscn")
+var bass_scene : PackedScene = preload("res://ver_1/character/hero/Bassheart/bassheart.tscn")
 
 func _enter_tree() -> void:
 	GameManager.Instance.net = self
@@ -49,9 +52,7 @@ func on_host_pressed():
 	auth_label.text = "Server"
 	id_label.text = str(multiplayer.get_unique_id())
 	
-	# This line adds players.
-	multiplayer.peer_connected.connect(add_player)
-	add_player()
+	GameManager.Instance.show_character_select_screen()
 	GameManager.Instance.change_ui()
 
 func on_client_pressed(ip):
@@ -65,9 +66,17 @@ func on_client_pressed(ip):
 	auth_label.text = "Client"
 	id_label.text = str(multiplayer.get_unique_id())
 	GameManager.Instance.change_ui()
+	GameManager.Instance.show_character_select_screen()
 
-func add_player(id = 1):
-	var player = player_scene.instantiate()
+func add_player(id = 1, char_index : int = 0):
+	var player
+	match char_index:
+		0:
+			player = trebbie_scene.instantiate()
+		1:
+			player = bass_scene.instantiate()
+
+
 	player.name = str(id)
 	player_container.call_deferred("add_child", player, true)
 
