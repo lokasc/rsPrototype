@@ -37,6 +37,7 @@ func _process(_delta):
 	if !multiplayer.is_server(): return
 	
 	if !GameManager.Instance.is_game_started() && GameManager.Instance.wait_for_player && get_player_count() >= 2:
+		await get_tree().create_timer(2).timeout
 		GameManager.Instance.start_game()
 	if !GameManager.Instance.is_game_started() && !GameManager.Instance.wait_for_player && get_player_count() >= 1:
 		GameManager.Instance.start_game()

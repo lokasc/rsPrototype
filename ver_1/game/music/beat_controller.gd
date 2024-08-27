@@ -5,14 +5,12 @@ const BPM = 120 ## Beats per minute
 
 signal on_beat ## signal for executing things on to the beat. 
 
-@onready var main_music_player = $MainMusicPlayer
+@onready var main_music_player = $MainMusicPlayer 
 @onready var test_interactive  : AudioStream = load("res://Resources/test_interactive.tres")
-
 
 @export_range(0.01 , 0.5, 0.01, "or_greater") var grace_time : float = 0.01 ## +- time for checks
 var current_beat_time : float ## time until beat is hit. 
 var is_playing : bool ## is music track playing?
-var current_music : AudioStream ## current music thats playing or set
 
 var beat_duration : float ## how many seconds a beat is (or till the next beat)
 var counter : int = 0 ## used for switching songs with m1
@@ -22,19 +20,36 @@ var time_begin
 var time_delay
 var previous_time = 0
 
+# Clips
+enum BG_TRANSITION_TYPE {
+	EARLY_GAME,
+	MID_GAME,
+	LATE_GAME,
+	BOSS,
+	LOW_HP,
+	DEAD,
+	}
+
+var current_global_bg_clip : BG_TRANSITION_TYPE ## current global clip.
+var current_bg_clip : BG_TRANSITION_TYPE # current clip
+
+var playback : AudioStreamPlayback
 
 func _enter_tree() -> void:
 	GameManager.Instance.bc = self
 	is_playing = false
 
 func _ready() -> void:
-	change_music(test_interactive)
-	start_music()
+	main_music_player.stream = test_interactive
+	beat_duration = 60.0/BPM
+	current_global_bg_clip = main_music_player.stream.initial_clip
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("attack"):
-		print(is_on_beat())
-		change_clip(counter%2)
+	if Input.is_action_just_pressed("attack") && multiplayer.is_server():
+		if current_bg_clip == BG_TRANSITION_TYPE.EARLY_GAME:
+			change_bg(BG_TRANSITION_TYPE.LOW_HP)
+		else:
+			change_bg_from_local_to_global()
 	
 	if !is_playing: return
 	process_actual_audio_time()
@@ -55,6 +70,7 @@ func start_music() -> void:
 	time_begin = Time.get_ticks_usec()
 	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
 	main_music_player.play()
+	playback = main_music_player.get_stream_playback()
 
 ## Calculates if exactly on beat and accounts for audio delay.
 func process_actual_audio_time(): 
@@ -74,38 +90,15 @@ func process_actual_audio_time():
 		current_beat_time = 0
 		on_beat.emit()
 
-## Change clip on the current stream
-func change_clip(index : int) -> void:
-	counter += 1
-	(main_music_player.get_stream_playback().switch_to_clip(counter%2))
+# Changes backgrounud music
+@rpc("authority", "reliable", "call_remote")
+func stc_change_bg_music(type : BG_TRANSITION_TYPE):
+	change_bg(type)
 
-## Change stream with default clip set to 0
-func change_stream(stream_index : int, clip_index: int  = 0) -> void:
-	pass
+@rpc("authority", "reliable", "call_local")
+func stc_start_music():
+	start_music()
 
-func change_music(new_music : AudioStream) -> void:
-	current_music = new_music
-	main_music_player.stream = current_music
-	beat_duration = 60.0/BPM
-
-@rpc("authority", "call_remote", "reliable")
-func stc_check_timestamp(time : float) -> void:
-	if abs(time - get_current_timestamp()) >= 0.5:
-		cts_return_time_stamp(get_current_timestamp())
-	pass
-
-# send to server client's time_stamp
-@rpc("any_peer", "reliable")
-func cts_return_time_stamp(_client_time : float) -> void:
-	pass
-
-# Pass timestamp and time left on timers 
-func sync_music() -> void:
-	pass
-
-func get_current_timestamp() -> float:
-	return 0
-	
 #endregion
 ### Features we need
 # 1. a timer that sends a signal every beat [Done]
@@ -116,22 +109,72 @@ func get_current_timestamp() -> float:
 # 6. ensure music timestamps are similar, if not redirect.
 # 7. the check for on-beat is client-side or has leniancy for the client.
 
-enum BG_TRANSITION_TYPE {
-	FRIENDLY_DEAD,
-	LOW_HP,
-	EARLY_GAME,
-	MID_GAME,
-	LATE_GAME,
-	}
+## Returns if the current clip is a global clip (low, mid, late & boss)
+func is_current_clip_global() -> bool:
+	if current_global_bg_clip != BG_TRANSITION_TYPE.LOW_HP || current_global_bg_clip != BG_TRANSITION_TYPE.DEAD:
+		return true
+	else:
+		return false
 
 ## Change background music
 func change_bg(type : BG_TRANSITION_TYPE) -> void:
+	if playback == null: return
+	
 	match type:
 		BG_TRANSITION_TYPE.EARLY_GAME:
-			print("transition to early")
+			# only server changes client's global bg
+			if multiplayer.is_server(): stc_change_bg_music.rpc(type)
+			current_global_bg_clip = type
+			
+			if !is_current_clip_global(): return
+			
+			playback.switch_to_clip_by_name("Calm")
+			current_bg_clip = type
+			
 		BG_TRANSITION_TYPE.MID_GAME:
-			print("transition to mid")
-		BG_TRANSITION_TYPE.LATE_GAME:
-			print("transition to late")
+			if multiplayer.is_server(): stc_change_bg_music.rpc(type)
+				
+			current_global_bg_clip = type
+	
+			# prevent changing clips if current clip is local
+			if !is_current_clip_global(): return
+			
+			playback.switch_to_clip_by_name("Hard")
+			current_bg_clip = type
+		BG_TRANSITION_TYPE.LATE_GAME: 
+			if multiplayer.is_server(): stc_change_bg_music.rpc(type)
+			current_global_bg_clip = type
+			
+			if !is_current_clip_global(): return
+			
+			playback.switch_to_clip_by_name("Hard")
+			current_bg_clip = type
+		BG_TRANSITION_TYPE.BOSS: # rpc call
+			if multiplayer.is_server(): stc_change_bg_music.rpc(type)
+			current_global_bg_clip = type
+			
+			if !is_current_clip_global(): return
+			
+			playback.switch_to_clip_by_name("Hard")
+			current_bg_clip = type
+		BG_TRANSITION_TYPE.LOW_HP:
+			current_bg_clip = type
+			playback.switch_to_clip_by_name("Hard")
+		BG_TRANSITION_TYPE.DEAD:
+			current_bg_clip = type
 		_:
-			printerr("Error, wrong or no type given")
+			assert(false, "Error, wrong or no type given")
+
+# WARNING: This should only be called by the server. Change from a local clip to global
+func change_bg_from_local_to_global(player_id : int = 1) -> void:
+	if player_id != 1 && multiplayer.is_server():
+		stc_change_bg_to_global.rpc_id(player_id)
+		return
+	
+	if !is_current_clip_global(): return
+	current_bg_clip = current_global_bg_clip # need this line to ensure change_bg works as intended.
+	change_bg(current_bg_clip)
+
+@rpc("authority", "reliable", "call_remote")
+func stc_change_bg_to_global():
+	change_bg_from_local_to_global(-1)

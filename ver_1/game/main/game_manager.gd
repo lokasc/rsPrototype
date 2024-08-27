@@ -67,6 +67,7 @@ func _process(delta: float) -> void:
 func start_game():
 	time = 0
 	is_started = true
+	bc.stc_start_music.rpc()
 	if dont_spawn_enemies: 
 		# for testing.
 		spawner.custom_spawn("res://ver_1/character/enemy/Dummy/dummy.tscn", Vector2(651,335))
