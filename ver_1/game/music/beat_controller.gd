@@ -22,14 +22,17 @@ var previous_time = 0
 
 # Clips
 enum BG_TRANSITION_TYPE {
-	EARLY_GAME,
-	MID_GAME,
-	LATE_GAME,
-	BOSS,
-	LOW_HP,
-	DEAD,
+	EARLY_GAME,	#global -> all should hear
+	MID_GAME,	#global
+	LATE_GAME,	#global
+	BOSS,	# global
+	LOW_HP, # local -> only player can hear it
+	DEAD,  # local
 	}
 
+## Note, global refers to the clip thats supposed to play
+## local refers to the client-side override to current clip
+## current_bg_clip can be local or global.
 var current_global_bg_clip : BG_TRANSITION_TYPE ## current global clip.
 var current_bg_clip : BG_TRANSITION_TYPE # current clip
 
