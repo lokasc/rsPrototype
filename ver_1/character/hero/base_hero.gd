@@ -182,7 +182,7 @@ func lose_shield(shield):
 
 func take_damage(dmg):
 	if !multiplayer.is_server(): return
-	if IS_INVINCIBLE: return
+	if IS_INVINCIBLE || IS_DEAD: return
 	# Player damage logic
 	if current_shield == 0:
 		current_health -= dmg
@@ -194,14 +194,19 @@ func take_damage(dmg):
 	check_death()
 
 func check_death():
+	# ran on the server.
 	if current_health <= 0:
 		player_die.emit()
 
 func to_clients_player_died():
 	on_player_die.rpc()
+	# this is always ran by server.
+	if id == 1: GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.LOW_HP)
+	else: GameManager.Instance.bc.stc_change_bg_music.rpc_id(BeatController.BG_TRANSITION_TYPE.LOW_HP)
 
 @rpc("call_local", "reliable")
 func on_player_die():
+	# ran to all. 
 	IS_DEAD = true
 	input.canMove = false
 	set_process(false)
