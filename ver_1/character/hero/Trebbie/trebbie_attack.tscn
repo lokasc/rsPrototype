@@ -1,22 +1,38 @@
-[gd_scene load_steps=3 format=3 uid="uid://dl6n7678g0f18"]
+[gd_scene load_steps=4 format=3 uid="uid://dl6n7678g0f18"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie_attack.gd" id="1_dmnqs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nwjjw"]
-size = Vector2(163.688, 36.125)
+size = Vector2(150.844, 36.125)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rqa1f"]
+size = Vector2(49, 36)
 
 [node name="TrebbieAttack" type="Node2D"]
 script = ExtResource("1_dmnqs")
-initial_dmg = 100
+initial_dmg = 50
+tip_dmg_multiplier = 2.0
+tip_heal_amount = 30
 action_name = "TrebbieAttack"
 desc = "Trebbie thrusts her spear forward, dealing damage to enemies in a thin long direction"
 
 [node name="AttackHitBox" type="Area2D" parent="."]
-collision_layer = 4
+collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitBox"]
-position = Vector2(82, 0)
+position = Vector2(75.578, 0)
 shape = SubResource("RectangleShape2D_nwjjw")
 
 [node name="HitboxReset" type="Timer" parent="."]
+
+[node name="TipHitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TipHitBox"]
+position = Vector2(176, 0)
+shape = SubResource("RectangleShape2D_rqa1f")
+debug_color = Color(0.687512, 0.290867, 1, 0.42)
+
+[connection signal="area_entered" from="TipHitBox" to="." method="_on_tip_hit"]

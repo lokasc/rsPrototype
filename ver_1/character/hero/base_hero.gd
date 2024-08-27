@@ -159,6 +159,8 @@ func on_xp_collected():
 func gain_health(heal):
 	if !multiplayer.is_server(): return
 	if current_health + heal < char_stats.maxhp:
+		if heal < 1:
+			heal = 1
 		current_health += heal
 	else:
 		current_health = char_stats.maxhp

@@ -8,9 +8,14 @@ extends BaseAbility
 @export_subgroup("Tech")
 @export var hitbox_time_active : float = 0.1
 @export var distance_to_center : float
+@export var tip_dmg_multiplier : float
+@export var tip_heal_amount : int
+
+var is_tip_hit : bool = false
 
 @onready var hitbox : Area2D = $AttackHitBox
 @onready var hitbox_timer : Timer = $HitboxReset
+@onready var tip_hitbox : Area2D = $TipHitBox
 
 func _init() -> void:
 	super()
@@ -22,6 +27,7 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	hitbox.position.x = distance_to_center
 	hitbox.monitoring = false
+	tip_hitbox.monitoring = false
 	hitbox.get_child(0).debug_color = Color("0099b36b")
 	
 	# connect signals
@@ -30,10 +36,12 @@ func _ready() -> void:
 
 func enter() -> void:
 	hitbox.visible = true
+	tip_hitbox.visible = true
 	pass
 
 func exit() -> void:
 	hitbox.visible = false
+	tip_hitbox.visible = false
 	pass
 
 # Automatically attack.
@@ -77,13 +85,32 @@ func on_hit(area : Area2D) -> void:
 	# Find enemy, deal dmg.
 	var enemy = area.get_parent() as BaseEnemy
 	if enemy == null: return
-
-	enemy.take_damage(get_multiplied_atk())
 	
+	if not is_tip_hit: # The tip and normal hitbox are mutually exclusive
+		enemy.take_damage(get_multiplied_atk())
+		hero.gain_health(get_multiplied_atk() * hero.char_stats.hsg)
+		print(hero.current_health)
 	# TODO: have to change how lifesteal works, 
 	# not relating it to the atk stat but the damage enemies receive
-	hero.gain_health(get_multiplied_atk() * hero.char_stats.hsg)
-	
+		
+
+func _on_tip_hit(area: Area2D) -> void:
+	if !multiplayer.is_server(): return
+	var character : BaseCharacter = null 
+	is_tip_hit = true
+	if area.get_parent() is BaseCharacter:
+		character = area.get_parent()
+
+	# do not execute on non-characters or nulls
+	if !character && !(character is BaseCharacter): return
+
+	if character is BaseEnemy:
+		character.take_damage(get_multiplied_atk() * tip_dmg_multiplier)
+		hero.gain_health(get_multiplied_atk() * tip_dmg_multiplier * hero.char_stats.hsg)
+	if character is BaseHero:
+		character.gain_health(tip_heal_amount)
+
+
 func use_ability() -> void:
 	if is_on_cd: return
 	super()
@@ -92,13 +119,17 @@ func use_ability() -> void:
 		hero.animator.play("attack")
 	
 	hitbox.monitoring = true
+	tip_hitbox.monitoring = true
 	hitbox.get_child(0).debug_color = Color("dd488d6b")
+	tip_hitbox.get_child(0).debug_color = Color("dd488d6b")
 	hitbox_timer.start(hitbox_time_active)
 
 func _hitbox_reset() -> void:
 	hitbox.monitoring = false
+	tip_hitbox.monitoring = false
+	is_tip_hit = false
 	hitbox.get_child(0).debug_color = Color("0099b36b") 
-	
+	tip_hitbox.get_child(0).debug_color = Color("af4aff6b")
 	if hero.animator.has_animation("idle"):
 		hero.animator.play("idle")
 

@@ -8,7 +8,7 @@ radius = 200.0
 [node name="TrebbieBuff" type="Node2D"]
 script = ExtResource("1_lcige")
 initial_cd = 4
-active_duration = 0.5
+active_duration = 0.15
 initial_hsg = 3.0
 dmg_multiplier = 2.0
 hsg_multiplier = 3.0
@@ -26,6 +26,7 @@ shape = SubResource("CircleShape2D_1swjl")
 debug_color = Color(0.680201, 0.300926, 0.99701, 0.42)
 
 [node name="BuffRecastTimer" type="Timer" parent="."]
+wait_time = 1.5
 one_shot = true
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

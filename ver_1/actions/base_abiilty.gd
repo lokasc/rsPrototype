@@ -9,6 +9,7 @@ enum Timing {NULL, EARLY, ON_BEAT, LATE}
 var is_on_cd : bool
 var current_time : float
 var timing : int = Timing.NULL
+var is_synced : bool = false
 
 
 func enter() -> void:
