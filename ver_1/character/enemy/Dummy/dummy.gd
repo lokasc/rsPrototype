@@ -13,7 +13,7 @@ func _enter_tree() -> void:
 func _init_stats() -> void:
 	char_stats.maxhp = 10000
 	char_stats.spd = 0
-	char_stats.atk = 0
+	char_stats.atk = 30
 	current_health = char_stats.maxhp
 	
 
