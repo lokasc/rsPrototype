@@ -136,12 +136,10 @@ func on_hit(area : Area2D) -> void:
 			character.take_damage(get_multiplied_atk())
 		if character is BaseHero:
 			character.gain_shield(initial_shields * shield_multiplier, shield_duration)
-			print("gain_yes", is_empowered)
 		hero.gain_health(get_multiplied_atk() * hero.char_stats.hsg)
 	else:
 		if character is BaseHero:
 			character.gain_shield(initial_shields, shield_duration)
-			print("gain_not", is_empowered)
 
 func get_curve_points() -> void:
 	if direction.x <0: # so that the hero jumps upwards when moving left
