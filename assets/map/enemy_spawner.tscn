@@ -11,12 +11,12 @@ script = ExtResource("3_l0tmy")
 time_start = 0
 time_end = 60
 enemy = ExtResource("2_8xhio")
-enemy_num = 1
+enemy_num = 5
 enemy_spawn_delay = 0
 
 [sub_resource type="Resource" id="Resource_2gl8i"]
 script = ExtResource("3_l0tmy")
-time_start = 100000
+time_start = 15
 time_end = 1200
 enemy = ExtResource("4_v22m4")
 enemy_num = 5
@@ -24,7 +24,7 @@ enemy_spawn_delay = 0
 
 [sub_resource type="Resource" id="Resource_q32yu"]
 script = ExtResource("3_l0tmy")
-time_start = 100000
+time_start = 30
 time_end = 1200
 enemy = ExtResource("5_saef0")
 enemy_num = 2
@@ -32,10 +32,10 @@ enemy_spawn_delay = 0
 
 [sub_resource type="Resource" id="Resource_6xoj5"]
 script = ExtResource("3_l0tmy")
-time_start = 100000
-time_end = 15
-enemy = ExtResource("4_v22m4")
-enemy_num = 15
+time_start = 20
+time_end = 20
+enemy = ExtResource("2_8xhio")
+enemy_num = 20
 enemy_spawn_delay = 0
 
 [node name="EnemySpawner" type="Node2D" node_paths=PackedStringArray("spawn_path")]

@@ -1,15 +1,15 @@
 [gd_resource type="AudioStreamInteractive" load_steps=3 format=3 uid="uid://don0ll4pfq51n"]
 
-[ext_resource type="AudioStream" uid="uid://efnwmx2sgmqs" path="res://Resources/RS_Music_3_Calm.mp3" id="1_wrxr5"]
-[ext_resource type="AudioStream" uid="uid://s1pm1mrfkq5l" path="res://Resources/RS_Music_3_Hard.mp3" id="2_f2km2"]
+[ext_resource type="AudioStream" uid="uid://diiord0ogdih2" path="res://Resources/early_bgm_death.mp3" id="1_eaqou"]
+[ext_resource type="AudioStream" uid="uid://dj7qpfsya80wi" path="res://Resources/early_bgm_1.mp3" id="2_2yig6"]
 
 [resource]
 clip_count = 2
-clip_0/name = &"Calm"
-clip_0/stream = ExtResource("1_wrxr5")
+clip_0/name = &"early_bgm"
+clip_0/stream = ExtResource("2_2yig6")
 clip_0/auto_advance = 0
-clip_1/name = &"Hard"
-clip_1/stream = ExtResource("2_f2km2")
+clip_1/name = &"early_bgm_death"
+clip_1/stream = ExtResource("1_eaqou")
 clip_1/auto_advance = 0
 _transitions = {
 Vector2i(-1, -1): {

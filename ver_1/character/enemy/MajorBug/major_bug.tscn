@@ -40,9 +40,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2cp4r"]
-radius = 28.0
-height = 164.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_rp4s5"]
+radius = 26.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1m36h"]
 radius = 42.5
@@ -79,15 +78,14 @@ xp_drop_spread = 20
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(8, 8)
 sprite_frames = SubResource("SpriteFrames_e7gsg")
-frame = 2
-frame_progress = 0.0568761
+frame_progress = 0.972713
 offset = Vector2(0, -2)
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
 position = Vector2(5, -20)
 rotation = 1.5708
 scale = Vector2(2.5, 2.5)
-shape = SubResource("CapsuleShape2D_2cp4r")
+shape = SubResource("CircleShape2D_rp4s5")
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 4

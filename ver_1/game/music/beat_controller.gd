@@ -139,7 +139,7 @@ func change_bg(type : BG_TRANSITION_TYPE) -> void:
 			
 			if !is_current_clip_global(): return
 			
-			playback.switch_to_clip_by_name("Calm")
+			playback.switch_to_clip_by_name("early_bgm")
 			current_bg_clip = type
 			
 		BG_TRANSITION_TYPE.MID_GAME:
@@ -150,7 +150,7 @@ func change_bg(type : BG_TRANSITION_TYPE) -> void:
 			# prevent changing clips if current clip is local
 			if !is_current_clip_global(): return
 			
-			playback.switch_to_clip_by_name("Hard")
+			playback.switch_to_clip_by_name("early_bgm")
 			current_bg_clip = type
 		BG_TRANSITION_TYPE.LATE_GAME: 
 			if multiplayer.is_server(): stc_change_bg_music.rpc(type)
@@ -158,7 +158,7 @@ func change_bg(type : BG_TRANSITION_TYPE) -> void:
 			
 			if !is_current_clip_global(): return
 			
-			playback.switch_to_clip_by_name("Hard")
+			playback.switch_to_clip_by_name("early_bgm")
 			current_bg_clip = type
 		BG_TRANSITION_TYPE.BOSS: # rpc call
 			if multiplayer.is_server(): stc_change_bg_music.rpc(type)
@@ -166,11 +166,11 @@ func change_bg(type : BG_TRANSITION_TYPE) -> void:
 			
 			if !is_current_clip_global(): return
 			
-			playback.switch_to_clip_by_name("Hard")
+			playback.switch_to_clip_by_name("early_bgm")
 			current_bg_clip = type
 		BG_TRANSITION_TYPE.LOW_HP:
 			current_bg_clip = type
-			playback.switch_to_clip_by_name("Hard")
+			playback.switch_to_clip_by_name("early_bgm_death")
 		BG_TRANSITION_TYPE.DEAD:
 			current_bg_clip = type
 		_:

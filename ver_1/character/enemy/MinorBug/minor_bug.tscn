@@ -33,9 +33,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2cp4r"]
-radius = 25.0
-height = 60.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_gxrls"]
+radius = 12.5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1m36h"]
 radius = 35.0
@@ -70,7 +69,7 @@ offset = Vector2(0, -2)
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 scale = Vector2(2, 2)
-shape = SubResource("CapsuleShape2D_2cp4r")
+shape = SubResource("CircleShape2D_gxrls")
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 4
