@@ -5,6 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2x6ol"]
 
 [node name="PlayerCamera" type="Camera2D"]
+zoom = Vector2(1.5, 1.5)
 script = ExtResource("1_bdtns")
 
 [node name="Area2D" type="Area2D" parent="."]
