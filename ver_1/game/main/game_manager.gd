@@ -59,17 +59,19 @@ func _init() -> void:
 	Instance = self
 	time = 0
 	current_xp = 0
-	max_xp = 100
+	max_xp = 5
 	end_game.connect(on_end_game)
 
 func _process(delta: float) -> void:
 	timer_logic(delta)
 
+func _ready() -> void:
+	if no_music:
+		bc.main_music_player.volume_db = -100
+
 func start_game():
 	time = 0
 	is_started = true
-	if no_music:
-		bc.main_music_player.volume_db = -100
 	bc.stc_start_music.rpc()
 	if dont_spawn_enemies: 
 		# for testing.
