@@ -22,6 +22,9 @@ properties/1/replication_mode = 2
 properties/2/path = NodePath(".:meter")
 properties/2/spawn = true
 properties/2/replication_mode = 2
+properties/3/path = NodePath("MultiplayerSynchronizer:canMove")
+properties/3/spawn = true
+properties/3/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_csrte"]
 properties/0/path = NodePath("MultiplayerSynchronizer:direction")
