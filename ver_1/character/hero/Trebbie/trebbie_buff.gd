@@ -92,7 +92,7 @@ func update(delta: float) -> void:
 			recast += 1
 		# Resets if recasted too many times or didn't press on beat
 		elif hero.input.ability_1:
-d			if recast >= recast_amount or GameManager.Instance.bc.is_on_beat() == false:
+			if recast >= recast_amount or GameManager.Instance.bc.is_on_beat() == false:
 				recast_timer.timeout.emit()
 				state_change.emit(self, "TrebbieAttack")
 		
