@@ -32,6 +32,7 @@ var local_player : BaseHero
 
 # For selecting cards.
 var players_ready : int
+var action_selected : bool
 
 # For selecting characters
 var players_selection_ready : int

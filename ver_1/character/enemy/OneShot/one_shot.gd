@@ -4,12 +4,17 @@ extends BaseEnemy
 @onready var hitbox : Area2D = $HitBox
 @onready var collidebox : CollisionShape2D = $CollisionBox
 
+var update_frequency : float = 5
+var current_update_time : float = 0
+
 func _init() -> void:
 	super()
-	pass
-
+	
 func _enter_tree() -> void:
 	super()
+	# assign random time, so enemies dont update all together
+	if multiplayer.is_server():
+		current_update_time = randf_range(1, update_frequency)
 	pass
 
 func _ready() -> void:
@@ -17,7 +22,15 @@ func _ready() -> void:
 	hitbox.area_entered.connect(on_hit)
 	sprite = $AnimatedSprite2D
 	sprite.play("default")
-	x_scale = sprite.scale.x #Sets initial x scale dimension
+	x_scale = sprite.scale.x
+
+func _process(delta: float) -> void:
+	current_update_time += delta
+	
+	if current_update_time >= update_frequency:
+		target = get_closest_target_position()
+		current_update_time = 0
+	pass
 
 func _physics_process(_delta:float) -> void:
 	if can_move == true:
@@ -38,8 +51,3 @@ func on_hit(area : Area2D) -> void:
 	# need to calculate how much damage based on 
 	# the attack value of this ability + my character's attack value
 	hero.take_damage(char_stats.atk)
-
-# TODO: FSM or STATE MACHINE for enemy
-func _decide(_target = null) -> void:
-	if _target == null:
-		return

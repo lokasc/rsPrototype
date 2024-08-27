@@ -42,7 +42,7 @@ func _init_stats() -> void:
 
 # Export variables arent ready on innit
 func _enter_tree() -> void:
-	target = GameManager.Instance.players[0]
+	target = get_closest_target_position()
 	_init_stats()
 
 func take_damage(p_dmg:int) -> void:
@@ -79,3 +79,12 @@ func move_to_target(p_target = null) -> void:
 	else:
 		sprite.scale.x = x_scale * -1
 	move_and_slide()
+
+func get_closest_target_position() -> BaseHero:
+	var closest_hero : BaseHero = null 
+	var closest_magnitude : float = 9999999
+	for x in GameManager.Instance.players:
+		if x.global_position.distance_to(self.global_position) < closest_magnitude:
+			closest_hero = x
+			closest_magnitude = x.global_position.distance_to(self.global_position)
+	return closest_hero
