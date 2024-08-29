@@ -56,20 +56,6 @@ func _init_stats() -> void:
 	char_stats.hsg = heal_shield_gain
 	char_stats.shields = shields
 
-# this function overrides the base hero one because of the current sprite
-# will be deleted after bassheart sprite is done
-func sprite_direction() -> void:
-	# Changing the sprite direction to the last moved direction
-	if input.direction.x <0:
-		sprite_dir = Facing.LEFT
-	elif input.direction.x >0:
-		sprite_dir = Facing.RIGHT
-	match sprite_dir:
-		0:
-			sprite.scale.x = -0.156
-		1:
-			sprite.scale.x = 0.156
-
 func take_damage(dmg) -> void:
 	super(dmg)
 	if not IS_INVINCIBLE:

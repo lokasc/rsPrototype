@@ -109,7 +109,7 @@ func _process(_delta:float) -> void:
 func _physics_process(_delta:float) -> void:
 	if current_state:
 		current_state.physics_update(_delta)
-	sprite_direction()
+	set_sprite_direction()
 
 func process_items(_delta:float) -> void:
 	for item : BaseItem in items:
@@ -218,11 +218,13 @@ func on_player_die():
 func is_alive() -> bool:
 	return !(IS_DOWNED || IS_DEAD)
 
-func sprite_direction():
+func set_sprite_direction():
 	# Changing the sprite direction to the last moved direction
-	if input.direction.x <0:
+	if input.get_mouse_position().x <0:
 		sprite_dir = Facing.LEFT
-	elif input.direction.x >0:
+	elif input.get_mouse_position().x >0:
+		sprite_dir = Facing.RIGHT
+	else:
 		sprite_dir = Facing.RIGHT
 	match sprite_dir:
 		0:
