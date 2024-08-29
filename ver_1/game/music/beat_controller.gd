@@ -9,6 +9,10 @@ signal on_beat ## signal for executing things on to the beat.
 @onready var test_interactive  : AudioStream = load("res://Resources/test_interactive.tres")
 
 @export_range(0.01 , 0.5, 0.01, "or_greater") var grace_time : float = 0.01 ## +- time for checks
+
+# is_on_beat replication
+var replicated_on_beat_bool : bool = false
+
 var current_beat_time : float ## time until beat is hit. 
 var is_playing : bool ## is music track playing?
 
@@ -59,10 +63,15 @@ func _process(delta: float) -> void:
 
 ## Is the current moment on beat? (Accounting for grace)
 func is_on_beat() -> bool:
+	#print(str(multiplayer.is_server()) + " - Current_time: " + str(current_beat_time))
 	if current_beat_time <= grace_time || current_beat_time >= beat_duration - grace_time:
 		return true
 	else:
 		return false 
+
+@rpc("any_peer", "call_remote", "reliable")
+func send_replicated_on_beat(local_value):
+	replicated_on_beat_bool = local_value
 
 #region Internal
 func start_music(start_position : float = 0) -> void:

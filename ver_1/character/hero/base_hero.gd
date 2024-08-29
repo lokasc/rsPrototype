@@ -63,7 +63,7 @@ func _init():
 
 func _enter_tree():
 	id = name.to_int()
-	set_multiplayer_authority(name.to_int())
+	set_multiplayer_authority(name.to_int()) 
 	
 	# only server can determine health, items and statuses.
 	$ServerSynchronizer.set_multiplayer_authority(1)
@@ -160,6 +160,7 @@ func gain_health(heal):
 	if !multiplayer.is_server(): return
 	if current_health + heal < char_stats.maxhp:
 		if heal < 1:
+			#assert(heal < 0, "Ur an idiots")
 			heal = 1
 		current_health += heal
 	else:

@@ -52,13 +52,13 @@ func use_ability() -> void:
 func _reset() -> void:
 	is_on_cd = false
 	current_time = 0
-	pass
 
 # Override virtual func to change what happens on cooldown finish
 func _on_cd_finish() -> void:
 	_reset()
 
 func is_ready() -> bool:
+	#print(str(multiplayer.is_server()) + " ~ "+ str(current_time) + " " + str(!is_on_cd))
 	return !is_on_cd
 
 # applies atk multiplier from hero to the attack.

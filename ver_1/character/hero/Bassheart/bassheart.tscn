@@ -45,6 +45,9 @@ properties/4/replication_mode = 2
 properties/5/path = NodePath("MultiplayerSynchronizer:ability_2")
 properties/5/spawn = true
 properties/5/replication_mode = 2
+properties/6/path = NodePath("MultiplayerSynchronizer:is_on_beat")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bf6yn"]
 radius = 12.0

@@ -4,6 +4,7 @@ class_name PlayerInput
 const CAMERA_OFFSET = Vector2(-640,-360)
 var player : BaseHero
 
+@export var is_on_beat : bool
 @export var mouse_pos : Vector2
 @export var direction : Vector2
 @export var attack : bool
@@ -37,3 +38,7 @@ func _process(_delta):
 		ability_1 = Input.is_action_just_pressed("ability_1")
 		ability_2 = Input.is_action_just_pressed("ability_2")
 		mouse_pos = get_viewport().get_mouse_position()
+		
+		# Give client leniancy, let them check instead.
+		if ability_1 || ability_2:
+			is_on_beat = GameManager.Instance.bc.is_on_beat()

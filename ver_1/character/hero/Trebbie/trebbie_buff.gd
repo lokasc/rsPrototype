@@ -118,7 +118,7 @@ func start_recast_logic() -> void:
 		if recast_timer.is_stopped():
 			recast_timer.start(recast_window)
 		# Have to recast on beat
-		if hero.input.ability_1 and GameManager.Instance.bc.is_on_beat() and recast < recast_amount:	# Activated twice (reactivated)
+		if hero.input.ability_1 and hero.input.is_on_beat and recast < recast_amount:	# Activated twice (reactivated)
 			hitbox_shape.shape.radius *= beat_sync_multiplier 
 			hitbox.visible = true
 			hitbox.monitoring = true
@@ -128,7 +128,7 @@ func start_recast_logic() -> void:
 			recast += 1
 		# Resets if recasted too many times or didn't press on beat
 		elif hero.input.ability_1:
-			if recast >= recast_amount or GameManager.Instance.bc.is_on_beat() == false:
+			if recast >= recast_amount or hero.input.is_on_beat == false:
 				recast_timer.timeout.emit()
 				state_change.emit(self, "TrebbieAttack")
 

@@ -69,13 +69,15 @@ func _process(delta : float) -> void:
 	
 	# Process abilities
 	if hero.input.ability_1 and hero.ability_1.is_ready():
-		if GameManager.Instance.bc.is_on_beat(): #Entering buff state while in sync
+		if hero.input.is_on_beat: #Entering buff state while in sync
+			#print(str(multiplayer.is_server()) + " is on sync")
 			hero.ability_1.is_synced = true
 		state_change.emit(self, "TrebbieBuff")
 	elif hero.input.ability_1: 
+		return
 		print("Ability 1 is on cooldown! ", ability_1_cd_display)
 	elif hero.input.ability_2 and hero.ability_2.is_ready():
-		if GameManager.Instance.bc.is_on_beat(): #Entering buff state while in sync
+		if hero.input.is_on_beat: #Entering buff state while in sync
 			hero.ability_2.is_synced = true
 		state_change.emit(self, "TrebbieDash")
 	elif hero.input.ability_2:
