@@ -27,6 +27,7 @@ var IS_INVINCIBLE : bool = false
 @onready var input : PlayerInput = $MultiplayerSynchronizer
 
 var id : int
+var x_scale : int
 
 # STATEMACHINE
 var states : Dictionary = {}
@@ -87,7 +88,7 @@ func _enter_tree():
 func _ready():
 	super()
 	_init_states()
-	
+	x_scale = sprite.scale.x # Stores scale.x
 	# Get references
 	pop_up = $TextPopUp as TextPopUp
 	camera = $PlayerCamera as PlayerCamera
@@ -225,9 +226,9 @@ func sprite_direction():
 		sprite_dir = Facing.RIGHT
 	match sprite_dir:
 		0:
-			sprite.scale.x = -1
+			sprite.scale.x = -1 * x_scale
 		1:
-			sprite.scale.x = 1
+			sprite.scale.x = x_scale
 
 func get_atk() -> int:
 	return char_stats.atk
