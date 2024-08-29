@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjbqj24xb60e8"
-path="res://.godot/imported/Trebbie_Sheet_32.png-e696208a0416c273ec84bcad30f37013.ctex"
+uid="uid://rmwq1hsaaflg"
+path="res://.godot/imported/BassheartLegs.png-f4a7202d699440fe24e0997476425575.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Trebbie_Sheet_32.png"
-dest_files=["res://.godot/imported/Trebbie_Sheet_32.png-e696208a0416c273ec84bcad30f37013.ctex"]
+source_file="res://BassheartLegs.png"
+dest_files=["res://.godot/imported/BassheartLegs.png-f4a7202d699440fe24e0997476425575.ctex"]
 
 [params]
 

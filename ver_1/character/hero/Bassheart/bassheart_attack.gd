@@ -11,7 +11,8 @@ extends BaseAbility
 
 @onready var hitbox : Area2D = $AttackHitBox
 @onready var hitbox_timer : Timer = $HitboxReset
-
+@onready var weapon_sprite : Node2D = $"../Sprites/RotatingWeapon"
+@onready var leg_sprite : AnimatedSprite2D = $"../Sprites/LegSprite2D"
 
 # Initialize abilities
 # WARNING: export variables wont be avaliable on init, use enter_tree
@@ -47,13 +48,16 @@ func exit() -> void:
 func update(_delta: float) -> void:
 	if hero.input.is_use_mouse_auto_attack:
 		look_at(hero.input.get_mouse_position())
+		weapon_sprite.look_at(hero.input.get_mouse_position())
 	use_ability()
 
 func physics_update(_delta: float) -> void:
 	if hero.input.direction:
 		hero.velocity = hero.input.direction * hero.char_stats.spd
+		leg_sprite.play("walk")
 	else:
 		hero.velocity = hero.velocity.move_toward(Vector2.ZERO, hero.DECELERATION)
+		leg_sprite.play("default")
 	hero.move_and_slide()
 
 # TODO: Clean this up
@@ -87,8 +91,6 @@ func on_hit(area : Area2D) -> void:
 func _hitbox_reset() -> void:
 	hitbox.monitoring = false
 	hitbox.get_child(0).debug_color = Color("0099b36b") 
-	if hero.animator.has_animation("idle"):
-		hero.animator.play("idle")
 
 # This func is used for auto_attack, dont change this.
 func use_ability() -> void:
@@ -111,3 +113,7 @@ func _on_cd_finish() -> void:
 # Resets ability, lets players to use it again, override this to add functionality.
 func _reset() -> void:
 	super()
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if hero.animator.has_animation("idle"):
+		hero.animator.play("idle")

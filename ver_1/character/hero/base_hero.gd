@@ -17,7 +17,7 @@ const DECELERATION : int = 80
 # Sprite direction
 enum Facing {LEFT, RIGHT}
 var sprite_dir : int
-@onready var sprite : Sprite2D = $Sprite2D
+@onready var sprite : Node2D = $Sprites
 
 ## FLAGS for player state
 var IS_DEAD : bool = false
@@ -110,6 +110,7 @@ func _physics_process(_delta:float) -> void:
 	if current_state:
 		current_state.physics_update(_delta)
 	set_sprite_direction()
+	
 
 func process_items(_delta:float) -> void:
 	for item : BaseItem in items:
@@ -220,16 +221,16 @@ func is_alive() -> bool:
 
 func set_sprite_direction():
 	# Changing the sprite direction to the last moved direction
-	if input.get_mouse_position().x <0:
+	if get_local_mouse_position().x <0:
 		sprite_dir = Facing.LEFT
-	elif input.get_mouse_position().x >0:
+	elif get_local_mouse_position().x >0:
 		sprite_dir = Facing.RIGHT
 	else:
 		sprite_dir = Facing.RIGHT
 	match sprite_dir:
-		0:
+		Facing.LEFT:
 			sprite.scale.x = -1 * x_scale
-		1:
+		Facing.RIGHT:
 			sprite.scale.x = x_scale
 
 func get_atk() -> int:
