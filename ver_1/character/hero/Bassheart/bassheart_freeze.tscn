@@ -17,6 +17,10 @@ damage_multiplier = 3.0
 freeze_duration = 3.0
 unfreeze_dmg = 100
 dmg_threshold = 50
+recast_timestamps = Array[float]([0.25, 0.5])
+sync_area_multiplier = 1.2
+sync_dmg_multiplier = 2.0
+recast_grace_time = 0.05
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 0

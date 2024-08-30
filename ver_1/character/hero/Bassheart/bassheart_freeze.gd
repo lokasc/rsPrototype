@@ -22,8 +22,18 @@ extends BaseAbility
 @export var unfreeze_dmg : int
 @export var dmg_threshold : int
 
+@export_category("Beat sync stats")
+## The incremental times for each note, meaning the float will be the note length added to the previous notes. It won't be greater than the charge duration. Here are the notes translated to time in 120 bpm: 1/16 = 0.125s, 1/8 = 0.25s, 1/4 = 0.5s, 3/8 = 0.75s, 1/2 = 1.0s, 3/4 = 1.5s, 1/1 = 2.0s. For more information visit https://toolstud.io/music/bpm.php 
+@export var recast_timestamps : Array[float]
+@export var sync_area_multiplier : float
+@export var sync_dmg_multiplier : float
+@export var recast_grace_time : float
+
 var is_charging : bool
 var is_enlarged : bool
+
+var synced_amount : int = 0
+var current_charge_time : float
 
 @onready var wave_timer : Timer = $WaveTimer
 @onready var charge_timer : Timer = $ChargeTimer
@@ -52,6 +62,10 @@ func _ready() -> void:
 	indicator.monitoring = false
 	if zero_cd:
 		a_stats.cd = 0
+	# Sets the note to max duration if it exceeds the duration
+	for note in recast_timestamps:
+		if note > charge_duration:
+			note == charge_duration
 
 # Use statemachine logic if ability requires it
 # use variable HERO to access hero's variables and functions
@@ -63,7 +77,6 @@ func enter() -> void:
 	charge_timer.start(charge_duration)
 	indicator.visible = true
 	indicator.monitoring = true
-	
 	if is_empowered:
 		hitbox_shape.scale *= area_multiplier
 		is_enlarged = true
@@ -74,6 +87,10 @@ func _on_charge_timer_timeout() -> void:
 	indicator.visible = false
 	indicator.monitoring = false
 	is_charging = false
+	
+	hitbox_shape.scale *= (1+ synced_amount * sync_area_multiplier)
+	
+	current_charge_time = 0
 	wave_timer.start(active_duration)
 
 func _on_wave_timer_timeout() -> void:
@@ -87,10 +104,19 @@ func exit() -> void:
 	if is_empowered:
 		hitbox_shape.scale /= area_multiplier
 		hero.reset_meter()
+	hitbox_shape.scale /= (1+ synced_amount * sync_area_multiplier)
+	synced_amount = 0
 
 func update(_delta: float) -> void:
 	super(_delta)
-	pass
+	print(hitbox_shape.scale.x)
+	if is_synced and is_charging:
+		current_charge_time = charge_duration - charge_timer.time_left
+	### Beat sync Logic
+		if recast_timestamps.is_empty() == false and hero.input.ability_1:
+			for timestamp in recast_timestamps:
+				if is_within_timestamp(timestamp):
+					synced_amount += 1
 
 func physics_update(_delta: float) -> void:
 	super(_delta)
@@ -110,33 +136,22 @@ func on_hit(area : Area2D) -> void:
 	# the attack value of this ability + my character's attack value
 	hero.gain_health(initial_dmg*hero.char_stats.hsg)
 	if is_empowered:
-		enemy.take_damage(get_multiplied_atk() * damage_multiplier)
+		enemy.take_damage(get_multiplied_atk() * (damage_multiplier + synced_amount * sync_dmg_multiplier))
 		if enemy.frozen == false:
 			enemy.add_status("Freeze", [unfreeze_dmg,freeze_duration * freeze_duration_multiplier,dmg_threshold])
 	#This comparison has to be added to prevent applying status twice, also bugs out freeze code
 	elif not is_empowered:
-		enemy.take_damage(get_multiplied_atk())
+		enemy.take_damage(get_multiplied_atk() * (1 + synced_amount * sync_dmg_multiplier))
 		if enemy.frozen == false:
 			enemy.add_status("Freeze", [unfreeze_dmg,freeze_duration,dmg_threshold])
-	
 
-# Call this to start cooldown.
-func start_cd() -> void:
-	super()
-
-# This func is used for auto_attack, dont change this.
-func use_ability() -> void:
-	if is_on_cd: return
-	super()
 
 # Increments level by 1, override virtual func to change upgrade logic.
 func _upgrade() -> void:
 	super()
 
-# Called automatically when ability cd finishes, override this to addd functionality when cd finishes
-func _on_cd_finish() -> void:
-	_reset()
-
-# Resets ability, lets players to use it again, override this to add functionality.
-func _reset() -> void:
-	super()
+# Only checks with charge timer, change if required to check with another timer
+func is_within_timestamp(timestamp : float) -> bool:
+	if current_charge_time <= timestamp + recast_grace_time and current_charge_time >= timestamp - recast_grace_time:
+		return true
+	else: return false
