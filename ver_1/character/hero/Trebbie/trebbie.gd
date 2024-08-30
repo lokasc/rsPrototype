@@ -1,9 +1,6 @@
 class_name Trebbie
 extends BaseHero
 
-#Currently doesn't work in multiplayer
-@export var is_personal_camera : bool = true
-
 @export_category("Stats")
 @export var damage : int = 100
 @export var max_hp : int = 100
@@ -11,6 +8,8 @@ extends BaseHero
 @export var area_of_effect : float = 2
 @export var pick_up_radius : int = 40
 @export var heal_shield_gain : float = 0.01
+
+var is_personal_camera : bool = true
 
 @onready var pick_up : CollisionShape2D = $PickUpRadius/CollisionShape2D
 

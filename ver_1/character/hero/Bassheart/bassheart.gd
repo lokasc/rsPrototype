@@ -1,8 +1,6 @@
 class_name Bassheart
 extends BaseHero
 
-@export var is_personal_camera : bool = true
-
 @export_category("Meter Stats")
 @export var meter : int = 0
 ## Determines how much meter gained from damage
@@ -17,6 +15,8 @@ extends BaseHero
 @export var area_of_effect : float = 2
 @export var pick_up_radius : int = 40
 @export var heal_shield_gain : float = 0.01
+
+var is_personal_camera : bool = true
 
 @onready var pick_up : CollisionShape2D = $PickUpRadius/CollisionShape2D
 
