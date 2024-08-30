@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ActionResource" load_steps=2 format=3 uid="uid://dadhku0liuafr"]
+
+[ext_resource type="Script" path="res://actions_resource.gd" id="1_bpbsy"]
+
+[resource]
+script = ExtResource("1_bpbsy")
+items = Array[Resource]([null, null, null, null])
+stats = Array[Resource]([null, null, null])

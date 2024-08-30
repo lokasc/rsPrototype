@@ -70,6 +70,8 @@ func show_player_ui():
 func hide_player_ui():
 	player_ui_layer.visible = false
 
+
+# called by the game_manager
 func build_selection_container(info_array : Array):
 	action_selected = false
 	for n in card_path.get_children():

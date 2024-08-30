@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://b3ouif0d4g8f0"]
+[gd_scene load_steps=10 format=3 uid="uid://b3ouif0d4g8f0"]
 
 [ext_resource type="Script" path="res://ver_1/game/main/game_manager.gd" id="1_btbqh"]
+[ext_resource type="Resource" uid="uid://dadhku0liuafr" path="res://list_items.tres" id="2_5eu4a"]
 [ext_resource type="PackedScene" uid="uid://o5mopq7q46cq" path="res://ver_1/game/net/net_manager.tscn" id="2_188hs"]
 [ext_resource type="PackedScene" uid="uid://h4w7naqbhls5" path="res://assets/map/enemy_spawner.tscn" id="3_l8iil"]
 [ext_resource type="PackedScene" uid="uid://cn3n52t8ej5n4" path="res://ver_1/game/UI/UI.tscn" id="4_u70ly"]
@@ -12,6 +13,7 @@
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_btbqh")
 wait_for_player = true
+action_list = ExtResource("2_5eu4a")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_l8iil")]
 

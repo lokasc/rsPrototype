@@ -33,6 +33,7 @@ var local_player : BaseHero
 # For selecting cards.
 var players_ready : int
 var action_selected : bool
+@export var action_list : ActionResource
 
 # For selecting characters
 var players_selection_ready : int
@@ -46,7 +47,6 @@ var bc : BeatController
 # XP
 var current_xp : int
 var max_xp : int # TODO: Change this for a func in futrue
-
 
 # LVL
 const max_lvl : int = 16
@@ -64,7 +64,7 @@ func _init() -> void:
 	Instance = self
 	time = 0
 	current_xp = 0
-	max_xp = 100
+	max_xp = 1
 	end_game.connect(on_end_game)
 
 func _ready() -> void:
@@ -72,6 +72,7 @@ func _ready() -> void:
 		bc.main_music_player.volume_db = -100
 
 func _process(delta: float) -> void:
+	action_list.get_action_resource(action_list.get_random_action())
 	timer_logic(delta)
 #endregion
 
@@ -132,16 +133,37 @@ func change_max_xp() -> void:
 	ui.update_max_xp(max_xp)
 
 ### Card Sequence 
+#region Card Sequence
+
+func serialize(action : BaseAction) -> String:
+	var rs : String = action.get_script().resource_path
+	rs = rs.get_file().get_slice(".", 0)
+	return rs
+
+func deserialize(string : String) -> BaseAction:
+	# add a check for abilities as well...
+	var action = load("res://ver_1/actions/items/" + string + ".gd").new() as BaseAction
+	return action
+
+func script_name_to_item_scene(string) -> String:
+	var filename : String = string.resource_path
+	filename = filename.get_file().get_slice(".", 0)
+	filename += ".tscn"
+	return "res://ver_1/actions/items/" + filename
+
 func start_level_up_sequence():
 	players_ready = 0
 	for player in players:
 		# the items for each player could be different
 		# lets set it to same for now
-		var items = choose_items(player)
-		client_level_up.rpc_id(player.id, items)
+		var actions = choose_actions(player)
+		client_level_up.rpc_id(player.id, actions)
 
 # Algorithm for choosing actions for level up.
-func choose_items(_hero : BaseHero) -> Array[String]:
+func choose_actions(_hero : BaseHero) -> Array[String]:
+	# TODO: Randomise the actions you get.
+	# TODO: Include stat upgrade cards.
+	print(action_list.get_random_action())
 	var item : BaseAction = AOEItem.new()
 	var turret_item : BaseAction = TurretItem.new()
 	var turret_name : String = serialize(turret_item)
@@ -170,16 +192,8 @@ func parse_action_card(id : int, _action_name):
 	if action is BaseAbility:
 		# parse ability
 		pass
-	#action
-
-# Death & Strawberry
-func check_alive_players() -> void:
-	if !multiplayer.is_server(): return
-	for x in players:
-		if !x.IS_DEAD:
-			return
-	# End game, players all dead
-	tell_everyone_end_game.rpc()
+	
+	# Stat cards.
 
 ### RPC Calls
 @rpc("call_local", "reliable")
@@ -204,6 +218,8 @@ func tell_client_end_card_sequence():
 	change_max_xp()
 	current_lvl += 1
 	end_lvl_up_sequence.emit()
+
+#endregion
 
 @rpc("call_local", "unreliable_ordered")
 func sync_xp_bar(xp):
@@ -237,22 +253,14 @@ func change_ui():
 	net.hide_ui()
 
 
-func serialize(action : BaseAction) -> String:
-	var rs : String = action.get_script().resource_path
-	rs = rs.get_file().get_slice(".", 0)
-	return rs
-
-func deserialize(string : String) -> BaseAction:
-	# add a check for abilities as well...
-	
-	var action = load("res://ver_1/actions/items/" + string + ".gd").new() as BaseAction
-	return action
-
-func script_name_to_item_scene(string) -> String:
-	var filename : String = string.resource_path
-	filename = filename.get_file().get_slice(".", 0)
-	filename += ".tscn"
-	return "res://ver_1/actions/items/" + filename
-
 func sample(x : int) -> int:
 	return 100 + (10 * x)
+
+# Death & Strawberry
+func check_alive_players() -> void:
+	if !multiplayer.is_server(): return
+	for x in players:
+		if !x.IS_DEAD:
+			return
+	# End game, players all dead
+	tell_everyone_end_game.rpc()
