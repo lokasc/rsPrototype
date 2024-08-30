@@ -25,8 +25,18 @@ player_ui_layer = NodePath("PlayerUi")
 text = " "
 
 [node name="CharSelectLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="CharacterSelectUi" parent="CharSelectLayer" instance=ExtResource("3_dup0n")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -258.0
+offset_top = -226.0
+offset_right = 258.0
+offset_bottom = 226.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [editable path="PlayerUi"]

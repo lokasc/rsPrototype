@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://h2p4t7iiyded"
-path="res://.godot/imported/trebs.png-07fa97d1d98d777f7a9f047f598b6ac5.ctex"
+uid="uid://che3sr87mwe68"
+path="res://.godot/imported/Bassheart.png-4c600797322c05c02a37aba3678b4b20.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://trebs.png"
-dest_files=["res://.godot/imported/trebs.png-07fa97d1d98d777f7a9f047f598b6ac5.ctex"]
+source_file="res://Bassheart.png"
+dest_files=["res://.godot/imported/Bassheart.png-4c600797322c05c02a37aba3678b4b20.ctex"]
 
 [params]
 
