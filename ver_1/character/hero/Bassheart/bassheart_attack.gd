@@ -13,6 +13,7 @@ extends BaseAbility
 @onready var hitbox_timer : Timer = $HitboxReset
 @onready var weapon_sprite : Node2D = $"../Sprites/RotatingWeapon"
 @onready var leg_sprite : AnimatedSprite2D = $"../Sprites/LegSprite2D"
+@onready var effect_sprite : AnimatedSprite2D = $"../Sprites/RotatingWeapon/EffectSprite2D"
 
 # Initialize abilities
 # WARNING: export variables wont be avaliable on init, use enter_tree
@@ -102,6 +103,8 @@ func use_ability() -> void:
 	super()
 	if hero.animator.has_animation("attack"):
 		hero.animator.play("attack")
+		effect_sprite.show()
+		effect_sprite.play("attack_effect")
 	hitbox.monitoring = true
 	hitbox.get_child(0).debug_color = Color("dd488d6b")
 	hitbox_timer.start(hitbox_time_active)
@@ -121,3 +124,4 @@ func _reset() -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if hero.animator.has_animation("idle"):
 		hero.animator.play("idle")
+		effect_sprite.hide()

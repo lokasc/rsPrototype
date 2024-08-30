@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://ce6nl4rbh16yy"]
+[gd_scene load_steps=36 format=3 uid="uid://ce6nl4rbh16yy"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie.gd" id="1_4x4su"]
 [ext_resource type="PackedScene" uid="uid://dl6n7678g0f18" path="res://ver_1/character/hero/Trebbie/trebbie_attack.tscn" id="2_psvnt"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://ckebh3vpkft4n" path="res://TrebbieAttack_Spear_32x32_sheet.png" id="7_h1fii"]
 [ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="7_mxa2u"]
 [ext_resource type="PackedScene" uid="uid://d0b8cqs24tfpe" path="res://ver_1/game/camera/player_camera.tscn" id="7_wun86"]
+[ext_resource type="Texture2D" uid="uid://3eyeiu42nc0w" path="res://TrebbieAttackEffect.png" id="9_m11f6"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="10_mee78"]
 [ext_resource type="PackedScene" uid="uid://brce2a12qkj7v" path="res://ver_1/character/hero/item_holder.tscn" id="11_ptp62"]
 
@@ -82,6 +83,68 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_p278r"]
+atlas = ExtResource("9_m11f6")
+region = Rect2(96, 0, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81rji"]
+atlas = ExtResource("9_m11f6")
+region = Rect2(192, 0, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rribi"]
+atlas = ExtResource("9_m11f6")
+region = Rect2(288, 0, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q84p4"]
+atlas = ExtResource("9_m11f6")
+region = Rect2(384, 0, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bb252"]
+atlas = ExtResource("9_m11f6")
+region = Rect2(480, 0, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arj2x"]
+atlas = ExtResource("9_m11f6")
+region = Rect2(576, 0, 96, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jk02"]
+atlas = ExtResource("9_m11f6")
+region = Rect2(672, 0, 96, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7wim5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p278r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81rji")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_rribi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q84p4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bb252")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arj2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jk02")
+}],
+"loop": false,
+"name": &"attack_effect",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="Animation" id="Animation_43v52"]
 length = 0.001
 tracks/0/type = "value"
@@ -111,7 +174,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprites/WeaponSprite2D:frame")
+tracks/2/path = NodePath("Sprites/RotatingWeapon/WeaponSprite2D:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -152,7 +215,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprites/WeaponSprite2D:frame")
+tracks/2/path = NodePath("Sprites/RotatingWeapon/WeaponSprite2D:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -179,7 +242,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprites/WeaponSprite2D:frame")
+tracks/1/path = NodePath("Sprites/RotatingWeapon/WeaponSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -249,10 +312,20 @@ sprite_frames = SubResource("SpriteFrames_p2rgp")
 animation = &"walk"
 offset = Vector2(16, -7.5)
 
-[node name="WeaponSprite2D" type="Sprite2D" parent="Sprites"]
+[node name="RotatingWeapon" type="Node2D" parent="Sprites"]
+
+[node name="WeaponSprite2D" type="Sprite2D" parent="Sprites/RotatingWeapon"]
 texture = ExtResource("7_h1fii")
 offset = Vector2(16, -7.5)
 hframes = 8
+
+[node name="EffectSprite2D" type="AnimatedSprite2D" parent="Sprites/RotatingWeapon"]
+position = Vector2(102, -0.499999)
+scale = Vector2(2.04167, 1.15625)
+sprite_frames = SubResource("SpriteFrames_7wim5")
+animation = &"attack_effect"
+frame = 6
+frame_progress = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -265,6 +338,7 @@ shape = SubResource("CapsuleShape2D_g3diu")
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 0
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("CapsuleShape2D_n3y4w")
@@ -274,6 +348,7 @@ shape = SubResource("CapsuleShape2D_n3y4w")
 [node name="PickUpRadius" type="Area2D" parent="." groups=["pick_up"]]
 collision_layer = 8
 collision_mask = 8
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpRadius"]
 shape = SubResource("CircleShape2D_fdqo3")
