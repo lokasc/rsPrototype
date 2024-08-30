@@ -109,7 +109,6 @@ func exit() -> void:
 
 func update(_delta: float) -> void:
 	super(_delta)
-	print(hitbox_shape.scale.x)
 	if is_synced and is_charging:
 		current_charge_time = charge_duration - charge_timer.time_left
 	### Beat sync Logic
