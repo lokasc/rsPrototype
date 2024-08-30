@@ -70,10 +70,14 @@ func _process(delta) -> void:
 	
 	# Process abilities
 	if hero.input.ability_1 and hero.ability_1.is_ready():
+		if hero.input.is_on_beat: #Entering buff state while in sync
+			hero.ability_1.is_synced = true
 		state_change.emit(self, "BassheartFreeze")
 	elif hero.input.ability_1: 
 		print("Ability 1 is on cooldown! ", ability_1_cd_display)
 	elif hero.input.ability_2 and hero.ability_2.is_ready():
+		if hero.input.is_on_beat: #Entering buff state while in sync
+			hero.ability_2.is_synced = true
 		state_change.emit(self, "BassheartJump")
 	elif hero.input.ability_2:
 		print("Ability 2 is on cooldown! ", ability_2_cd_display)

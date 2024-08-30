@@ -17,6 +17,12 @@ extends BaseAbility
 @export var initial_dmg : int
 @export var shield_multiplier : float
 
+@export_category("Beat sync stats")
+@export var sync_shield_multiplier : float
+@export var sync_dmg_multiplier : float
+## The amount of time allowed for sync before landing
+@export var landing_grace_time : float 
+
 @export_subgroup("Curve Parameters") 
 ## Determines how steep the jump is starting
 @export var curve_in : int
@@ -38,7 +44,9 @@ var inter_in_pos : Vector2	# Determines how fast the hero curves into inter_pos
 var inter_out_pos : Vector2	# Determines how fast the hero curves out of inter_pos
 var landing_pos : Vector2	# The position of the landing point
 
-var has_triggered : bool = false
+var has_triggered : bool = false # to prevent the hit timer from restarting
+var has_synced : bool = false
+var failed_sync : bool = false # to prevent player from spamming the button
 
 @onready var hitbox : Area2D = $HitBox
 @onready var path_follow : PathFollow2D = $Path2D/PathFollow2D
@@ -71,11 +79,16 @@ func _ready() -> void:
 
 func enter() -> void:
 	super()
+	
 	# Reseting variables
 	air_time = 0
 	path_follow.progress_ratio = 0
 	curve_amp = curve_amp_reset
+	
 	has_triggered = false
+	has_synced = false
+	failed_sync = false
+	
 	hero.IS_INVINCIBLE = true
 	is_empowered = hero.is_empowered # Checks on enter
 	
@@ -95,6 +108,7 @@ func exit() -> void:
 	hitbox.visible = false
 	hitbox.monitoring = false
 	
+	has_synced = false
 	hero.IS_INVINCIBLE = false
 	if is_empowered:
 		hero.reset_meter()
@@ -107,7 +121,13 @@ func update(delta: float) -> void:
 		hitbox.visible = true
 		hitbox.monitoring = true
 		has_triggered = true
-		print("triggered")
+	elif air_time >= landing_time - landing_grace_time and hero.input.ability_2 and failed_sync == false:
+		if hero.input.is_on_beat:
+			has_synced = true
+			print("synced")
+		else: failed_sync == true
+			
+		
 	else: air_time += delta
 
 func physics_update(delta: float) -> void:
@@ -133,13 +153,19 @@ func on_hit(area : Area2D) -> void:
 	
 	if is_empowered:
 		if character is BaseEnemy:
-			character.take_damage(get_multiplied_atk())
+			if has_synced:
+				character.take_damage(get_multiplied_atk() * sync_dmg_multiplier)
+			else: character.take_damage(get_multiplied_atk())
 		if character is BaseHero:
-			character.gain_shield(initial_shields * shield_multiplier, shield_duration)
+			if has_synced:
+				character.gain_shield(initial_shields * shield_multiplier * sync_shield_multiplier, shield_duration)
+			else: character.gain_shield(initial_shields * shield_multiplier, shield_duration)
 		hero.gain_health(get_multiplied_atk() * hero.char_stats.hsg)
 	else:
 		if character is BaseHero:
-			character.gain_shield(initial_shields, shield_duration)
+			if has_synced:
+				character.gain_shield(initial_shields * sync_shield_multiplier, shield_duration)
+			else: character.gain_shield(initial_shields, shield_duration)
 
 func get_curve_points() -> void:
 	if direction.x <0: # so that the hero jumps upwards when moving left
@@ -173,7 +199,6 @@ func _on_cd_finish() -> void:
 
 func _reset() -> void:
 	super()
-
 
 func _on_hit_timer_timeout() -> void:
 	state_change.emit(self, "BassheartAttack")
