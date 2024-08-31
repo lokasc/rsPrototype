@@ -7,5 +7,5 @@
 
 [resource]
 script = ExtResource("1_bpbsy")
-items = Array[Resource]([ExtResource("1_1lwds"), ExtResource("2_y1360")])
+items = Array[PackedScene]([ExtResource("1_1lwds"), ExtResource("2_y1360")])
 stats = Array[Resource]([ExtResource("4_dbqxm")])

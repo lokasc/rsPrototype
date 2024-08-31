@@ -171,12 +171,12 @@ func tell_server_client_is_ready(action_index):
 func parse_action_card(id : int, action_index : int):
 	var player : BaseHero = get_player(id)
 
-	#var action = deserialize(action_index) as BaseAction #FIXME: account for new de/serialization
 	var action = action_list.get_new_class_script(action_index) as BaseAction
 
 	if action is BaseItem:
 		if !player.has_item(action):
-			player.add_item(action)
+			player.add_item(action_index)
+			print("added " + action.get_class_name())
 		else:
 			player.upgrade_item(action)
 	
@@ -187,9 +187,10 @@ func parse_action_card(id : int, action_index : int):
 		ability._upgrade()
 	
 	if action is BaseStatCard:
-		# Need to parse stat cards.
-		pass
-	
+		if player.has_stat(action_index):
+			player.upgrade_stat(action_index)
+		else:
+			player.add_stat(action_index)
 
 ### RPC Calls
 @rpc("call_local", "reliable")

@@ -246,10 +246,9 @@ func on_level_up(_new_level) -> void:
 	pass
 
 # add an item, call from GM
-func add_item(_item : BaseItem) -> void:
-	var filename : String = GameManager.Instance.serialize(_item) + ".tscn"
-	var new_item = load("res://ver_1/actions/items/" + filename).instantiate() as BaseItem
-	_item.queue_free()
+func add_item(action_index : int) -> void:
+	var scene = GameManager.Instance.action_list.get_action_resource(action_index) as PackedScene
+	var new_item = scene.instantiate() as BaseItem
 	
 	new_item.hero = self
 	items.append(new_item)
@@ -268,6 +267,19 @@ func has_stat(index : int) -> bool:
 		if _stat_card.get_class_name() == new_stat_name:
 			return true
 	return false
+
+func get_stat(index : int) -> BaseStatCard:
+	var new_stat_name = GameManager.Instance.action_list.get_new_class_script(index).get_class_name()
+	for _stat_card : BaseStatCard in stat_cards:
+		if _stat_card.get_class_name() == new_stat_name:
+			return _stat_card
+	return null
+
+func upgrade_stat(index : int) -> void:
+	var new_stat_name = GameManager.Instance.action_list.get_new_class_script(index).get_class_name()
+	for _stat_card : BaseStatCard in stat_cards:
+		if _stat_card.get_class_name() == new_stat_name:
+			_stat_card._upgrade()
 
 func remove_item(_name) -> void:
 	return

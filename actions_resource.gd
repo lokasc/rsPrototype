@@ -7,7 +7,6 @@ extends Resource
 # Int works like this: items, then stats then atk, ab1, ab2, ult
 
 
-# TODO: Serialize and Deserialize here.
 func get_random_action() -> int:
 	return randi_range(0, items.size()+ stats.size() -1)# + 4)
 
