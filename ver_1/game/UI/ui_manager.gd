@@ -80,15 +80,10 @@ func build_selection_container(info_array : Array):
 	
 	selection_container.visible = true
 	
-	for script_name in info_array:
+	for action_index in info_array:
 		var copy := card_scn.instantiate() as SelectionCard
 		copy.client_card_selected.connect(on_client_selection)
-		var action = GameManager.Instance.deserialize(script_name)
-		
-		copy.action = action
-		# SET UP NAMES HERE
-		# TODO: Build Selection card UI here...check what abilities are needed.
-		
+		copy.action_index = action_index
 		card_path.add_child(copy,true)
 
 # change ui when you've selected something

@@ -4,6 +4,7 @@ extends Control
 signal client_card_selected(selected_card)
 var action : BaseAction
 var hero : BaseHero
+var action_index : int
 
 @onready var vbox : VBoxContainer = $VBoxContainer
 @onready var name_label := $VBoxContainer/Name as RichTextLabel
@@ -14,16 +15,20 @@ var hero : BaseHero
 
 func _ready() -> void:
 	self.client_card_selected.connect(GameManager.Instance.tell_server_client_is_ready)
+	
+	action = GameManager.Instance.action_list.get_new_class_script(action_index)
+	
 	name_label.text = "[center]" + action.get_class_name() + "[/center]" 
 	hero = GameManager.Instance.local_player
 	desc.text = "[center]" + action.desc + "[/center]" 
 	button.size = vbox.size
+	icon_texture.texture = load(action.action_icon_path)
 	
 	status.text = get_status_string()
 
 func _on_button_down() -> void:
 	GameManager.Instance.action_selected = true
-	client_card_selected.emit(GameManager.Instance.serialize(action))
+	client_card_selected.emit(action_index)
 	action.queue_free()
 
 func get_status_string() -> String:
@@ -34,7 +39,7 @@ func get_status_string() -> String:
 	
 	# check level here
 	if _action.level != 5:
-		return "[center]" + "LVL:" + str(_action.level) + " to " + str(_action.level +1) + "[/center]"
+		return "[center]" + "LVL:" + str(_action.level) + " to " + str(_action.level + 1) + "[/center]"
 	else:
 		return "[center]" + "Ascension" + "[/center]" 
 	

@@ -45,6 +45,7 @@ var initial_state : BaseAbility
 @export_subgroup("Items & Stat slots")
 @export var items : Array[BaseItem] = []
 var item_holder : Node
+@export var stat_cards : Array[BaseStatCard] = []
 
 @export_subgroup("Animation")
 @export var animator : AnimationPlayer
@@ -110,7 +111,6 @@ func _physics_process(_delta:float) -> void:
 	if current_state:
 		current_state.physics_update(_delta)
 	set_sprite_direction()
-	
 
 func process_items(_delta:float) -> void:
 	for item : BaseItem in items:
@@ -255,6 +255,20 @@ func add_item(_item : BaseItem) -> void:
 	items.append(new_item)
 	item_holder.add_child(new_item)
 
+func add_stat(index : int) -> void:
+	var new_stat = GameManager.Instance.action_list.get_new_class_script(index)
+	
+	stat_cards.append(new_stat)
+	new_stat.hero = self
+	new_stat._upgrade()
+
+func has_stat(index : int) -> bool:
+	var new_stat_name = GameManager.Instance.action_list.get_new_class_script(index).get_class_name()
+	for _stat_card : BaseStatCard in stat_cards:
+		if _stat_card.get_class_name() == new_stat_name:
+			return true
+	return false
+
 func remove_item(_name) -> void:
 	return
 
@@ -269,7 +283,7 @@ func get_action(new_action : BaseAction) -> BaseAction:
 	for _item : BaseAction in items:
 		if _item.get_class_name() == new_action.get_class_name():
 			return _item
-	# Parse attack, abilities, passive, ultimates.
+	# Parse attack, abilities, ultimates.
 	if basic_attack && basic_attack.get_class_name() == new_action.get_class_name():
 		return basic_attack
 	if ability_1 && ability_1.get_class_name() == new_action.get_class_name():
@@ -285,3 +299,15 @@ func upgrade_item(item) -> void:
 	for _item : BaseItem in items:
 		if _item.get_class_name() == item.get_class_name():
 			_item._upgrade()
+
+func is_stats_full() -> bool:
+	if stat_cards.size() >= 4:
+		return true
+	else:
+		return false
+
+func is_items_full() -> bool:
+	if items.size() >= 5:
+		return true
+	else:
+		return false

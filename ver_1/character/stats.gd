@@ -3,7 +3,6 @@ class_name Stats
 # All players, items, enemies use this. 
 # unless they have a special effect.
 
-
 @export var maxhp : int 	# Max Health
 @export var aoe : float		# Area of Effect
 @export var arm : int		# Armour

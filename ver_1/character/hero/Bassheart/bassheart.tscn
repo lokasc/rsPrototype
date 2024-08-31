@@ -151,10 +151,13 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_aweuu")
+}, {
+"duration": 1.0,
+"texture": null
 }],
 "loop": false,
 "name": &"attack_effect",
-"speed": 20.0
+"speed": 25.0
 }, {
 "frames": [],
 "loop": false,

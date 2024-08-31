@@ -11,7 +11,7 @@ var hero : BaseHero
 var a_stats : Stats
 
 # Visuals
-var action_icon
+var action_icon_path : String
 
 func _init():
 	a_stats = Stats.new()

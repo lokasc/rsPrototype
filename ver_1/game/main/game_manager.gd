@@ -72,7 +72,6 @@ func _ready() -> void:
 		bc.main_music_player.volume_db = -100
 
 func _process(delta: float) -> void:
-	action_list.get_action_resource(action_list.get_random_action())
 	timer_logic(delta)
 #endregion
 
@@ -156,44 +155,41 @@ func start_level_up_sequence():
 	for player in players:
 		# the items for each player could be different
 		# lets set it to same for now
-		var actions = choose_actions(player)
-		client_level_up.rpc_id(player.id, actions)
+		var actions_index = choose_actions(player)
+		client_level_up.rpc_id(player.id, actions_index)
 
 # Algorithm for choosing actions for level up.
-func choose_actions(_hero : BaseHero) -> Array[String]:
-	# TODO: Randomise the actions you get.
-	# TODO: Include stat upgrade cards.
-	print(action_list.get_random_action())
-	var item : BaseAction = AOEItem.new()
-	var turret_item : BaseAction = TurretItem.new()
-	var turret_name : String = serialize(turret_item)
-	var script_name : String = serialize(item)
-	# For testing purposes only
-	return [turret_name, script_name, turret_name]
+func choose_actions(_hero : BaseHero) -> Array[int]:
+	return [action_list.get_random_action(), action_list.get_random_action(), action_list.get_random_action()]
 
 # refactor -> pass an  integer instead of an action
-func tell_server_client_is_ready(action_name):
-	client_selection_ready.rpc_id(1, action_name)
+func tell_server_client_is_ready(action_index):
+	client_selection_ready.rpc_id(1, action_index)
 
 # Process and give item
 @rpc("authority", "call_local", "reliable")
-func parse_action_card(id : int, _action_name):
+func parse_action_card(id : int, action_index : int):
 	var player : BaseHero = get_player(id)
-	var action = deserialize(_action_name) as BaseAction
-	
-	# Parse item
+
+	#var action = deserialize(action_index) as BaseAction #FIXME: account for new de/serialization
+	var action = action_list.get_new_class_script(action_index) as BaseAction
+
 	if action is BaseItem:
 		if !player.has_item(action):
 			player.add_item(action)
 		else:
 			player.upgrade_item(action)
 	
-	# TODO: Parse ability
 	if action is BaseAbility:
-		# parse ability
+		var ability = player.get_action(action) as BaseAbility
+		if ability == null: return
+		
+		ability._upgrade()
+	
+	if action is BaseStatCard:
+		# Need to parse stat cards.
 		pass
 	
-	# Stat cards.
 
 ### RPC Calls
 @rpc("call_local", "reliable")
@@ -203,9 +199,9 @@ func client_level_up(items : Array):
 
 # run on the server only.
 @rpc("call_local", "any_peer")
-func client_selection_ready(action_name):
+func client_selection_ready(action_index):
 	players_ready += 1
-	parse_action_card.rpc(multiplayer.get_remote_sender_id(), action_name)
+	parse_action_card.rpc(multiplayer.get_remote_sender_id(), action_index)
 	
 	if players_ready == players.size():
 		tell_client_end_card_sequence.rpc()

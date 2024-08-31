@@ -1,8 +1,11 @@
-[gd_resource type="Resource" script_class="ActionResource" load_steps=2 format=3 uid="uid://dadhku0liuafr"]
+[gd_resource type="Resource" script_class="ActionResource" load_steps=5 format=3 uid="uid://dadhku0liuafr"]
 
+[ext_resource type="PackedScene" uid="uid://h52vrgcs0ig2" path="res://ver_1/actions/items/aoe_item.tscn" id="1_1lwds"]
 [ext_resource type="Script" path="res://actions_resource.gd" id="1_bpbsy"]
+[ext_resource type="PackedScene" uid="uid://v0at42vajw4j" path="res://ver_1/actions/items/turret_item.tscn" id="2_y1360"]
+[ext_resource type="Script" path="res://ver_1/actions/stats/maxhp_stat.gd" id="4_dbqxm"]
 
 [resource]
 script = ExtResource("1_bpbsy")
-items = Array[Resource]([null, null, null, null])
-stats = Array[Resource]([null, null, null])
+items = Array[Resource]([ExtResource("1_1lwds"), ExtResource("2_y1360")])
+stats = Array[Resource]([ExtResource("4_dbqxm")])
