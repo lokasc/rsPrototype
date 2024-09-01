@@ -18,7 +18,7 @@ extends BaseAbility
 @export var shield_multiplier : float
 
 @export_category("Beat sync stats")
-@export var sync_shield_multiplier : float
+@export var sync_additional_shield : float
 @export var sync_dmg_multiplier : float
 ## The amount of time allowed for sync before landing
 @export var landing_grace_time : float 
@@ -84,6 +84,7 @@ func enter() -> void:
 	air_time = 0
 	path_follow.progress_ratio = 0
 	curve_amp = curve_amp_reset
+	set_ability_to_hero_stats()
 	
 	has_triggered = false
 	has_synced = false
@@ -157,13 +158,13 @@ func on_hit(area : Area2D) -> void:
 			else: character.take_damage(get_multiplied_atk())
 		if character is BaseHero:
 			if has_synced:
-				character.gain_shield(initial_shields * shield_multiplier * sync_shield_multiplier, shield_duration)
+				character.gain_shield((initial_shields + sync_additional_shield) * shield_multiplier , shield_duration)
 			else: character.gain_shield(initial_shields * shield_multiplier, shield_duration)
 		hero.gain_health(get_multiplied_atk() * hero.char_stats.hsg)
 	else:
 		if character is BaseHero:
 			if has_synced:
-				character.gain_shield(initial_shields * sync_shield_multiplier, shield_duration)
+				character.gain_shield(initial_shields + sync_additional_shield, shield_duration)
 			else: character.gain_shield(initial_shields, shield_duration)
 
 func get_curve_points() -> void:
@@ -193,11 +194,10 @@ func use_ability() -> void:
 func _upgrade() -> void:
 	super()
 
-func _on_cd_finish() -> void:
-	_reset()
-
-func _reset() -> void:
-	super()
+func set_ability_to_hero_stats() -> void:
+	a_stats.aoe = hero.char_stats.aoe
+	scale = a_stats.aoe * Vector2.ONE
+	a_stats.atk = initial_dmg * hero.char_stats.atk/100
 
 func _on_hit_timer_timeout() -> void:
 	state_change.emit(self, "BassheartAttack")

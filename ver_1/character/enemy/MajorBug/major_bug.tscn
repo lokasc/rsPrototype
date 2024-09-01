@@ -69,11 +69,11 @@ scale = Vector2(0.2, 0.2)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_g078x")
-max_health = 600.0
-speed = 40.0
-dmg = 50.0
-xp_worth = 20
-xp_drop_spread = 20
+max_health = 500
+speed = 50
+dmg = 20
+xp_worth = 10
+xp_drop_spread = 35
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(8, 8)

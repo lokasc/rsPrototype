@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dylfd8e72h055"
+path="res://.godot/imported/early_bgm dead.mp3-8eb5a54e3f38fe2e79fcaf24b70e9873.mp3str"
+
+[deps]
+
+source_file="res://Resources/early_bgm dead.mp3"
+dest_files=["res://.godot/imported/early_bgm dead.mp3-8eb5a54e3f38fe2e79fcaf24b70e9873.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

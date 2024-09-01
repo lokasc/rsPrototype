@@ -53,8 +53,8 @@ properties/6/spawn = true
 properties/6/replication_mode = 2
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bf6yn"]
-radius = 12.0
-height = 32.0
+radius = 18.0
+height = 68.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n1xxf"]
 atlas = ExtResource("7_xyf2m")
@@ -169,8 +169,8 @@ animations = [{
 radius = 100.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_id2vd"]
-radius = 12.0
-height = 32.0
+radius = 14.0
+height = 56.0
 
 [sub_resource type="Animation" id="Animation_43v52"]
 length = 0.001
@@ -325,6 +325,7 @@ _data = {
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_m8vi0")
+speed = 150
 basic_attack = NodePath("BassheartAttack")
 ability_1 = NodePath("BassheartFreeze")
 ability_2 = NodePath("BassheartJump")
@@ -340,18 +341,24 @@ replication_config = SubResource("SceneReplicationConfig_csrte")
 script = ExtResource("1_kj3tt")
 
 [node name="BassheartAttack" parent="." instance=ExtResource("3_yap6b")]
-initial_dmg = 70
+initial_dmg = 80
 
 [node name="BassheartFreeze" parent="." instance=ExtResource("4_dw3mb")]
+area_multiplier = 1.5
+freeze_duration_multiplier = 2.0
 
 [node name="BassheartJump" parent="." instance=ExtResource("5_6f1kf")]
+initial_shields = 20
+initial_dmg = 50
+sync_additional_shield = 20.0
+sync_dmg_multiplier = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_bf6yn")
 
 [node name="Sprites" type="Node2D" parent="."]
 position = Vector2(-3.8147e-06, -1.90735e-06)
-metadata/_edit_lock_ = true
+scale = Vector2(2, 2)
 metadata/_edit_group_ = true
 
 [node name="TorsoSprite2D" type="Sprite2D" parent="Sprites"]
@@ -367,12 +374,13 @@ offset = Vector2(11, -7)
 [node name="RotatingWeapon" type="Node2D" parent="Sprites"]
 
 [node name="EffectSprite2D" type="AnimatedSprite2D" parent="Sprites/RotatingWeapon"]
-position = Vector2(57, 0)
-scale = Vector2(2.46875, 3.21875)
+position = Vector2(10, 2.5034e-06)
+scale = Vector2(1.4, 1.6)
 sprite_frames = SubResource("SpriteFrames_8jcmt")
 animation = &"attack_effect"
 frame = 8
 frame_progress = 1.0
+offset = Vector2(16, 0)
 
 [node name="WeaponSprite2D" type="Sprite2D" parent="Sprites/RotatingWeapon"]
 position = Vector2(7.655, 0)
@@ -407,7 +415,6 @@ libraries = {
 [node name="PlayerCamera" parent="." instance=ExtResource("5_4lu4u")]
 
 [node name="StatusHolder" parent="." instance=ExtResource("9_1s0eh")]
-metadata/_edit_lock_ = true
 
 [node name="ItemHolder" parent="." instance=ExtResource("10_2w6wo")]
 

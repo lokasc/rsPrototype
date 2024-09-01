@@ -27,7 +27,7 @@ var IS_INVINCIBLE : bool = false
 @onready var input : PlayerInput = $MultiplayerSynchronizer
 
 var id : int
-var x_scale : int
+var x_scale : float
 
 # STATEMACHINE
 var states : Dictionary = {}

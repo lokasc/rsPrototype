@@ -9,7 +9,6 @@ radius = 200.0
 script = ExtResource("1_lcige")
 initial_cd = 4
 active_duration = 0.15
-initial_hsg = 3.0
 dmg_multiplier = 2.0
 hsg_multiplier = 3.0
 status_duration = 2.0

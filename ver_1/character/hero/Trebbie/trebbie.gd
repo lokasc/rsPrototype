@@ -5,10 +5,12 @@ extends BaseHero
 @export var damage : int = 100
 @export var max_hp : int = 100
 @export var speed : int = 200
-@export var area_of_effect : float = 2
+@export var area_of_effect : float = 1.0
 @export var pick_up_radius : int = 40
 @export var heal_shield_gain : float = 0.01
 
+@export_category("Passive")
+@export var tip_heal_amount : int
 var is_personal_camera : bool = true
 
 @onready var pick_up : CollisionShape2D = $PickUpRadius/CollisionShape2D

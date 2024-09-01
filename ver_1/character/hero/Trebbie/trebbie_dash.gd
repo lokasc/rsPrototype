@@ -44,7 +44,9 @@ func enter():
 	super()
 	# Store hero position and the direction when the ability is used
 	original_pos = hero.position
+	
 	a_stats.cd = initial_cd
+	set_ability_to_hero_stats()
 	if is_synced:
 		a_stats.cd *= cd_reducion
 	look_at(hero.input.get_mouse_position())
@@ -89,12 +91,19 @@ func on_hit(area : Area2D):
 	if !multiplayer.is_server(): return
 	
 	# typecasting
-	var enemy : BaseEnemy = area.get_parent() as BaseEnemy
-	if enemy == null: return
-	
-	
-	enemy.take_damage(get_multiplied_atk())
-	hero.gain_health(get_multiplied_atk()*hero.char_stats.hsg)
+	var character : BaseCharacter = null 
+	if area.get_parent() is BaseCharacter:
+		character = area.get_parent()
+
+	# do not execute on non-characters or nulls
+	if !character && !(character is BaseCharacter): return
+
+	if character is BaseEnemy:
+		character.take_damage(get_multiplied_atk())
+		hero.gain_health(get_multiplied_atk() * hero.char_stats.hsg)
+	if character is BaseHero:
+		character.gain_health(hero.tip_heal_amount)
+
 
 # This func is used for auto_attack, dont change this.
 func use_ability():
@@ -105,10 +114,8 @@ func use_ability():
 func _upgrade():
 	super()
 
-# Called automatically when ability cd finishes, override this to addd functionality when cd finishes
-func _on_cd_finish():
-	_reset()
-
-# Resets ability, lets players to use it again, override this to add functionality.
-func _reset():
-	super()
+func set_ability_to_hero_stats() -> void:
+	a_stats.aoe = hero.char_stats.aoe
+	scale = a_stats.aoe * Vector2.ONE
+	a_stats.atk = initial_dmg * hero.char_stats.atk/100
+	

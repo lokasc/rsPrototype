@@ -72,6 +72,7 @@ func _ready() -> void:
 # Emit state_change(self, "new state name") to change out of state. 
 func enter() -> void:
 	super()
+	set_ability_to_hero_stats()
 	is_charging = true
 	is_empowered = hero.is_empowered
 	charge_timer.start(charge_duration)
@@ -148,6 +149,11 @@ func on_hit(area : Area2D) -> void:
 # Increments level by 1, override virtual func to change upgrade logic.
 func _upgrade() -> void:
 	super()
+
+func set_ability_to_hero_stats() -> void:
+	a_stats.aoe = hero.char_stats.aoe
+	scale = a_stats.aoe * Vector2.ONE
+	a_stats.atk = initial_dmg * hero.char_stats.atk/100
 
 # Only checks with charge timer, change if required to check with another timer
 func is_within_timestamp(timestamp : float) -> bool:

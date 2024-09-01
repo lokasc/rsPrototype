@@ -1,20 +1,20 @@
 class_name Bassheart
 extends BaseHero
 
-@export_category("Meter Stats")
-@export var meter : int = 0
-## Determines how much meter gained from damage
-@export var meter_multiplier : float = 1
-@export var is_empowered : bool = false
-
 @export_category("Stats")
 @export var damage : int = 100
 @export var max_hp : int = 100
 @export var shields : int = 0
 @export var speed : int = 200
-@export var area_of_effect : float = 2
+@export var area_of_effect : float = 1
 @export var pick_up_radius : int = 40
 @export var heal_shield_gain : float = 0.01
+
+@export_category("Passive")
+@export var meter : int = 0
+## Determines how much meter gained from damage
+@export var meter_multiplier : float = 1
+@export var is_empowered : bool = false
 
 var is_personal_camera : bool = true
 

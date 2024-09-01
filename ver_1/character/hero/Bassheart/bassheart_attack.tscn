@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://ver_1/character/hero/Bassheart/bassheart_attack.gd" id="1_8324u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nwjjw"]
-size = Vector2(79.5387, 102.516)
+size = Vector2(90.7693, 108)
 
 [node name="BassheartAttack" type="Node2D"]
 script = ExtResource("1_8324u")
@@ -14,7 +14,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitBox"]
-position = Vector2(40, 0)
+position = Vector2(45.6153, -1.90735e-06)
 shape = SubResource("RectangleShape2D_nwjjw")
 
 [node name="HitboxReset" type="Timer" parent="."]

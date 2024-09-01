@@ -65,8 +65,10 @@ func _process(delta: float) -> void:
 func is_on_beat() -> bool:
 	#print(str(multiplayer.is_server()) + " - Current_time: " + str(current_beat_time))
 	if current_beat_time <= grace_time || current_beat_time >= beat_duration - grace_time:
+		#print("on beat")
 		return true
 	else:
+		#print("not on beat")
 		return false 
 
 @rpc("any_peer", "call_remote", "reliable")

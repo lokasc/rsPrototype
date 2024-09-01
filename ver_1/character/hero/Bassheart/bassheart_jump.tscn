@@ -21,7 +21,6 @@ distance = 200
 landing_time = 0.5
 initial_dmg = 10
 shield_multiplier = 2.0
-sync_shield_multiplier = 2.0
 sync_dmg_multiplier = 2.0
 landing_grace_time = 0.1
 curve_in = 100

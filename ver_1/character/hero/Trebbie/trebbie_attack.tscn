@@ -12,7 +12,6 @@ size = Vector2(49, 36)
 script = ExtResource("1_dmnqs")
 initial_dmg = 50
 tip_dmg_multiplier = 2.0
-tip_heal_amount = 30
 action_name = "TrebbieAttack"
 desc = "Trebbie thrusts her spear forward, dealing damage to enemies in a thin long direction"
 

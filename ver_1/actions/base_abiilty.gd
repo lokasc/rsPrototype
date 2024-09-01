@@ -11,6 +11,7 @@ var current_time : float
 var timing : int = Timing.NULL
 var is_synced : bool = false
 
+var initial_effect_scale := Vector2.ONE
 
 func enter() -> void:
 	hero.ability_used.emit(self)
@@ -60,6 +61,9 @@ func _on_cd_finish() -> void:
 func is_ready() -> bool:
 	#print(str(multiplayer.is_server()) + " ~ "+ str(current_time) + " " + str(!is_on_cd))
 	return !is_on_cd
+
+func set_ability_to_hero_stats() -> void:
+	pass
 
 # applies atk multiplier from hero to the attack.
 func get_multiplied_atk() -> int:

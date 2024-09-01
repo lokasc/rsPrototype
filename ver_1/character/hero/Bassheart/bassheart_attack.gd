@@ -15,6 +15,7 @@ extends BaseAbility
 @onready var leg_sprite : AnimatedSprite2D = $"../Sprites/LegSprite2D"
 @onready var effect_sprite : AnimatedSprite2D = $"../Sprites/RotatingWeapon/EffectSprite2D"
 
+
 # Initialize abilities
 # WARNING: export variables wont be avaliable on init, use enter_tree
 func _init() -> void:
@@ -28,6 +29,7 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	hitbox.position.x = distance_to_center
+	initial_effect_scale = effect_sprite.scale
 	hitbox.monitoring = false
 	hitbox.get_child(0).debug_color = Color("0099b36b")
 	
@@ -50,6 +52,7 @@ func update(_delta: float) -> void:
 	if hero.input.is_use_mouse_auto_attack:
 		look_at(hero.input.get_mouse_position())
 		weapon_sprite.look_at(hero.input.get_mouse_position())
+	set_ability_to_hero_stats()
 	use_ability()
 
 func physics_update(_delta: float) -> void:
@@ -104,6 +107,8 @@ func use_ability() -> void:
 	if hero.animator.has_animation("attack"):
 		hero.animator.play("attack")
 		effect_sprite.show()
+		#Changing the effect sprite size due to hero stats
+		effect_sprite.scale = hero.char_stats.aoe * initial_effect_scale
 		effect_sprite.play("attack_effect")
 	hitbox.monitoring = true
 	hitbox.get_child(0).debug_color = Color("dd488d6b")
@@ -113,13 +118,11 @@ func use_ability() -> void:
 func _upgrade() -> void:
 	super()
 
-# Called automatically when ability cd finishes, override this to addd functionality when cd finishes
-func _on_cd_finish() -> void:
-	super()
-
-# Resets ability, lets players to use it again, override this to add functionality.
-func _reset() -> void:
-	super()
+# The attack will be dependent on the hero stats
+func set_ability_to_hero_stats() -> void:
+	a_stats.aoe = hero.char_stats.aoe
+	scale = a_stats.aoe * Vector2.ONE
+	a_stats.atk = initial_dmg * hero.char_stats.atk/100
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if hero.animator.has_animation("idle"):
