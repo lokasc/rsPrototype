@@ -18,6 +18,7 @@ extends BaseHero
 
 var is_personal_camera : bool = true
 
+@onready var particles : GPUParticles2D = $Sprites/GPUParticles2D
 @onready var pick_up : CollisionShape2D = $PickUpRadius/CollisionShape2D
 
 # Initalize export variables, called before @onready or _ready()
@@ -30,6 +31,7 @@ func _ready() -> void:
 	super()
 	initial_state = basic_attack
 	pick_up.shape.radius = pick_up_radius
+	particles.emitting = false
 	#Temporarily disable the camera lock
 	if is_personal_camera == false:
 		camera.enabled = false
@@ -41,6 +43,7 @@ func _process(_delta:float) -> void:
 	$ProgressBar.value = meter
 	if meter >= 100:
 		is_empowered = true
+		particles.emitting = true
 
 # Movement is handled here by super class
 func _physics_process(_delta:float) -> void:
@@ -64,3 +67,4 @@ func take_damage(dmg) -> void:
 func reset_meter() -> void:
 	meter = 0
 	is_empowered = false
+	particles.emitting = false

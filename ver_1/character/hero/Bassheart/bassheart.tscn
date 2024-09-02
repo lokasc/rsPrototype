@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://ck0rs6xq3084g"]
+[gd_scene load_steps=78 format=3 uid="uid://ck0rs6xq3084g"]
 
 [ext_resource type="Script" path="res://ver_1/game/net/player_input.gd" id="1_kj3tt"]
 [ext_resource type="Script" path="res://ver_1/character/hero/Bassheart/bassheart.gd" id="1_m8vi0"]
@@ -58,6 +58,31 @@ properties/6/replication_mode = 2
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bf6yn"]
 radius = 18.0
 height = 68.0
+
+[sub_resource type="Curve" id="Curve_734m7"]
+_data = [Vector2(0.34, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0659341), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_chtit"]
+curve = SubResource("Curve_734m7")
+
+[sub_resource type="Gradient" id="Gradient_ygjcq"]
+offsets = PackedFloat32Array(0.540984, 1)
+colors = PackedColorArray(0, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_py232"]
+gradient = SubResource("Gradient_ygjcq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_htgav"]
+particle_flag_disable_z = true
+inherit_velocity_ratio = 0.18
+spread = 180.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+scale_max = 5.0
+color_ramp = SubResource("GradientTexture1D_py232")
+alpha_curve = SubResource("CurveTexture_chtit")
+turbulence_enabled = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g0ib2"]
 atlas = ExtResource("6_ycele")
@@ -666,6 +691,11 @@ shape = SubResource("CapsuleShape2D_bf6yn")
 [node name="Sprites" type="Node2D" parent="."]
 position = Vector2(-3.8147e-06, -1.90735e-06)
 scale = Vector2(2, 2)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Sprites"]
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_htgav")
+lifetime = 0.2
 
 [node name="JumpEffectSprite2D" type="AnimatedSprite2D" parent="Sprites"]
 self_modulate = Color(0, 1, 1, 1)
