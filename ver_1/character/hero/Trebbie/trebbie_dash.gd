@@ -16,6 +16,7 @@ var original_pos = Vector2.ZERO
 var direction = Vector2.ZERO
 
 @onready var hitbox : Area2D = $HitBox
+@onready var dash_effect_particles : GPUParticles2D = $"../Sprites/RotatingWeapon/GPUParticles2D"
 # Current knockback, this will be changed when knockback code is added
 @onready var collisionbox : CollisionShape2D = $CollisionBox/CollisionShape2D
 
@@ -37,6 +38,10 @@ func _ready() -> void:
 	hitbox.monitoring = false
 	collisionbox.disabled = true
 	collisionbox.visible = false
+	
+	# Temporary dash effects
+	dash_effect_particles.emitting = false
+	
 	if zero_cd:
 		a_stats.cd = 0
 
@@ -58,6 +63,9 @@ func enter():
 	collisionbox.visible = true
 	hitbox.monitoring = true
 	hitbox.visible = true
+	
+	# Temporary dash effects
+	dash_effect_particles.emitting = true
 
 func exit():
 	super() # starts cd here.
@@ -70,7 +78,9 @@ func exit():
 	hero.IS_INVINCIBLE = false
 	is_synced = false
 	
-	
+	# Temporary dash effects
+	dash_effect_particles.emitting = false
+
 func update(_delta: float):
 	super(_delta)
 	pass

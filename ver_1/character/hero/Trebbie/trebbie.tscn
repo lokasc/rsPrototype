@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://ce6nl4rbh16yy"]
+[gd_scene load_steps=39 format=3 uid="uid://ce6nl4rbh16yy"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie.gd" id="1_4x4su"]
 [ext_resource type="PackedScene" uid="uid://dl6n7678g0f18" path="res://ver_1/character/hero/Trebbie/trebbie_attack.tscn" id="2_psvnt"]
@@ -83,6 +83,24 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Curve" id="Curve_2g5mr"]
+_data = [Vector2(0.1, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.42857, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_vu5tx"]
+curve = SubResource("Curve_2g5mr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8qjen"]
+particle_flag_disable_z = true
+spread = 90.0
+initial_velocity_min = 10.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+scale_min = 5.0
+scale_max = 10.0
+color = Color(0.863204, 0.68844, 0.991381, 1)
+alpha_curve = SubResource("CurveTexture_vu5tx")
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_p278r"]
 atlas = ExtResource("9_m11f6")
 region = Rect2(96, 0, 96, 32)
@@ -134,6 +152,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2jk02")
+}, {
+"duration": 1.0,
+"texture": null
 }],
 "loop": false,
 "name": &"attack_effect",
@@ -324,6 +345,12 @@ offset = Vector2(16, -7.5)
 
 [node name="RotatingWeapon" type="Node2D" parent="Sprites"]
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Sprites/RotatingWeapon"]
+position = Vector2(69, 0)
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_8qjen")
+lifetime = 0.5
+
 [node name="WeaponSprite2D" type="Sprite2D" parent="Sprites/RotatingWeapon"]
 texture = ExtResource("7_h1fii")
 offset = Vector2(16, -7.5)
@@ -334,7 +361,7 @@ position = Vector2(0, -0.297001)
 scale = Vector2(1.1, 0.6)
 sprite_frames = SubResource("SpriteFrames_7wim5")
 animation = &"attack_effect"
-frame = 6
+frame = 7
 frame_progress = 1.0
 offset = Vector2(48, 0)
 
