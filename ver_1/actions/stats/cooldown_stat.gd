@@ -1,4 +1,4 @@
-class_name SpeedCard
+class_name CooldownCard
 extends BaseStatCard
 
 func _init() -> void:
@@ -8,5 +8,5 @@ func _init() -> void:
 func _upgrade():
 	super()
 	if level >= 5: return # do not increase health after level 5
-	hero.char_stats.spd += int(amount_per_upgrade)
+	hero.char_stats.cd += int(amount_per_upgrade)
 	#print("I upgraded my hp to %i", hero.char_stats.maxhp)

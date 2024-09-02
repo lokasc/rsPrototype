@@ -5,12 +5,12 @@ class_name Stats
 
 @export var maxhp : int 	# Max Health
 @export var aoe : float		# Area of Effect
-@export var arm : int		# Armour
+@export var arm : float		# Armour
 @export var atk : int		# Attack Damage
 @export var spd : int		# Movement Speed
 @export var cd : float		# Cooldown nb: atk speed
-@export var pick : int		# Pick up radius
-@export var mus : int		# Music multiplier (benefits from music sync)
+@export var pick : float	# Pick up radius
+@export var mus : float		# Music multiplier (benefits from music sync)
 @export var hsg : float		# Heal & Shield gain
 @export var dur : float		# Duration of abilities
 @export var atk_mul : float # Attack Multiplier

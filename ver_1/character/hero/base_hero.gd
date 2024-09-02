@@ -189,11 +189,11 @@ func take_damage(dmg):
 	if IS_INVINCIBLE || IS_DEAD: return
 	# Player damage logic
 	if current_shield == 0:
-		current_health -= dmg
-	elif dmg <= current_shield:
-		current_shield -= dmg
-	elif dmg > char_stats.shields:
-		current_health -= (dmg - current_shield)
+		current_health -= dmg/char_stats.arm
+	elif dmg/char_stats.arm <= current_shield:
+		current_shield -= dmg/char_stats.arm
+	elif dmg/char_stats.arm > char_stats.shields:
+		current_health -= (dmg/char_stats.arm - current_shield)
 		current_shield = 0
 	check_death()
 
