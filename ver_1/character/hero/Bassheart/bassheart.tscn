@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://ck0rs6xq3084g"]
+[gd_scene load_steps=73 format=3 uid="uid://ck0rs6xq3084g"]
 
 [ext_resource type="Script" path="res://ver_1/game/net/player_input.gd" id="1_kj3tt"]
 [ext_resource type="Script" path="res://ver_1/character/hero/Bassheart/bassheart.gd" id="1_m8vi0"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://deyt8maiuob5" path="res://assets/vfx/BassheartLanding_Effect.png" id="9_bagay"]
 [ext_resource type="Texture2D" uid="uid://ck71dhkni1tql" path="res://assets/vfx/BassheartAttack_Effect.png" id="9_ghrek"]
 [ext_resource type="PackedScene" uid="uid://brce2a12qkj7v" path="res://ver_1/character/hero/item_holder.tscn" id="10_2w6wo"]
+[ext_resource type="Texture2D" uid="uid://df5l601wyjnd8" path="res://assets/vfx/BassheartFreeze_Effect.png" id="10_tlph7"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_x3g2c"]
 properties/0/path = NodePath(".:current_health")
@@ -206,6 +207,124 @@ animations = [{
 "loop": true,
 "name": &"walk",
 "speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3fbgt"]
+atlas = ExtResource("10_tlph7")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jen7o"]
+atlas = ExtResource("10_tlph7")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2cs2f"]
+atlas = ExtResource("10_tlph7")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_djvca"]
+atlas = ExtResource("10_tlph7")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vfugx"]
+atlas = ExtResource("10_tlph7")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ey6fm"]
+atlas = ExtResource("10_tlph7")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nxd72"]
+atlas = ExtResource("10_tlph7")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3tfa"]
+atlas = ExtResource("10_tlph7")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qf5c4"]
+atlas = ExtResource("10_tlph7")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30j6f"]
+atlas = ExtResource("10_tlph7")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vjig6"]
+atlas = ExtResource("10_tlph7")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5g1l"]
+atlas = ExtResource("10_tlph7")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fe31s"]
+atlas = ExtResource("10_tlph7")
+region = Rect2(384, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vemem"]
+atlas = ExtResource("10_tlph7")
+region = Rect2(416, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6q5u"]
+atlas = ExtResource("10_tlph7")
+region = Rect2(448, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rmtdv"]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3fbgt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jen7o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cs2f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_djvca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vfugx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ey6fm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nxd72")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3tfa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qf5c4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30j6f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vjig6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e5g1l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fe31s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vemem")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6q5u")
+}],
+"loop": false,
+"name": &"freeze_effect",
+"speed": 40.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bm056"]
@@ -483,10 +602,28 @@ tracks/2/keys = {
 "values": [Vector2(0, 13), Vector2(1.90735e-06, 1.90735e-06)]
 }
 
+[sub_resource type="Animation" id="Animation_cxwyr"]
+resource_name = "freeze"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/RotatingWeapon/FreezeEffectSprite2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"freeze_effect"],
+"method": &"play"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w3did"]
 _data = {
 "RESET": SubResource("Animation_43v52"),
 "attack": SubResource("Animation_qekaj"),
+"freeze": SubResource("Animation_cxwyr"),
 "idle": SubResource("Animation_j7rjn"),
 "jump": SubResource("Animation_eiiof")
 }
@@ -531,10 +668,13 @@ position = Vector2(-3.8147e-06, -1.90735e-06)
 scale = Vector2(2, 2)
 
 [node name="JumpEffectSprite2D" type="AnimatedSprite2D" parent="Sprites"]
+self_modulate = Color(0, 1, 1, 1)
 position = Vector2(0, 13)
 scale = Vector2(2.2, 2.2)
 sprite_frames = SubResource("SpriteFrames_jl7w3")
 animation = &"landing_effect"
+frame = 8
+frame_progress = 1.0
 
 [node name="TorsoSprite2D" type="Sprite2D" parent="Sprites"]
 texture = ExtResource("6_t655f")
@@ -547,6 +687,15 @@ sprite_frames = SubResource("SpriteFrames_0xcf2")
 offset = Vector2(11, -7)
 
 [node name="RotatingWeapon" type="Node2D" parent="Sprites"]
+
+[node name="FreezeEffectSprite2D" type="AnimatedSprite2D" parent="Sprites/RotatingWeapon"]
+position = Vector2(0, -9.53674e-07)
+scale = Vector2(1.9, 1.9)
+sprite_frames = SubResource("SpriteFrames_rmtdv")
+animation = &"freeze_effect"
+frame = 14
+frame_progress = 1.0
+offset = Vector2(16, 0)
 
 [node name="EffectSprite2D" type="AnimatedSprite2D" parent="Sprites/RotatingWeapon"]
 position = Vector2(10, 2.5034e-06)

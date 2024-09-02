@@ -39,6 +39,7 @@ var current_charge_time : float
 @onready var charge_timer : Timer = $ChargeTimer
 @onready var hitbox : Area2D = $HitBox
 @onready var hitbox_shape : CollisionPolygon2D = $HitBox/CollisionShape2D
+@onready var freeze_effect_sprite : AnimatedSprite2D = $"../Sprites/RotatingWeapon/FreezeEffectSprite2D"
 @onready var indicator : Area2D = $IndicatorBox
 
 # Initialize abilities
@@ -80,6 +81,7 @@ func enter() -> void:
 	indicator.monitoring = true
 	if is_empowered:
 		hitbox_shape.scale *= area_multiplier
+		freeze_effect_sprite.scale *= area_multiplier
 		is_enlarged = true
 
 func _on_charge_timer_timeout() -> void:
@@ -93,6 +95,8 @@ func _on_charge_timer_timeout() -> void:
 	
 	current_charge_time = 0
 	wave_timer.start(active_duration)
+	freeze_effect_sprite.scale *= (1+ synced_amount * sync_area_multiplier)
+	hero.animator.play("freeze")
 
 func _on_wave_timer_timeout() -> void:
 	hero.input.canMove = true
@@ -104,8 +108,10 @@ func exit() -> void:
 	super() # starts cd here.
 	if is_empowered:
 		hitbox_shape.scale /= area_multiplier
+		freeze_effect_sprite.scale /= area_multiplier
 		hero.reset_meter()
 	hitbox_shape.scale /= (1+ synced_amount * sync_area_multiplier)
+	freeze_effect_sprite.scale /= (1+ synced_amount * sync_area_multiplier)
 	synced_amount = 0
 
 func update(_delta: float) -> void:
