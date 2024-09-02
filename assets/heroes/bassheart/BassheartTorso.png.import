@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://t47qf2h3bwpv"
-path="res://.godot/imported/LevelBar.png-8f7c75b1ccc4a56516c7e284dc0b28c4.ctex"
+uid="uid://bvgbjs232onsj"
+path="res://.godot/imported/BassheartTorso.png-efe134b87d80f707809fc0011124f1c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://LevelBar.png"
-dest_files=["res://.godot/imported/LevelBar.png-8f7c75b1ccc4a56516c7e284dc0b28c4.ctex"]
+source_file="res://assets/heroes/bassheart/BassheartTorso.png"
+dest_files=["res://.godot/imported/BassheartTorso.png-efe134b87d80f707809fc0011124f1c5.ctex"]
 
 [params]
 

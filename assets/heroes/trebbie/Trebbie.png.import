@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dy7hpx0c7gkrt"
-path="res://.godot/imported/CommonBug.png-d28ad5441afbf7240422c0683339f02a.ctex"
+uid="uid://cssofedi35duh"
+path="res://.godot/imported/Trebbie.png-3f96f756fdaabd18c86f1b71610242b5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://CommonBug.png"
-dest_files=["res://.godot/imported/CommonBug.png-d28ad5441afbf7240422c0683339f02a.ctex"]
+source_file="res://assets/heroes/trebbie/Trebbie.png"
+dest_files=["res://.godot/imported/Trebbie.png-3f96f756fdaabd18c86f1b71610242b5.ctex"]
 
 [params]
 

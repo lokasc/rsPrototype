@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqp1o7iap6knb"
-path="res://.godot/imported/OneShot.png-b4547bd84c2a050ec7fd2ac799f71f99.ctex"
+uid="uid://t47qf2h3bwpv"
+path="res://.godot/imported/LevelBar.png-a95ddc1d90624d1fdb0333f27b00cf9b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://OneShot.png"
-dest_files=["res://.godot/imported/OneShot.png-b4547bd84c2a050ec7fd2ac799f71f99.ctex"]
+source_file="res://assets/UI/LevelBar.png"
+dest_files=["res://.godot/imported/LevelBar.png-a95ddc1d90624d1fdb0333f27b00cf9b.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rmwq1hsaaflg"
-path="res://.godot/imported/BassheartLegs.png-f4a7202d699440fe24e0997476425575.ctex"
+uid="uid://bqp1o7iap6knb"
+path="res://.godot/imported/OneShot.png-93ccede64494b8b6a2d0aa2dcff68787.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://BassheartLegs.png"
-dest_files=["res://.godot/imported/BassheartLegs.png-f4a7202d699440fe24e0997476425575.ctex"]
+source_file="res://assets/enemies/OneShot.png"
+dest_files=["res://.godot/imported/OneShot.png-93ccede64494b8b6a2d0aa2dcff68787.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dq4x6yv2mi8wv"
-path="res://.godot/imported/BassheartSword.png-686ebf975ea9abd64100abbff5849f1f.ctex"
+uid="uid://deyt8maiuob5"
+path="res://.godot/imported/BassheartLanding_Effect.png-159880d18cabc2d6955c414511407760.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://BassheartSword.png"
-dest_files=["res://.godot/imported/BassheartSword.png-686ebf975ea9abd64100abbff5849f1f.ctex"]
+source_file="res://assets/vfx/BassheartLanding_Effect.png"
+dest_files=["res://.godot/imported/BassheartLanding_Effect.png-159880d18cabc2d6955c414511407760.ctex"]
 
 [params]
 

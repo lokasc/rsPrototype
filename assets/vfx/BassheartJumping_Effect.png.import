@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ck71dhkni1tql"
-path="res://.godot/imported/BassheartAttack_Effect.png-da01a17795493f448eb7536a966fca4d.ctex"
+uid="uid://70yprm5nyxdt"
+path="res://.godot/imported/BassheartJumping_Effect.png-3ff5cdd393d2823d1d0f4d22ce05cbcf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://BassheartAttack_Effect.png"
-dest_files=["res://.godot/imported/BassheartAttack_Effect.png-da01a17795493f448eb7536a966fca4d.ctex"]
+source_file="res://assets/vfx/BassheartJumping_Effect.png"
+dest_files=["res://.godot/imported/BassheartJumping_Effect.png-3ff5cdd393d2823d1d0f4d22ce05cbcf.ctex"]
 
 [params]
 

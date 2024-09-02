@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://k5yw0rrodk1a"
-path="res://.godot/imported/green_tiles_96x96.png-f4894fc4d14ae9b9118a663203ba0044.ctex"
+uid="uid://dy7hpx0c7gkrt"
+path="res://.godot/imported/CommonBug.png-de1b853dbc3fc70786d5efa877fe01b6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://green_tiles_96x96.png"
-dest_files=["res://.godot/imported/green_tiles_96x96.png-f4894fc4d14ae9b9118a663203ba0044.ctex"]
+source_file="res://assets/enemies/CommonBug.png"
+dest_files=["res://.godot/imported/CommonBug.png-de1b853dbc3fc70786d5efa877fe01b6.ctex"]
 
 [params]
 

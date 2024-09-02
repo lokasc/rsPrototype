@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://ck0rs6xq3084g"]
+[gd_scene load_steps=55 format=3 uid="uid://ck0rs6xq3084g"]
 
 [ext_resource type="Script" path="res://ver_1/game/net/player_input.gd" id="1_kj3tt"]
 [ext_resource type="Script" path="res://ver_1/character/hero/Bassheart/bassheart.gd" id="1_m8vi0"]
@@ -8,11 +8,13 @@
 [ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="4_r0l7y"]
 [ext_resource type="PackedScene" uid="uid://d0b8cqs24tfpe" path="res://ver_1/game/camera/player_camera.tscn" id="5_4lu4u"]
 [ext_resource type="PackedScene" uid="uid://68ap44gt6hrw" path="res://ver_1/character/hero/Bassheart/bassheart_jump.tscn" id="5_6f1kf"]
-[ext_resource type="Texture2D" uid="uid://bvgbjs232onsj" path="res://BassheartTorso.png" id="6_t655f"]
-[ext_resource type="Texture2D" uid="uid://rmwq1hsaaflg" path="res://BassheartLegs.png" id="7_xyf2m"]
-[ext_resource type="Texture2D" uid="uid://dq4x6yv2mi8wv" path="res://BassheartSword.png" id="8_eak1o"]
+[ext_resource type="Texture2D" uid="uid://bvgbjs232onsj" path="res://assets/heroes/bassheart/BassheartTorso.png" id="6_t655f"]
+[ext_resource type="Texture2D" uid="uid://d3ca1ugjuaa7w" path="res://assets/vfx/BassheartJump_Effect.png" id="6_ycele"]
+[ext_resource type="Texture2D" uid="uid://rmwq1hsaaflg" path="res://assets/heroes/bassheart/BassheartLegs.png" id="7_xyf2m"]
+[ext_resource type="Texture2D" uid="uid://dq4x6yv2mi8wv" path="res://assets/heroes/bassheart/BassheartSword.png" id="8_eak1o"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="9_1s0eh"]
-[ext_resource type="Texture2D" uid="uid://ck71dhkni1tql" path="res://BassheartAttack_Effect.png" id="9_ghrek"]
+[ext_resource type="Texture2D" uid="uid://deyt8maiuob5" path="res://assets/vfx/BassheartLanding_Effect.png" id="9_bagay"]
+[ext_resource type="Texture2D" uid="uid://ck71dhkni1tql" path="res://assets/vfx/BassheartAttack_Effect.png" id="9_ghrek"]
 [ext_resource type="PackedScene" uid="uid://brce2a12qkj7v" path="res://ver_1/character/hero/item_holder.tscn" id="10_2w6wo"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_x3g2c"]
@@ -55,6 +57,122 @@ properties/6/replication_mode = 2
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bf6yn"]
 radius = 18.0
 height = 68.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0ib2"]
+atlas = ExtResource("6_ycele")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_blgq2"]
+atlas = ExtResource("6_ycele")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hg3d5"]
+atlas = ExtResource("6_ycele")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfvtt"]
+atlas = ExtResource("6_ycele")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_570h7"]
+atlas = ExtResource("6_ycele")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5vc8"]
+atlas = ExtResource("9_bagay")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gfkr"]
+atlas = ExtResource("6_ycele")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1ht5"]
+atlas = ExtResource("6_ycele")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p0r6r"]
+atlas = ExtResource("6_ycele")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgqkw"]
+atlas = ExtResource("6_ycele")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33m61"]
+atlas = ExtResource("6_ycele")
+region = Rect2(576, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7adiy"]
+atlas = ExtResource("6_ycele")
+region = Rect2(640, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4x80n"]
+atlas = ExtResource("6_ycele")
+region = Rect2(704, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouusn"]
+atlas = ExtResource("6_ycele")
+region = Rect2(768, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jl7w3"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0ib2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blgq2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hg3d5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kfvtt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_570h7")
+}],
+"loop": false,
+"name": &"jumping_effect",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5vc8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5gfkr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1ht5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p0r6r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgqkw")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_33m61")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7adiy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4x80n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouusn")
+}],
+"loop": false,
+"name": &"landing_effect",
+"speed": 30.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n1xxf"]
 atlas = ExtResource("7_xyf2m")
@@ -158,11 +276,6 @@ animations = [{
 "loop": false,
 "name": &"attack_effect",
 "speed": 25.0
-}, {
-"frames": [],
-"loop": false,
-"name": &"default",
-"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dxm3o"]
@@ -221,6 +334,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprites/JumpEffectSprite2D:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.2, 2.2)]
 }
 
 [sub_resource type="Animation" id="Animation_qekaj"]
@@ -314,11 +439,56 @@ tracks/2/keys = {
 "values": [0.0]
 }
 
+[sub_resource type="Animation" id="Animation_eiiof"]
+resource_name = "jump"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/JumpEffectSprite2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.466667),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [&"jumping_effect"],
+"method": &"play"
+}, {
+"args": [&"landing_effect"],
+"method": &"play"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites/JumpEffectSprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.466667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(1, 1), Vector2(1.6, 1.6)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprites/JumpEffectSprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.466667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(0, 13), Vector2(1.90735e-06, 1.90735e-06)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w3did"]
 _data = {
 "RESET": SubResource("Animation_43v52"),
 "attack": SubResource("Animation_qekaj"),
-"idle": SubResource("Animation_j7rjn")
+"idle": SubResource("Animation_j7rjn"),
+"jump": SubResource("Animation_eiiof")
 }
 
 [node name="Bassheart" type="CharacterBody2D" node_paths=PackedStringArray("basic_attack", "ability_1", "ability_2", "animator")]
@@ -359,7 +529,12 @@ shape = SubResource("CapsuleShape2D_bf6yn")
 [node name="Sprites" type="Node2D" parent="."]
 position = Vector2(-3.8147e-06, -1.90735e-06)
 scale = Vector2(2, 2)
-metadata/_edit_group_ = true
+
+[node name="JumpEffectSprite2D" type="AnimatedSprite2D" parent="Sprites"]
+position = Vector2(0, 13)
+scale = Vector2(2.2, 2.2)
+sprite_frames = SubResource("SpriteFrames_jl7w3")
+animation = &"landing_effect"
 
 [node name="TorsoSprite2D" type="Sprite2D" parent="Sprites"]
 texture = ExtResource("6_t655f")
@@ -378,8 +553,6 @@ position = Vector2(10, 2.5034e-06)
 scale = Vector2(1.4, 1.6)
 sprite_frames = SubResource("SpriteFrames_8jcmt")
 animation = &"attack_effect"
-frame = 8
-frame_progress = 1.0
 offset = Vector2(16, 0)
 
 [node name="WeaponSprite2D" type="Sprite2D" parent="Sprites/RotatingWeapon"]

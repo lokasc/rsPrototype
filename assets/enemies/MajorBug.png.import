@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://che3sr87mwe68"
-path="res://.godot/imported/Bassheart.png-4c600797322c05c02a37aba3678b4b20.ctex"
+uid="uid://d35ibc8htkf6w"
+path="res://.godot/imported/MajorBug.png-d191f67966e32a06d2586e733e34f091.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Bassheart.png"
-dest_files=["res://.godot/imported/Bassheart.png-4c600797322c05c02a37aba3678b4b20.ctex"]
+source_file="res://assets/enemies/MajorBug.png"
+dest_files=["res://.godot/imported/MajorBug.png-d191f67966e32a06d2586e733e34f091.ctex"]
 
 [params]
 

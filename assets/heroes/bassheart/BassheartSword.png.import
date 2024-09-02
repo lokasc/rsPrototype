@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckebh3vpkft4n"
-path="res://.godot/imported/TrebbieAttack_Spear_32x32_sheet.png-98ea2f3224e1a304810e678fae5289e3.ctex"
+uid="uid://dq4x6yv2mi8wv"
+path="res://.godot/imported/BassheartSword.png-bf05183a1608100f14e1131ff60d5461.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TrebbieAttack_Spear_32x32_sheet.png"
-dest_files=["res://.godot/imported/TrebbieAttack_Spear_32x32_sheet.png-98ea2f3224e1a304810e678fae5289e3.ctex"]
+source_file="res://assets/heroes/bassheart/BassheartSword.png"
+dest_files=["res://.godot/imported/BassheartSword.png-bf05183a1608100f14e1131ff60d5461.ctex"]
 
 [params]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://b5lyoa88yp8di"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/MajorBug/major_bug.gd" id="1_g078x"]
-[ext_resource type="Texture2D" uid="uid://d35ibc8htkf6w" path="res://MajorBug.png" id="2_f43th"]
+[ext_resource type="Texture2D" uid="uid://d35ibc8htkf6w" path="res://assets/enemies/MajorBug.png" id="2_f43th"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="3_a8vn7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xqb2h"]

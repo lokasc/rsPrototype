@@ -9,7 +9,7 @@ extends BaseAbility
 @export var zero_cd : bool = false
 ## How far the hero jumps
 @export var distance : int
-## Time it takes to land
+## Time it takes to land, NOTE this will not match up with the effect, you will have to change the key time to the same as the landing time
 @export var landing_time : float
 
 @export_category("Empowered game stats")
@@ -100,7 +100,7 @@ func enter() -> void:
 	
 	get_curve_points()
 	set_curve_points()
-	
+	hero.animator.play("jump")
 
 func exit() -> void:
 	super() # starts cd here.

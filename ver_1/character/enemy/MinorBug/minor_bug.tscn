@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://ye6jjalknsgf"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/MinorBug/minor_bug.gd" id="1_atini"]
-[ext_resource type="Texture2D" uid="uid://dy7hpx0c7gkrt" path="res://CommonBug.png" id="2_gy68r"]
+[ext_resource type="Texture2D" uid="uid://dy7hpx0c7gkrt" path="res://assets/enemies/CommonBug.png" id="2_gy68r"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="3_q356f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3fvn6"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cabvgx33180x0"
-path="res://.godot/imported/healthbar.png-08af7463fdf24a6160ff175bbec26e48.ctex"
+uid="uid://bwdjcqgl5tl4i"
+path="res://.godot/imported/green_tile_32x32.png-4a44ff65ee53343a596ac26a0691d174.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://healthbar.png"
-dest_files=["res://.godot/imported/healthbar.png-08af7463fdf24a6160ff175bbec26e48.ctex"]
+source_file="res://assets/map/tilemaps/floor/green_tile_32x32.png"
+dest_files=["res://.godot/imported/green_tile_32x32.png-4a44ff65ee53343a596ac26a0691d174.ctex"]
 
 [params]
 

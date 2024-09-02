@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://cpkr32elxa7a8"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/OneShot/one_shot.gd" id="1_pb20v"]
-[ext_resource type="Texture2D" uid="uid://bqp1o7iap6knb" path="res://OneShot.png" id="2_n21es"]
+[ext_resource type="Texture2D" uid="uid://bqp1o7iap6knb" path="res://assets/enemies/OneShot.png" id="2_n21es"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="3_b5mel"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_64ogx"]

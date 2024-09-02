@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cssofedi35duh"
-path="res://.godot/imported/Trebbie.png-18569d18da96a1f2d6bef78542b864d7.ctex"
+uid="uid://ckebh3vpkft4n"
+path="res://.godot/imported/TrebbieAttack_Spear_32x32_sheet.png-64cd21d46f49a6a90d8ad28239e2b4b7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Trebbie.png"
-dest_files=["res://.godot/imported/Trebbie.png-18569d18da96a1f2d6bef78542b864d7.ctex"]
+source_file="res://assets/heroes/trebbie/TrebbieAttack_Spear_32x32_sheet.png"
+dest_files=["res://.godot/imported/TrebbieAttack_Spear_32x32_sheet.png-64cd21d46f49a6a90d8ad28239e2b4b7.ctex"]
 
 [params]
 

@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://ds4octed2ry4r"]
 
-[ext_resource type="Texture2D" uid="uid://cssofedi35duh" path="res://Trebbie.png" id="2_0wsk2"]
+[ext_resource type="Texture2D" uid="uid://cssofedi35duh" path="res://assets/heroes/trebbie/Trebbie.png" id="2_0wsk2"]
 [ext_resource type="PackedScene" uid="uid://61v1jyejjt02" path="res://ver_1/game/UI/character_selection/character_selection_card.tscn" id="2_nl3ak"]
-[ext_resource type="Texture2D" uid="uid://che3sr87mwe68" path="res://Bassheart.png" id="3_syq1d"]
+[ext_resource type="Texture2D" uid="uid://che3sr87mwe68" path="res://assets/heroes/bassheart/Bassheart.png" id="3_syq1d"]
 
 [node name="CharacterSelectUi" type="HBoxContainer"]
 offset_right = 1280.0

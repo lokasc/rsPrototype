@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d35ibc8htkf6w"
-path="res://.godot/imported/MajorBug.png-d785faafa616a1328e7ee739ecebd823.ctex"
+uid="uid://d3ca1ugjuaa7w"
+path="res://.godot/imported/BassheartJump_Effect.png-ab763ed3130f122c6cf96dce3ce74162.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://MajorBug.png"
-dest_files=["res://.godot/imported/MajorBug.png-d785faafa616a1328e7ee739ecebd823.ctex"]
+source_file="res://assets/vfx/BassheartJump_Effect.png"
+dest_files=["res://.godot/imported/BassheartJump_Effect.png-ab763ed3130f122c6cf96dce3ce74162.ctex"]
 
 [params]
 

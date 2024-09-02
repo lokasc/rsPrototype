@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbs7jvrfy768n"
-path="res://.godot/imported/TrebbieTorso.png-3afb982541ea7a8c7045bc60829a8a7c.ctex"
+uid="uid://cabvgx33180x0"
+path="res://.godot/imported/healthbar.png-102952f312bff365105c21903cd064c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TrebbieTorso.png"
-dest_files=["res://.godot/imported/TrebbieTorso.png-3afb982541ea7a8c7045bc60829a8a7c.ctex"]
+source_file="res://assets/UI/healthbar.png"
+dest_files=["res://.godot/imported/healthbar.png-102952f312bff365105c21903cd064c3.ctex"]
 
 [params]
 

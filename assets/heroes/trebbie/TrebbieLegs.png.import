@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3eyeiu42nc0w"
-path="res://.godot/imported/TrebbieAttackEffect.png-050f585625ab71d7d0e57a2b2f7c1e11.ctex"
+uid="uid://c1g7ifpd36a5x"
+path="res://.godot/imported/TrebbieLegs.png-55ec172ed33bc3d852abfc3e89143a9c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TrebbieAttackEffect.png"
-dest_files=["res://.godot/imported/TrebbieAttackEffect.png-050f585625ab71d7d0e57a2b2f7c1e11.ctex"]
+source_file="res://assets/heroes/trebbie/TrebbieLegs.png"
+dest_files=["res://.godot/imported/TrebbieLegs.png-55ec172ed33bc3d852abfc3e89143a9c.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwdjcqgl5tl4i"
-path="res://.godot/imported/green_tile_32x32.png-9103bf83b08fb32e68f9ae6c36e5380c.ctex"
+uid="uid://cbs7jvrfy768n"
+path="res://.godot/imported/TrebbieTorso.png-681848b21687f8d6ead420f8f24b0676.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://green_tile_32x32.png"
-dest_files=["res://.godot/imported/green_tile_32x32.png-9103bf83b08fb32e68f9ae6c36e5380c.ctex"]
+source_file="res://assets/heroes/trebbie/TrebbieTorso.png"
+dest_files=["res://.godot/imported/TrebbieTorso.png-681848b21687f8d6ead420f8f24b0676.ctex"]
 
 [params]
 
