@@ -23,6 +23,9 @@ extends BaseHero
 ## The radius of the circle that experience orbs get picked up by the player
 @export var pick_up_radius : int = 40
 
+## The multiplier applied determining how long actions and its footprint last on the map. NB: affects mechanics with keyword “duration”
+@export var duration : float = 1.0
+
 ## The multiplier applied when heal and shield is gain
 @export var heal_shield_gain : float = 1
 
@@ -71,3 +74,4 @@ func _init_stats():
 	char_stats.shields = shields
 	char_stats.cd = cooldown
 	char_stats.lifesteal = lifesteal
+	char_stats.dur = duration

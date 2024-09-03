@@ -99,8 +99,8 @@ func on_hit(area : Area2D) -> void:
 	var character : BaseHero = area.get_parent() as BaseHero
 	if character == null: return
 	
-	character.add_status("DamageUp", [dmg_multiplier, status_duration])
-	character.add_status("HealShieldGainUp", [hsg_multiplier, status_duration])
+	character.add_status("DamageUp", [dmg_multiplier, status_duration * hero.char_stats.dur])
+	character.add_status("HealShieldGainUp", [hsg_multiplier, status_duration * hero.char_stats.dur])
 
 # Increments level by 1, override virtual func to change upgrade logic.
 func _upgrade() -> void:

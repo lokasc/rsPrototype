@@ -142,12 +142,12 @@ func on_hit(area : Area2D) -> void:
 	if is_empowered:
 		enemy.take_damage(get_multiplied_atk() * (damage_multiplier + synced_amount * sync_dmg_multiplier))
 		if enemy.frozen == false:
-			enemy.add_status("Freeze", [unfreeze_dmg,freeze_duration * freeze_duration_multiplier,dmg_threshold])
+			enemy.add_status("Freeze", [unfreeze_dmg, a_stats.dur * freeze_duration_multiplier,dmg_threshold])
 	#This comparison has to be added to prevent applying status twice, also bugs out freeze code
 	elif not is_empowered:
 		enemy.take_damage(get_multiplied_atk() * (1 + synced_amount * sync_dmg_multiplier))
 		if enemy.frozen == false:
-			enemy.add_status("Freeze", [unfreeze_dmg,freeze_duration,dmg_threshold])
+			enemy.add_status("Freeze", [unfreeze_dmg, a_stats.dur, dmg_threshold])
 	enemy.hit.disconnect(lifesteal)
 
 # Increments level by 1, override virtual func to change upgrade logic.
@@ -158,6 +158,7 @@ func set_ability_to_hero_stats() -> void:
 	a_stats.aoe = hero.char_stats.aoe ; scale = a_stats.aoe * Vector2.ONE
 	a_stats.atk = initial_dmg * hero.get_total_dmg()/hero.initial_damage
 	a_stats.cd = initial_cd * hero.char_stats.cd
+	a_stats.dur = freeze_duration * hero.char_stats.dur
 
 # Only checks with charge timer, change if required to check with another timer
 func is_within_timestamp(timestamp : float) -> bool:

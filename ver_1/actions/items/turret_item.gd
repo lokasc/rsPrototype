@@ -76,7 +76,7 @@ func on_destroy_turret(p_turret) -> void:
 func set_turret_stats(new_turret : Turret) -> void:
 	new_turret.damage_per_tick = a_stats.atk
 	new_turret.initial_tick_time = damage_tick_time * hero.char_stats.cd
-	new_turret.turret_duration = turret_duration
+	new_turret.turret_duration = turret_duration * hero.char_stats.dur
 	new_turret.turret_range = turret_range
 
 func set_item_stats() -> void:
