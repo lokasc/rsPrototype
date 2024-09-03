@@ -7,6 +7,7 @@ radius = 200.0
 
 [node name="TrebbieBuff" type="Node2D"]
 script = ExtResource("1_lcige")
+initial_cd = 4.0
 active_duration = 0.15
 dmg_multiplier = 1.5
 hsg_multiplier = 2.0
