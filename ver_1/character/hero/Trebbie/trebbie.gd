@@ -57,7 +57,7 @@ func _ready() -> void:
 
 func _process(_delta : float) -> void:
 	super(_delta)
-	pick_up.shape.radius *= char_stats.pick
+	pick_up.shape.radius = pick_up_radius * char_stats.pick
 
 func _physics_process(_delta : float) -> void:
 	super(_delta)

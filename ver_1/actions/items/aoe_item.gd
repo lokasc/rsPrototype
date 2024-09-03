@@ -18,8 +18,6 @@ func _init() -> void:
 func _enter_tree() -> void:
 	super()
 	current_time = 0
-	a_stats.atk = damage_per_tick
-	a_stats.cd = initial_tick_time
 
 func _update(_delta:float) -> void:
 	global_position = hero.global_position
@@ -38,7 +36,9 @@ func _upgrade() -> void:
 	damage_per_tick += 5
 	area_of_effect += 2
 	set_item_stats()
+	
 func _ready() -> void:
+	set_item_stats()
 	# Detect only enemies, sanity check.
 	$HitBox.set_collision_mask_value(3, true)
 	hitbox_shape.shape.radius = area_of_effect
@@ -60,5 +60,5 @@ func _on_hit_box_area_exited(area: Area2D) -> void:
 func set_item_stats():
 	a_stats.atk = damage_per_tick * hero.get_atk()/hero.initial_damage
 	a_stats.cd = initial_tick_time * hero.char_stats.cd
-	hitbox_shape.shape.radius = area_of_effect
+	a_stats.aoe = area_of_effect * hero.char_stats.aoe; hitbox_shape.shape.radius = a_stats.aoe
 	

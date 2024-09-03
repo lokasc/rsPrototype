@@ -25,8 +25,9 @@ func _init() -> void:
 func _enter_tree() -> void:
 	super()
 	current_time = 0
-	a_stats.atk = damage_per_tick
-	a_stats.cd = deploy_cd
+
+func _ready() -> void:
+	set_item_stats()
 
 func _update(delta) -> void:
 	_update_all_turrets(delta)
