@@ -54,7 +54,7 @@ var pop_up : TextPopUp
 var camera : PlayerCamera
 
 # Shield variables
-var shield_lost : float
+var shield_lost : float 	# The amount of shield lost after gaining
 var shield_duration : float
 var shield_time : float
 var is_losing_shield : bool = false
@@ -161,21 +161,21 @@ func _parse_abilities(x : BaseAbility):
 func on_xp_collected():
 	GameManager.Instance.add_xp(1)
 
-func gain_health(heal):
+func gain_health(heal:float):
 	if !multiplayer.is_server(): return
-	if current_health + heal < char_stats.maxhp:
-		current_health += heal
+	if current_health + heal * char_stats.hsg < char_stats.maxhp:
+		current_health += heal * char_stats.hsg
 	else:
 		current_health = char_stats.maxhp
 
-func gain_shield(shield, duration):
+func gain_shield(shield:float, duration:float):
 	if !multiplayer.is_server(): return
-	current_shield += shield
-	shield_lost = shield
+	current_shield += shield * char_stats.hsg
+	shield_lost = shield * char_stats.hsg
 	shield_duration = duration
 	is_losing_shield = true
 
-func lose_shield(shield):
+func lose_shield(shield:float):
 	if !multiplayer.is_server(): return
 	if current_shield - shield < 0:
 		current_shield = 0
@@ -184,7 +184,7 @@ func lose_shield(shield):
 	is_losing_shield = false
 	shield_time = 0
 
-func take_damage(dmg):
+func take_damage(dmg:float):
 	if !multiplayer.is_server(): return
 	if IS_INVINCIBLE || IS_DEAD: return
 	# Player damage logic

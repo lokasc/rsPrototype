@@ -70,4 +70,4 @@ func get_multiplied_atk() -> float:
 	return int(hero.get_atk_mul() * a_stats.atk)
 
 func lifesteal(dmg_dealt : float) -> void:
-	hero.gain_health(dmg_dealt * hero.char_stats.hsg)
+	hero.gain_health(dmg_dealt * hero.char_stats.lifesteal)
