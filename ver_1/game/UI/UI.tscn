@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cn3n52t8ej5n4"]
 
 [ext_resource type="Script" path="res://ver_1/game/UI/ui_manager.gd" id="1_xdhrj"]
-[ext_resource type="PackedScene" uid="uid://di3afbvqsygw0" path="res://player_ui.tscn" id="2_3208f"]
+[ext_resource type="PackedScene" uid="uid://di3afbvqsygw0" path="res://ver_1/game/UI/player_ui.tscn" id="2_3208f"]
 [ext_resource type="PackedScene" uid="uid://ds4octed2ry4r" path="res://ver_1/game/UI/character_selection/character_select_ui.tscn" id="3_dup0n"]
 
 [node name="UiManager" type="Control" node_paths=PackedStringArray("player_container", "selection_container", "card_path", "char_select_layer", "player_ui_layer")]
