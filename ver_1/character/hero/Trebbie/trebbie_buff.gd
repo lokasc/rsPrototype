@@ -2,7 +2,7 @@ class_name TrebbieBuff
 extends BaseAbility
 
 @export_category("Game Stats")
-@export var initial_cd : int
+@export var initial_cd : float
 ## duration of the ability applying the effect
 @export var active_duration : float
 
@@ -20,7 +20,7 @@ extends BaseAbility
 ## the area multiplier of the hitbox
 @export var beat_sync_multiplier : float
 
-## The time window allowed for a recast
+## The time window where it checks if the player pressed the same ability button and it's on beat for a recast
 @export var recast_window : float
 
 ## The amount of recast allowed
@@ -43,9 +43,7 @@ func _init() -> void:
 # Initalize export variables, called before @onready or _ready()
 # WARNING: Child nodes have not entered the tree yet. 
 func _enter_tree() -> void:
-	a_stats.cd = initial_cd
 	a_stats.dur = active_duration
-	a_stats.aoe = initial_area
 	pass
 
 func _ready() -> void:
@@ -128,7 +126,6 @@ func start_recast_logic() -> void:
 			hitbox.visible = true
 			hitbox.monitoring = true
 			duration_time = 0
-			recast_timer.stop()
 			recast_timer.start(recast_window)
 			recast += 1
 		# Resets if recasted too many times or didn't press on beat
@@ -142,5 +139,5 @@ func _on_buff_recast_timer_timeout() -> void:
 		state_change.emit(self, "TrebbieAttack")
 
 func set_ability_to_hero_stats() -> void:
-	a_stats.aoe = initial_area * hero.char_stats.aoe
-	hitbox_shape.shape.radius = a_stats.aoe
+	a_stats.aoe = initial_area * hero.char_stats.aoe ; hitbox_shape.shape.radius = a_stats.aoe
+	if not zero_cd: a_stats.cd = initial_cd * hero.char_stats.cd

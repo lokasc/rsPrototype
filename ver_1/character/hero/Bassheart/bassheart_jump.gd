@@ -58,9 +58,6 @@ func _init() -> void:
 	pass
 
 func _enter_tree() -> void:
-	a_stats.cd = initial_cd
-	a_stats.atk = initial_dmg
-	a_stats.shields = initial_shields
 	pass
 
 func _ready() -> void:
@@ -160,7 +157,7 @@ func on_hit(area : Area2D) -> void:
 			character.hit.disconnect(lifesteal)
 		if character is BaseHero:
 			if has_synced:
-				character.gain_shield((initial_shields + sync_additional_shield) * shield_multiplier , shield_duration)
+				character.gain_shield((initial_shields + sync_additional_shield) * shield_multiplier, shield_duration)
 			else: character.gain_shield(initial_shields * shield_multiplier, shield_duration)
 	else:
 		if character is BaseHero:
@@ -196,9 +193,9 @@ func _upgrade() -> void:
 	super()
 
 func set_ability_to_hero_stats() -> void:
-	a_stats.aoe = hero.char_stats.aoe
-	scale = a_stats.aoe * Vector2.ONE
+	a_stats.aoe = hero.char_stats.aoe ; scale = a_stats.aoe * Vector2.ONE
 	a_stats.atk = initial_dmg * hero.get_total_dmg()/hero.initial_damage
+	a_stats.cd = initial_cd * hero.char_stats.cd
 
 func _on_hit_timer_timeout() -> void:
 	state_change.emit(self, "BassheartAttack")

@@ -4,7 +4,7 @@ extends BaseAbility
 
 @export_category("Game stats")
 @export var initial_dmg : float
-@export var initial_cd : int
+@export var initial_cd : float
 @export var zero_cd : bool = false
 @export var speed : int
 @export var distance : int
@@ -26,7 +26,6 @@ func _init():
 	pass
 
 func _enter_tree():
-	a_stats.cd = initial_cd
 	pass
 
 func _ready() -> void:
@@ -126,7 +125,6 @@ func _upgrade():
 	super()
 
 func set_ability_to_hero_stats() -> void:
-	a_stats.aoe = hero.char_stats.aoe
-	scale = a_stats.aoe * Vector2.ONE
+	a_stats.aoe = hero.char_stats.aoe ; scale = a_stats.aoe * Vector2.ONE
 	a_stats.atk = initial_dmg * hero.get_total_dmg()/hero.initial_damage
-	
+	if not zero_cd: a_stats.cd = initial_cd * hero.char_stats.cd

@@ -51,8 +51,6 @@ func _init() -> void:
 # Initalize export variables, called before @onready or _ready()
 # WARNING: Child nodes have not entered the tree yet. 
 func _enter_tree() -> void:
-	a_stats.cd = initial_cd
-	a_stats.atk = initial_dmg
 	pass
 
 func _ready() -> void:
@@ -157,9 +155,9 @@ func _upgrade() -> void:
 	super()
 
 func set_ability_to_hero_stats() -> void:
-	a_stats.aoe = hero.char_stats.aoe
-	scale = a_stats.aoe * Vector2.ONE
+	a_stats.aoe = hero.char_stats.aoe ; scale = a_stats.aoe * Vector2.ONE
 	a_stats.atk = initial_dmg * hero.get_total_dmg()/hero.initial_damage
+	a_stats.cd = initial_cd * hero.char_stats.cd
 
 # Only checks with charge timer, change if required to check with another timer
 func is_within_timestamp(timestamp : float) -> bool:

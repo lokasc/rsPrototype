@@ -59,6 +59,6 @@ func _on_hit_box_area_exited(area: Area2D) -> void:
 
 func set_item_stats():
 	a_stats.atk = damage_per_tick * hero.get_atk()/hero.initial_damage
-	a_stats.cd = initial_tick_time
+	a_stats.cd = initial_tick_time * hero.char_stats.cd
 	hitbox_shape.shape.radius = area_of_effect
 	

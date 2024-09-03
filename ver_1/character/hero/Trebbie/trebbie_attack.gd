@@ -2,7 +2,7 @@ class_name TrebbieAttack
 extends BaseAbility
 
 @export_category("Game stats")
-@export var initial_cd : int = 2
+@export var initial_cd : float = 2
 
 @export_subgroup("Tech")
 @export var hitbox_time_active : float = 0.1
@@ -20,8 +20,7 @@ func _init() -> void:
 	super()
 
 func _enter_tree() -> void:
-	a_stats.cd = initial_cd
-
+	pass
 
 func _ready() -> void:
 	hitbox.position.x = distance_to_center
@@ -140,9 +139,9 @@ func _hitbox_reset() -> void:
 
 # The attack will be dependent on the hero stats
 func set_ability_to_hero_stats() -> void:
-	a_stats.aoe = hero.char_stats.aoe
-	scale = a_stats.aoe * Vector2.ONE
+	a_stats.aoe = hero.char_stats.aoe ; scale = a_stats.aoe * Vector2.ONE
 	a_stats.atk = hero.char_stats.atk
+	a_stats.cd = initial_cd * hero.char_stats.cd
 
 # Trebbie's attack dmg is upgraded and cooldown is reduced.
 func _upgrade() -> void:
