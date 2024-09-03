@@ -52,7 +52,7 @@ func enter():
 	set_ability_to_hero_stats()
 	
 	if is_synced:
-		a_stats.cd *= cd_reducion
+		a_stats.cd *= cd_reducion / hero.char_stats.mus
 	look_at(hero.input.get_mouse_position())
 	direction = original_pos.direction_to(hero.input.get_mouse_position())
 	hero.IS_INVINCIBLE = true

@@ -89,11 +89,11 @@ func _on_charge_timer_timeout() -> void:
 	indicator.monitoring = false
 	is_charging = false
 	
-	hitbox_shape.scale *= (1+ synced_amount * sync_area_multiplier)
+	hitbox_shape.scale *= (1+ synced_amount * sync_area_multiplier * hero.char_stats.mus)
 	
 	current_charge_time = 0
 	wave_timer.start(active_duration)
-	freeze_effect_sprite.scale *= (1+ synced_amount * sync_area_multiplier)
+	freeze_effect_sprite.scale *= (1+ synced_amount * sync_area_multiplier * hero.char_stats.mus)
 	hero.animator.play("freeze")
 
 func _on_wave_timer_timeout() -> void:
@@ -108,8 +108,8 @@ func exit() -> void:
 		hitbox_shape.scale /= area_multiplier
 		freeze_effect_sprite.scale /= area_multiplier
 		hero.reset_meter()
-	hitbox_shape.scale /= (1+ synced_amount * sync_area_multiplier)
-	freeze_effect_sprite.scale /= (1+ synced_amount * sync_area_multiplier)
+	hitbox_shape.scale /= (1+ synced_amount * sync_area_multiplier * hero.char_stats.mus)
+	freeze_effect_sprite.scale /= (1+ synced_amount * sync_area_multiplier * hero.char_stats.mus)
 	synced_amount = 0
 
 func update(_delta: float) -> void:
@@ -140,12 +140,12 @@ func on_hit(area : Area2D) -> void:
 	# the attack value of this ability + my character's attack value
 	enemy.hit.connect(lifesteal)
 	if is_empowered:
-		enemy.take_damage(get_multiplied_atk() * (damage_multiplier + synced_amount * sync_dmg_multiplier))
+		enemy.take_damage(get_multiplied_atk() * (damage_multiplier + synced_amount * sync_dmg_multiplier * hero.char_stats.mus))
 		if enemy.frozen == false:
 			enemy.add_status("Freeze", [unfreeze_dmg, a_stats.dur * freeze_duration_multiplier,dmg_threshold])
 	#This comparison has to be added to prevent applying status twice, also bugs out freeze code
 	elif not is_empowered:
-		enemy.take_damage(get_multiplied_atk() * (1 + synced_amount * sync_dmg_multiplier))
+		enemy.take_damage(get_multiplied_atk() * (1 + synced_amount * sync_dmg_multiplier * hero.char_stats.mus))
 		if enemy.frozen == false:
 			enemy.add_status("Freeze", [unfreeze_dmg, a_stats.dur, dmg_threshold])
 	enemy.hit.disconnect(lifesteal)

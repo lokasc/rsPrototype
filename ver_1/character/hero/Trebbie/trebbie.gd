@@ -29,13 +29,15 @@ extends BaseHero
 ## The multiplier applied when heal and shield is gain
 @export var heal_shield_gain : float = 1
 
-## The percentage of damage that is healed by the player
-@export var lifesteal : float = 0.05
+## The multiplier applied to music sync effects, greater the number, the better the effect
+@export var music_multiplier : float = 1
 
 @export_category("Passive")
 ## The amount the tip of the spear heals the other player
 @export var tip_heal_amount : int = 30
 
+# The percentage of damage that is healed by the player
+var lifesteal : float = 0.05
 var is_personal_camera : bool = true
 
 @onready var pick_up : CollisionShape2D = $PickUpRadius/CollisionShape2D
@@ -75,3 +77,4 @@ func _init_stats():
 	char_stats.cd = cooldown
 	char_stats.lifesteal = lifesteal
 	char_stats.dur = duration
+	char_stats.mus = music_multiplier

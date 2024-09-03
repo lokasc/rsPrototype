@@ -29,8 +29,8 @@ extends BaseHero
 ## The multiplier applied when heal and shield is gain
 @export var heal_shield_gain : float = 1
 
-## The percentage of damage that is healed by the player
-@export var lifesteal : float = 0.05
+## The multiplier applied to music sync effects, greater the number, the better the effect
+@export var music_multiplier : float = 1
 
 @export_category("Passive")
 @export var meter : int = 0
@@ -38,6 +38,8 @@ extends BaseHero
 @export var meter_multiplier : float = 1
 @export var is_empowered : bool = false
 
+# The percentage of damage that is healed by the player
+var lifesteal : float = 0.05
 var is_personal_camera : bool = true
 
 @onready var particles : GPUParticles2D = $Sprites/GPUParticles2D
@@ -84,6 +86,7 @@ func _init_stats() -> void:
 	char_stats.dur = duration
 	char_stats.shields = shields
 	char_stats.cd = cooldown
+	char_stats.mus = music_multiplier
 	char_stats.lifesteal = lifesteal
 
 func take_damage(dmg) -> void:

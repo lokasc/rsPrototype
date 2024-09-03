@@ -152,17 +152,17 @@ func on_hit(area : Area2D) -> void:
 		if character is BaseEnemy:
 			character.hit.connect(lifesteal)
 			if has_synced:
-				character.take_damage(get_multiplied_atk() * sync_dmg_multiplier)
+				character.take_damage(get_multiplied_atk() * sync_dmg_multiplier * hero.char_stats.mus)
 			else: character.take_damage(get_multiplied_atk())
 			character.hit.disconnect(lifesteal)
 		if character is BaseHero:
 			if has_synced:
-				character.gain_shield((initial_shields + sync_additional_shield) * shield_multiplier, a_stats.dur)
+				character.gain_shield((initial_shields + sync_additional_shield * hero.char_stats.mus) * shield_multiplier, a_stats.dur)
 			else: character.gain_shield(initial_shields * shield_multiplier, a_stats.dur)
 	else:
 		if character is BaseHero:
 			if has_synced:
-				character.gain_shield(initial_shields + sync_additional_shield, a_stats.dur)
+				character.gain_shield(initial_shields + sync_additional_shield * hero.char_stats.mus, a_stats.dur)
 			else: character.gain_shield(initial_shields, a_stats.dur)
 
 func get_curve_points() -> void:

@@ -99,6 +99,7 @@ func on_hit(area : Area2D) -> void:
 	var character : BaseHero = area.get_parent() as BaseHero
 	if character == null: return
 	
+	# may do additional recast logic here
 	character.add_status("DamageUp", [dmg_multiplier, status_duration * hero.char_stats.dur])
 	character.add_status("HealShieldGainUp", [hsg_multiplier, status_duration * hero.char_stats.dur])
 
@@ -122,7 +123,7 @@ func start_recast_logic() -> void:
 			recast_timer.start(recast_window)
 		# Have to recast on beat
 		if hero.input.ability_1 and hero.input.is_on_beat and recast < recast_amount:	# Activated twice (reactivated)
-			hitbox_shape.shape.radius *= beat_sync_multiplier 
+			hitbox_shape.shape.radius *= beat_sync_multiplier * hero.char_stats.mus
 			hitbox.visible = true
 			hitbox.monitoring = true
 			duration_time = 0
