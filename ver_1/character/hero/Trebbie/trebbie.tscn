@@ -314,17 +314,10 @@ hitbox_time_active = 0.2
 action_name = "Trebbie Attack"
 
 [node name="TrebbieDash" parent="." instance=ExtResource("4_s00wb")]
-initial_cd = 4
 cd_reducion = 0.3
 action_name = "Trebbie Dash"
 
 [node name="TrebbieBuff" parent="." instance=ExtResource("5_mxiub")]
-initial_cd = 6
-dmg_multiplier = 1.5
-hsg_multiplier = 2.0
-status_duration = 5.0
-initial_area = 80
-beat_sync_multiplier = 1.5
 
 [node name="Sprites" type="Node2D" parent="."]
 scale = Vector2(2, 2)

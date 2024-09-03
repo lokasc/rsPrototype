@@ -7,13 +7,16 @@ size = Vector2(120, 20)
 
 [node name="BassheartFreeze" type="Node2D"]
 script = ExtResource("1_sjmx2")
+initial_dmg = 10.0
 initial_cd = 4
 charge_duration = 0.5
 active_duration = 0.5
-area_multiplier = 5.0
-freeze_duration_multiplier = 1.5
+area_multiplier = 1.5
+freeze_duration_multiplier = 2.0
 damage_multiplier = 3.0
 freeze_duration = 3.0
+unfreeze_dmg = 100.0
+dmg_threshold = 50.0
 recast_timestamps = Array[float]([0.25, 0.5])
 sync_area_multiplier = 1.2
 sync_dmg_multiplier = 2.0

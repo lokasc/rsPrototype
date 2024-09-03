@@ -13,14 +13,16 @@ point_count = 3
 
 [node name="BassheartJump" type="Node2D"]
 script = ExtResource("1_u42c2")
-initial_shields = 30.0
+initial_shields = 20.0
 shield_duration = 4.0
 active_duration = 0.1
 initial_cd = 6
 distance = 200
 landing_time = 0.5
+initial_dmg = 50.0
 shield_multiplier = 2.0
-sync_dmg_multiplier = 2.0
+sync_additional_shield = 20.0
+sync_dmg_multiplier = 1.5
 landing_grace_time = 0.1
 curve_in = 100
 curve_out = 20

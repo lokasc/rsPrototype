@@ -674,17 +674,8 @@ script = ExtResource("1_kj3tt")
 [node name="BassheartAttack" parent="." instance=ExtResource("3_yap6b")]
 
 [node name="BassheartFreeze" parent="." instance=ExtResource("4_dw3mb")]
-initial_dmg = 10.0
-area_multiplier = 1.5
-freeze_duration_multiplier = 2.0
-unfreeze_dmg = 100.0
-dmg_threshold = 50.0
 
 [node name="BassheartJump" parent="." instance=ExtResource("5_6f1kf")]
-initial_shields = 20.0
-initial_dmg = 50.0
-sync_additional_shield = 20.0
-sync_dmg_multiplier = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_bf6yn")
