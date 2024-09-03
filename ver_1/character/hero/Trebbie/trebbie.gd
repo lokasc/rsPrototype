@@ -2,7 +2,7 @@ class_name Trebbie
 extends BaseHero
 
 @export_category("Stats")
-@export var damage : float = 100
+@export var damage : float = 50
 @export var max_hp : float = 100
 @export var speed : int = 150
 @export var area_of_effect : float = 1.0
@@ -10,7 +10,8 @@ extends BaseHero
 @export var heal_shield_gain : float = 0.05
 
 @export_category("Passive")
-@export var tip_heal_amount : int
+@export var tip_heal_amount : int = 30
+
 var is_personal_camera : bool = true
 
 @onready var pick_up : CollisionShape2D = $PickUpRadius/CollisionShape2D
@@ -22,6 +23,7 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	super()
 	initial_state = basic_attack
+	initial_damage = damage
 	pick_up.shape.radius = pick_up_radius
 	
 	##Temporarily disable the camera lock

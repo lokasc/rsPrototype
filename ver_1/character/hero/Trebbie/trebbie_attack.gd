@@ -2,7 +2,6 @@ class_name TrebbieAttack
 extends BaseAbility
 
 @export_category("Game stats")
-@export var initial_dmg : float
 @export var initial_cd : int = 2
 
 @export_subgroup("Tech")
@@ -22,7 +21,7 @@ func _init() -> void:
 
 func _enter_tree() -> void:
 	a_stats.cd = initial_cd
-	a_stats.atk = initial_dmg
+
 
 func _ready() -> void:
 	hitbox.position.x = distance_to_center
@@ -38,6 +37,7 @@ func _ready() -> void:
 func enter() -> void:
 	hitbox.visible = true
 	tip_hitbox.visible = true
+	set_ability_to_hero_stats()
 	pass
 
 func exit() -> void:
@@ -89,16 +89,6 @@ func _process(delta : float) -> void:
 	elif hero.input.ability_2:
 		print("Ability 2 is on cooldown! ", ability_2_cd_display)
 
-func on_hit(area : Area2D) -> void:
-	if !multiplayer.is_server(): return
-	
-	# Find enemy, deal dmg.
-	var enemy = area.get_parent() as BaseEnemy
-	if enemy == null: return
-	
-	enemy.hit.connect(lifesteal) # The tip and normal hitbox are mutually exclusive
-	enemy.take_damage(get_multiplied_atk())
-	enemy.hit.disconnect(lifesteal)
 
 func _on_tip_hit(area: Area2D) -> void:
 	if !multiplayer.is_server(): return
@@ -116,6 +106,14 @@ func _on_tip_hit(area: Area2D) -> void:
 	if character is BaseHero:
 		character.gain_health(hero.tip_heal_amount)
 
+func on_hit(area : Area2D) -> void:
+	if !multiplayer.is_server(): return
+	# Find enemy, deal dmg.
+	var enemy = area.get_parent() as BaseEnemy
+	if enemy == null: return
+	enemy.hit.connect(lifesteal) # The tip and normal hitbox are mutually exclusive
+	enemy.take_damage(get_multiplied_atk())
+	enemy.hit.disconnect(lifesteal)
 
 func use_ability() -> void:
 	if is_on_cd: return
@@ -128,9 +126,8 @@ func use_ability() -> void:
 		effect_sprite.scale = hero.char_stats.aoe * initial_effect_scale
 		effect_sprite.play("attack_effect")
 		
-	
-	hitbox.monitoring = true
 	tip_hitbox.monitoring = true
+	hitbox.monitoring = true
 	hitbox.get_child(0).debug_color = Color("dd488d6b")
 	tip_hitbox.get_child(0).debug_color = Color("dd488d6b")
 	hitbox_timer.start(hitbox_time_active)
@@ -145,14 +142,14 @@ func _hitbox_reset() -> void:
 func set_ability_to_hero_stats() -> void:
 	a_stats.aoe = hero.char_stats.aoe
 	scale = a_stats.aoe * Vector2.ONE
-	a_stats.atk = initial_dmg * hero.char_stats.atk/100
+	a_stats.atk = hero.char_stats.atk
 
 # Trebbie's attack dmg is upgraded and cooldown is reduced.
 func _upgrade() -> void:
 	super()
 	pass
 
-func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 	if hero.animator.has_animation("idle"):
 		hero.animator.play("idle")
 		effect_sprite.hide()

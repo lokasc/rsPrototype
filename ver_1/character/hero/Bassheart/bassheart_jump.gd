@@ -198,7 +198,7 @@ func _upgrade() -> void:
 func set_ability_to_hero_stats() -> void:
 	a_stats.aoe = hero.char_stats.aoe
 	scale = a_stats.aoe * Vector2.ONE
-	a_stats.atk = initial_dmg * hero.char_stats.atk/100
+	a_stats.atk = initial_dmg * hero.get_total_dmg()/hero.initial_damage
 
 func _on_hit_timer_timeout() -> void:
 	state_change.emit(self, "BassheartAttack")

@@ -295,7 +295,6 @@ radius = 100.0
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_4x4su")
-tip_heal_amount = 30
 basic_attack = NodePath("TrebbieAttack")
 ability_1 = NodePath("TrebbieBuff")
 ability_2 = NodePath("TrebbieDash")

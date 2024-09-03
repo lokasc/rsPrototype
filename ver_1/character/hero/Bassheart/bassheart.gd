@@ -2,7 +2,7 @@ class_name Bassheart
 extends BaseHero
 
 @export_category("Stats")
-@export var damage : float = 100
+@export var damage : float = 70
 @export var max_hp : float = 100
 @export var shields : float = 0
 @export var speed : int = 150
@@ -30,6 +30,7 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	super()
 	initial_state = basic_attack
+	initial_damage = damage
 	pick_up.shape.radius = pick_up_radius
 	particles.emitting = false
 	#Temporarily disable the camera lock

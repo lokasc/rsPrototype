@@ -59,6 +59,9 @@ var shield_duration : float
 var shield_time : float
 var is_losing_shield : bool = false
 
+# This variable is used with hero's damage to set ability damages
+var initial_damage : float 
+
 func _init():
 	super()
 	pass
@@ -236,6 +239,8 @@ func get_atk() -> float:
 func get_atk_mul() -> float:
 	return char_stats.atk_mul
 
+func get_total_dmg() -> float:
+	return char_stats.atk_mul * char_stats.atk
 # Logic for leveling up, perhaps max_hp increase...
 func on_level_up(_new_level) -> void:
 	# use new_level as x value to get the new hp as y value on the curve.

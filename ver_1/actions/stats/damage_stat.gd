@@ -3,7 +3,7 @@ extends BaseStatCard
 
 func _init() -> void:
 	action_icon_path = "res://assets/icons/heart-plus.png"
-	amount_per_upgrade = 50
+	amount_per_upgrade = 15
 
 func _upgrade():
 	super()

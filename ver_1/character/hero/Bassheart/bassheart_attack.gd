@@ -2,7 +2,6 @@ class_name BassheartAttack
 extends BaseAbility
 
 @export_category("Game stats")
-@export var initial_dmg : float
 @export var initial_cd : int = 2
 
 @export_subgroup("Tech")
@@ -25,7 +24,6 @@ func _init() -> void:
 # WARNING: Child nodes have not entered the tree yet. 
 func _enter_tree() -> void:
 	a_stats.cd = initial_cd
-	a_stats.atk = initial_dmg
 
 func _ready() -> void:
 	hitbox.position.x = distance_to_center
@@ -42,6 +40,7 @@ func _ready() -> void:
 # Emit state_change(self, "new state name") to change out of state. 
 func enter() -> void:
 	hitbox.visible = true
+	set_ability_to_hero_stats()
 
 # normal attacks dont super() exit
 func exit() -> void:
@@ -123,7 +122,7 @@ func _upgrade() -> void:
 func set_ability_to_hero_stats() -> void:
 	a_stats.aoe = hero.char_stats.aoe
 	scale = a_stats.aoe * Vector2.ONE
-	a_stats.atk = initial_dmg * hero.char_stats.atk/100
+	a_stats.atk = hero.char_stats.atk
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if hero.animator.has_animation("idle"):

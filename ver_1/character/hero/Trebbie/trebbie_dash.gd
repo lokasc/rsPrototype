@@ -27,7 +27,6 @@ func _init():
 
 func _enter_tree():
 	a_stats.cd = initial_cd
-	a_stats.atk = initial_dmg
 	pass
 
 func _ready() -> void:
@@ -52,6 +51,7 @@ func enter():
 	
 	a_stats.cd = initial_cd
 	set_ability_to_hero_stats()
+	
 	if is_synced:
 		a_stats.cd *= cd_reducion
 	look_at(hero.input.get_mouse_position())
@@ -128,5 +128,5 @@ func _upgrade():
 func set_ability_to_hero_stats() -> void:
 	a_stats.aoe = hero.char_stats.aoe
 	scale = a_stats.aoe * Vector2.ONE
-	a_stats.atk = initial_dmg * hero.char_stats.atk/100
+	a_stats.atk = initial_dmg * hero.get_total_dmg()/hero.initial_damage
 	
