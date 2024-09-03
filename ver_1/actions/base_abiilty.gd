@@ -66,5 +66,8 @@ func set_ability_to_hero_stats() -> void:
 	pass
 
 # applies atk multiplier from hero to the attack.
-func get_multiplied_atk() -> int:
+func get_multiplied_atk() -> float:
 	return int(hero.get_atk_mul() * a_stats.atk)
+
+func lifesteal(dmg_dealt : float) -> void:
+	hero.gain_health(dmg_dealt * hero.char_stats.hsg)

@@ -1,16 +1,16 @@
 class_name Freeze
 extends BaseStatus
 
-var unfreeze_dmg : int # additional damage dealt when unfreezing by dealing damage
+var unfreeze_dmg : float # additional damage dealt when unfreezing by dealing damage
 var duration : float # duration of the freeze status
 var duration_time : float # the amount of time currently being frozen
 
-var initial_health : int # health of the character at the start of freeze
-var dmg_taken : int
-var dmg_threshold : int # damage required to unfreeze
+var initial_health : float # health of the character at the start of freeze
+var dmg_taken : float
+var dmg_threshold : float # damage required to unfreeze
 
 # Constructor, affects new() function for creating new copies of Freeze.
-func _init(_unfreeze_dmg : int, _duration : float, _dmg_threshold : int) -> void:
+func _init(_unfreeze_dmg : float, _duration : float, _dmg_threshold : float) -> void:
 	unfreeze_dmg = _unfreeze_dmg
 	duration = _duration
 	dmg_threshold = _dmg_threshold

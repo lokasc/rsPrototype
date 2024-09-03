@@ -3,7 +3,7 @@ class_name TrebbieDash
 extends BaseAbility
 
 @export_category("Game stats")
-@export var initial_dmg : int
+@export var initial_dmg : float
 @export var initial_cd : int
 @export var zero_cd : bool = false
 @export var speed : int
@@ -109,8 +109,9 @@ func on_hit(area : Area2D):
 	if !character && !(character is BaseCharacter): return
 
 	if character is BaseEnemy:
+		character.hit.connect(lifesteal)
 		character.take_damage(get_multiplied_atk())
-		hero.gain_health(get_multiplied_atk() * hero.char_stats.hsg)
+		character.hit.disconnect(lifesteal)
 	if character is BaseHero:
 		character.gain_health(hero.tip_heal_amount)
 

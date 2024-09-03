@@ -3,7 +3,7 @@ class_name BassheartFreeze
 extends BaseAbility
 
 @export_category("Game stats")
-@export var initial_dmg : int
+@export var initial_dmg : float
 @export var initial_cd : int
 ## time it takes to charge
 @export var charge_duration : float
@@ -19,8 +19,8 @@ extends BaseAbility
 
 @export_category("Freeze stats")
 @export var freeze_duration : float
-@export var unfreeze_dmg : int
-@export var dmg_threshold : int
+@export var unfreeze_dmg : float
+@export var dmg_threshold : float
 
 @export_category("Beat sync stats")
 ## The incremental times for each note, meaning the float will be the note length added to the previous notes. It won't be greater than the charge duration. Here are the notes translated to time in 120 bpm: 1/16 = 0.125s, 1/8 = 0.25s, 1/4 = 0.5s, 3/8 = 0.75s, 1/2 = 1.0s, 3/4 = 1.5s, 1/1 = 2.0s. For more information visit https://toolstud.io/music/bpm.php 
@@ -140,7 +140,7 @@ func on_hit(area : Area2D) -> void:
 	# TODO: not networked yet
 	# need to calculate how much damage based on 
 	# the attack value of this ability + my character's attack value
-	hero.gain_health(initial_dmg*hero.char_stats.hsg)
+	enemy.hit.connect(lifesteal)
 	if is_empowered:
 		enemy.take_damage(get_multiplied_atk() * (damage_multiplier + synced_amount * sync_dmg_multiplier))
 		if enemy.frozen == false:
@@ -150,7 +150,7 @@ func on_hit(area : Area2D) -> void:
 		enemy.take_damage(get_multiplied_atk() * (1 + synced_amount * sync_dmg_multiplier))
 		if enemy.frozen == false:
 			enemy.add_status("Freeze", [unfreeze_dmg,freeze_duration,dmg_threshold])
-
+	enemy.hit.disconnect(lifesteal)
 
 # Increments level by 1, override virtual func to change upgrade logic.
 func _upgrade() -> void:

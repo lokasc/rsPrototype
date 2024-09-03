@@ -1,7 +1,7 @@
 class_name Bleed
 extends BaseStatus
 
-var bleed_dmg : int # Dmg dealt per rate
+var bleed_dmg : float # Dmg dealt per rate
 var rate : float # time taken for one instance of dmg dealt
 var duration : float # Total duration of effect
 
@@ -12,7 +12,7 @@ var visual_time : float
 var bleed_visual_time : float = 0.2# Time for the bleed red color to be displayed
 
 # Constructor, affects new() function for creating new copies of Bleed.
-func _init(_bleed_dmg : int, _duration : float, _rate : float):
+func _init(_bleed_dmg : float, _duration : float, _rate : float):
 	bleed_dmg = _bleed_dmg
 	duration = _duration
 	rate = _rate

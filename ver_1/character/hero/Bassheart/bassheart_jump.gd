@@ -2,7 +2,7 @@ class_name BassheartJump
 extends BaseAbility
 
 @export_category("Game stats")
-@export var initial_shields : int
+@export var initial_shields : float
 @export var shield_duration : float
 @export var active_duration : float
 @export var initial_cd : int
@@ -14,7 +14,7 @@ extends BaseAbility
 
 @export_category("Empowered game stats")
 @export var is_empowered : bool
-@export var initial_dmg : int
+@export var initial_dmg : float
 @export var shield_multiplier : float
 
 @export_category("Beat sync stats")
@@ -153,14 +153,15 @@ func on_hit(area : Area2D) -> void:
 	
 	if is_empowered:
 		if character is BaseEnemy:
+			character.hit.connect(lifesteal)
 			if has_synced:
 				character.take_damage(get_multiplied_atk() * sync_dmg_multiplier)
 			else: character.take_damage(get_multiplied_atk())
+			character.hit.disconnect(lifesteal)
 		if character is BaseHero:
 			if has_synced:
 				character.gain_shield((initial_shields + sync_additional_shield) * shield_multiplier , shield_duration)
 			else: character.gain_shield(initial_shields * shield_multiplier, shield_duration)
-		hero.gain_health(get_multiplied_atk() * hero.char_stats.hsg)
 	else:
 		if character is BaseHero:
 			if has_synced:

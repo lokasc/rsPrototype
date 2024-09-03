@@ -2,7 +2,7 @@ class_name BassheartAttack
 extends BaseAbility
 
 @export_category("Game stats")
-@export var initial_dmg : int
+@export var initial_dmg : float
 @export var initial_cd : int = 2
 
 @export_subgroup("Tech")
@@ -92,9 +92,10 @@ func on_hit(area : Area2D) -> void:
 	# typecasting
 	var enemy = area.get_parent() as BaseEnemy
 	if enemy == null: return
-
+	
+	enemy.hit.connect(lifesteal)
 	enemy.take_damage(get_multiplied_atk())
-	hero.gain_health(get_multiplied_atk()*hero.char_stats.hsg)
+	enemy.hit.disconnect(lifesteal)
 
 func _hitbox_reset() -> void:
 	hitbox.monitoring = false

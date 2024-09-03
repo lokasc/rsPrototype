@@ -2,12 +2,12 @@ class_name Trebbie
 extends BaseHero
 
 @export_category("Stats")
-@export var damage : int = 100
-@export var max_hp : int = 100
-@export var speed : int = 200
+@export var damage : float = 100
+@export var max_hp : float = 100
+@export var speed : int = 150
 @export var area_of_effect : float = 1.0
 @export var pick_up_radius : int = 40
-@export var heal_shield_gain : float = 0.01
+@export var heal_shield_gain : float = 0.05
 
 @export_category("Passive")
 @export var tip_heal_amount : int

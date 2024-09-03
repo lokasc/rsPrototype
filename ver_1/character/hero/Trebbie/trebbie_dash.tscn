@@ -17,7 +17,7 @@ height = 134.0
 
 [node name="TrebbieDash" type="Node2D"]
 script = ExtResource("1_x8u2y")
-initial_dmg = 30
+initial_dmg = 50.0
 initial_cd = 3
 speed = 10
 distance = 200

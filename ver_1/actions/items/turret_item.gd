@@ -9,7 +9,7 @@ extends BaseItem
 @export var deploy_amount : int
 
 @export_category("Turret stats")
-@export var damage_per_tick : int # dmg per shot
+@export var damage_per_tick : float# dmg per shot
 @export var damage_tick_time : float # fire_rate
 @export var turret_range : int
 @export var turret_duration : float

@@ -9,6 +9,7 @@ var current_update_time : float = 0
 
 func _init() -> void:
 	super()
+	max_health = 1
 	
 func _enter_tree() -> void:
 	super()

@@ -61,9 +61,9 @@ scale = Vector2(0.2, 0.2)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_pb20v")
-max_health = 1
+max_health = 1.0
 speed = 40
-dmg = 5
+dmg = 10.0
 xp_drop_spread = 5
 char_name = "Pest"
 

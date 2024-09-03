@@ -2,15 +2,13 @@ class_name TrebbieAttack
 extends BaseAbility
 
 @export_category("Game stats")
-@export var initial_dmg : int
+@export var initial_dmg : float
 @export var initial_cd : int = 2
 
 @export_subgroup("Tech")
 @export var hitbox_time_active : float = 0.1
 @export var distance_to_center : float
 @export var tip_dmg_multiplier : float
-
-var is_tip_hit : bool = false
 
 @onready var hitbox : Area2D = $AttackHitBox
 @onready var hitbox_timer : Timer = $HitboxReset
@@ -98,17 +96,13 @@ func on_hit(area : Area2D) -> void:
 	var enemy = area.get_parent() as BaseEnemy
 	if enemy == null: return
 	
-	if not is_tip_hit: # The tip and normal hitbox are mutually exclusive
-		enemy.take_damage(get_multiplied_atk())
-		hero.gain_health(get_multiplied_atk() * hero.char_stats.hsg)
-	# TODO: have to change how lifesteal works, 
-	# not relating it to the atk stat but the damage enemies receive
-		
+	enemy.hit.connect(lifesteal) # The tip and normal hitbox are mutually exclusive
+	enemy.take_damage(get_multiplied_atk())
+	enemy.hit.disconnect(lifesteal)
 
 func _on_tip_hit(area: Area2D) -> void:
 	if !multiplayer.is_server(): return
 	var character : BaseCharacter = null 
-	is_tip_hit = true
 	if area.get_parent() is BaseCharacter:
 		character = area.get_parent()
 
@@ -116,8 +110,9 @@ func _on_tip_hit(area: Area2D) -> void:
 	if !character && !(character is BaseCharacter): return
 
 	if character is BaseEnemy:
+		character.hit.connect(lifesteal)
 		character.take_damage(get_multiplied_atk() * tip_dmg_multiplier)
-		hero.gain_health(get_multiplied_atk() * tip_dmg_multiplier * hero.char_stats.hsg)
+		character.hit.disconnect(lifesteal)
 	if character is BaseHero:
 		character.gain_health(hero.tip_heal_amount)
 
@@ -143,7 +138,6 @@ func use_ability() -> void:
 func _hitbox_reset() -> void:
 	hitbox.monitoring = false
 	tip_hitbox.monitoring = false
-	is_tip_hit = false
 	hitbox.get_child(0).debug_color = Color("0099b36b") 
 	tip_hitbox.get_child(0).debug_color = Color("af4aff6b")
 

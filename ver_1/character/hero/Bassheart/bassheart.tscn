@@ -544,6 +544,23 @@ tracks/3/keys = {
 "values": [0.0, -0.523599, -0.872665, 0.261799, 1.5708, 1.74533, 1.39626, 1.22173, 1.0472, 0.698132, 0.523599, 0.349066, 0.174533, 0.0]
 }
 
+[sub_resource type="Animation" id="Animation_cxwyr"]
+resource_name = "freeze"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/RotatingWeapon/FreezeEffectSprite2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"freeze_effect"],
+"method": &"play"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_j7rjn"]
 resource_name = "idle"
 tracks/0/type = "value"
@@ -627,23 +644,6 @@ tracks/2/keys = {
 "values": [Vector2(0, 13), Vector2(1.90735e-06, 1.90735e-06)]
 }
 
-[sub_resource type="Animation" id="Animation_cxwyr"]
-resource_name = "freeze"
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites/RotatingWeapon/FreezeEffectSprite2D")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [&"freeze_effect"],
-"method": &"play"
-}]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w3did"]
 _data = {
 "RESET": SubResource("Animation_43v52"),
@@ -657,7 +657,6 @@ _data = {
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_m8vi0")
-speed = 150
 basic_attack = NodePath("BassheartAttack")
 ability_1 = NodePath("BassheartFreeze")
 ability_2 = NodePath("BassheartJump")
@@ -673,15 +672,18 @@ replication_config = SubResource("SceneReplicationConfig_csrte")
 script = ExtResource("1_kj3tt")
 
 [node name="BassheartAttack" parent="." instance=ExtResource("3_yap6b")]
-initial_dmg = 80
+initial_dmg = 70.0
 
 [node name="BassheartFreeze" parent="." instance=ExtResource("4_dw3mb")]
+initial_dmg = 10.0
 area_multiplier = 1.5
 freeze_duration_multiplier = 2.0
+unfreeze_dmg = 100.0
+dmg_threshold = 50.0
 
 [node name="BassheartJump" parent="." instance=ExtResource("5_6f1kf")]
-initial_shields = 20
-initial_dmg = 50
+initial_shields = 20.0
+initial_dmg = 50.0
 sync_additional_shield = 20.0
 sync_dmg_multiplier = 1.5
 

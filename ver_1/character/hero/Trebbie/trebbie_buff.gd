@@ -5,19 +5,24 @@ extends BaseAbility
 @export var initial_cd : int
 ## duration of the ability applying the effect
 @export var active_duration : float
+
 @export var dmg_multiplier : float
 @export var hsg_multiplier : float
 ## duration of the status effects
 @export var status_duration : float 
+
 ## radius of the circle hitbox
 @export var initial_area : int
+
 @export var zero_cd : bool
 
 @export_category("Beat Sync Stats")
 ## the area multiplier of the hitbox
 @export var beat_sync_multiplier : float
+
 ## The time window allowed for a recast
 @export var recast_window : float
+
 ## The amount of recast allowed
 @export var recast_amount : int = 3
 
@@ -40,6 +45,7 @@ func _init() -> void:
 func _enter_tree() -> void:
 	a_stats.cd = initial_cd
 	a_stats.dur = active_duration
+	a_stats.aoe = initial_area
 	pass
 
 func _ready() -> void:
@@ -48,7 +54,7 @@ func _ready() -> void:
 	hitbox.monitoring = false
 	if zero_cd:
 		a_stats.cd = 0
-	hitbox_shape.shape.radius = initial_area
+	hitbox_shape.shape.radius = a_stats.aoe
 
 func enter() -> void:
 	hitbox.visible = true
@@ -136,5 +142,5 @@ func _on_buff_recast_timer_timeout() -> void:
 		state_change.emit(self, "TrebbieAttack")
 
 func set_ability_to_hero_stats() -> void:
-	a_stats.aoe = hero.char_stats.aoe
-	scale = a_stats.aoe * Vector2.ONE
+	a_stats.aoe = initial_area * hero.char_stats.aoe
+	hitbox_shape.shape.radius = a_stats.aoe

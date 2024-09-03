@@ -54,7 +54,7 @@ var pop_up : TextPopUp
 var camera : PlayerCamera
 
 # Shield variables
-var shield_lost : int
+var shield_lost : float
 var shield_duration : float
 var shield_time : float
 var is_losing_shield : bool = false
@@ -161,9 +161,6 @@ func on_xp_collected():
 func gain_health(heal):
 	if !multiplayer.is_server(): return
 	if current_health + heal < char_stats.maxhp:
-		if heal < 1:
-			#assert(heal < 0, "Ur an idiots")
-			heal = 1
 		current_health += heal
 	else:
 		current_health = char_stats.maxhp
@@ -233,7 +230,7 @@ func set_sprite_direction():
 		Facing.RIGHT:
 			sprite.scale.x = x_scale
 
-func get_atk() -> int:
+func get_atk() -> float:
 	return char_stats.atk
 
 func get_atk_mul() -> float:

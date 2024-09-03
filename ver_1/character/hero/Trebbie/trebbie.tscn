@@ -295,7 +295,6 @@ radius = 100.0
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_4x4su")
-speed = 150
 tip_heal_amount = 30
 basic_attack = NodePath("TrebbieAttack")
 ability_1 = NodePath("TrebbieBuff")
@@ -316,7 +315,6 @@ hitbox_time_active = 0.2
 action_name = "Trebbie Attack"
 
 [node name="TrebbieDash" parent="." instance=ExtResource("4_s00wb")]
-initial_dmg = 50
 initial_cd = 4
 cd_reducion = 0.3
 action_name = "Trebbie Dash"
@@ -324,7 +322,7 @@ action_name = "Trebbie Dash"
 [node name="TrebbieBuff" parent="." instance=ExtResource("5_mxiub")]
 initial_cd = 6
 dmg_multiplier = 1.5
-hsg_multiplier = 1.15
+hsg_multiplier = 2.0
 status_duration = 5.0
 initial_area = 80
 beat_sync_multiplier = 1.5

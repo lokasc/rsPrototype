@@ -5,9 +5,9 @@ signal hit(dmg) # hit by enemy
 
 # For inspector view only, cant modify class stats in inspector. 
 @export_category("Basic information")
-@export var max_health : int
+@export var max_health : float
 @export var speed : int
-@export var dmg : int
+@export var dmg : float
 
 @export_subgroup("Status")
 @export var can_move : bool
@@ -45,12 +45,14 @@ func _enter_tree() -> void:
 	target = get_closest_target_position()
 	_init_stats()
 
-func take_damage(p_dmg:int) -> void:
+func take_damage(p_dmg:float) -> void:
 	# Client prediction
-	current_health -= p_dmg
-	hit.emit(p_dmg)
-	if current_health <= 0:
+	if current_health - p_dmg <= 0:
 		death.rpc()
+		p_dmg = current_health
+	else:
+		current_health -= p_dmg
+	hit.emit(p_dmg)
 
 @rpc("unreliable_ordered", "call_local")
 func death() -> void:
