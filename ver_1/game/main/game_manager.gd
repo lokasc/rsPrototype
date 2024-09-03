@@ -15,6 +15,7 @@ static var Instance : GameManager
 @export var wait_for_player : bool = false
 @export var dont_spawn_enemies : bool = false
 @export var no_music : bool = false
+@export var spawn_dummy : bool = false
 
 signal end_game
 signal start_lvl_up_sequence(item : Array)
@@ -97,9 +98,10 @@ func start_game():
 	time = 0
 	is_started = true
 	bc.stc_start_music.rpc(Time.get_unix_time_from_system())
-	if dont_spawn_enemies: 
+	if spawn_dummy:
 		# for testing.
 		spawner.custom_spawn("res://ver_1/character/enemy/Dummy/dummy.tscn", Vector2(651,335))
+	if dont_spawn_enemies: 
 		return
 	spawner._start_timer()
 
