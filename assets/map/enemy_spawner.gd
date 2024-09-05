@@ -3,7 +3,7 @@ extends Node2D
 
 #Will change this in next patch
 @export var spawn_path : Node 
-@export var spawns: Array[Spawn_info] = []
+@export var spawns: SpawnsResource
 var player : BaseHero
 var time : int = 0
 
@@ -12,7 +12,7 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	# add all enemies in spawner to spawn list.
-	for spawn : Spawn_info in spawns:
+	for spawn : SpawnInfo in spawns.array:
 		$MultiplayerSpawner.add_spawnable_scene(spawn.enemy.resource_path)
 
 func _start_timer():
@@ -21,7 +21,7 @@ func _start_timer():
 
 func _on_timer_timeout():
 	time += 1
-	var enemy_spawns : Array[Spawn_info] = spawns
+	var enemy_spawns : Array[SpawnInfo] = spawns.array
 	for info in enemy_spawns:
 		if (time >= info.time_start and time <= info.time_end) or info.time_end == -1:
 			if info.spawn_delay_counter < info.enemy_spawn_delay:

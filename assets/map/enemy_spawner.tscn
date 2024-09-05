@@ -1,55 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://h4w7naqbhls5"]
+[gd_scene load_steps=3 format=3 uid="uid://h4w7naqbhls5"]
 
 [ext_resource type="Script" path="res://assets/map/enemy_spawner.gd" id="1_utdqr"]
-[ext_resource type="PackedScene" uid="uid://cpkr32elxa7a8" path="res://ver_1/character/enemy/OneShot/one_shot.tscn" id="2_8xhio"]
-[ext_resource type="Script" path="res://ver_1/game/spawn_system/spawn_info.gd" id="3_l0tmy"]
-[ext_resource type="PackedScene" uid="uid://ye6jjalknsgf" path="res://ver_1/character/enemy/MinorBug/minor_bug.tscn" id="4_v22m4"]
-[ext_resource type="PackedScene" uid="uid://b5lyoa88yp8di" path="res://ver_1/character/enemy/MajorBug/major_bug.tscn" id="5_saef0"]
-
-[sub_resource type="Resource" id="Resource_knfaa"]
-script = ExtResource("3_l0tmy")
-time_start = 0
-time_end = 60
-enemy = ExtResource("2_8xhio")
-enemy_num = 10
-enemy_spawn_delay = 0
-
-[sub_resource type="Resource" id="Resource_2gl8i"]
-script = ExtResource("3_l0tmy")
-time_start = 30
-time_end = 60
-enemy = ExtResource("4_v22m4")
-enemy_num = 3
-enemy_spawn_delay = 0
-
-[sub_resource type="Resource" id="Resource_q32yu"]
-script = ExtResource("3_l0tmy")
-time_start = 60
-time_end = 90
-enemy = ExtResource("5_saef0")
-enemy_num = 1
-enemy_spawn_delay = 8
-
-[sub_resource type="Resource" id="Resource_xyaoq"]
-script = ExtResource("3_l0tmy")
-time_start = 60
-time_end = 105
-enemy = ExtResource("4_v22m4")
-enemy_num = 8
-enemy_spawn_delay = 0
-
-[sub_resource type="Resource" id="Resource_bqygi"]
-script = ExtResource("3_l0tmy")
-time_start = 90
-time_end = 1200
-enemy = ExtResource("5_saef0")
-enemy_num = 2
-enemy_spawn_delay = 1
+[ext_resource type="Resource" uid="uid://73n03i5yjwtt" path="res://ver_1/game/spawn_system/predev_enemies.tres" id="2_s8p1p"]
 
 [node name="EnemySpawner" type="Node2D" node_paths=PackedStringArray("spawn_path")]
 script = ExtResource("1_utdqr")
 spawn_path = NodePath("Enemies")
-spawns = Array[ExtResource("3_l0tmy")]([SubResource("Resource_knfaa"), SubResource("Resource_2gl8i"), SubResource("Resource_q32yu"), SubResource("Resource_xyaoq"), SubResource("Resource_bqygi")])
+spawns = ExtResource("2_s8p1p")
 
 [node name="Timer" type="Timer" parent="."]
 
