@@ -109,11 +109,11 @@ func _process(_delta:float) -> void:
 		shield_time += _delta
 		if shield_time >= shield_duration:
 			lose_shield(shield_lost)
+	set_sprite_direction()
 
 func _physics_process(_delta:float) -> void:
 	if current_state:
 		current_state.physics_update(_delta)
-	set_sprite_direction()
 
 func process_items(_delta:float) -> void:
 	for item : BaseItem in items:
@@ -221,9 +221,13 @@ func is_alive() -> bool:
 
 func set_sprite_direction():
 	# Changing the sprite direction to the last moved direction
-	if get_local_mouse_position().x <0:
+	
+	# world space to camera space
+	var mouse_pos_from_hero_pos = input.mouse_pos + input.CAMERA_OFFSET
+	
+	if mouse_pos_from_hero_pos.x <0:
 		sprite_dir = Facing.LEFT
-	elif get_local_mouse_position().x >0:
+	elif mouse_pos_from_hero_pos.x >0:
 		sprite_dir = Facing.RIGHT
 	else:
 		sprite_dir = Facing.RIGHT
