@@ -1,12 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://h4w7naqbhls5"]
+[gd_scene load_steps=2 format=3 uid="uid://h4w7naqbhls5"]
 
 [ext_resource type="Script" path="res://assets/map/enemy_spawner.gd" id="1_utdqr"]
-[ext_resource type="Resource" uid="uid://c2uk57jlhco74" path="res://ver_1/game/spawn_system/predev_enemies.tres" id="2_s8p1p"]
 
 [node name="EnemySpawner" type="Node2D" node_paths=PackedStringArray("spawn_path")]
 script = ExtResource("1_utdqr")
 spawn_path = NodePath("Enemies")
-spawns = ExtResource("2_s8p1p")
 
 [node name="Timer" type="Timer" parent="."]
 
