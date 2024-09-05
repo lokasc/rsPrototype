@@ -14,7 +14,7 @@ extends Control
 @onready var level_bar : TextureProgressBar = player_container.find_child("LevelBar")
 @onready var card_scn : PackedScene = load("res://ver_1/game/UI/selection_card.tscn")
 @onready var waiting_label : Label = player_container.find_child("Waiting")
-
+@onready var time_label : Label = player_container.find_child("TimeLabel")
 
 var action_selected : bool
 
@@ -47,6 +47,9 @@ func _process(_delta: float) -> void:
 		shield_bar.value = my_player.current_shield
 	else:
 		health_bar.value = 0
+	
+	if GameManager.Instance.is_started:
+		time_label.text = Time.get_time_string_from_unix_time(GameManager.Instance.time)
 	
 	# Uncomment this if you want the shield to change rotation along the health bar
 	#var shield_init_angle = health_bar.value/health_bar.max_value * 360
