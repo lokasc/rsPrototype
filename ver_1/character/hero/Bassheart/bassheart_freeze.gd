@@ -64,7 +64,7 @@ func _ready() -> void:
 	# Sets the note to max duration if it exceeds the duration
 	for note in recast_timestamps:
 		if note > charge_duration:
-			note == charge_duration
+			note = charge_duration
 
 # Use statemachine logic if ability requires it
 # use variable HERO to access hero's variables and functions

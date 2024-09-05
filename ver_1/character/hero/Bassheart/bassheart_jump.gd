@@ -122,7 +122,7 @@ func update(delta: float) -> void:
 	elif air_time >= landing_time - landing_grace_time and hero.input.ability_2 and failed_sync == false:
 		if hero.input.is_on_beat:
 			has_synced = true
-		else: failed_sync == true
+		else: failed_sync = true
 			
 		
 	else: air_time += delta
