@@ -101,6 +101,8 @@ func start_game():
 	if spawn_dummy:
 		# for testing.
 		spawner.custom_spawn("res://ver_1/character/enemy/Dummy/dummy.tscn", Vector2(651,335))
+		spawner.custom_spawn("res://ver_1/character/enemy/OneShot/one_shot.tscn", Vector2(651,335))
+		spawner.custom_spawn("res://ver_1/character/enemy/OneShot/one_shot.tscn", Vector2(651,135))
 	if dont_spawn_enemies: 
 		return
 	spawner._start_timer()
@@ -178,7 +180,6 @@ func parse_action_card(id : int, action_index : int):
 	if action is BaseItem:
 		if !player.has_item(action):
 			player.add_item(action_index)
-			print("added " + action.get_class_name())
 		else:
 			player.upgrade_item(action)
 	
@@ -193,6 +194,8 @@ func parse_action_card(id : int, action_index : int):
 			player.upgrade_stat(action_index)
 		else:
 			player.add_stat(action_index)
+	
+	action.queue_free()
 
 ### RPC Calls
 @rpc("call_local", "reliable")

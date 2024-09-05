@@ -8,7 +8,7 @@ extends BaseItem
 var enemies_in_hitbox : Array[BaseEnemy] = []
 var current_time : float
 
-@onready var hitbox_shape : CollisionShape2D = $HitBox/CollisionShape2D
+var hitbox_shape : CollisionShape2D
 
 func _init() -> void:
 	action_name = "AOE_dmg"
@@ -38,9 +38,17 @@ func _upgrade() -> void:
 	set_item_stats()
 	
 func _ready() -> void:
+	hitbox_shape = get_child(0).get_child(0)
+	
+	# Shapes in CollisionShape Class are resources: Dupe and reassign
+	hitbox_shape.shape = hitbox_shape.shape.duplicate()
 	set_item_stats()
-	# Detect only enemies, sanity check.
-	$HitBox.set_collision_mask_value(3, true)
+	
+	# only detect enemies, sanity check
+	hitbox_shape.get_parent().set_collision_mask_value(3, true)
+	
+	#hitbox_shape.debug_color = Color.WEB_GREEN
+	
 	hitbox_shape.shape.radius = area_of_effect
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
@@ -60,5 +68,5 @@ func _on_hit_box_area_exited(area: Area2D) -> void:
 func set_item_stats():
 	a_stats.atk = damage_per_tick * hero.get_atk()/hero.initial_damage
 	a_stats.cd = initial_tick_time * hero.char_stats.cd
-	a_stats.aoe = area_of_effect * hero.char_stats.aoe; hitbox_shape.shape.radius = a_stats.aoe
-	
+	a_stats.aoe = area_of_effect * hero.char_stats.aoe 
+	hitbox_shape.shape.radius = a_stats.aoe

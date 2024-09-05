@@ -25,7 +25,6 @@ func _upgrade() -> void:
 		return # Upgraded a maximum of 5 times
 	else:
 		level += 1
-	pass
 
 func get_class_name() -> String:
 	return get_script().get_global_name()
