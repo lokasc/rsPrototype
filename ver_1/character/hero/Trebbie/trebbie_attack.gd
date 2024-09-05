@@ -72,7 +72,6 @@ func _process(delta : float) -> void:
 	var ability_1_cd_display : int = int(hero.ability_1.a_stats.cd - hero.ability_1.current_time)
 	var ability_2_cd_display : int = int(hero.ability_2.a_stats.cd - hero.ability_2.current_time)
 	
-	
 	# Process abilities
 	if hero.input.ability_1 and hero.ability_1.is_ready():
 		if hero.input.is_on_beat: #Entering buff state while in sync
