@@ -50,3 +50,10 @@ func tell_clients_add_status(effect_name, arg):
 			statuses.append(copy)
 			add_child(copy, true)
 			copy.on_added()
+		"Knockback":
+			var copy = Knockback.new(arg[0], arg[1], arg[2])
+			copy.character = character
+			copy.holder = self
+			statuses.append(copy)
+			add_child(copy, true)
+			copy.on_added()

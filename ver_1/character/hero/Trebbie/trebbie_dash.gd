@@ -17,7 +17,6 @@ var direction = Vector2.ZERO
 
 @onready var hitbox : Area2D = $HitBox
 @onready var dash_effect_particles : GPUParticles2D = $"../Sprites/RotatingWeapon/GPUParticles2D"
-# Current knockback, this will be changed when knockback code is added
 @onready var collisionbox : CollisionShape2D = $CollisionBox/CollisionShape2D
 
 
