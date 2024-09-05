@@ -13,7 +13,7 @@ var current_time : float
 func _init() -> void:
 	action_name = "AOE_dmg"
 	desc = "Power of friendship!"
-	action_icon_path = "res://assets/icons/dust-cloud.png"
+	action_icon_path = "res://assets/icons/aoe_icon.png"
 
 func _enter_tree() -> void:
 	super()

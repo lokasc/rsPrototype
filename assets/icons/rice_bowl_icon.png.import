@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://i5oyitjhv8x0"
-path="res://.godot/imported/dust-cloud.png-553d2d98919266cdb377404331fa6d8e.ctex"
+uid="uid://dwkd6qh5enp0b"
+path="res://.godot/imported/rice_bowl_icon.png-bb185ed6bf8f188f106586eb370aea10.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/dust-cloud.png"
-dest_files=["res://.godot/imported/dust-cloud.png-553d2d98919266cdb377404331fa6d8e.ctex"]
+source_file="res://assets/icons/rice_bowl_icon.png"
+dest_files=["res://.godot/imported/rice_bowl_icon.png-bb185ed6bf8f188f106586eb370aea10.ctex"]
 
 [params]
 

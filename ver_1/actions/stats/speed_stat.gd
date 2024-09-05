@@ -2,7 +2,7 @@ class_name SpeedCard
 extends BaseStatCard
 
 func _init() -> void:
-	action_icon_path = "res://assets/icons/heart-plus.png"
+	action_icon_path = "res://assets/icons/speed_icon.png"
 	amount_per_upgrade = 5
 
 func _upgrade():

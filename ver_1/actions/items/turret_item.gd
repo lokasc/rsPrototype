@@ -20,7 +20,7 @@ var turret_list: Array[Turret] = []
 func _init() -> void:
 	action_name = "Buildin a Sentry!"
 	desc = "No spies be sappin' my sentry now"
-	action_icon_path = "res://assets/icons/turret.png"
+	action_icon_path = "res://assets/icons/turret_icon.png"
 
 func _enter_tree() -> void:
 	super()

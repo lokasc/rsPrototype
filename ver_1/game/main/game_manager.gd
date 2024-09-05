@@ -65,7 +65,7 @@ func _init() -> void:
 	Instance = self
 	time = 0
 	current_xp = 0
-	max_xp = 100
+	max_xp = 1
 	end_game.connect(on_end_game)
 
 func _ready() -> void:

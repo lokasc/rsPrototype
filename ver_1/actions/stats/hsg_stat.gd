@@ -2,7 +2,7 @@ class_name HealShieldGainCard
 extends BaseStatCard
 
 func _init() -> void:
-	action_icon_path = "res://assets/icons/heart-plus.png"
+	action_icon_path = "res://assets/icons/hsg_icon.png"
 	amount_per_upgrade = 0.02
 
 func _upgrade():

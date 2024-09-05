@@ -1,8 +1,9 @@
 class_name AOECard
 extends BaseStatCard
 
+
 func _init() -> void:
-	action_icon_path = "res://assets/icons/heart-plus.png"
+	action_icon_path = "res://assets/icons/aoe_icon.png"
 	amount_per_upgrade = 0.1
 
 func _upgrade():

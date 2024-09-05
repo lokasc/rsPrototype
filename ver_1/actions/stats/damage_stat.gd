@@ -2,7 +2,7 @@ class_name DamageCard
 extends BaseStatCard
 
 func _init() -> void:
-	action_icon_path = "res://assets/icons/heart-plus.png"
+	action_icon_path = "res://assets/icons/dmg_icon.png"
 	amount_per_upgrade = 15
 
 func _upgrade():
