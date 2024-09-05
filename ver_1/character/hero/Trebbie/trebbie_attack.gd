@@ -16,6 +16,8 @@ extends BaseAbility
 @onready var leg_sprite : AnimatedSprite2D = $"../Sprites/LegSprite2D"
 @onready var effect_sprite : AnimatedSprite2D = $"../Sprites/RotatingWeapon/EffectSprite2D"
 
+var already_hit : Array[BaseEnemy] = []
+
 func _init() -> void:
 	super()
 
@@ -98,6 +100,7 @@ func _on_tip_hit(area: Area2D) -> void:
 	if !character && !(character is BaseCharacter): return
 
 	if character is BaseEnemy:
+		already_hit.append(character)
 		character.hit.connect(lifesteal)
 		character.take_damage(get_multiplied_atk() * tip_dmg_multiplier)
 		character.hit.disconnect(lifesteal)
@@ -109,6 +112,10 @@ func on_hit(area : Area2D) -> void:
 	# Find enemy, deal dmg.
 	var enemy = area.get_parent() as BaseEnemy
 	if enemy == null: return
+	
+	# check if we already hit the enemy with the tiper.
+	if already_hit.has(enemy): return
+	
 	enemy.hit.connect(lifesteal) # The tip and normal hitbox are mutually exclusive
 	enemy.take_damage(get_multiplied_atk())
 	enemy.hit.disconnect(lifesteal)
@@ -116,7 +123,9 @@ func on_hit(area : Area2D) -> void:
 func use_ability() -> void:
 	if is_on_cd: return
 	super()
-
+	# Reset already hit targets.
+	already_hit.clear()
+	
 	if hero.animator.has_animation("attack"):
 		hero.animator.play("attack")
 		effect_sprite.show()
