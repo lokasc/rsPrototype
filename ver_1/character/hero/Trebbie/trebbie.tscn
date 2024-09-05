@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://ce6nl4rbh16yy"]
+[gd_scene load_steps=41 format=3 uid="uid://ce6nl4rbh16yy"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie.gd" id="1_4x4su"]
 [ext_resource type="PackedScene" uid="uid://dl6n7678g0f18" path="res://ver_1/character/hero/Trebbie/trebbie_attack.tscn" id="2_psvnt"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/text_pop_up.tscn" id="4_ghe2d"]
 [ext_resource type="PackedScene" uid="uid://cjm8swpik3u4m" path="res://ver_1/character/hero/Trebbie/trebbie_dash.tscn" id="4_s00wb"]
 [ext_resource type="PackedScene" uid="uid://d0tgdksvfqvbg" path="res://ver_1/character/hero/Trebbie/trebbie_buff.tscn" id="5_mxiub"]
+[ext_resource type="Material" path="res://trebbiebuffparticle.tres" id="6_3qxhq"]
+[ext_resource type="Texture2D" uid="uid://csgji8jtaoqet" path="res://assets/vfx/TrebbieBuffParticle.png" id="6_d74fd"]
 [ext_resource type="Texture2D" uid="uid://cbs7jvrfy768n" path="res://assets/heroes/trebbie/TrebbieTorso.png" id="6_iy085"]
 [ext_resource type="Texture2D" uid="uid://c1g7ifpd36a5x" path="res://assets/heroes/trebbie/TrebbieLegs.png" id="7_fj44h"]
 [ext_resource type="Texture2D" uid="uid://ckebh3vpkft4n" path="res://assets/heroes/trebbie/TrebbieAttack_Spear_32x32_sheet.png" id="7_h1fii"]
@@ -321,7 +323,14 @@ action_name = "Trebbie Dash"
 
 [node name="Sprites" type="Node2D" parent="."]
 scale = Vector2(2, 2)
-metadata/_edit_group_ = true
+
+[node name="BuffParticles2D" type="GPUParticles2D" parent="Sprites"]
+self_modulate = Color(1, 0.67288, 0.9853, 1)
+amount = 5
+process_material = ExtResource("6_3qxhq")
+texture = ExtResource("6_d74fd")
+lifetime = 0.25
+local_coords = true
 
 [node name="TorsoSprite2D" type="Sprite2D" parent="Sprites"]
 texture = ExtResource("6_iy085")
