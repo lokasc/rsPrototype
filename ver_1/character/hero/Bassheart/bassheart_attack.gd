@@ -45,6 +45,7 @@ func enter() -> void:
 # normal attacks dont super() exit
 func exit() -> void:
 	hitbox.visible = false
+	_reset()
 
 # Automatically attack.
 func update(_delta: float) -> void:

@@ -42,7 +42,7 @@ func enter() -> void:
 func exit() -> void:
 	hitbox.visible = false
 	tip_hitbox.visible = false
-	pass
+	_reset()
 
 # Automatically attack.
 func update(_delta: float) -> void:
