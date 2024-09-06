@@ -16,6 +16,7 @@ static var Instance : GameManager
 @export var dont_spawn_enemies : bool = false
 @export var no_music : bool = false
 @export var spawn_dummy : bool = false
+@export var spawn_boss : bool = false
 
 signal end_game
 signal start_lvl_up_sequence(item : Array)
@@ -103,8 +104,10 @@ func start_game():
 		# for testing.
 		spawner.custom_spawn("res://ver_1/character/enemy/Dummy/dummy.tscn", Vector2(651,335))
 		spawner.custom_spawn("res://ver_1/character/enemy/MajorBug/major_bug.tscn", Vector2(651,335))
-		spawner.custom_spawn("res://ver_1/character/enemy/MinorBug/minor_bug.tscn", Vector2(651,235))
-		spawner.custom_spawn("res://ver_1/character/enemy/OneShot/one_shot.tscn", Vector2(651,135))
+		#spawner.custom_spawn("res://ver_1/character/enemy/MinorBug/minor_bug.tscn", Vector2(651,235))
+		#spawner.custom_spawn("res://ver_1/character/enemy/OneShot/one_shot.tscn", Vector2(651,135))
+	if spawn_boss:
+		spawner.custom_spawn("res://ver_1/character/enemy/boss/B&B/b&b.tscn", Vector2(451,35))
 	if dont_spawn_enemies: 
 		return
 	spawner._start_timer()

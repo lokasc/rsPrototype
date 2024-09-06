@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cioljtydwmxxg"]
+
+[ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/bnb_rain.gd" id="1_17pv8"]
+
+[node name="BnBRain" type="Node2D"]
+script = ExtResource("1_17pv8")

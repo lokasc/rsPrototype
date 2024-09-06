@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://c3vtdiit6y6fr"]
 
-[ext_resource type="Script" path="res://ver_1/character/enemy/B&B/biano.gd" id="1_yh4o6"]
+[ext_resource type="Script" path="res://ver_1/character/enemy/boss/Biano/biano.gd" id="1_yh4o6"]
 [ext_resource type="Texture2D" uid="uid://ddxghwpdca1is" path="res://piano.png" id="2_3cjxf"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="3_q0mwj"]
 

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://celg8r4rn4dgm"]
+
+[ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/bnb_slam.gd" id="1_r5yuy"]
+
+[node name="BnBSlam" type="Node2D"]
+script = ExtResource("1_r5yuy")

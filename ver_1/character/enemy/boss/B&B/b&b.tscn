@@ -1,9 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://ns7nfwyvbnq8"]
+[gd_scene load_steps=12 format=3 uid="uid://ns7nfwyvbnq8"]
 
-[ext_resource type="Script" path="res://ver_1/character/enemy/B&B/b&b.gd" id="1_qfr16"]
+[ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/b&b.gd" id="1_qfr16"]
 [ext_resource type="Texture2D" uid="uid://ddxghwpdca1is" path="res://piano.png" id="2_n35gr"]
+[ext_resource type="PackedScene" uid="uid://celg8r4rn4dgm" path="res://ver_1/character/enemy/boss/B&B/bnb_slam.tscn" id="2_oirly"]
+[ext_resource type="PackedScene" uid="uid://cioljtydwmxxg" path="res://ver_1/character/enemy/boss/B&B/bnb_rain.tscn" id="3_8r8dq"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="3_jefjo"]
 [ext_resource type="Texture2D" uid="uid://m0w7duynn73" path="res://bee.png" id="3_owrcs"]
+[ext_resource type="PackedScene" uid="uid://cj873jqq3y6ol" path="res://ver_1/character/enemy/boss/B&B/bnb_ring.tscn" id="4_nu4wr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8h38y"]
 radius = 140.357
@@ -21,15 +24,28 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Beethoven&Biano" type="CharacterBody2D"]
-scale = Vector2(0.2, 0.2)
+[node name="Beethoven&Biano" type="CharacterBody2D" node_paths=PackedStringArray("slam", "rain", "ring", "main_state")]
+scale = Vector2(0.8, 0.8)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_qfr16")
+slam = NodePath("BnBSlam")
+rain = NodePath("BnBRain")
+ring = NodePath("BnBRing")
+main_state = NodePath("BnBSlam")
+max_health = 500.0
 char_name = "Beethoven & Biano"
 
+[node name="BnBSlam" parent="." instance=ExtResource("2_oirly")]
+is_tgt = true
+
+[node name="BnBRain" parent="." instance=ExtResource("3_8r8dq")]
+is_tgt = true
+
+[node name="BnBRing" parent="." instance=ExtResource("4_nu4wr")]
+is_tgt = true
+
 [node name="Sprites" type="Node2D" parent="."]
-scale = Vector2(1, 1)
 
 [node name="Biano" type="Sprite2D" parent="Sprites"]
 position = Vector2(-50, 0)
@@ -42,10 +58,12 @@ region_enabled = true
 region_rect = Rect2(36, 0, 333, 382)
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
+visible = false
 rotation = 1.5708
 shape = SubResource("CircleShape2D_8h38y")
 
 [node name="HurtBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 collision_mask = 0
 
@@ -55,6 +73,7 @@ shape = SubResource("CapsuleShape2D_1m36h")
 debug_color = Color(0.930156, 0.224969, 0.360381, 0.42)
 
 [node name="HitBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 

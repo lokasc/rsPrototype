@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj873jqq3y6ol"]
+
+[ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/bnb_ring.gd" id="1_lynet"]
+
+[node name="BnBRing" type="Node2D"]
+script = ExtResource("1_lynet")
