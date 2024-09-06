@@ -53,6 +53,10 @@ func take_damage(p_dmg:float) -> void:
 	else:
 		current_health -= p_dmg
 	hit.emit(p_dmg)
+	
+	# dmg visual is actually how much u've dealt to remaining health
+	# not the raw power.
+	GameManager.Instance.vfx.spawn_pop_up(p_dmg, global_position)
 
 @rpc("unreliable_ordered", "call_local")
 func death() -> void:

@@ -38,4 +38,3 @@ func on_hit(area : Area2D):
 
 func take_damage(dmg) -> void:
 	super(dmg)
-	GameManager.Instance.vfx.spawn_pop_up(dmg, global_position)

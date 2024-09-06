@@ -24,7 +24,9 @@ var max_time : float = 1
 
 func set_up_data(id : int, number : float, gpos : Vector2):
 	container = get_child(0)
-	(container.get_child(0) as Label).text = str(number)
+	
+	current_dmg = number
+	(container.get_child(0) as Label).text = str(current_dmg)
 	
 	owner_id = id
 	global_position = gpos
@@ -40,7 +42,7 @@ func _process(delta: float) -> void:
 	if !is_started: return
 	
 	# Animate based on time
-	container.global_position.y -= delta * 100
+	container.global_position.y -= delta * 50
 	container.modulate.a = max(0, container.modulate.a-delta)
 	container.scale -= Vector2(delta, delta)
 	
