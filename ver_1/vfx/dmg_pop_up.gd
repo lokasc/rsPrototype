@@ -48,11 +48,12 @@ func _process(delta: float) -> void:
 	
 	current_time += delta
 	if current_time >= max_time:
-		is_started = false
+		# CALL THIS TO FINISH
 		obj_finish.emit(self)
 
 # Reset temp data
 func clean_up():
+	is_started = false
 	visible = false
 	current_dmg = 0
 	owner_id = 0
