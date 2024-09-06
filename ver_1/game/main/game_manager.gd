@@ -44,6 +44,7 @@ var net : NetManager
 var spawner : EnemySpawner
 var ui : UIManager
 var bc : BeatController
+var vfx : VFXManager
 
 # XP
 var current_xp : int
@@ -101,8 +102,8 @@ func start_game():
 	if spawn_dummy:
 		# for testing.
 		spawner.custom_spawn("res://ver_1/character/enemy/Dummy/dummy.tscn", Vector2(651,335))
-		spawner.custom_spawn("res://ver_1/character/enemy/OneShot/one_shot.tscn", Vector2(651,335))
-		spawner.custom_spawn("res://ver_1/character/enemy/OneShot/one_shot.tscn", Vector2(651,135))
+		#spawner.custom_spawn("res://ver_1/character/enemy/OneShot/one_shot.tscn", Vector2(651,335))
+		#spawner.custom_spawn("res://ver_1/character/enemy/OneShot/one_shot.tscn", Vector2(651,135))
 	if dont_spawn_enemies: 
 		return
 	spawner._start_timer()
@@ -258,9 +259,12 @@ func change_ui():
 func sample(x : int) -> int:
 	return 100 + (10 * x)
 
-# Death & Strawberry
+# Death & Strawberry: Players connect to this function player.player_die signal rpc call this by GM.
 func check_alive_players() -> void:
 	if !multiplayer.is_server(): return
+	if players.size() == 0: return #dont check if theres no-one
+	if is_started == false: return # dont check if we havent started.
+	
 	for x in players:
 		if !x.IS_DEAD:
 			return

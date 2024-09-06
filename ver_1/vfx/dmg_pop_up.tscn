@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://csasck8oirrl3"]
+
+[ext_resource type="Script" path="res://ver_1/vfx/dmg_pop_up.gd" id="1_lhh4n"]
+[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="2_2dd6w"]
+
+[node name="DmgPopUp" type="Node2D"]
+visible = false
+script = ExtResource("1_lhh4n")
+
+[node name="LabelContainer" type="Node2D" parent="."]
+
+[node name="Label" type="Label" parent="LabelContainer"]
+offset_left = -20.0
+offset_top = -12.0
+offset_right = 20.0
+offset_bottom = 11.0
+theme = ExtResource("2_2dd6w")
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/text_pop_up.tscn" id="4_ghe2d"]
 [ext_resource type="PackedScene" uid="uid://cjm8swpik3u4m" path="res://ver_1/character/hero/Trebbie/trebbie_dash.tscn" id="4_s00wb"]
 [ext_resource type="PackedScene" uid="uid://d0tgdksvfqvbg" path="res://ver_1/character/hero/Trebbie/trebbie_buff.tscn" id="5_mxiub"]
-[ext_resource type="Material" uid="uid://bhaxihl8fty3t" path="res://trebbiebuffparticle.tres" id="6_3qxhq"]
+[ext_resource type="Material" uid="uid://cs0bjx1j0r5d6" path="res://trebbiebuffparticle.tres" id="6_3qxhq"]
 [ext_resource type="Texture2D" uid="uid://csgji8jtaoqet" path="res://assets/vfx/TrebbieBuffParticle.png" id="6_d74fd"]
 [ext_resource type="Texture2D" uid="uid://cbs7jvrfy768n" path="res://assets/heroes/trebbie/TrebbieTorso.png" id="6_iy085"]
 [ext_resource type="Texture2D" uid="uid://c1g7ifpd36a5x" path="res://assets/heroes/trebbie/TrebbieLegs.png" id="7_fj44h"]

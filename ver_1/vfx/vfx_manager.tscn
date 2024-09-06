@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgd1om0jy4rja"]
+
+[ext_resource type="Script" path="res://ver_1/vfx/vfx_manager.gd" id="1_t6he4"]
+
+[node name="VfxManager" type="Node"]
+script = ExtResource("1_t6he4")
+initial_amount = 10
+
+[node name="PopUpContainer" type="Node" parent="."]

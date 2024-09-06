@@ -34,11 +34,8 @@ func on_hit(area : Area2D):
 	var hero = area.get_parent() as BaseHero
 	if hero == null: return
 	
-	# TODO: not networked yet
-	# need to calculate how much damage based on 
-	# the attack value of this ability + my character's attack value
 	hero.take_damage(char_stats.atk)
 
 func take_damage(dmg) -> void:
 	super(dmg)
-	$TextPopUp.set_pop(str(dmg), self.global_position)
+	GameManager.Instance.vfx.spawn_pop_up(dmg, global_position)
