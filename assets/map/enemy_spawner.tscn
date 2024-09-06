@@ -9,7 +9,7 @@ spawn_path = NodePath("Enemies")
 [node name="Timer" type="Timer" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://ver_1/character/enemy/Dummy/dummy.tscn")
+_spawnable_scenes = PackedStringArray("res://ver_1/character/enemy/Dummy/dummy.tscn", "res://ver_1/character/enemy/boss/B&B/bnb.tscn")
 spawn_path = NodePath("../Enemies")
 
 [node name="Enemies" type="Node" parent="."]

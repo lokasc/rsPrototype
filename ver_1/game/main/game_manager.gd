@@ -107,7 +107,7 @@ func start_game():
 		#spawner.custom_spawn("res://ver_1/character/enemy/MinorBug/minor_bug.tscn", Vector2(651,235))
 		#spawner.custom_spawn("res://ver_1/character/enemy/OneShot/one_shot.tscn", Vector2(651,135))
 	if spawn_boss:
-		spawner.custom_spawn("res://ver_1/character/enemy/boss/B&B/b&b.tscn", Vector2(451,35))
+		spawner.custom_spawn("res://ver_1/character/enemy/boss/B&B/bnb.tscn", Vector2(451,35))
 	if dont_spawn_enemies: 
 		return
 	spawner._start_timer()

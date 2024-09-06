@@ -1,6 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://celg8r4rn4dgm"]
+[gd_scene load_steps=3 format=3 uid="uid://celg8r4rn4dgm"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/bnb_slam.gd" id="1_r5yuy"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_e7nwo"]
+
 [node name="BnBSlam" type="Node2D"]
 script = ExtResource("1_r5yuy")
+
+[node name="SlamArea" type="Area2D" parent="."]
+scale = Vector2(100, 100)
+collision_layer = 0
+collision_mask = 2
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlamArea"]
+shape = SubResource("CircleShape2D_e7nwo")
+debug_color = Color(0.666667, 0.984314, 0.980392, 0.25098)
+
+[connection signal="area_entered" from="SlamArea" to="." method="_on_slam_area_hit"]

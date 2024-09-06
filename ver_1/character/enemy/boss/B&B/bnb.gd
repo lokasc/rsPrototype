@@ -34,7 +34,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	super(delta)
-	print(current_state)
 	
 	if phase == 3 && current_health >= 0:
 		phase_three_logic(delta)
@@ -54,10 +53,10 @@ func _process(delta: float) -> void:
 		printerr("Going to phase 2!")
 		state_change_from_any("BnBSlam")
 
+
 func phase_three_logic(delta):
 	rain.update(delta)
 	ring.update(delta)
-
 
 func on_hit(area : Area2D) -> void:
 	if !multiplayer.is_server(): return
