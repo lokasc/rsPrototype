@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgthv2vj288h5"]
+
+[ext_resource type="Shader" path="res://ver_1/vfx/dissolve.gdshader" id="1_507ec"]
+[ext_resource type="Texture2D" uid="uid://dh4gjwlv05i00" path="res://Noise.jpg" id="2_git2f"]
+[ext_resource type="Texture2D" uid="uid://b5hgx2w4bvoc6" path="res://PianoKeys.png" id="3_5g04u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_214gu"]
+shader = ExtResource("1_507ec")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/dissolve_texture = ExtResource("2_git2f")
+
+[node name="Test" type="Node2D"]
+
+[node name="Icon" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_214gu")
+position = Vector2(63, 64)
+texture = ExtResource("3_5g04u")
+hframes = 4
+frame = 3

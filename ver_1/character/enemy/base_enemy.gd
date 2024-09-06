@@ -24,6 +24,10 @@ var target : BaseHero
 var sprite
 var x_scale : int
 
+@export_subgroup("Optimization")
+@export var update_frequency : float = 3
+var current_update_time : float = 0
+
 ## Base class for all enemy types.
 ## Has a position and health.
 
@@ -44,6 +48,9 @@ func _init_stats() -> void:
 func _enter_tree() -> void:
 	target = get_closest_target_position()
 	_init_stats()
+	# assign random time, so enemies dont update all together
+	if multiplayer.is_server():
+		current_update_time = randf_range(0, update_frequency)
 
 func take_damage(p_dmg:float) -> void:
 	# Client prediction
@@ -57,6 +64,13 @@ func take_damage(p_dmg:float) -> void:
 	# dmg visual is actually how much u've dealt to remaining health
 	# not the raw power.
 	GameManager.Instance.vfx.spawn_pop_up(p_dmg, global_position)
+
+func _process(delta: float) -> void:
+	current_update_time += delta
+	
+	if current_update_time >= update_frequency:
+		target = get_closest_target_position()
+		current_update_time = 0
 
 @rpc("unreliable_ordered", "call_local")
 func death() -> void:

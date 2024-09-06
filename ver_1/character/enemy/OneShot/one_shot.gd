@@ -4,8 +4,6 @@ extends BaseEnemy
 @onready var hitbox : Area2D = $HitBox
 @onready var collidebox : CollisionShape2D = $CollisionBox
 
-@export var update_frequency : float = 3
-var current_update_time : float = 0
 
 func _init() -> void:
 	super()
@@ -13,9 +11,6 @@ func _init() -> void:
 	
 func _enter_tree() -> void:
 	super()
-	# assign random time, so enemies dont update all together
-	if multiplayer.is_server():
-		current_update_time = randf_range(1, update_frequency)
 	pass
 
 func _ready() -> void:
@@ -24,14 +19,6 @@ func _ready() -> void:
 	sprite = $AnimatedSprite2D
 	sprite.play("default")
 	x_scale = sprite.scale.x
-
-func _process(delta: float) -> void:
-	current_update_time += delta
-	
-	if current_update_time >= update_frequency:
-		target = get_closest_target_position()
-		current_update_time = 0
-	pass
 
 func _physics_process(_delta:float) -> void:
 	if can_move == true:
