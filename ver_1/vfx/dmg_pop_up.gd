@@ -42,7 +42,7 @@ func _process(delta: float) -> void:
 	if !is_started: return
 	
 	# Animate based on time
-	container.global_position.y -= delta * 50
+	container.position.y -= delta * 50
 	container.modulate.a = max(0, container.modulate.a-delta)
 	container.scale -= Vector2(delta, delta)
 	
@@ -53,6 +53,7 @@ func _process(delta: float) -> void:
 
 # Reset temp data
 func clean_up():
+	container.position = Vector2.ZERO
 	is_started = false
 	visible = false
 	current_dmg = 0
