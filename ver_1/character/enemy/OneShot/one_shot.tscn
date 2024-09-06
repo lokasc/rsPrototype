@@ -65,7 +65,7 @@ max_health = 1.0
 speed = 40
 dmg = 10.0
 xp_drop_spread = 5
-char_name = "Pest"
+char_name = "1-Shot"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(4, 4)

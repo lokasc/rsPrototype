@@ -25,6 +25,7 @@ radius = 27.6134
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_t3ry6")
 dmg = 30
+char_name = "Dummy"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_t27sw")

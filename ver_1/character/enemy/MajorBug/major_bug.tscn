@@ -74,6 +74,7 @@ speed = 50
 dmg = 20
 xp_worth = 10
 xp_drop_spread = 35
+char_name = "Major Bug"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(8, 8)

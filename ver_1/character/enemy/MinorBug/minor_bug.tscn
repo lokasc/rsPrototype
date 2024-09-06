@@ -57,7 +57,7 @@ max_health = 150
 speed = 50
 dmg = 10.0
 xp_drop_spread = 5
-char_name = "Big Pest"
+char_name = "Minor Bug"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(5, 5)

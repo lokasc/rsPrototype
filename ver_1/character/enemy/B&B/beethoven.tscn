@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://b7wg1bew4jfy7"]
+
+[ext_resource type="Script" path="res://ver_1/character/enemy/B&B/beethoven.gd" id="1_a4kde"]
+[ext_resource type="Texture2D" uid="uid://m0w7duynn73" path="res://bee.png" id="2_fa11c"]
+[ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="3_g7paf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8h38y"]
+radius = 140.357
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1m36h"]
+radius = 175.0
+height = 350.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_papkv"]
+radius = 80.0
+height = 160.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_t27sw"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Beethoven" type="CharacterBody2D"]
+scale = Vector2(0.2, 0.2)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_a4kde")
+char_name = "Beethoven"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_fa11c")
+offset = Vector2(0, 3)
+region_enabled = true
+region_rect = Rect2(41, 0, 329, 382)
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CircleShape2D_8h38y")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_1m36h")
+debug_color = Color(0.930156, 0.224969, 0.360381, 0.42)
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+rotation = 1.5708
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_papkv")
+debug_color = Color(0, 0.592183, 0.742917, 0.42)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_t27sw")
+
+[node name="StatusHolder" parent="." instance=ExtResource("3_g7paf")]
