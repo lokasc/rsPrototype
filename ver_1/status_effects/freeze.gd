@@ -20,6 +20,7 @@ func on_added() -> void:
 	dmg_taken = 0
 	if character.frozen == false:
 		duration_time = 0
+		character.hitbox.monitoring = false
 		initial_health = character.current_health
 		freeze()
 
@@ -34,6 +35,7 @@ func update(delta:float) -> void:
 
 func on_removed() -> void:
 	unfreeze()
+	character.hitbox.monitoring = true
 
 func freeze():
 	if "can_move" in character:
