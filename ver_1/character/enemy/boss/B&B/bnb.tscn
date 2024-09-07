@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://ns7nfwyvbnq8"]
+[gd_scene load_steps=13 format=3 uid="uid://ns7nfwyvbnq8"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/bnb.gd" id="1_rwux8"]
 [ext_resource type="PackedScene" uid="uid://celg8r4rn4dgm" path="res://ver_1/character/enemy/boss/B&B/bnb_slam.tscn" id="2_7nmc2"]
 [ext_resource type="PackedScene" uid="uid://cioljtydwmxxg" path="res://ver_1/character/enemy/boss/B&B/bnb_rain.tscn" id="3_cf4r5"]
 [ext_resource type="PackedScene" uid="uid://cj873jqq3y6ol" path="res://ver_1/character/enemy/boss/B&B/bnb_ring.tscn" id="4_lyvfk"]
+[ext_resource type="PackedScene" uid="uid://dx20go3g8f7e3" path="res://ver_1/character/enemy/boss/B&B/ring_projectile.tscn" id="4_yiwhg"]
 [ext_resource type="Texture2D" uid="uid://ddxghwpdca1is" path="res://piano.png" id="5_gjpe4"]
 [ext_resource type="Texture2D" uid="uid://m0w7duynn73" path="res://bee.png" id="6_fovx6"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="7_18tij"]
@@ -33,7 +34,7 @@ slam = NodePath("BnBSlam")
 rain = NodePath("BnBRain")
 ring = NodePath("BnBRing")
 main_state = NodePath("BnBSlam")
-max_health = 10000.0
+max_health = 300.0
 dmg = 100.0
 char_name = "Beethoven & Biano"
 
@@ -43,6 +44,14 @@ slam_range = 100.0
 
 [node name="BnBRain" parent="." instance=ExtResource("3_cf4r5")]
 is_tgt = true
+projectile_scene = ExtResource("4_yiwhg")
+height = 100.0
+num_per_attack = 10
+offset_from_center = 200.0
+range = 500.0
+frequency = 3.0
+speed = 50.0
+dmg = 10.0
 
 [node name="BnBRing" parent="." instance=ExtResource("4_lyvfk")]
 is_tgt = true

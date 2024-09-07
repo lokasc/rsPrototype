@@ -1,8 +1,14 @@
 extends Node2D
 
+@export var is_rain : bool = false
 @export var dmg : float # connct to boss...
 @export var spd : float # connct to boss...
+@export var height : float # Distance it needs to travel before disappearing.
 
+@export var circle_container : Node2D
+@onready var projectile_container = $ProjectileContainer
+
+var dist_travelled : float = 0
 var initial_boss_atk : float
 var boss_atk : float
 # we will try to reuse this piece of code for both pRojectiles.
@@ -11,10 +17,30 @@ func _enter_tree() -> void:
 	pass
 
 func _ready() -> void:
-	$ProjectileSprite.frame = randi_range(0,2)
+	if is_rain:
+		# Cant change the collision shape as its a resource. 
+		# Might need to expensively dupe and replace. 
+		projectile_container.get_child(0).frame = 3
+		circle_container.visible = true
+		circle_container.global_position.y += height
+		dist_travelled = 0
+	else:
+		projectile_container.get_child(0).frame = randi_range(0,2)
+		circle_container.visible = false
+	
 
 func _physics_process(delta: float) -> void:
-	global_position += transform.y * delta * spd
+	if is_rain:
+		projectile_container.global_position.y += delta * spd
+		dist_travelled += delta * spd
+		if dist_travelled >= height:
+			on_projectile_land()
+	else:
+		global_position += transform.y * delta * spd
+
+func on_projectile_land():
+	if multiplayer.is_server():
+		queue_free()
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	# typecasting

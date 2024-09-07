@@ -9,6 +9,7 @@ extends BossAbility
 
 @onready var spawn_path = get_parent().get_parent()
 
+@export_category("Attack settings")
 @export var num_per_attack : int
 @export var offset_from_center : float
 @export var frequency : float # How many attacks per second.
