@@ -2,18 +2,66 @@ class_name BnBRing
 extends BossAbility
 
 @export var is_tgt : bool = false
+@export var projectile_scene : PackedScene
 
-# This is changed by the main script.
+# Projectiles are networked by instantiating under the
+# nEtwork spwn path so that it dosnt mov dpndnt on th chaactr and is synchonizd.
 
+@onready var spawn_path = get_parent().get_parent()
 
+@export var num_per_attack : int
+@export var offset_from_center : float
+@export var frequency : float # How many attacks per second.
 
+@export_category("Projectile settings")
+@export var speed : float
+@export var dmg : float
 
 
 func enter() -> void:
 	super()
+	current_time = 1/frequency
 	
 func exit() -> void:
 	super() # starts cd here.
 
 func update(_delta: float) -> void:
 	super(_delta)
+	
+	current_time += _delta
+	if current_time >= 1/frequency:
+		spawn_pattern()
+		current_time = 0
+
+
+###
+# 1. Spawn pattern, ring like (hades, turn around)
+# 2. Choose like 5-6 random directions, and spawn them at the same time.
+
+
+
+func spawn_pattern() -> void:
+	if !multiplayer.is_server(): return
+	
+	var position : Vector2
+	var rand_rotation : float
+	var rotation_vec : Vector2
+	# decide location and spawn.
+	for x in num_per_attack:
+		# decide random direction vector.
+		rand_rotation = randf_range(0,360)
+		rotation_vec = Vector2.UP.rotated(rand_rotation)
+		position = global_position + offset_from_center * rotation_vec
+		spawn_projectile(position)
+
+func spawn_projectile(gpos : Vector2) -> void:
+	var copy = projectile_scene.instantiate() as Node2D
+	copy.dmg = dmg
+	copy.spd = speed
+	
+	spawn_path.add_child(copy, true)
+	
+	copy.global_position = gpos
+	copy.look_at(global_position)
+	copy.rotate(deg_to_rad(180-90))
+	# spawn in network node.

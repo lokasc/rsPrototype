@@ -45,6 +45,7 @@ is_tgt = true
 
 [node name="BnBRing" parent="." instance=ExtResource("4_lyvfk")]
 is_tgt = true
+speed = 100.0
 
 [node name="Sprites" type="Node2D" parent="."]
 

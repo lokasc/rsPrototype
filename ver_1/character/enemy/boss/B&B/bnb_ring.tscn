@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://cj873jqq3y6ol"]
+[gd_scene load_steps=3 format=3 uid="uid://cj873jqq3y6ol"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/bnb_ring.gd" id="1_lynet"]
+[ext_resource type="PackedScene" uid="uid://dx20go3g8f7e3" path="res://ver_1/character/enemy/boss/B&B/ring_projectile.tscn" id="2_lpcr8"]
 
 [node name="BnBRing" type="Node2D"]
 script = ExtResource("1_lynet")
+projectile_scene = ExtResource("2_lpcr8")
+num_per_attack = 5
+offset_from_center = 200.0
+frequency = 0.1
+speed = 40.0
+dmg = 10.0
+
+[node name="ProjectileContainer" type="Node" parent="."]

@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx20go3g8f7e3"]
+
+[ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/bnb_projectile.gd" id="1_3uehv"]
+[ext_resource type="Texture2D" uid="uid://b5hgx2w4bvoc6" path="res://PianoKeys.png" id="2_fyap6"]
+
+[node name="RingProjectile" type="Node2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_3uehv")
+dmg = 40.0
+spd = 20.0
+
+[node name="ProjectileSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_fyap6")
+hframes = 4
+
+[node name="Right" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 0, 0, 1)
+position = Vector2(12, 0)
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_fyap6")
+hframes = 4
+
+[node name="Up" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0, 1, 0, 1)
+position = Vector2(0, 8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_fyap6")
+hframes = 4
