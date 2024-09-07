@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dx20go3g8f7e3"]
+[gd_scene load_steps=7 format=3 uid="uid://dx20go3g8f7e3"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/bnb_projectile.gd" id="1_3uehv"]
 [ext_resource type="Texture2D" uid="uid://b5hgx2w4bvoc6" path="res://PianoKeys.png" id="2_fyap6"]
 [ext_resource type="Texture2D" uid="uid://v8a8trryuops" path="res://HitCircles.png" id="3_6v75k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h0ef6"]
+radius = 35.8232
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a66nx"]
 size = Vector2(20, 56.5)
@@ -41,15 +44,24 @@ spd = 20.0
 circle_container = NodePath("CircleContainer")
 
 [node name="CircleContainer" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.556863)
+scale = Vector2(0.656, 0.301)
 
 [node name="MainRedCircle" type="Sprite2D" parent="CircleContainer"]
 texture = ExtResource("3_6v75k")
 hframes = 3
 
 [node name="ExpandingCircle" type="Sprite2D" parent="CircleContainer"]
+modulate = Color(0.317279, 0.317279, 0.317279, 1)
 texture = ExtResource("3_6v75k")
 hframes = 3
-frame = 2
+
+[node name="HitBox" type="Area2D" parent="CircleContainer"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CircleContainer/HitBox"]
+shape = SubResource("CircleShape2D_h0ef6")
 
 [node name="ProjectileContainer" type="Node2D" parent="."]
 

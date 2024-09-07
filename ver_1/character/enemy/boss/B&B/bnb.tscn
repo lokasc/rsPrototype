@@ -50,8 +50,8 @@ num_per_attack = 10
 offset_from_center = 200.0
 range = 500.0
 frequency = 3.0
-speed = 50.0
-dmg = 10.0
+speed = 80.0
+dmg = 20.0
 
 [node name="BnBRing" parent="." instance=ExtResource("4_lyvfk")]
 is_tgt = true
