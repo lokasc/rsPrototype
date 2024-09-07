@@ -52,6 +52,9 @@ func _physics_process(delta: float) -> void:
 			on_projectile_land()
 	else:
 		global_position += transform.y * delta * spd
+		dist_travelled += delta * spd
+		if dist_travelled >= 1000:
+			queue_free()
 
 func on_projectile_land():
 	if !multiplayer.is_server(): return

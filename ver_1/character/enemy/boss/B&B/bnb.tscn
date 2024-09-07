@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://cioljtydwmxxg" path="res://ver_1/character/enemy/boss/B&B/bnb_rain.tscn" id="3_cf4r5"]
 [ext_resource type="PackedScene" uid="uid://cj873jqq3y6ol" path="res://ver_1/character/enemy/boss/B&B/bnb_ring.tscn" id="4_lyvfk"]
 [ext_resource type="PackedScene" uid="uid://dx20go3g8f7e3" path="res://ver_1/character/enemy/boss/B&B/ring_projectile.tscn" id="4_yiwhg"]
-[ext_resource type="Texture2D" uid="uid://ddxghwpdca1is" path="res://piano.png" id="5_gjpe4"]
-[ext_resource type="Texture2D" uid="uid://m0w7duynn73" path="res://bee.png" id="6_fovx6"]
+[ext_resource type="Texture2D" uid="uid://sawcsqocstmg" path="res://assets/bosses/Biano.png" id="6_guti8"]
+[ext_resource type="Texture2D" uid="uid://bigor0d77nlqh" path="res://assets/bosses/Beethoven.png" id="7_8pmhj"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="7_18tij"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8h38y"]
@@ -34,7 +34,7 @@ slam = NodePath("BnBSlam")
 rain = NodePath("BnBRain")
 ring = NodePath("BnBRing")
 main_state = NodePath("BnBSlam")
-max_health = 300.0
+max_health = 5000.0
 dmg = 100.0
 char_name = "Beethoven & Biano"
 
@@ -57,24 +57,24 @@ dmg = 20.0
 
 [node name="BnBRing" parent="." instance=ExtResource("4_lyvfk")]
 is_tgt = true
-offset_from_center = 250.0
+num_per_attack = 15
+offset_from_center = 10.0
 frequency = 2.0
 
 [node name="Sprites" type="Node2D" parent="."]
+scale = Vector2(3, 3)
 
 [node name="Biano" type="Sprite2D" parent="Sprites"]
-position = Vector2(-50, 0)
-texture = ExtResource("5_gjpe4")
+position = Vector2(-14.0833, 0)
+texture = ExtResource("6_guti8")
 
 [node name="Beethoven" type="Sprite2D" parent="Sprites"]
-position = Vector2(50, 0)
-texture = ExtResource("6_fovx6")
-region_enabled = true
-region_rect = Rect2(36, 0, 333, 382)
+position = Vector2(35.9167, 0)
+texture = ExtResource("7_8pmhj")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
-visible = false
 rotation = 1.5708
+scale = Vector2(0.700002, 1.25)
 shape = SubResource("CircleShape2D_8h38y")
 
 [node name="HurtBox" type="Area2D" parent="."]
@@ -88,7 +88,8 @@ shape = SubResource("CapsuleShape2D_1m36h")
 debug_color = Color(0.930156, 0.224969, 0.360381, 0.42)
 
 [node name="HitBox" type="Area2D" parent="."]
-visible = false
+position = Vector2(-25, 0)
+scale = Vector2(0.802794, 0.480531)
 collision_layer = 0
 collision_mask = 2
 

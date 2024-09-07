@@ -14,9 +14,17 @@ extends BossAbility
 @export var offset_from_center : float
 @export var frequency : float # How many attacks per second.
 
+@export_subgroup("Pattern Settings")
+@export var rest_time : float # How long u rest for after attacking.
+@export var atk_time : float # How long ur attacking for until you get into rest
+
+var current_atk_time : float = 0
+var current_rest_time : float = rest_time
+
 @export_category("Projectile settings")
 @export var speed : float
 @export var dmg : float
+
 
 
 func enter() -> void:
@@ -28,12 +36,22 @@ func exit() -> void:
 
 func update(_delta: float) -> void:
 	super(_delta)
-	
 	current_time += _delta
 	if current_time >= 1/frequency:
 		spawn_pattern()
 		current_time = 0
 
+func shooting_state(_delta) -> void:
+	# shooting state.
+	current_time += _delta
+	current_atk_time += _delta
+	
+	if current_time >= 1/frequency:
+		spawn_pattern()
+		current_time = 0
+
+func rest_state(_delta) -> void:
+	current_rest_time += _delta
 
 ###
 # 1. Spawn pattern, ring like (hades, turn around)

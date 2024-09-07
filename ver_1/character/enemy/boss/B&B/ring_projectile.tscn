@@ -8,7 +8,7 @@
 radius = 35.8232
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a66nx"]
-size = Vector2(20, 56.5)
+size = Vector2(20, 59.3214)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_l6blg"]
 properties/0/path = NodePath(".:dmg")
@@ -91,7 +91,8 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ProjectileContainer/HitBox"]
-position = Vector2(0, 1.25)
+position = Vector2(0, 0.262506)
+scale = Vector2(0.3, 0.7)
 shape = SubResource("RectangleShape2D_a66nx")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="ProjectileContainer"]
