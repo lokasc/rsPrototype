@@ -20,6 +20,7 @@ extends BaseBoss
 @export var rain : BossAbility
 @export var ring : BossAbility
 
+var initial_atk : float
 var phase : int = 1
 
 func _init() -> void:
@@ -31,6 +32,7 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	super()
+	initial_atk = char_stats.atk
 
 func _process(delta: float) -> void:
 	super(delta)

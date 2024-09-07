@@ -34,6 +34,7 @@ rain = NodePath("BnBRain")
 ring = NodePath("BnBRing")
 main_state = NodePath("BnBSlam")
 max_health = 10000.0
+dmg = 100.0
 char_name = "Beethoven & Biano"
 
 [node name="BnBSlam" parent="." instance=ExtResource("2_7nmc2")]
@@ -45,7 +46,8 @@ is_tgt = true
 
 [node name="BnBRing" parent="." instance=ExtResource("4_lyvfk")]
 is_tgt = true
-speed = 100.0
+offset_from_center = 250.0
+frequency = 2.0
 
 [node name="Sprites" type="Node2D" parent="."]
 

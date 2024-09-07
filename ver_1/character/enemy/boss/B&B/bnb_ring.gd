@@ -38,8 +38,6 @@ func update(_delta: float) -> void:
 # 1. Spawn pattern, ring like (hades, turn around)
 # 2. Choose like 5-6 random directions, and spawn them at the same time.
 
-
-
 func spawn_pattern() -> void:
 	if !multiplayer.is_server(): return
 	
@@ -55,13 +53,18 @@ func spawn_pattern() -> void:
 		spawn_projectile(position)
 
 func spawn_projectile(gpos : Vector2) -> void:
-	var copy = projectile_scene.instantiate() as Node2D
+	var copy = projectile_scene.instantiate()
+	
 	copy.dmg = dmg
 	copy.spd = speed
 	
-	spawn_path.add_child(copy, true)
+	copy.initial_boss_atk = boss.initial_atk
+	copy.boss_atk = boss.char_stats.atk
 	
 	copy.global_position = gpos
 	copy.look_at(global_position)
 	copy.rotate(deg_to_rad(180-90))
+	
+	spawn_path.add_child(copy, true)
 	# spawn in network node.
+	

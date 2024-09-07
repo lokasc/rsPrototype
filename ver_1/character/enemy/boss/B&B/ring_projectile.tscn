@@ -1,7 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://dx20go3g8f7e3"]
+[gd_scene load_steps=5 format=3 uid="uid://dx20go3g8f7e3"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/bnb_projectile.gd" id="1_3uehv"]
 [ext_resource type="Texture2D" uid="uid://b5hgx2w4bvoc6" path="res://PianoKeys.png" id="2_fyap6"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_l6blg"]
+properties/0/path = NodePath(".:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 0
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 0
+properties/2/path = NodePath(".:dmg")
+properties/2/spawn = true
+properties/2/replication_mode = 0
+properties/3/path = NodePath(".:spd")
+properties/3/spawn = true
+properties/3/replication_mode = 0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a66nx"]
+size = Vector2(20, 56.5)
 
 [node name="RingProjectile" type="Node2D"]
 scale = Vector2(2, 2)
@@ -9,11 +26,14 @@ script = ExtResource("1_3uehv")
 dmg = 40.0
 spd = 20.0
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_l6blg")
+
 [node name="ProjectileSprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_fyap6")
 hframes = 4
 
-[node name="Right" type="Sprite2D" parent="."]
+[node name="Right" type="Sprite2D" parent="ProjectileSprite"]
 visible = false
 modulate = Color(1, 0, 0, 1)
 position = Vector2(12, 0)
@@ -22,10 +42,20 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_fyap6")
 hframes = 4
 
-[node name="Up" type="Sprite2D" parent="."]
+[node name="Up" type="Sprite2D" parent="ProjectileSprite"]
 visible = false
 modulate = Color(0, 1, 0, 1)
 position = Vector2(0, 8)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_fyap6")
 hframes = 4
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 1.25)
+shape = SubResource("RectangleShape2D_a66nx")
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]

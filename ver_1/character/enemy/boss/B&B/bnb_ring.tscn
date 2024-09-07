@@ -9,7 +9,7 @@ projectile_scene = ExtResource("2_lpcr8")
 num_per_attack = 5
 offset_from_center = 200.0
 frequency = 0.1
-speed = 40.0
+speed = 100.0
 dmg = 10.0
 
 [node name="ProjectileContainer" type="Node" parent="."]
