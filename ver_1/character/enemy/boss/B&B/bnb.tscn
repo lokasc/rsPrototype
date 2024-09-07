@@ -49,7 +49,9 @@ height = 100.0
 num_per_attack = 10
 offset_from_center = 200.0
 range = 500.0
-frequency = 3.0
+frequency = 2.0
+num_per_player = 2
+range_from_player = 150.0
 speed = 80.0
 dmg = 20.0
 

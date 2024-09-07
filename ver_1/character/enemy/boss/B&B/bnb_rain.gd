@@ -17,6 +17,11 @@ extends BossAbility
 @export var range : float
 @export var frequency : float # How many attacks per second.
 
+@export_subgroup("Attacking player")
+@export var num_per_player : int
+@export var range_from_player : float
+
+
 @export_category("Projectile settings")
 @export var speed : float
 @export var dmg : float
@@ -34,6 +39,7 @@ func update(_delta: float) -> void:
 	current_time += _delta
 	if current_time >= 1/frequency:
 		spawn_pattern()
+		spawn_near_players()
 		current_time = 0
 
 
@@ -59,6 +65,26 @@ func spawn_pattern() -> void:
 		position = global_position + ((offset_from_center + rand_position) * rotation_vec)
 		position.y -= height
 		spawn_projectile(position)
+
+func spawn_near_players() -> void:
+	if !multiplayer.is_server(): return
+	
+	var position : Vector2
+	var rand_rotation : float
+	var rand_position : Vector2
+	var rotation_vec : Vector2
+	
+	for player in GameManager.Instance.players:
+		for x in num_per_player:
+			# Add a random position point within range.
+			rand_position.x = randi_range(-range_from_player, range_from_player)
+			rand_position.y = randi_range(-range_from_player, range_from_player)
+			
+			position = player.global_position + rand_position
+			position.y -= height
+			spawn_projectile(position)
+	
+	
 
 func spawn_projectile(gpos : Vector2) -> void:
 	var copy = projectile_scene.instantiate()
