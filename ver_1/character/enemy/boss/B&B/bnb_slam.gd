@@ -17,7 +17,7 @@ func _ready() -> void:
 func enter() -> void:
 	super()
 	slam_area.monitoring = true
-	slam_area.get_child(0).debug_color = Color("f64a92")
+	slam_area.get_child(0).debug_color = Color("ff8bffcf")
 
 func update(delta) -> void:
 	s_current_time += delta
@@ -49,7 +49,5 @@ func _on_slam_area_hit(area: Area2D) -> void:
 		character = area.get_parent()
 		
 	if !character: return 	# do not execute on non-characters or nulls
-	
-
 	
 	character.add_status("Knockback", [600, global_position, 12])

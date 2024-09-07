@@ -60,6 +60,8 @@ is_tgt = true
 num_per_attack = 15
 offset_from_center = 10.0
 frequency = 2.0
+rest_time = 1.0
+atk_time = 2.0
 
 [node name="Sprites" type="Node2D" parent="."]
 scale = Vector2(3, 3)
