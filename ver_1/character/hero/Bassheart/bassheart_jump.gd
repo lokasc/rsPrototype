@@ -59,7 +59,7 @@ func _init() -> void:
 
 func _enter_tree() -> void:
 	action_icon_path = "res://assets/icons/bassheart_jump_icon.png"
-
+	desc = "Jump towards a location and create an area where all allies instantly gain shields when landing."
 
 func _ready() -> void:
 	# connect signal

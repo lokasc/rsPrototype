@@ -4,7 +4,7 @@ extends Node2D
 var hero : BaseHero
 
 @export var action_name : String = "" #ACTION NAME 
-@export var desc : String
+@export var desc : String # DESCRIPTION OF ABILITY
 @export var level : int
 
 @export var is_ascended : bool = false

@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://di3afbvqsygw0"]
+[gd_scene load_steps=7 format=3 uid="uid://di3afbvqsygw0"]
 
 [ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="1_kc8fy"]
 [ext_resource type="Texture2D" uid="uid://cabvgx33180x0" path="res://assets/UI/healthbar.png" id="2_ncq7x"]
 [ext_resource type="Texture2D" uid="uid://t47qf2h3bwpv" path="res://assets/UI/LevelBar.png" id="3_0hlrc"]
 [ext_resource type="PackedScene" uid="uid://1qhg1e7k11m1" path="res://ver_1/game/UI/bottom_ui/ability_box_ui.tscn" id="4_ourxg"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_w6xs3"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_oso7w"]
 
 [node name="PlayerUi" type="CanvasLayer"]
 
@@ -53,13 +57,15 @@ custom_minimum_size = Vector2(128, 64)
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="Ability1" parent="PlayerContainer/ActionContainers" instance=ExtResource("4_ourxg")]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-
 [node name="Ability2" parent="PlayerContainer/ActionContainers" instance=ExtResource("4_ourxg")]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_w6xs3")
+
+[node name="Ability1" parent="PlayerContainer/ActionContainers" instance=ExtResource("4_ourxg")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_oso7w")
 
 [node name="Spacer" type="Control" parent="PlayerContainer/ActionContainers"]
 custom_minimum_size = Vector2(128, 64)

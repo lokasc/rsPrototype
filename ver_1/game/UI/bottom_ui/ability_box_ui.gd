@@ -5,7 +5,8 @@ var ability : BaseAbility
 var current_cd : float = 0
 var is_on_cd : bool
 
-
+@onready var description_container : Control = $DescriptionContainer
+@onready var description_label : Label = $DescriptionContainer/DescriptionLabel
 @onready var timer_label : Label = $RemainingTimeLabel
 
 # Called by UI MANAGER
@@ -17,6 +18,7 @@ func set_up(_ability : BaseAbility):
 
 func _ready() -> void:
 	# Rest everything first.
+	description_container.visible = false
 	on_cooldown_finish()
 
 func _process(delta: float) -> void:
@@ -43,10 +45,12 @@ func on_ability_used():
 	timer_label.visible = true
 
 #region Ability Info Hover
+# when mouse enters the ability icon
 func _on_mouse_entered() -> void:
-	pass # Replace with function body.
+	description_label.text = ability.desc
+	description_container.visible = true
 
+# when mouse exits the ability icon
 func _on_mouse_exited() -> void:
-	pass
+	description_container.visible = false
 #endregion
-	pass # Replace with function body.
