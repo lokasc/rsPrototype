@@ -16,6 +16,7 @@ var boss : BaseBoss
 func set_up(_boss : BaseBoss):
 	boss = _boss
 	_boss.hit.connect(on_hit)
+	_boss.die.connect(on_boss_die)
 	max_value = boss.max_health
 	value = 0
 	is_animating = true
@@ -25,7 +26,7 @@ func set_up(_boss : BaseBoss):
 func _process(delta: float) -> void:
 	if is_animating:
 		animation_logic(delta)
-	
+		
 	if !multiplayer.is_server() && boss: value = boss.current_health
 
 func animation_logic(delta):
@@ -37,3 +38,6 @@ func animation_logic(delta):
 func on_hit(dmg):
 	is_animating = false
 	value = boss.current_health
+
+func on_boss_die():
+	queue_free()

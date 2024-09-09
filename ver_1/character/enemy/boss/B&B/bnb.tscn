@@ -37,7 +37,7 @@ slam = NodePath("BnBSlam")
 rain = NodePath("BnBRain")
 ring = NodePath("BnBRing")
 main_state = NodePath("BnBSlam")
-max_health = 5000.0
+max_health = 100.0
 dmg = 100.0
 char_name = "Beethoven & Biano"
 

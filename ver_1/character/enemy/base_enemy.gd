@@ -2,6 +2,7 @@ class_name BaseEnemy
 extends BaseCharacter
 
 signal hit(dmg) # hit by enemy
+signal die # enemy dies here.
 
 # For inspector view only, cant modify class stats in inspector. 
 @export_category("Basic information")
@@ -76,6 +77,7 @@ func _process(delta: float) -> void:
 
 @rpc("unreliable_ordered", "call_local")
 func death() -> void:
+	die.emit()
 	for i in range(xp_worth):
 		var new_xp = xp_orb.instantiate()
 		loot.call_deferred("add_child", new_xp)

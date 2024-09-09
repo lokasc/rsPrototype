@@ -14,6 +14,7 @@ func _ready() -> void:
 	super()
 	_init_states()
 
+
 func _process(_delta: float) -> void:
 	super(_delta)
 	if current_state:
