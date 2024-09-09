@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cj873jqq3y6ol" path="res://ver_1/character/enemy/boss/B&B/bnb_ring.tscn" id="4_lyvfk"]
 [ext_resource type="PackedScene" uid="uid://dx20go3g8f7e3" path="res://ver_1/character/enemy/boss/B&B/ring_projectile.tscn" id="4_yiwhg"]
 [ext_resource type="Texture2D" uid="uid://sawcsqocstmg" path="res://assets/bosses/Biano.png" id="6_guti8"]
-[ext_resource type="Texture2D" uid="uid://bigor0d77nlqh" path="res://assets/bosses/Beethoven.png" id="7_8pmhj"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="7_18tij"]
+[ext_resource type="Texture2D" uid="uid://cl8mxxadfv78b" path="res://assets/bosses/Beethoven2.png" id="7_jl8nu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8h38y"]
 radius = 140.357
@@ -75,7 +75,7 @@ texture = ExtResource("6_guti8")
 
 [node name="Beethoven" type="Sprite2D" parent="Sprites"]
 position = Vector2(35.9167, 0)
-texture = ExtResource("7_8pmhj")
+texture = ExtResource("7_jl8nu")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
 rotation = 1.5708
