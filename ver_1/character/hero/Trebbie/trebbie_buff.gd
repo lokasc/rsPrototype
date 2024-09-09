@@ -45,7 +45,7 @@ func _init() -> void:
 # WARNING: Child nodes have not entered the tree yet. 
 func _enter_tree() -> void:
 	a_stats.dur = active_duration
-	pass
+	action_icon_path = "res://assets/icons/trebbie_buff_icon.png"
 
 func _ready() -> void:
 	hitbox.area_entered.connect(on_hit)
@@ -59,6 +59,7 @@ func _ready() -> void:
 	hitbox_shape.shape.radius = a_stats.aoe
 
 func enter() -> void:
+	super()
 	hitbox.visible = true
 	hitbox.monitoring = true
 	buff_particles.emitting = true
@@ -69,7 +70,6 @@ func enter() -> void:
 	set_ability_to_hero_stats()
 	if is_synced:
 		hitbox_shape.shape.radius *= beat_sync_multiplier
-	super()
 
 func exit() -> void:
 	super() # starts cd here.

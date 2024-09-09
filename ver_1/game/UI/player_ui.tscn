@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://di3afbvqsygw0"]
+[gd_scene load_steps=5 format=3 uid="uid://di3afbvqsygw0"]
 
 [ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="1_kc8fy"]
 [ext_resource type="Texture2D" uid="uid://cabvgx33180x0" path="res://assets/UI/healthbar.png" id="2_ncq7x"]
 [ext_resource type="Texture2D" uid="uid://t47qf2h3bwpv" path="res://assets/UI/LevelBar.png" id="3_0hlrc"]
+[ext_resource type="PackedScene" uid="uid://1qhg1e7k11m1" path="res://ver_1/game/UI/bottom_ui/ability_box_ui.tscn" id="4_ourxg"]
 
 [node name="PlayerUi" type="CanvasLayer"]
 
@@ -41,6 +42,29 @@ size_flags_horizontal = 4
 theme = ExtResource("1_kc8fy")
 theme_override_font_sizes/font_size = 50
 text = "Waiting for players"
+
+[node name="ActionContainers" type="HBoxContainer" parent="PlayerContainer"]
+layout_direction = 2
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="Spacer2" type="Control" parent="PlayerContainer/ActionContainers"]
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Ability1" parent="PlayerContainer/ActionContainers" instance=ExtResource("4_ourxg")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Ability2" parent="PlayerContainer/ActionContainers" instance=ExtResource("4_ourxg")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="PlayerContainer/ActionContainers"]
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+size_flags_horizontal = 10
 
 [node name="BottomContainer" type="HBoxContainer" parent="PlayerContainer"]
 layout_direction = 2

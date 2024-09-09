@@ -51,7 +51,7 @@ func _init() -> void:
 # Initalize export variables, called before @onready or _ready()
 # WARNING: Child nodes have not entered the tree yet. 
 func _enter_tree() -> void:
-	pass
+	action_icon_path = "res://assets/icons/bassheart_freeze_icon.png"
 
 func _ready() -> void:
 	hitbox.area_entered.connect(on_hit)

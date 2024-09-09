@@ -25,7 +25,7 @@ func _init():
 	pass
 
 func _enter_tree():
-	pass
+	action_icon_path = "res://assets/icons/trebbie_dash_icon.png"
 
 func _ready() -> void:
 	# connect signal
@@ -52,6 +52,7 @@ func enter():
 	
 	if is_synced:
 		a_stats.cd *= cd_reducion / hero.char_stats.mus
+	
 	look_at(hero.input.get_mouse_position())
 	direction = original_pos.direction_to(hero.input.get_mouse_position())
 	hero.IS_INVINCIBLE = true

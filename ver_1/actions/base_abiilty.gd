@@ -3,6 +3,7 @@ extends BaseAction
 
 signal state_change
 signal cooldown_finish
+signal ability_used
 
 enum Timing {NULL, EARLY, ON_BEAT, LATE}
 
@@ -16,6 +17,7 @@ var initial_effect_scale := Vector2.ONE
 func enter() -> void:
 	if hero == null: return
 	hero.ability_used.emit(self)
+	ability_used.emit()
 
 func exit() -> void:
 	if !is_on_cd:

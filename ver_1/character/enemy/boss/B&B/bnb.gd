@@ -35,6 +35,9 @@ func _ready() -> void:
 	initial_atk = char_stats.atk
 
 func _process(delta: float) -> void:
+	if frozen:
+		return
+	
 	super(delta)
 	
 	if phase == 3 && current_health >= 0:

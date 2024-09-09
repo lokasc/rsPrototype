@@ -97,9 +97,13 @@ func _ready():
 	pop_up = $TextPopUp as TextPopUp
 	camera = $PlayerCamera as PlayerCamera
 	item_holder = $ItemHolder as Node
-	# Set this camera to viewport if I'm controlling it
+	
 	if is_multiplayer_authority():
+		# Set this camera to viewport if I'm controlling it
 		camera.make_current()
+		
+		# Set UI
+		GameManager.Instance.ui.set_ability_ui()
 
 func _process(_delta:float) -> void:
 	if current_state:

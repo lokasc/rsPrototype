@@ -58,7 +58,8 @@ func _init() -> void:
 	pass
 
 func _enter_tree() -> void:
-	pass
+	action_icon_path = "res://assets/icons/bassheart_jump_icon.png"
+
 
 func _ready() -> void:
 	# connect signal

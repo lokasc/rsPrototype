@@ -7,7 +7,6 @@ extends Control
 @export var char_select_layer : CanvasLayer
 @export var player_ui_layer : CanvasLayer
 
-
 @onready var health_bar : TextureProgressBar = player_container.find_child("HealthBar")
 @onready var shield_bar : TextureProgressBar = player_container.find_child("ShieldBar")
 @onready var level_label : Label = health_bar.get_child(0)
@@ -15,6 +14,10 @@ extends Control
 @onready var card_scn : PackedScene = load("res://ver_1/game/UI/selection_card.tscn")
 @onready var waiting_label : Label = player_container.find_child("Waiting")
 @onready var time_label : Label = player_container.find_child("TimeLabel")
+
+# Abilities, Stats & Items
+@onready var ability1 : AbilityBoxUI = $PlayerUi/PlayerContainer/ActionContainers/Ability1
+@onready var ability2 : AbilityBoxUI = $PlayerUi/PlayerContainer/ActionContainers/Ability2
 
 var action_selected : bool
 
@@ -99,3 +102,8 @@ func on_client_selection(_card_info):
 func on_ready_to_continue():
 	waiting_label.text = " "
 	pass
+
+func set_ability_ui():
+	ability1.set_up(GameManager.Instance.local_player.ability_1)
+	ability2.set_up(GameManager.Instance.local_player.ability_2)
+	
