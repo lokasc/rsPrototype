@@ -12,6 +12,26 @@
 
 [node name="PlayerUi" type="CanvasLayer"]
 
+[node name="AudioVisualizer" parent="." instance=ExtResource("5_4g6wq")]
+offset_left = 163.0
+offset_top = 717.0
+offset_right = 163.0
+offset_bottom = 717.0
+scale = Vector2(0.5, 1)
+tween_speed = 0.08
+height = 50
+max_freq = 7000.0
+
+[node name="AudioVisualizer2" parent="." instance=ExtResource("5_4g6wq")]
+offset_left = 1117.0
+offset_top = 718.0
+offset_right = 1117.0
+offset_bottom = 718.0
+scale = Vector2(-0.5, 1)
+tween_speed = 0.08
+height = 50
+max_freq = 7000.0
+
 [node name="HealthBar" type="TextureProgressBar" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
@@ -166,23 +186,3 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 50
 text = "0
 "
-
-[node name="AudioVisualizer" parent="." instance=ExtResource("5_4g6wq")]
-offset_left = 163.0
-offset_top = 717.0
-offset_right = 163.0
-offset_bottom = 717.0
-scale = Vector2(0.5, 1)
-tween_speed = 0.08
-height = 50
-max_freq = 7000.0
-
-[node name="AudioVisualizer2" parent="." instance=ExtResource("5_4g6wq")]
-offset_left = 1117.0
-offset_top = 718.0
-offset_right = 1117.0
-offset_bottom = 718.0
-scale = Vector2(-0.5, 1)
-tween_speed = 0.08
-height = 50
-max_freq = 7000.0

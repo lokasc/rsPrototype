@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://b5neg2qagtby4" path="res://ver_1/list_items.tres" id="2_5eu4a"]
 [ext_resource type="PackedScene" uid="uid://o5mopq7q46cq" path="res://ver_1/game/net/net_manager.tscn" id="2_188hs"]
 [ext_resource type="PackedScene" uid="uid://h4w7naqbhls5" path="res://assets/map/enemy_spawner.tscn" id="3_l8iil"]
-[ext_resource type="Resource" uid="uid://c2uk57jlhco74" path="res://ver_1/game/spawn_system/predev_enemies.tres" id="4_7rbme"]
+[ext_resource type="Resource" uid="uid://j12uoklpvfdj" path="res://ver_1/game/spawn_system/1min30boss_at_lvl2.tres" id="4_f3dem"]
 [ext_resource type="PackedScene" uid="uid://cn3n52t8ej5n4" path="res://ver_1/game/UI/UI.tscn" id="4_u70ly"]
 [ext_resource type="PackedScene" uid="uid://bspypir426weo" path="res://ver_1/game/level/map.tscn" id="5_68xy0"]
 [ext_resource type="PackedScene" uid="uid://cign40xw4w43g" path="res://ver_1/game/level/dummy_level.tscn" id="6_cbvl2"]
@@ -14,18 +14,14 @@
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_btbqh")
-dont_spawn_enemies = true
-no_music = true
-spawn_dummy = true
 action_list = ExtResource("2_5eu4a")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_l8iil")]
-spawns = ExtResource("4_7rbme")
+spawns = ExtResource("4_f3dem")
 
 [node name="Loot" type="Node2D" parent="." groups=["loot"]]
 
 [node name="Map" parent="." instance=ExtResource("5_68xy0")]
-visible = false
 z_index = -5
 
 [node name="DummyLevel" parent="." instance=ExtResource("6_cbvl2")]
