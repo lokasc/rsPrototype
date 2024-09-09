@@ -9,6 +9,7 @@ var time : int = 0
 
 func _enter_tree() -> void:
 	GameManager.Instance.spawner = self
+	GameManager.Instance.end_game.connect(on_end_game)
 
 func _ready() -> void:
 	# add all enemies in spawner to spawn list.
@@ -36,6 +37,11 @@ func _on_timer_timeout():
 
 func instantiate_enemy(new_enemy)-> void:
 	var copy : BaseEnemy = new_enemy.instantiate() as BaseEnemy
+	if copy is BaseBoss:
+		
+		# Boss spawn location
+		spawn_boss(copy, Vector2(0,0))
+		return
 	copy.global_position = get_random_position()
 	spawn_path.add_child(copy, true)
 
@@ -80,5 +86,29 @@ func get_random_position():
 func custom_spawn(file_name, location):
 	var new_enemy = load(file_name)
 	var copy : BaseEnemy = new_enemy.instantiate() as BaseEnemy
+	
+	if copy is BaseBoss:
+		spawn_boss(copy, location)
+		return
+
 	copy.global_position = location
 	spawn_path.add_child(copy, true)
+
+func spawn_boss(_boss : BaseBoss, location : Vector2):
+	_boss.global_position = location
+	spawn_path.add_child(_boss, true)
+	GameManager.Instance.ui.stc_set_boss_ui.rpc(_boss.char_id)
+
+
+# TODO: Random, Unique ID not implemented.
+# can be called on client-sides
+func get_enemy_from_id(id : int) -> BaseEnemy:
+	for x in spawn_path.get_children():
+		if x is not BaseEnemy: return
+		if !x.char_id: return
+		if x.char_id == id:
+			return x 
+	return null
+
+func on_end_game():
+	$Timer.stop()
