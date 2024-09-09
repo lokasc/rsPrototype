@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://1qhg1e7k11m1"]
+
+[ext_resource type="Texture2D" uid="uid://bwvh74v7ecdf1" path="res://assets/icons/trebbie_dash_icon.png" id="1_0xqsl"]
+[ext_resource type="Script" path="res://ver_1/game/UI/bottom_ui/ability_box_ui.gd" id="2_s46ra"]
+[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="3_h8up4"]
+
+[node name="AbilityBoxUi" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -768.0
+offset_bottom = -208.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_0xqsl")
+expand_mode = 2
+script = ExtResource("2_s46ra")
+
+[node name="RemainingTimeLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="DescriptionContainer" type="Control" parent="."]
+anchors_preset = 0
+offset_top = -77.0
+offset_right = 40.0
+offset_bottom = -37.0
+
+[node name="DescriptionLabel" type="Label" parent="DescriptionContainer"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 16.0
+offset_right = 139.0
+offset_bottom = 39.0
+theme = ExtResource("3_h8up4")
+text = "No description set"
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

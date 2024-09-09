@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://chohpk33re3v5"]
+
+[ext_resource type="Texture2D" uid="uid://t47qf2h3bwpv" path="res://assets/UI/LevelBar.png" id="1_qd6ae"]
+[ext_resource type="Script" path="res://ver_1/game/UI/boss_ui/boss_health_bar_ui.gd" id="2_nvbkd"]
+[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="3_mlscp"]
+
+[node name="BossHealthBarUI" type="TextureProgressBar"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -320.0
+offset_bottom = -592.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+step = 0.1
+value = 100.0
+rounded = true
+texture_under = ExtResource("1_qd6ae")
+texture_progress = ExtResource("1_qd6ae")
+tint_under = Color(0.24695, 0.24695, 0.24695, 1)
+tint_progress = Color(1, 0, 0, 1)
+script = ExtResource("2_nvbkd")
+time_to_full = 0.5
+
+[node name="BossName" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 14.0
+offset_right = 942.0
+offset_bottom = 40.0
+theme = ExtResource("3_mlscp")
+bbcode_enabled = true
+fit_content = true

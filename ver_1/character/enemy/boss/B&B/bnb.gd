@@ -29,6 +29,7 @@ func _init() -> void:
 	
 func _enter_tree() -> void:
 	super()
+	char_id = 20
 
 func _ready() -> void:
 	super()

@@ -15,6 +15,8 @@ extends Control
 @onready var waiting_label : Label = player_container.find_child("Waiting")
 @onready var time_label : Label = player_container.find_child("TimeLabel")
 
+# Boss UI
+@onready var boss_health_bar : BossHealthBarUI = $PlayerUi/PlayerContainer/BossHealthBarUI
 # Abilities, Stats & Items
 @onready var ability1 : AbilityBoxUI = $PlayerUi/PlayerContainer/ActionContainers/Ability1
 @onready var ability2 : AbilityBoxUI = $PlayerUi/PlayerContainer/ActionContainers/Ability2
@@ -31,6 +33,7 @@ func _ready() -> void:
 	hide_character_select()
 	hide_player_ui()
 	update_max_xp(GameManager.Instance.max_xp)
+	boss_health_bar.visible = false
 
 func update_xp(xp : int):
 	level_bar.value = xp
@@ -106,4 +109,13 @@ func on_ready_to_continue():
 func set_ability_ui():
 	ability1.set_up(GameManager.Instance.local_player.ability_1)
 	ability2.set_up(GameManager.Instance.local_player.ability_2)
-	
+
+func set_boss_ui(_boss : BaseBoss):
+	boss_health_bar.set_up(_boss)
+	boss_health_bar.visible = true
+
+@rpc("call_local", "reliable", "authority")
+func stc_set_boss_ui(id : int):
+	# get boss from id.
+	var _boss = GameManager.Instance.spawner.get_enemy_from_id(id)
+	set_boss_ui(_boss)

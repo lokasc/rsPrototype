@@ -32,6 +32,7 @@ func _process(delta: float) -> void:
 		else:
 			timer_label.text = "%.1f" % current_cd
 
+#region CD display
 # functions below are connected to abilities via signals
 func on_cooldown_finish():
 	is_on_cd = false
@@ -43,6 +44,7 @@ func on_ability_used():
 	current_cd = ability.a_stats.cd - ability.current_time
 	self_modulate.a = 0.1
 	timer_label.visible = true
+#endregion CD display
 
 #region Ability Info Hover
 # when mouse enters the ability icon

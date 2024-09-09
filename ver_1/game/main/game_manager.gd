@@ -103,7 +103,7 @@ func start_game():
 	if spawn_dummy:
 		# for testing.
 		spawner.custom_spawn("res://ver_1/character/enemy/Dummy/dummy.tscn", Vector2(651,335))
-		spawner.custom_spawn("res://ver_1/character/enemy/MajorBug/major_bug.tscn", Vector2(651,335))
+		#spawner.custom_spawn("res://ver_1/character/enemy/MajorBug/major_bug.tscn", Vector2(651,335))
 		#spawner.custom_spawn("res://ver_1/character/enemy/MinorBug/minor_bug.tscn", Vector2(651,235))
 		#spawner.custom_spawn("res://ver_1/character/enemy/OneShot/one_shot.tscn", Vector2(651,135))
 	if spawn_boss:

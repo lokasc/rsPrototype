@@ -66,6 +66,8 @@ func take_damage(p_dmg:float) -> void:
 	GameManager.Instance.vfx.spawn_pop_up(p_dmg, global_position)
 
 func _process(delta: float) -> void:
+	#print(str(multiplayer.is_server()) + " : " + str(current_health))
+	
 	current_update_time += delta
 	
 	if current_update_time >= update_frequency:

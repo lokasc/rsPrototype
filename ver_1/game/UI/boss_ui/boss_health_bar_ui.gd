@@ -1,0 +1,39 @@
+class_name BossHealthBarUI
+extends TextureProgressBar
+
+
+
+## How long for bar value to reach to max (At the start)
+@export var time_to_full : float
+
+@onready var boss_name_label : RichTextLabel = $BossName
+
+var current_time : float = 0
+var is_animating : bool
+
+var boss : BaseBoss
+
+func set_up(_boss : BaseBoss):
+	boss = _boss
+	_boss.hit.connect(on_hit)
+	max_value = boss.max_health
+	value = 0
+	is_animating = true
+	current_time = 0
+	boss_name_label.text = "[b]" + "[center]"+ boss.char_name + "[/center]" +"[/b]"
+
+func _process(delta: float) -> void:
+	if is_animating:
+		animation_logic(delta)
+	
+	if !multiplayer.is_server() && boss: value = boss.current_health
+
+func animation_logic(delta):
+	current_time += delta
+	value = current_time/time_to_full * max_value
+	if current_time >= time_to_full:
+		is_animating = false
+
+func on_hit(dmg):
+	is_animating = false
+	value = boss.current_health
