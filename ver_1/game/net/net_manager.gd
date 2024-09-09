@@ -19,8 +19,12 @@ var peer : ENetMultiplayerPeer
 @export var friend_label : Label
 @export var net_ui : Control
 @export var player_scene : PackedScene
+
+var label_duration : int = 10
+
 @onready var spawnable_path : Node2D = $Spawnables
 @onready var player_container : Node = $Players
+@onready var label_timer : Timer = $LabelTimer
 
 var trebbie_scene : PackedScene = preload("res://ver_1/character/hero/Trebbie/trebbie.tscn")
 var bass_scene : PackedScene = preload("res://ver_1/character/hero/Bassheart/bassheart.tscn")
@@ -118,8 +122,12 @@ func get_player_count():
 
 func hide_ui():
 	net_ui.visible = false
+	label_timer.start(label_duration)
 func show_ui():
 	net_ui.visible = true
+	auth_label.show()
+	id_label.show()
+	friend_label.show()
 #endregion
 
 
@@ -135,3 +143,9 @@ func _on_client_connect():
 
 func _on_client_disconnect():
 	pass
+
+
+func _on_label_timer_timeout() -> void:
+	auth_label.hide()
+	id_label.hide()
+	friend_label.hide()

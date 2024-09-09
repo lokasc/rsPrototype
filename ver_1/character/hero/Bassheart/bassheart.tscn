@@ -1,11 +1,10 @@
-[gd_scene load_steps=78 format=3 uid="uid://ck0rs6xq3084g"]
+[gd_scene load_steps=77 format=3 uid="uid://ck0rs6xq3084g"]
 
 [ext_resource type="Script" path="res://ver_1/game/net/player_input.gd" id="1_kj3tt"]
 [ext_resource type="Script" path="res://ver_1/character/hero/Bassheart/bassheart.gd" id="1_m8vi0"]
 [ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/text_pop_up.tscn" id="3_7eocm"]
 [ext_resource type="PackedScene" uid="uid://bwo8lp8xokw8t" path="res://ver_1/character/hero/Bassheart/bassheart_attack.tscn" id="3_yap6b"]
 [ext_resource type="PackedScene" uid="uid://dqbf2f5u4tq66" path="res://ver_1/character/hero/Bassheart/bassheart_freeze.tscn" id="4_dw3mb"]
-[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="4_r0l7y"]
 [ext_resource type="PackedScene" uid="uid://d0b8cqs24tfpe" path="res://ver_1/game/camera/player_camera.tscn" id="5_4lu4u"]
 [ext_resource type="PackedScene" uid="uid://68ap44gt6hrw" path="res://ver_1/character/hero/Bassheart/bassheart_jump.tscn" id="5_6f1kf"]
 [ext_resource type="Texture2D" uid="uid://bvgbjs232onsj" path="res://assets/heroes/bassheart/BassheartTorso.png" id="6_t655f"]
@@ -732,7 +731,6 @@ texture = ExtResource("8_eak1o")
 offset = Vector2(8, -8)
 
 [node name="TextPopUp" parent="." instance=ExtResource("3_7eocm")]
-theme = ExtResource("4_r0l7y")
 
 [node name="PickUpRadius" type="Area2D" parent="." groups=["pick_up"]]
 collision_layer = 8
@@ -761,12 +759,5 @@ libraries = {
 [node name="StatusHolder" parent="." instance=ExtResource("9_1s0eh")]
 
 [node name="ItemHolder" parent="." instance=ExtResource("10_2w6wo")]
-
-[node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = -67.0
-offset_top = -44.0
-offset_right = 68.0
-offset_bottom = -17.0
-show_percentage = false
 
 [connection signal="animation_finished" from="AnimationPlayer" to="BassheartAttack" method="_on_animation_player_animation_finished"]

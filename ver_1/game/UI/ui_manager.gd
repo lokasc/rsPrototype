@@ -7,19 +7,20 @@ extends Control
 @export var char_select_layer : CanvasLayer
 @export var player_ui_layer : CanvasLayer
 
-@onready var health_bar : TextureProgressBar = player_container.find_child("HealthBar")
-@onready var shield_bar : TextureProgressBar = player_container.find_child("ShieldBar")
-@onready var level_label : Label = health_bar.get_child(0)
+@onready var health_bar : TextureProgressBar = player_ui_layer.find_child("HealthBar")
+@onready var shield_bar : TextureProgressBar = player_ui_layer.find_child("ShieldBar")
+@onready var meter_bar : TextureProgressBar = player_ui_layer.find_child("MeterBar")
+@onready var level_label : Label = player_container.find_child("Level")
 @onready var level_bar : TextureProgressBar = player_container.find_child("LevelBar")
 @onready var card_scn : PackedScene = load("res://ver_1/game/UI/selection_card.tscn")
 @onready var waiting_label : Label = player_container.find_child("Waiting")
 @onready var time_label : Label = player_container.find_child("TimeLabel")
 
 # Boss UI
-@onready var boss_health_bar : BossHealthBarUI = $PlayerUi/PlayerContainer/BossHealthBarUI
+@onready var boss_health_bar : BossHealthBarUI = player_container.find_child("BossHealthBarUI")
 # Abilities, Stats & Items
-@onready var ability1 : AbilityBoxUI = $PlayerUi/PlayerContainer/ActionContainers/Ability1
-@onready var ability2 : AbilityBoxUI = $PlayerUi/PlayerContainer/ActionContainers/Ability2
+@onready var ability1 : AbilityBoxUI = player_container.find_child("Ability1")
+@onready var ability2 : AbilityBoxUI = player_container.find_child("Ability2")
 
 var action_selected : bool
 
@@ -53,6 +54,12 @@ func _process(_delta: float) -> void:
 		shield_bar.value = my_player.current_shield
 	else:
 		health_bar.value = 0
+	
+	if my_player.find_child("BassheartAttack"):
+		if not meter_bar.visible:
+			meter_bar.show()
+		meter_bar.value = my_player.meter
+	elif meter_bar.visible: meter_bar.hide()
 	
 	if GameManager.Instance.is_started:
 		time_label.text = Time.get_time_string_from_unix_time(GameManager.Instance.time).substr(3,5)
