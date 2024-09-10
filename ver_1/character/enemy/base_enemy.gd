@@ -64,7 +64,7 @@ func take_damage(p_dmg:float) -> void:
 	
 	# dmg visual is actually how much u've dealt to remaining health
 	# not the raw power.
-	GameManager.Instance.vfx.spawn_pop_up(p_dmg, global_position)
+	GameManager.Instance.vfx.spawn_pop_up(int(p_dmg), global_position)
 
 func _process(delta: float) -> void:
 	#print(str(multiplayer.is_server()) + " : " + str(current_health))
