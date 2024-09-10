@@ -21,7 +21,6 @@ func _ready() -> void:
 	name_label.text = "[center]" + action.get_class_name() + "[/center]" 
 	hero = GameManager.Instance.local_player
 	desc.text = "[center]" + action.desc + "[/center]" 
-	button.size = vbox.size
 	icon_texture.texture = load(action.action_icon_path)
 	
 	status.text = get_status_string()
