@@ -11,6 +11,9 @@ extends BaseHero
 ## The amount of shields the hero starts with
 @export var shields : float = 0
 
+## The damage taken is reduced by dmg/armour
+@export var armour : float = 1.0
+
 ## The movement speed of the hero
 @export var speed : int = 150
 
@@ -39,7 +42,7 @@ extends BaseHero
 @export var is_empowered : bool = false
 
 # The percentage of damage that is healed by the player
-var lifesteal : float = 0.05
+var lifesteal : float = 0.01
 var is_personal_camera : bool = true
 
 @onready var particles : GPUParticles2D = $Sprites/GPUParticles2D
@@ -81,6 +84,7 @@ func _init_stats() -> void:
 	char_stats.aoe = area_of_effect
 	char_stats.atk = damage
 	char_stats.hsg = heal_shield_gain
+	char_stats.arm = armour
 	char_stats.dur = duration
 	char_stats.shields = shields
 	char_stats.cd = cooldown

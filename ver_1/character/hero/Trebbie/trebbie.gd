@@ -14,6 +14,9 @@ extends BaseHero
 ## The movement speed of the hero
 @export var speed : int = 150
 
+## The damage taken is reduced by dmg/armour
+@export var armour : float = 1.0
+
 ## The multiplier applied to the cooldown of all actions (attack, abilities and items)
 @export var cooldown : float = 1.0
 
@@ -37,7 +40,7 @@ extends BaseHero
 @export var tip_heal_amount : int = 30
 
 # The percentage of damage that is healed by the player
-var lifesteal : float = 0.05
+var lifesteal : float = 0.01
 var is_personal_camera : bool = true
 
 @onready var pick_up : CollisionShape2D = $PickUpRadius/CollisionShape2D
@@ -72,6 +75,7 @@ func _init_stats():
 	char_stats.spd = speed
 	char_stats.aoe = area_of_effect
 	char_stats.atk = damage
+	char_stats.arm = armour
 	char_stats.hsg = heal_shield_gain
 	char_stats.shields = shields
 	char_stats.cd = cooldown
