@@ -1,15 +1,16 @@
-[gd_resource type="Resource" script_class="SpawnsResource" load_steps=12 format=3 uid="uid://c2uk57jlhco74"]
+[gd_resource type="Resource" script_class="SpawnsResource" load_steps=21 format=3 uid="uid://c2uk57jlhco74"]
 
 [ext_resource type="Script" path="res://ver_1/game/spawn_system/spawn_info.gd" id="1_xot43"]
 [ext_resource type="PackedScene" uid="uid://cpkr32elxa7a8" path="res://ver_1/character/enemy/OneShot/one_shot.tscn" id="2_nib4y"]
 [ext_resource type="Script" path="res://ver_1/game/spawn_system/spawns_resource.gd" id="2_vmw32"]
 [ext_resource type="PackedScene" uid="uid://ye6jjalknsgf" path="res://ver_1/character/enemy/MinorBug/minor_bug.tscn" id="3_6yft1"]
 [ext_resource type="PackedScene" uid="uid://b5lyoa88yp8di" path="res://ver_1/character/enemy/MajorBug/major_bug.tscn" id="4_tanll"]
+[ext_resource type="PackedScene" uid="uid://ns7nfwyvbnq8" path="res://ver_1/character/enemy/boss/B&B/bnb.tscn" id="5_xv608"]
 
 [sub_resource type="Resource" id="Resource_7m6ej"]
 script = ExtResource("1_xot43")
 time_start = 0
-time_end = 60
+time_end = 240
 enemy = ExtResource("2_nib4y")
 enemy_num = 5
 enemy_spawn_delay = 1
@@ -22,38 +23,102 @@ enemy = ExtResource("3_6yft1")
 enemy_num = 3
 enemy_spawn_delay = 1
 
-[sub_resource type="Resource" id="Resource_7jb8u"]
+[sub_resource type="Resource" id="Resource_8dba4"]
 script = ExtResource("1_xot43")
 time_start = 60
-time_end = 90
-enemy = ExtResource("4_tanll")
-enemy_num = 1
-enemy_spawn_delay = 8
-
-[sub_resource type="Resource" id="Resource_l8xwu"]
-script = ExtResource("1_xot43")
-time_start = 60
-time_end = 105
+time_end = 300
 enemy = ExtResource("3_6yft1")
+enemy_num = 5
+enemy_spawn_delay = 1
+
+[sub_resource type="Resource" id="Resource_fpdoi"]
+script = ExtResource("1_xot43")
+time_start = 240
+time_end = 300
+enemy = ExtResource("2_nib4y")
+enemy_num = 1
+enemy_spawn_delay = 0
+
+[sub_resource type="Resource" id="Resource_p8dsy"]
+script = ExtResource("1_xot43")
+time_start = 120
+time_end = 300
+enemy = ExtResource("4_tanll")
+enemy_num = 2
+enemy_spawn_delay = 15
+
+[sub_resource type="Resource" id="Resource_xoxde"]
+script = ExtResource("1_xot43")
+time_start = 300
+time_end = 600
+enemy = ExtResource("3_6yft1")
+enemy_num = 10
+enemy_spawn_delay = 1
+
+[sub_resource type="Resource" id="Resource_0kwht"]
+script = ExtResource("1_xot43")
+time_start = 420
+time_end = 600
+enemy = ExtResource("4_tanll")
+enemy_num = 5
+enemy_spawn_delay = 1
+
+[sub_resource type="Resource" id="Resource_c7jev"]
+script = ExtResource("1_xot43")
+time_start = 600
+time_end = 900
+enemy = ExtResource("4_tanll")
 enemy_num = 8
 enemy_spawn_delay = 1
 
-[sub_resource type="Resource" id="Resource_oc5sk"]
+[sub_resource type="Resource" id="Resource_hyqx1"]
 script = ExtResource("1_xot43")
-time_start = 90
-time_end = 95
-enemy = ExtResource("4_tanll")
-enemy_num = 50
+time_start = 600
+time_end = 660
+enemy = ExtResource("3_6yft1")
+enemy_num = 5
+enemy_spawn_delay = 1
+
+[sub_resource type="Resource" id="Resource_cr7yb"]
+script = ExtResource("1_xot43")
+time_start = 390
+time_end = 390
+enemy = ExtResource("2_nib4y")
+enemy_num = 300
 enemy_spawn_delay = 0
 
-[sub_resource type="Resource" id="Resource_w05rt"]
+[sub_resource type="Resource" id="Resource_e01no"]
 script = ExtResource("1_xot43")
-time_start = 90
-time_end = 95
+time_start = 450
+time_end = 450
+enemy = ExtResource("2_nib4y")
+enemy_num = 300
+enemy_spawn_delay = 0
+
+[sub_resource type="Resource" id="Resource_ickm3"]
+script = ExtResource("1_xot43")
+time_start = 810
+time_end = 810
 enemy = ExtResource("3_6yft1")
-enemy_num = 50
+enemy_num = 150
+enemy_spawn_delay = 0
+
+[sub_resource type="Resource" id="Resource_2tre2"]
+script = ExtResource("1_xot43")
+time_start = 870
+time_end = 870
+enemy = ExtResource("3_6yft1")
+enemy_num = 150
+enemy_spawn_delay = 0
+
+[sub_resource type="Resource" id="Resource_28pg7"]
+script = ExtResource("1_xot43")
+time_start = 10
+time_end = 10
+enemy = ExtResource("5_xv608")
+enemy_num = 1
 enemy_spawn_delay = 0
 
 [resource]
 script = ExtResource("2_vmw32")
-array = Array[ExtResource("1_xot43")]([SubResource("Resource_7m6ej"), SubResource("Resource_ev3my"), SubResource("Resource_7jb8u"), SubResource("Resource_l8xwu"), SubResource("Resource_oc5sk"), SubResource("Resource_w05rt")])
+array = Array[ExtResource("1_xot43")]([SubResource("Resource_7m6ej"), SubResource("Resource_ev3my"), SubResource("Resource_8dba4"), SubResource("Resource_fpdoi"), SubResource("Resource_p8dsy"), SubResource("Resource_xoxde"), SubResource("Resource_0kwht"), SubResource("Resource_c7jev"), SubResource("Resource_hyqx1"), SubResource("Resource_cr7yb"), SubResource("Resource_e01no"), SubResource("Resource_ickm3"), SubResource("Resource_2tre2"), SubResource("Resource_28pg7")])

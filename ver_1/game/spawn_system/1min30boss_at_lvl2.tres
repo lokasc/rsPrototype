@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="SpawnsResource" load_steps=9 format=3 uid="uid://j12uoklpvfdj"]
+[gd_resource type="Resource" script_class="SpawnsResource" load_steps=9 format=3 uid="uid://clm6tejothhjk"]
 
 [ext_resource type="Script" path="res://ver_1/game/spawn_system/spawn_info.gd" id="1_p03vi"]
 [ext_resource type="PackedScene" uid="uid://cpkr32elxa7a8" path="res://ver_1/character/enemy/OneShot/one_shot.tscn" id="2_tg56a"]
