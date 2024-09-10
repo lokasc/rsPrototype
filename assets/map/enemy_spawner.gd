@@ -104,8 +104,8 @@ func spawn_boss(_boss : BaseBoss, location : Vector2):
 # can be called on client-sides
 func get_enemy_from_id(id : int) -> BaseEnemy:
 	for x in spawn_path.get_children():
-		if x is not BaseEnemy: return
-		if !x.char_id: return
+		if x is not BaseEnemy: continue
+		if !x.char_id: continue
 		if x.char_id == id:
 			return x 
 	return null
