@@ -17,6 +17,7 @@ static var Instance : GameManager
 @export var no_music : bool = false
 @export var spawn_dummy : bool = false
 @export var spawn_boss : bool = false
+@export var quick_leveling : bool = false
 
 signal end_game
 signal start_lvl_up_sequence(item : Array)
@@ -73,6 +74,8 @@ func _init() -> void:
 func _ready() -> void:
 	if no_music:
 		bc.main_music_player.volume_db = -100
+	if quick_leveling:
+		max_xp = 1
 
 func _process(delta: float) -> void:
 	timer_logic(delta)
@@ -137,7 +140,8 @@ func add_xp(_xp : int):
 
 func change_max_xp() -> void:
 	# when we have a curve, set max_xp -> curve.y.value or sth
-	max_xp = sample(current_lvl)
+	if not quick_leveling:
+		max_xp = sample(current_lvl)
 	ui.update_max_xp(max_xp)
 
 ### Card Sequence 
