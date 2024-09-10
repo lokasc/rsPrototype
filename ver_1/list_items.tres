@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ActionResource" load_steps=11 format=3 uid="uid://b5neg2qagtby4"]
+[gd_resource type="Resource" script_class="ActionResource" load_steps=14 format=3 uid="uid://b5neg2qagtby4"]
 
 [ext_resource type="PackedScene" uid="uid://h52vrgcs0ig2" path="res://ver_1/actions/items/aoe_item.tscn" id="1_1lwds"]
 [ext_resource type="Script" path="res://actions_resource.gd" id="1_bpbsy"]
@@ -10,8 +10,11 @@
 [ext_resource type="Script" path="res://ver_1/actions/stats/hsg_stat.gd" id="8_ll0j6"]
 [ext_resource type="Script" path="res://ver_1/actions/stats/pick_up_radius_stat.gd" id="9_fg810"]
 [ext_resource type="Script" path="res://ver_1/actions/stats/maxhp_stat.gd" id="10_k0yqr"]
+[ext_resource type="Script" path="res://ver_1/actions/stats/duration_stat.gd" id="11_1v73q"]
+[ext_resource type="Script" path="res://ver_1/actions/stats/music_multiplier_stat.gd" id="12_1xj80"]
+[ext_resource type="Script" path="res://ver_1/actions/stats/cooldown_stat.gd" id="13_wx0ag"]
 
 [resource]
 script = ExtResource("1_bpbsy")
 items = Array[PackedScene]([ExtResource("1_1lwds"), ExtResource("2_y1360")])
-stats = Array[Resource]([ExtResource("4_dbqxm"), ExtResource("5_u6a7y"), ExtResource("6_ldwow"), ExtResource("7_odx1a"), ExtResource("8_ll0j6"), ExtResource("9_fg810"), ExtResource("10_k0yqr")])
+stats = Array[Resource]([ExtResource("4_dbqxm"), ExtResource("5_u6a7y"), ExtResource("6_ldwow"), ExtResource("7_odx1a"), ExtResource("8_ll0j6"), ExtResource("9_fg810"), ExtResource("10_k0yqr"), ExtResource("11_1v73q"), ExtResource("12_1xj80"), ExtResource("13_wx0ag")])
