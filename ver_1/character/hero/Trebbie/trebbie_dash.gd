@@ -12,8 +12,10 @@ extends BaseAbility
 @export_category("Music sync stats")
 @export var cd_reducion : float = 1.0
 
-var original_pos = Vector2.ZERO
-var direction = Vector2.ZERO
+var original_pos := Vector2.ZERO
+var new_position := Vector2.ZERO
+var direction := Vector2.ZERO
+var duration : float = 0
 
 @onready var hitbox : Area2D = $HitBox
 @onready var dash_effect_particles : GPUParticles2D = $"../Sprites/RotatingWeapon/GPUParticles2D"
@@ -47,7 +49,6 @@ func enter():
 	super()
 	# Store hero position and the direction when the ability is used
 	original_pos = hero.position
-	
 	a_stats.cd = initial_cd
 	set_ability_to_hero_stats()
 	
@@ -56,6 +57,9 @@ func enter():
 	
 	look_at(hero.input.get_mouse_position())
 	direction = original_pos.direction_to(hero.input.get_mouse_position())
+	duration = 0
+	new_position = original_pos + direction * distance
+	
 	hero.IS_INVINCIBLE = true
 	
 	# enable hitboxes
@@ -88,10 +92,11 @@ func update(_delta: float):
 func physics_update(_delta: float):
 	super(_delta)
 	# Ability movement
-	var new_position : Vector2 = original_pos + direction * distance
+	duration += _delta
 	hero.position = hero.position.move_toward(new_position, speed)
-	if hero.position == new_position:
+	if hero.position == new_position or duration >= 0.35:
 		state_change.emit(self, "TrebbieAttack")
+	hero.move_and_slide()
 
 func _process(delta):
 	super(delta)
@@ -129,3 +134,7 @@ func set_ability_to_hero_stats() -> void:
 	a_stats.aoe = hero.char_stats.aoe ; scale = a_stats.aoe * Vector2.ONE
 	a_stats.atk = initial_dmg * hero.get_total_dmg()/hero.initial_damage
 	if not zero_cd: a_stats.cd = initial_cd * hero.char_stats.cd
+
+
+func _on_dash_timer_timeout() -> void:
+	state_change.emit(self, "TrebbieAttack")

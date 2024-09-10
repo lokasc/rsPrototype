@@ -654,7 +654,6 @@ _data = {
 
 [node name="Bassheart" type="CharacterBody2D" node_paths=PackedStringArray("basic_attack", "ability_1", "ability_2", "animator")]
 collision_layer = 2
-collision_mask = 0
 script = ExtResource("1_m8vi0")
 basic_attack = NodePath("BassheartAttack")
 ability_1 = NodePath("BassheartFreeze")

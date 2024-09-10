@@ -127,6 +127,7 @@ func update(delta: float) -> void:
 			
 		
 	else: air_time += delta
+	hero.move_and_slide()
 
 func physics_update(delta: float) -> void:
 	super(delta)
