@@ -11,3 +11,4 @@ damage_per_tick = 10.0
 damage_tick_time = 2.0
 turret_range = 100
 turret_duration = 5.0
+turret_knockback_distance = 30

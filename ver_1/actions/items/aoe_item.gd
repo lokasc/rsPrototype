@@ -5,6 +5,10 @@ extends BaseItem
 @export var initial_tick_time : float
 @export var area_of_effect : int
 
+@export_category("Ascended")
+@export var shield_amount : float
+@export var shield_duration : float
+
 var enemies_in_hitbox : Array[BaseEnemy] = []
 var current_time : float
 
@@ -30,6 +34,9 @@ func aoe_dmg() -> void:
 	if !multiplayer.is_server(): return
 	for enemy : BaseEnemy in enemies_in_hitbox:
 		enemy.take_damage(a_stats.get_total_dmg())
+		if is_ascended:
+			if enemy.die:
+				hero.gain_shield(shield_amount, shield_duration)
 
 func _upgrade() -> void:
 	super()
@@ -70,3 +77,8 @@ func set_item_stats():
 	a_stats.cd = initial_tick_time * hero.char_stats.cd
 	a_stats.aoe = area_of_effect * hero.char_stats.aoe 
 	hitbox_shape.shape.radius = a_stats.aoe
+
+func check_kills_enemy(_enemy : BaseEnemy) -> bool:
+	if _enemy.current_health - a_stats.get_total_dmg() <= 0:
+		return true
+	else: return false

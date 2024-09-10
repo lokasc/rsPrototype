@@ -10,6 +10,8 @@ script = ExtResource("1_ptwnf")
 damage_per_tick = 5
 initial_tick_time = 0.5
 area_of_effect = 5
+shield_amount = 5.0
+shield_duration = 1.0
 
 [node name="HitBox" type="Area2D" parent="."]
 scale = Vector2(10, 10)

@@ -9,7 +9,9 @@ signal destroy_turret(turret)
 @export var deploy_time : float
 @export var damage_per_tick : int = 1
 @export var initial_tick_time : float = 0.5
+@export var knockback_distance : int = 0
 
+var is_ascended : bool = false
 
 @onready var hitbox : Area2D = $HitBox
 @onready var hitbox_shape : CollisionShape2D = $HitBox/CollisionShape2D
@@ -46,6 +48,8 @@ func deal_damage() -> void:
 	
 	for enemy : BaseEnemy in enemies_in_hitbox:
 		enemy.take_damage(item.a_stats.get_total_dmg())
+		if is_ascended:
+			enemy.add_status("Knockback", [knockback_distance,position,1])
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	var enemy : BaseEnemy = area.get_parent() as BaseEnemy

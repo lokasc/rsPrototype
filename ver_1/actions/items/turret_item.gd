@@ -14,6 +14,9 @@ extends BaseItem
 @export var turret_range : int
 @export var turret_duration : float
 
+@export_category("Ascended")
+@export var turret_knockback_distance : int
+
 var current_time : float
 var turret_list: Array[Turret] = []
 
@@ -79,6 +82,9 @@ func set_turret_stats(new_turret : Turret) -> void:
 	new_turret.initial_tick_time = damage_tick_time * hero.char_stats.cd
 	new_turret.turret_duration = turret_duration * hero.char_stats.dur
 	new_turret.turret_range = turret_range * hero.char_stats.aoe
+	if is_ascended:
+		new_turret.is_ascended = true
+		new_turret.knockback_distance = turret_knockback_distance
 
 func set_item_stats() -> void:
 	a_stats.atk = damage_per_tick * hero.get_atk()/hero.initial_damage
