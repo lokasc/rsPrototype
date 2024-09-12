@@ -10,3 +10,5 @@ func _init() -> void:
 
 func _upgrade() -> void:
 	super()
+	for item : BaseItem in hero.items:
+		item.set_item_stats()
