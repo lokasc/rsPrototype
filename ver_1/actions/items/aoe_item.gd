@@ -6,8 +6,7 @@ extends BaseItem
 @export var area_of_effect : int
 
 @export_category("Ascended")
-@export var shield_amount : float
-@export var shield_duration : float
+@export var heal_amount : float
 
 var enemies_in_hitbox : Array[BaseEnemy] = []
 var current_time : float
@@ -34,7 +33,8 @@ func aoe_dmg() -> void:
 	if !multiplayer.is_server(): return
 	for enemy : BaseEnemy in enemies_in_hitbox:
 		if is_ascended:
-			enemy.die.connect(ascended_ability)
+			if not enemy.die.is_connected(ascended_ability):
+				enemy.die.connect(ascended_ability)
 		enemy.take_damage(a_stats.get_total_dmg())
 func _upgrade() -> void:
 	super()
@@ -79,4 +79,4 @@ func set_item_stats():
 	desc = "Damages nearby enemies by " + change_text_color(str(snapped(a_stats.atk,0.01)),"red") + " every " + change_text_color(str(snapped(a_stats.cd,0.01)),"red") + " seconds."
 
 func ascended_ability():
-	hero.gain_shield(shield_amount, shield_duration)
+	hero.gain_health(heal_amount)
