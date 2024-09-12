@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="SpawnsResource" load_steps=21 format=3 uid="uid://c2uk57jlhco74"]
+[gd_resource type="Resource" script_class="SpawnsResource" load_steps=22 format=3 uid="uid://c2uk57jlhco74"]
 
 [ext_resource type="Script" path="res://ver_1/game/spawn_system/spawn_info.gd" id="1_xot43"]
 [ext_resource type="PackedScene" uid="uid://cpkr32elxa7a8" path="res://ver_1/character/enemy/OneShot/one_shot.tscn" id="2_nib4y"]
@@ -119,6 +119,14 @@ enemy = ExtResource("5_xv608")
 enemy_num = 1
 enemy_spawn_delay = 0
 
+[sub_resource type="Resource" id="Resource_mlmov"]
+script = ExtResource("1_xot43")
+time_start = 870
+time_end = 870
+enemy = ExtResource("2_nib4y")
+enemy_num = 300
+enemy_spawn_delay = 0
+
 [resource]
 script = ExtResource("2_vmw32")
-array = Array[ExtResource("1_xot43")]([SubResource("Resource_7m6ej"), SubResource("Resource_ev3my"), SubResource("Resource_8dba4"), SubResource("Resource_fpdoi"), SubResource("Resource_p8dsy"), SubResource("Resource_xoxde"), SubResource("Resource_0kwht"), SubResource("Resource_c7jev"), SubResource("Resource_hyqx1"), SubResource("Resource_cr7yb"), SubResource("Resource_e01no"), SubResource("Resource_ickm3"), SubResource("Resource_2tre2"), SubResource("Resource_28pg7")])
+array = Array[ExtResource("1_xot43")]([SubResource("Resource_7m6ej"), SubResource("Resource_ev3my"), SubResource("Resource_8dba4"), SubResource("Resource_fpdoi"), SubResource("Resource_p8dsy"), SubResource("Resource_xoxde"), SubResource("Resource_0kwht"), SubResource("Resource_c7jev"), SubResource("Resource_hyqx1"), SubResource("Resource_cr7yb"), SubResource("Resource_e01no"), SubResource("Resource_ickm3"), SubResource("Resource_2tre2"), SubResource("Resource_28pg7"), SubResource("Resource_mlmov")])

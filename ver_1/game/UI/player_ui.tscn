@@ -118,15 +118,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -22.0
-offset_top = -34.5
-offset_right = 22.0
-offset_bottom = 34.5
+offset_left = -59.0
+offset_top = -37.5
+offset_right = 60.0
+offset_bottom = 31.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 50
 text = "0
 "
+horizontal_alignment = 1
 clip_text = true
 
 [node name="ActionContainers" type="HBoxContainer" parent="PlayerContainer"]
