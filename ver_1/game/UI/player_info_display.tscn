@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx8mqarsg53ca"]
+
+[ext_resource type="Texture2D" uid="uid://dmk8gf6pp3esw" path="res://assets/UI/HealthBar2.png" id="1_urlkm"]
+[ext_resource type="Script" path="res://ver_1/game/UI/player_info_display.gd" id="2_udqal"]
+
+[node name="PlayerInfoDisplay" type="TextureProgressBar"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = -512.0
+offset_bottom = -232.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.5)
+size_flags_horizontal = 6
+size_flags_vertical = 4
+value = 100.0
+texture_under = ExtResource("1_urlkm")
+texture_progress = ExtResource("1_urlkm")
+tint_under = Color(0.223529, 0.223529, 0.223529, 0.913725)
+tint_progress = Color(1, 0, 0, 0.870588)
+script = ExtResource("2_udqal")
+offset = Vector2(-64, -90)
+
+[node name="ShieldBar" type="TextureProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -59.0
+offset_right = 64.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.7)
+allow_greater = true
+texture_progress = ExtResource("1_urlkm")
+
+[node name="MeterBar" type="TextureProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -31.0
+offset_right = 64.0
+offset_bottom = 97.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.7)
+texture_under = ExtResource("1_urlkm")
+texture_progress = ExtResource("1_urlkm")
+tint_under = Color(0.008035, 0.364239, 0.416325, 0.972549)
+tint_progress = Color(0, 0.788235, 0.898039, 0.941176)

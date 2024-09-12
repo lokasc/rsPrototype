@@ -98,6 +98,8 @@ func _ready():
 	camera = $PlayerCamera as PlayerCamera
 	item_holder = $ItemHolder as Node
 	
+	GameManager.Instance.ui.create_player_info_bar(self)
+	
 	if is_multiplayer_authority():
 		# Set this camera to viewport if I'm controlling it
 		camera.make_current()

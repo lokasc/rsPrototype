@@ -1,11 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cn3n52t8ej5n4"]
+[gd_scene load_steps=6 format=3 uid="uid://cn3n52t8ej5n4"]
 
 [ext_resource type="Script" path="res://ver_1/game/UI/ui_manager.gd" id="1_xdhrj"]
 [ext_resource type="PackedScene" uid="uid://di3afbvqsygw0" path="res://ver_1/game/UI/player_ui.tscn" id="2_3208f"]
+[ext_resource type="PackedScene" uid="uid://dx8mqarsg53ca" path="res://ver_1/game/UI/player_info_display.tscn" id="2_yy84t"]
 [ext_resource type="PackedScene" uid="uid://ds4octed2ry4r" path="res://ver_1/game/UI/character_selection/character_select_ui.tscn" id="3_dup0n"]
 [ext_resource type="PackedScene" uid="uid://chohpk33re3v5" path="res://ver_1/game/UI/boss_ui/boss_health_bar_ui.tscn" id="3_nyue8"]
 
-[node name="UiManager" type="Control" node_paths=PackedStringArray("player_container", "selection_container", "card_path", "char_select_layer", "player_ui_layer")]
+[node name="UiManager" type="Control" node_paths=PackedStringArray("player_container", "selection_container", "card_path", "char_select_layer", "player_ui_layer", "player_info_container")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -19,6 +20,8 @@ selection_container = NodePath("PlayerUi/PlayerContainer/SelectionContainer")
 card_path = NodePath("PlayerUi/PlayerContainer/SelectionContainer/VBoxContainer/HBox")
 char_select_layer = NodePath("CharSelectLayer")
 player_ui_layer = NodePath("PlayerUi")
+player_info_scene = ExtResource("2_yy84t")
+player_info_container = NodePath("PlayerUi/PlayerInfoContainer")
 
 [node name="PlayerUi" parent="." instance=ExtResource("2_3208f")]
 

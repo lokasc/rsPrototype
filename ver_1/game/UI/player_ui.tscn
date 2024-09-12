@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://di3afbvqsygw0"]
+[gd_scene load_steps=8 format=3 uid="uid://di3afbvqsygw0"]
 
 [ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="1_kc8fy"]
-[ext_resource type="Texture2D" uid="uid://dmk8gf6pp3esw" path="res://assets/UI/HealthBar2.png" id="1_sqy73"]
 [ext_resource type="Texture2D" uid="uid://t47qf2h3bwpv" path="res://assets/UI/LevelBar.png" id="3_0hlrc"]
 [ext_resource type="PackedScene" uid="uid://1qhg1e7k11m1" path="res://ver_1/game/UI/bottom_ui/ability_box_ui.tscn" id="4_ourxg"]
 [ext_resource type="PackedScene" uid="uid://c15g2l1arshqn" path="res://ver_1/game/UI/bottom_ui/base_box_ui.tscn" id="4_xv54i"]
@@ -33,62 +32,11 @@ tween_speed = 0.08
 height = 50
 max_freq = 7000.0
 
-[node name="HealthBar" type="TextureProgressBar" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -100.0
-offset_right = 64.0
-offset_bottom = 28.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1, 0.5)
-size_flags_horizontal = 6
-size_flags_vertical = 4
-value = 100.0
-texture_under = ExtResource("1_sqy73")
-texture_progress = ExtResource("1_sqy73")
-tint_under = Color(0.223529, 0.223529, 0.223529, 0.913725)
-tint_progress = Color(1, 0, 0, 0.870588)
-
-[node name="ShieldBar" type="TextureProgressBar" parent="HealthBar"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -59.0
-offset_right = 64.0
-offset_bottom = 69.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1, 0.7)
-allow_greater = true
-texture_progress = ExtResource("1_sqy73")
-
-[node name="MeterBar" type="TextureProgressBar" parent="HealthBar"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -31.0
-offset_right = 64.0
-offset_bottom = 97.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1, 0.7)
-texture_under = ExtResource("1_sqy73")
-texture_progress = ExtResource("1_sqy73")
-tint_under = Color(0.008035, 0.364239, 0.416325, 0.972549)
-tint_progress = Color(0, 0.788235, 0.898039, 0.941176)
+[node name="PlayerInfoContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="PlayerContainer" type="VBoxContainer" parent="."]
 offset_right = 1280.0

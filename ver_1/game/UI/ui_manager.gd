@@ -6,8 +6,10 @@ extends Control
 @export var card_path : Container
 @export var char_select_layer : CanvasLayer
 @export var player_ui_layer : CanvasLayer
+@export var player_info_scene : PackedScene
+@export var player_info_container : Control
 
-@onready var health_bar : TextureProgressBar = player_ui_layer.find_child("HealthBar")
+@onready var health_bar : TextureProgressBar = player_ui_layer.find_child("PlayerInfoBar")
 @onready var shield_bar : TextureProgressBar = player_ui_layer.find_child("ShieldBar")
 @onready var meter_bar : TextureProgressBar = player_ui_layer.find_child("MeterBar")
 @onready var level_label : Label = player_container.find_child("Level")
@@ -58,19 +60,6 @@ func update_lvl_label(new_lvl : int) -> void:
 
 func _process(_delta: float) -> void:
 	var my_player = GameManager.Instance.local_player
-	if !my_player: return
-	
-	if my_player.is_alive():
-		health_bar.value = my_player.current_health
-		shield_bar.value = my_player.current_shield
-	else:
-		health_bar.value = 0
-	
-	if my_player.find_child("BassheartAttack"):
-		if not meter_bar.visible:
-			meter_bar.show()
-		meter_bar.value = my_player.meter
-	elif meter_bar.visible: meter_bar.hide()
 	
 	if GameManager.Instance.is_started:
 		time_label.text = Time.get_time_string_from_unix_time(GameManager.Instance.time).substr(3,5)
@@ -97,6 +86,12 @@ func show_player_ui():
 func hide_player_ui():
 	player_ui_layer.visible = false
 
+func create_player_info_bar(hero : BaseHero):
+	var new_player_info = player_info_scene.instantiate() as PlayerInfoDisplay
+	new_player_info.set_up(hero)
+	player_info_container.add_child(new_player_info)
+
+#region card selection ui
 # called by the game_manager
 func build_selection_container(info_array : Array):
 	action_selected = false
@@ -123,6 +118,7 @@ func on_ready_to_continue():
 	waiting_label.text = " "
 	pass
 
+#endregion
 #region actions display
 
 func set_ability_ui():
@@ -161,6 +157,7 @@ func set_stat_ui(_stat : BaseStatCard, hero : BaseHero):
 
 
 #endregion
+
 func set_boss_ui(_boss : BaseBoss):
 	boss_health_bar.set_up(_boss)
 	boss_health_bar.visible = true
