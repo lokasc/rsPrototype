@@ -2,6 +2,7 @@ class_name CooldownCard
 extends BaseStatCard
 
 func _init() -> void:
+	super()
 	action_icon_path = "res://icon.svg"
 	amount_per_upgrade = 0.1
 

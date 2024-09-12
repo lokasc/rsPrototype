@@ -2,6 +2,7 @@ class_name ArmourCard
 extends BaseStatCard
 
 func _init() -> void:
+	super()
 	action_icon_path = "res://assets/icons/armor_icon.png"
 	amount_per_upgrade = 0.3
 
