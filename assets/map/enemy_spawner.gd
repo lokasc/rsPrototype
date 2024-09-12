@@ -47,16 +47,15 @@ func instantiate_enemy(new_enemy)-> void:
 
 # Consider a different algorithm for selecting location.
 func get_random_position():
-	var combined_pos = Vector2.ZERO
-	for x in GameManager.Instance.players:
-		combined_pos += x.global_position
+	var rect_pos = Vector2.ZERO
+	rect_pos = GameManager.Instance.players.pick_random().global_position
 	
 	var vpr : Vector2 = get_viewport_rect().size * randf_range(0.7,1.1)
 	
-	var top_left : Vector2 = Vector2(combined_pos.x - vpr.x/2, combined_pos.y - vpr.y/2)
-	var top_right : Vector2 = Vector2(combined_pos.x + vpr.x/2, combined_pos.y - vpr.y/2)
-	var bottom_left : Vector2 = Vector2(combined_pos.x - vpr.x/2, combined_pos.y + vpr.y/2)
-	var bottom_right : Vector2 = Vector2(combined_pos.x + vpr.x/2, combined_pos.y + vpr.y/2)
+	var top_left : Vector2 = Vector2(rect_pos.x - vpr.x/2, rect_pos.y - vpr.y/2)
+	var top_right : Vector2 = Vector2(rect_pos.x + vpr.x/2, rect_pos.y - vpr.y/2)
+	var bottom_left : Vector2 = Vector2(rect_pos.x - vpr.x/2, rect_pos.y + vpr.y/2)
+	var bottom_right : Vector2 = Vector2(rect_pos.x + vpr.x/2, rect_pos.y + vpr.y/2)
 	
 	var pos_side : String = ["up","down","right","left"].pick_random()
 	var spawn_pos1 : Vector2 = Vector2.ZERO
