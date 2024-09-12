@@ -9,7 +9,7 @@ var current_cd : float = 0
 var is_on_cd : bool
 
 @onready var description_container : Control = $DescriptionContainer
-@onready var description_label : Label = $DescriptionContainer/DescriptionLabel
+@onready var description_label : RichTextLabel = $DescriptionContainer/DescriptionLabel
 @onready var timer_label : Label = $RemainingTimeLabel
 
 # Called by UI MANAGER
@@ -53,7 +53,7 @@ func on_ability_used():
 func _on_mouse_entered() -> void:
 	if !action: return
 	
-	description_label.text = action.desc
+	description_label.text = "[center]" + action.desc + "[/center]"
 	description_container.visible = true
 
 # when mouse exits the ability icon

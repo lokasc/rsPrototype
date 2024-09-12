@@ -59,7 +59,7 @@ func _process(_delta: float) -> void:
 	var my_player = GameManager.Instance.local_player
 	
 	if GameManager.Instance.is_started:
-		time_label.text = Time.get_time_string_from_unix_time(GameManager.Instance.time).substr(3,5)
+		time_label.text = Time.get_time_string_from_unix_time(int(GameManager.Instance.time)).substr(3,5)
 	
 	# Uncomment this if you want the shield to change rotation along the health bar
 	#var shield_init_angle = health_bar.value/health_bar.max_value * 360

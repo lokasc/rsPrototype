@@ -30,25 +30,29 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="DescriptionContainer" type="Control" parent="."]
+layout_mode = 1
 anchors_preset = 0
 
-[node name="DescriptionLabel" type="Label" parent="DescriptionContainer"]
+[node name="DescriptionLabel" type="RichTextLabel" parent="DescriptionContainer"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -113.0
+offset_left = -88.0
 offset_top = -40.0
-offset_right = 113.0
+offset_right = 138.0
 offset_bottom = -17.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(113, 10)
 theme = ExtResource("3_h8up4")
-text = "No description set"
-horizontal_alignment = 1
-vertical_alignment = 1
+bbcode_enabled = true
+text = "[center] No description[/center] "
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
