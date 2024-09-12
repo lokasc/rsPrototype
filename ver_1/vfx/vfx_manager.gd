@@ -14,12 +14,16 @@ func _enter_tree() -> void:
 	GameManager.Instance.vfx = self
 
 # Function called by characters taking damage.
-func spawn_pop_up(num : float, gpos : Vector2):
-	# TODO: Check if there is an existing id,
+func spawn_pop_up(object_id : int,num : float, gpos : Vector2):
+	# Find a pop up for the same enemy & reuse
+	for pop_up : DmgPopUp in in_use_obj:
+		if pop_up.owner_id != object_id: continue
+		pop_up.stack_dmg_reuse(num, gpos)
+		return
 	
 	# else get from the pool.
 	var pop_up = get_object() 
-	pop_up.set_up_data(1, num, gpos)
+	pop_up.set_up_data(object_id, num, gpos)
 
 func get_object() -> DmgPopUp:
 	# if there is an object in use.

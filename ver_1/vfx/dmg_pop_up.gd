@@ -22,6 +22,9 @@ var is_started : bool = false
 var current_time : float = 0
 var max_time : float = 1
 
+# Increases by 2 times per stack
+var scale_multiplier : float = 1
+
 func set_up_data(id : int, number : float, gpos : Vector2):
 	container = get_child(0)
 	
@@ -51,8 +54,23 @@ func _process(delta: float) -> void:
 		# CALL THIS TO FINISH
 		obj_finish.emit(self)
 
+
+func stack_dmg_reuse(number : float, gpos : Vector2) -> void:
+	current_dmg += number
+	(container.get_child(0) as Label).text = str(current_dmg)
+	global_position = gpos
+	container.position.y = 0
+	
+	scale_multiplier += 0.2
+	
+	# reset timer & animation
+	current_time = 0
+	container.modulate.a = 1
+	container.scale = Vector2(2,2) * scale_multiplier
+
 # Reset temp data
 func clean_up():
+	scale_multiplier = 1
 	container.position = Vector2.ZERO
 	is_started = false
 	visible = false

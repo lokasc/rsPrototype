@@ -25,7 +25,7 @@ func _process(delta: float) -> void:
 	global_position = player.get_screen_transform().origin.clamp(Vector2.ZERO, player.get_viewport_rect().size)
 	global_position += offset
 	
-	# cap to 0
+	# cap to 0	
 	health_bar.value = max(0, player.current_health)
 	shield_bar.value = player.current_shield
 	
