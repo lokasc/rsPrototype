@@ -46,7 +46,7 @@ func _init() -> void:
 func _enter_tree() -> void:
 	a_stats.dur = active_duration
 	action_icon_path = "res://assets/icons/trebbie_buff_icon.png"
-	desc = "Buffs allies in an area, increasing damage and lifesteal."
+	desc = "Increases damage and heal/shield gain for allies in an area.\nBeat Sync: Reapplies buff with increasing area \nup to maximum of 3"
 
 func _ready() -> void:
 	hitbox.area_entered.connect(on_hit)

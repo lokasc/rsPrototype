@@ -52,7 +52,7 @@ func _init() -> void:
 # WARNING: Child nodes have not entered the tree yet. 
 func _enter_tree() -> void:
 	action_icon_path = "res://assets/icons/bassheart_freeze_icon.png"
-	desc = "Freezes enemies towards mouse direction.\nFrozen enemies take more damage\nCan be charged to increase range"
+	desc = "Freezes enemies towards mouse direction.\nDealing enough damage to frozen enemies will do additionall damage.\nBeat Sync: Increases the range.\nEmpowered: Increases range and freeze duration"
 
 func _ready() -> void:
 	hitbox.area_entered.connect(on_hit)
