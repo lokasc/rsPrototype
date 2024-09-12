@@ -309,6 +309,12 @@ func get_action(new_action : BaseAction) -> BaseAction:
 	for _item : BaseAction in items:
 		if _item.get_class_name() == new_action.get_class_name():
 			return _item
+	
+	# Then parse stats
+	for _stat : BaseAction in stat_cards:
+		if _stat.get_class_name() == new_action.get_class_name():
+			return _stat
+	
 	# Parse attack, abilities, ultimates.
 	if basic_attack && basic_attack.get_class_name() == new_action.get_class_name():
 		return basic_attack
@@ -319,6 +325,7 @@ func get_action(new_action : BaseAction) -> BaseAction:
 	if ult && ult.get_class_name() == new_action.get_class_name():
 		return ult
 	else:
+		# If nothing is found, return null
 		return null
 
 func upgrade_item(item) -> void:

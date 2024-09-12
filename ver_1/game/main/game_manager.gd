@@ -177,21 +177,21 @@ func choose_actions(_hero : BaseHero) -> Array[int]:
 	
 	# Select three actions randomly
 	for x in 3:
-		var _action = action_list.get_random_action()
+		var _action_index = action_list.get_random_action()
 		
-		# Check for selecting stats/items if max amount reached
-		# get a new action if an action of the same type is received.
-		
+		# only return a item/stat you already have if max amount is reached
 		while true:
-			if _hero.is_items_full() && action_list.is_item(_action):
-				_action = action_list.get_random_action()
-				continue
-			if _hero.is_stats_full() && action_list.is_stat(_action):
-				_action = action_list.get_random_action()
-				continue
+			if _hero.is_items_full() && action_list.is_item(_action_index):
+				if !_hero.has_item(action_list.get_new_class_script(_action_index)):
+					_action_index = action_list.get_random_action()
+					continue
+			if _hero.is_stats_full() && action_list.is_stat(_action_index):
+				if !_hero.has_stat(_action_index):
+					_action_index = action_list.get_random_action()
+					continue
 			break
 		
-		array.append(_action)
+		array.append(_action_index)
 	return array
 
 # refactor -> pass an  integer instead of an action
