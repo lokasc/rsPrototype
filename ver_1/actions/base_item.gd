@@ -7,6 +7,7 @@ func _enter_tree() -> void:
 	
 	# Temporarily set description to the class name of the item.
 	desc = get_class_name()
+	card_desc = get_class_name()
 
 func _update(_delta:float) -> void:
 	pass

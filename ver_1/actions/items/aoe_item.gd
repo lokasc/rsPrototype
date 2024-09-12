@@ -15,8 +15,8 @@ var current_time : float
 var hitbox_shape : CollisionShape2D
 
 func _init() -> void:
-	action_name = "AOE_dmg"
-	desc = "Power of friendship!"
+	action_name = "Melodic Field"
+	card_desc = "A music field damages nearby enemies.\n[AoE][Max Hp][Cooldown]"
 	action_icon_path = "res://assets/icons/aoe_icon.png"
 
 func _enter_tree() -> void:
@@ -35,9 +35,7 @@ func aoe_dmg() -> void:
 	for enemy : BaseEnemy in enemies_in_hitbox:
 		enemy.take_damage(a_stats.get_total_dmg())
 		if is_ascended:
-			enemy.add_status("Knockback", [20, hero.position, 1])
-			#if enemy.die:
-				#hero.gain_shield(shield_amount, shield_duration)
+			enemy.die.connect(ascended_ability())
 
 func _upgrade() -> void:
 	super()
@@ -74,12 +72,12 @@ func _on_hit_box_area_exited(area: Area2D) -> void:
 		enemies_in_hitbox.erase(enemy)
 
 func set_item_stats():
-	a_stats.atk = damage_per_tick * hero.get_atk()/hero.initial_damage
+	a_stats.atk = damage_per_tick * hero.char_stats.maxhp/100
 	a_stats.cd = initial_tick_time * hero.char_stats.cd
 	a_stats.aoe = area_of_effect * hero.char_stats.aoe 
 	hitbox_shape.shape.radius = a_stats.aoe
+	
+	desc = "Damages nearby enemies by " + change_text_color(str(snapped(a_stats.atk,0.01)),"red") + " every " + change_text_color(str(snapped(a_stats.cd,0.01)),"red") + " seconds."
 
-func check_kills_enemy(_enemy : BaseEnemy) -> bool:
-	if _enemy.current_health - a_stats.get_total_dmg() <= 0:
-		return true
-	else: return false
+func ascended_ability():
+	hero.gain_shield(shield_amount, shield_duration)

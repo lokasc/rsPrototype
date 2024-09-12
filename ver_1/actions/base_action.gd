@@ -4,7 +4,9 @@ extends Node2D
 var hero : BaseHero
 
 @export var action_name : String = "" #ACTION NAME 
-@export var desc : String # DESCRIPTION OF ABILITY
+@export var desc : String # DESCRIPTION OF ABILITY WHEN HOVERING
+@export var card_desc : String # DESCRIPTION OF ABILITY WHEN SHOWN ON CARDS
+@export var display_upgrade_amount : String = ""# DISPLAYED AMOUNT PER UPGRADE
 @export var level : int
 
 @export var is_ascended : bool = false
@@ -25,6 +27,9 @@ func _upgrade() -> void:
 		return # Upgraded a maximum of 5 times
 	else:
 		level += 1
-
 func get_class_name() -> String:
 	return get_script().get_global_name()
+
+#Returns a BBcoded string that changes the color of the text
+func change_text_color(text : String, color : String) -> String:
+	return "[color="+color+"]"+text+"[/color]"

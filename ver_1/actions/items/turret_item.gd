@@ -21,8 +21,8 @@ var current_time : float
 var turret_list: Array[Turret] = []
 
 func _init() -> void:
-	action_name = "Buildin a Sentry!"
-	desc = "No spies be sappin' my sentry now"
+	action_name = "Turret Wrench"
+	card_desc = "Summons turrets around the player, damaging enemies in an area.\n[AoE][Damage][Cooldown]"
 	action_icon_path = "res://assets/icons/turret_icon.png"
 
 func _enter_tree() -> void:
@@ -90,3 +90,5 @@ func set_item_stats() -> void:
 	a_stats.atk = damage_per_tick * hero.get_atk()/hero.initial_damage
 	a_stats.cd = deploy_cd * hero.char_stats.cd
 	a_stats.aoe = deploy_range * hero.char_stats.aoe
+	
+	desc = "Spawns " + change_text_color(str(deploy_amount), "red") + " turrets every " + change_text_color(str(snapped(a_stats.cd,0.01)),"red") + " seconds.\nEach turret doing " + change_text_color(str(snapped(damage_per_tick,0.01)),"red") + " damage every " + change_text_color(str(snapped(damage_tick_time,0.01)),"red") + " seconds" 
