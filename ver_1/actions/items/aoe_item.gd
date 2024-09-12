@@ -35,8 +35,9 @@ func aoe_dmg() -> void:
 	for enemy : BaseEnemy in enemies_in_hitbox:
 		enemy.take_damage(a_stats.get_total_dmg())
 		if is_ascended:
-			if enemy.die:
-				hero.gain_shield(shield_amount, shield_duration)
+			enemy.add_status("Knockback", [20, hero.position, 1])
+			#if enemy.die:
+				#hero.gain_shield(shield_amount, shield_duration)
 
 func _upgrade() -> void:
 	super()

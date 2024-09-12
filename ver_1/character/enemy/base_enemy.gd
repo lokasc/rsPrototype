@@ -107,7 +107,8 @@ func move_to_target(p_target = null) -> void:
 func get_closest_target_position() -> BaseHero:
 	var closest_hero : BaseHero = null 
 	var closest_magnitude : float = 9999999
-	for x in GameManager.Instance.players:
+	for x : BaseHero in GameManager.Instance.players:
+		if x.IS_DEAD: continue
 		if x.global_position.distance_to(self.global_position) < closest_magnitude:
 			closest_hero = x
 			closest_magnitude = x.global_position.distance_to(self.global_position)
