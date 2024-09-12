@@ -33,10 +33,9 @@ func _update(_delta:float) -> void:
 func aoe_dmg() -> void:
 	if !multiplayer.is_server(): return
 	for enemy : BaseEnemy in enemies_in_hitbox:
-		enemy.take_damage(a_stats.get_total_dmg())
 		if is_ascended:
-			enemy.die.connect(ascended_ability())
-
+			enemy.die.connect(ascended_ability)
+		enemy.take_damage(a_stats.get_total_dmg())
 func _upgrade() -> void:
 	super()
 	damage_per_tick += 5
