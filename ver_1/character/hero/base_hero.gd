@@ -263,6 +263,8 @@ func add_item(action_index : int) -> void:
 	new_item.hero = self
 	items.append(new_item)
 	item_holder.add_child(new_item)
+	
+	GameManager.Instance.ui.set_item_ui(new_item, self)
 
 func add_stat(index : int) -> void:
 	var new_stat = GameManager.Instance.action_list.get_new_class_script(index)
@@ -270,6 +272,8 @@ func add_stat(index : int) -> void:
 	stat_cards.append(new_stat)
 	new_stat.hero = self
 	new_stat._upgrade()
+	
+	GameManager.Instance.ui.set_stat_ui(new_stat, self)
 
 func has_stat(index : int) -> bool:
 	var new_stat_name = GameManager.Instance.action_list.get_new_class_script(index).get_class_name()

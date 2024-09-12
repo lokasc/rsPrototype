@@ -18,9 +18,20 @@ extends Control
 
 # Boss UI
 @onready var boss_health_bar : BossHealthBarUI = player_container.find_child("BossHealthBarUI")
+
 # Abilities, Stats & Items
 @onready var ability1 : AbilityBoxUI = player_container.find_child("Ability1")
 @onready var ability2 : AbilityBoxUI = player_container.find_child("Ability2")
+
+@onready var item1 : BaseBoxUI = player_container.find_child("Item1")
+@onready var item2 : BaseBoxUI = player_container.find_child("Item2")
+@onready var item3 : BaseBoxUI = player_container.find_child("Item3")
+@onready var item4 : BaseBoxUI = player_container.find_child("Item4")
+
+@onready var stat1 : BaseBoxUI = player_container.find_child("Stat1")
+@onready var stat2 : BaseBoxUI = player_container.find_child("Stat2")
+@onready var stat3 : BaseBoxUI = player_container.find_child("Stat3")
+@onready var stat4 : BaseBoxUI = player_container.find_child("Stat4")
 
 var action_selected : bool
 
@@ -86,7 +97,6 @@ func show_player_ui():
 func hide_player_ui():
 	player_ui_layer.visible = false
 
-
 # called by the game_manager
 func build_selection_container(info_array : Array):
 	action_selected = false
@@ -113,10 +123,44 @@ func on_ready_to_continue():
 	waiting_label.text = " "
 	pass
 
+#region actions display
+
 func set_ability_ui():
 	ability1.set_up(GameManager.Instance.local_player.ability_1)
 	ability2.set_up(GameManager.Instance.local_player.ability_2)
 
+func set_item_ui(_item : BaseItem, hero : BaseHero):
+	if hero.multiplayer.get_unique_id() != hero.get_multiplayer_authority(): return
+	
+	# go through each item and see if they have an ability yet.
+	var item_ui_slot : BaseBoxUI
+	if !item1.action: item_ui_slot = item1
+	elif !item2.action: item_ui_slot = item2
+	elif !item3.action: item_ui_slot = item3
+	elif !item4.action: item_ui_slot = item4
+	else: 
+		assert(1 < 0, "Error, no item ui slot found")
+		return
+	
+	item_ui_slot.set_up(_item)
+
+func set_stat_ui(_stat : BaseStatCard, hero : BaseHero):
+	if hero.multiplayer.get_unique_id() != hero.get_multiplayer_authority(): return
+	
+	# go through each item and see if they have an ability yet.
+	var stat_ui_slot : BaseBoxUI
+	if !stat1.action: stat_ui_slot = stat1
+	elif !stat2.action: stat_ui_slot = stat2
+	elif !stat3.action: stat_ui_slot = stat3
+	elif !stat4.action: stat_ui_slot = stat4
+	else: 
+		assert(1 < 0, "Error, no stat ui slot found")
+		return
+	
+	stat_ui_slot.set_up(_stat)
+
+
+#endregion
 func set_boss_ui(_boss : BaseBoss):
 	boss_health_bar.set_up(_boss)
 	boss_health_bar.visible = true

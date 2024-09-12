@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://di3afbvqsygw0"]
+[gd_scene load_steps=9 format=3 uid="uid://di3afbvqsygw0"]
 
 [ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="1_kc8fy"]
 [ext_resource type="Texture2D" uid="uid://dmk8gf6pp3esw" path="res://assets/UI/HealthBar2.png" id="1_sqy73"]
 [ext_resource type="Texture2D" uid="uid://t47qf2h3bwpv" path="res://assets/UI/LevelBar.png" id="3_0hlrc"]
 [ext_resource type="PackedScene" uid="uid://1qhg1e7k11m1" path="res://ver_1/game/UI/bottom_ui/ability_box_ui.tscn" id="4_ourxg"]
+[ext_resource type="PackedScene" uid="uid://c15g2l1arshqn" path="res://ver_1/game/UI/bottom_ui/base_box_ui.tscn" id="4_xv54i"]
 [ext_resource type="PackedScene" uid="uid://ddkcw1u2xi1ok" path="res://audiovisualizer.tscn" id="5_4g6wq"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_w6xs3"]
@@ -130,8 +131,20 @@ layout_direction = 2
 layout_mode = 2
 size_flags_vertical = 8
 
+[node name="Item1" parent="PlayerContainer/ActionContainers" instance=ExtResource("4_xv54i")]
+layout_mode = 2
+
+[node name="Item2" parent="PlayerContainer/ActionContainers" instance=ExtResource("4_xv54i")]
+layout_mode = 2
+
+[node name="Item3" parent="PlayerContainer/ActionContainers" instance=ExtResource("4_xv54i")]
+layout_mode = 2
+
+[node name="Item4" parent="PlayerContainer/ActionContainers" instance=ExtResource("4_xv54i")]
+layout_mode = 2
+
 [node name="Spacer2" type="Control" parent="PlayerContainer/ActionContainers"]
-custom_minimum_size = Vector2(128, 64)
+custom_minimum_size = Vector2(290, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -151,6 +164,18 @@ expand_mode = 2
 custom_minimum_size = Vector2(128, 64)
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="Stat1" parent="PlayerContainer/ActionContainers" instance=ExtResource("4_xv54i")]
+layout_mode = 2
+
+[node name="Stat2" parent="PlayerContainer/ActionContainers" instance=ExtResource("4_xv54i")]
+layout_mode = 2
+
+[node name="Stat3" parent="PlayerContainer/ActionContainers" instance=ExtResource("4_xv54i")]
+layout_mode = 2
+
+[node name="Stat4" parent="PlayerContainer/ActionContainers" instance=ExtResource("4_xv54i")]
+layout_mode = 2
 
 [node name="BottomContainer" type="HBoxContainer" parent="PlayerContainer"]
 layout_direction = 2
