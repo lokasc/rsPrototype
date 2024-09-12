@@ -31,21 +31,24 @@ metadata/_edit_use_anchors_ = true
 
 [node name="DescriptionContainer" type="Control" parent="."]
 anchors_preset = 0
-offset_top = -77.0
-offset_right = 40.0
-offset_bottom = -37.0
 
 [node name="DescriptionLabel" type="Label" parent="DescriptionContainer"]
 layout_mode = 1
-anchors_preset = -1
-anchor_top = 1.921
-anchor_bottom = 1.921
-offset_left = -2.0
-offset_top = -60.84
-offset_right = 139.0
-offset_bottom = -37.84
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.0
+offset_top = -40.0
+offset_right = 113.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("3_h8up4")
 text = "No description set"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

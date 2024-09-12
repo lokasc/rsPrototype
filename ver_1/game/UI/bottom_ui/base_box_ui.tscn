@@ -5,10 +5,10 @@
 [ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="3_vb22a"]
 
 [node name="BaseBoxUI" type="TextureRect"]
-offset_right = 512.0
-offset_bottom = 512.0
+offset_right = 128.0
+offset_bottom = 128.0
 texture = ExtResource("1_m42f2")
-expand_mode = 2
+expand_mode = 3
 script = ExtResource("2_fihrr")
 
 [node name="RemainingTimeLabel" type="Label" parent="."]
@@ -41,12 +41,14 @@ layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.921
 anchor_bottom = 1.921
-offset_left = -2.0
-offset_top = -60.84
-offset_right = 139.0
-offset_bottom = -37.84
+offset_left = -51.0
+offset_top = -16.84
+offset_right = 175.0
+offset_bottom = 6.16
 theme = ExtResource("3_vb22a")
 text = "No description set"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
