@@ -65,7 +65,7 @@ func update(_delta: float) -> void:
 func spawn_pattern() -> void:
 	if !multiplayer.is_server(): return
 	
-	var spawn_position : Vector2
+	var position : Vector2
 	var rand_rotation : float
 	var rotation_vec : Vector2
 	# decide location and spawn.
@@ -73,8 +73,8 @@ func spawn_pattern() -> void:
 		# decide random direction vector.
 		rand_rotation = randf_range(0,360)
 		rotation_vec = Vector2.UP.rotated(rand_rotation)
-		spawn_position = global_position + offset_from_center * rotation_vec
-		spawn_projectile(spawn_position)
+		position = global_position + offset_from_center * rotation_vec
+		spawn_projectile(position)
 
 func spawn_projectile(gpos : Vector2) -> void:
 	var copy = projectile_scene.instantiate()

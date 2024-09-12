@@ -36,7 +36,7 @@ func _ready() -> void:
 		circle_container.visible = false
 	
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if is_rain:
 		# animate the scale to match current.
 		# remap distance:

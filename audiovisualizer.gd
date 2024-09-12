@@ -27,7 +27,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	var prev_hz = 0
 	for i in range(1, vu_count+1):
 		# Calculating variables

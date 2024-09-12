@@ -64,7 +64,7 @@ func phase_three_logic(delta):
 	rain.update(delta)
 	ring.update(delta)
 
-func on_hit(_area : Area2D) -> void:
+func on_hit(area : Area2D) -> void:
 	if !multiplayer.is_server(): return
 
 # Override this here to change the stats of the character.

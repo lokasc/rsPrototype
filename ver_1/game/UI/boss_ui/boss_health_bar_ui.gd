@@ -35,7 +35,7 @@ func animation_logic(delta):
 	if current_time >= time_to_full:
 		is_animating = false
 
-func on_hit(_dmg):
+func on_hit(dmg):
 	is_animating = false
 	value = boss.current_health
 

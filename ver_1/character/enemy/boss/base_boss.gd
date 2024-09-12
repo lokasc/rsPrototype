@@ -36,7 +36,7 @@ func _parse_abilities(x : BossAbility):
 		states[x.name.to_lower()] = x
 		x.state_change.connect(on_state_change)
 
-func on_state_change(_state_old, state_new_name:String):
+func on_state_change(state_old, state_new_name:String):
 	var new_state = states.get(state_new_name.to_lower())
 	if !new_state:
 		return
