@@ -333,7 +333,7 @@ func is_stats_full() -> bool:
 		return false
 
 func is_items_full() -> bool:
-	if items.size() >= 5:
+	if items.size() >= 4:
 		return true
 	else:
 		return false

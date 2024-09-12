@@ -173,7 +173,26 @@ func start_level_up_sequence():
 
 # Algorithm for choosing actions for level up.
 func choose_actions(_hero : BaseHero) -> Array[int]:
-	return [action_list.get_random_action(), action_list.get_random_action(), action_list.get_random_action()]
+	var array : Array[int] = []
+	
+	# Select three actions randomly
+	for x in 3:
+		var _action = action_list.get_random_action()
+		
+		# Check for selecting stats/items if max amount reached
+		# get a new action if an action of the same type is received.
+		
+		while true:
+			if _hero.is_items_full() && action_list.is_item(_action):
+				_action = action_list.get_random_action()
+				continue
+			if _hero.is_stats_full() && action_list.is_stat(_action):
+				_action = action_list.get_random_action()
+				continue
+			break
+		
+		array.append(_action)
+	return array
 
 # refactor -> pass an  integer instead of an action
 func tell_server_client_is_ready(action_index):

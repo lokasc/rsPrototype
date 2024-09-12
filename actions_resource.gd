@@ -26,3 +26,17 @@ func get_new_class_script(index  : int) -> BaseAction:
 		return resource.new()
 	else:
 		return null
+
+func is_item(index : int) -> bool:
+	var script = get_new_class_script(index)
+	if script is BaseItem:
+		return true
+	else:
+		return false
+
+func is_stat(index : int) -> bool:
+	var script = get_new_class_script(index)
+	if script is BaseStatCard:
+		return true
+	else:
+		return false
