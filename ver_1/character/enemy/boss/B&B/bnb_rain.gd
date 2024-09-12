@@ -14,7 +14,7 @@ extends BossAbility
 @export var offset_from_center : float
 
 # Max distance a tile will spawn (starting from offset)
-@export var range : float
+@export var rain_range : float
 @export var frequency : float # How many attacks per second.
 
 @export_subgroup("Attacking player")
@@ -50,7 +50,7 @@ func update(_delta: float) -> void:
 func spawn_pattern() -> void:
 	if !multiplayer.is_server(): return
 	
-	var position : Vector2
+	var spawn_position : Vector2
 	var rand_rotation : float
 	var rand_position : int
 	var rotation_vec : Vector2
@@ -60,29 +60,27 @@ func spawn_pattern() -> void:
 		rand_rotation = randf_range(0,360)
 		rotation_vec = Vector2.UP.rotated(rand_rotation)
 		
-		rand_position = randi_range(0, range)
+		rand_position = randi_range(0, int(rain_range))
 		
-		position = global_position + ((offset_from_center + rand_position) * rotation_vec)
-		position.y -= height
-		spawn_projectile(position)
+		spawn_position = global_position + ((offset_from_center + rand_position) * rotation_vec)
+		spawn_position.y -= height
+		spawn_projectile(spawn_position)
 
 func spawn_near_players() -> void:
 	if !multiplayer.is_server(): return
 	
-	var position : Vector2
-	var rand_rotation : float
+	var spawn_position : Vector2
 	var rand_position : Vector2
-	var rotation_vec : Vector2
 	
 	for player in GameManager.Instance.players:
 		for x in num_per_player:
 			# Add a random position point within range.
-			rand_position.x = randi_range(-range_from_player, range_from_player)
-			rand_position.y = randi_range(-range_from_player, range_from_player)
+			rand_position.x = randf_range(-range_from_player, range_from_player)
+			rand_position.y = randf_range(-range_from_player, range_from_player)
 			
-			position = player.global_position + rand_position
-			position.y -= height
-			spawn_projectile(position)
+			spawn_position = player.global_position + rand_position
+			spawn_position.y -= height
+			spawn_projectile(spawn_position)
 	
 	
 

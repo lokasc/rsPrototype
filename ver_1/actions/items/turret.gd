@@ -5,9 +5,9 @@ signal destroy_turret(turret)
 
 # all defined by the turret item
 @export var turret_duration : float
-@export var turret_range : int
+@export var turret_range : float
 @export var deploy_time : float
-@export var damage_per_tick : int = 1
+@export var damage_per_tick : float = 1
 @export var initial_tick_time : float = 0.5
 @export var knockback_distance : int = 0
 

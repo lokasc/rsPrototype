@@ -51,7 +51,7 @@ func _ready() -> void:
 	beat_duration = 60.0/BPM
 	current_global_bg_clip = main_music_player.stream.initial_clip
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	#if Input.is_action_just_pressed("attack") && multiplayer.is_server():
 		#if current_bg_clip == BG_TRANSITION_TYPE.EARLY_GAME:
 			#change_bg(BG_TRANSITION_TYPE.LOW_HP)

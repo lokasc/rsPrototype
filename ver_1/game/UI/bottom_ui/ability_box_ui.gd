@@ -21,7 +21,7 @@ func _ready() -> void:
 	description_container.visible = false
 	on_cooldown_finish()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	# Dont get time if not on cd, save computation.
 	if is_on_cd:
 		current_cd = ability.a_stats.cd - ability.current_time

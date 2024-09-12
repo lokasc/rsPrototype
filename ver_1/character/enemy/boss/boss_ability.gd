@@ -6,14 +6,14 @@ var boss : BaseBoss
 func enter() -> void:
 	return
 
-func lifesteal(dmg_dealt : float) -> void:
+func lifesteal(_dmg_dealt : float) -> void:
 	return
 
 
 func _init() -> void:
 	super()
 
-func _process(delta) -> void:
+func _process(_delta) -> void:
 	return
 
 # Starts the cooldown of the ability.

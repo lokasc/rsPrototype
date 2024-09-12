@@ -56,7 +56,7 @@ func update_lvl_label(new_lvl : int) -> void:
 	level_label.text = str(new_lvl)
 
 func _process(_delta: float) -> void:
-	var my_player = GameManager.Instance.local_player
+	var _my_player = GameManager.Instance.local_player
 	
 	if GameManager.Instance.is_started:
 		time_label.text = Time.get_time_string_from_unix_time(int(GameManager.Instance.time)).substr(3,5)

@@ -44,9 +44,6 @@ func get_status_string() -> String:
 		return "[center]" + "LVL:" + str(_action.level) + " to " + str(_action.level + 1) + "[/center]"
 	else:
 		return "[center]" + "Ascension" + "[/center]" 
-	
-	# If none of these work, display status
-	return "[center]" + "status" + "[/center]"
 
 func get_amount_string() -> String:
 	var _action : BaseAction = hero.get_action(action)
@@ -58,6 +55,3 @@ func get_amount_string() -> String:
 		return "[center]" +  action.display_upgrade_amount + "[/center]"
 	else:
 		return " " 
-	
-	# If none of these work, display status
-	return " "
