@@ -3,7 +3,7 @@ extends BaseStatCard
 
 func _init() -> void:
 	super()
-	action_icon_path = "res://icon.svg"
+	action_icon_path = "res://assets/icons/duration_icon.png"
 	amount_per_upgrade = 0.2
 	card_desc = "Increases the duration of abilities and item effects"
 	display_upgrade_amount = "+"+ str(amount_per_upgrade*100) +"%"

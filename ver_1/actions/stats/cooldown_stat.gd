@@ -3,7 +3,7 @@ extends BaseStatCard
 
 func _init() -> void:
 	super()
-	action_icon_path = "res://icon.svg"
+	action_icon_path = "res://assets/icons/cd_icon.png"
 	amount_per_upgrade = 0.1
 	display_upgrade_amount = "-"+ str(amount_per_upgrade*100) +"%"
 	card_desc = "Reduces Cooldowns for abilities and items"

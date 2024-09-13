@@ -3,7 +3,7 @@ extends BaseStatCard
 
 func _init() -> void:
 	super()
-	action_icon_path = "res://icon.svg"
+	action_icon_path = "res://assets/icons/mm_icon.png"
 	amount_per_upgrade = 0.1
 	card_desc = "Increases the effect gained from beat sync"
 	display_upgrade_amount = "+"+ str(amount_per_upgrade*100) +"%"
