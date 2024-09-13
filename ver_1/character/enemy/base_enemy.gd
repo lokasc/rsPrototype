@@ -54,9 +54,9 @@ func _enter_tree() -> void:
 		current_update_time = randf_range(0, update_frequency)
 
 func take_damage(p_dmg:float) -> void:
-	# Client prediction
 	if current_health - p_dmg <= 0:
-		death.rpc()
+		if multiplayer.is_server():
+			death.rpc()
 		p_dmg = current_health
 	else:
 		current_health -= p_dmg
@@ -75,14 +75,19 @@ func _process(delta: float) -> void:
 		target = get_closest_target_position()
 		current_update_time = 0
 
-@rpc("unreliable_ordered", "call_local")
+@rpc("reliable", "call_local")
 func death() -> void:
 	die.emit()
 	for i in range(xp_worth):
 		var new_xp = xp_orb.instantiate()
 		loot.call_deferred("add_child", new_xp)
 		new_xp.position = position + Vector2(randi_range(-xp_drop_spread,xp_drop_spread),randi_range(-xp_drop_spread,xp_drop_spread))
-	queue_free()
+	delayed_death()
+
+func delayed_death():
+	visible = false
+	call_deferred("queue_free")
+	pass
 
 func move_to_target(p_target = null) -> void:
 	if p_target == null: return

@@ -39,6 +39,8 @@ func enter() -> void:
 	hitbox.visible = true
 	tip_hitbox.visible = true
 	set_ability_to_hero_stats()
+	
+	# TODO: Emit an rpc that we are in this new state.
 	pass
 
 func exit() -> void:
@@ -55,7 +57,6 @@ func update(_delta: float) -> void:
 	#Setting ability stats to hero stats
 	set_ability_to_hero_stats()
 	use_ability()
-	
 
 func physics_update(_delta: float) -> void:
 	if hero.input.direction:
@@ -91,7 +92,6 @@ func _process(delta : float) -> void:
 
 
 func _on_tip_hit(area: Area2D) -> void:
-	if !multiplayer.is_server(): return
 	var character : BaseCharacter = null 
 	if area.get_parent() is BaseCharacter:
 		character = area.get_parent()
@@ -101,20 +101,23 @@ func _on_tip_hit(area: Area2D) -> void:
 
 	if character is BaseEnemy:
 		already_hit.append(character)
+		#print(character)
+		#print("tipper: " + str(area.get_parent()))
 		character.hit.connect(lifesteal)
 		character.take_damage(get_multiplied_atk() * tip_dmg_multiplier)
 		character.hit.disconnect(lifesteal)
 	if character is BaseHero:
+		if !multiplayer.is_server(): return
 		character.gain_health(hero.tip_heal_amount)
 
 func on_hit(area : Area2D) -> void:
-	if !multiplayer.is_server(): return
 	# Find enemy, deal dmg.
 	var enemy = area.get_parent() as BaseEnemy
 	if enemy == null: return
 	
 	# check if we already hit the enemy with the tiper.
-	if already_hit.has(enemy): return
+	if enemy in already_hit: return
+	#print("regular: " + str(area.get_parent()))
 	
 	enemy.hit.connect(lifesteal) # The tip and normal hitbox are mutually exclusive
 	enemy.take_damage(get_multiplied_atk())
