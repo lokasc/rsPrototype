@@ -33,6 +33,11 @@ metadata/_edit_use_anchors_ = true
 [node name="DescriptionContainer" type="Control" parent="."]
 anchors_preset = 0
 
+[node name="Panel" type="Panel" parent="DescriptionContainer"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="DescriptionLabel" type="RichTextLabel" parent="DescriptionContainer"]
 z_index = 1
 layout_mode = 1

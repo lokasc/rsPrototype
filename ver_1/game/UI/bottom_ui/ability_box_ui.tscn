@@ -5,9 +5,10 @@
 [ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="3_h8up4"]
 
 [node name="AbilityBoxUi" type="TextureRect"]
-offset_right = 512.0
-offset_bottom = 512.0
+offset_right = 100.0
+offset_bottom = 100.0
 texture = ExtResource("1_0xqsl")
+expand_mode = 1
 script = ExtResource("2_s46ra")
 
 [node name="RemainingTimeLabel" type="Label" parent="."]
@@ -32,6 +33,13 @@ metadata/_edit_use_anchors_ = true
 [node name="DescriptionContainer" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 0
+
+[node name="Panel" type="Panel" parent="DescriptionContainer"]
+layout_mode = 0
+offset_left = -71.0
+offset_top = -51.0
+offset_right = -31.0
+offset_bottom = -11.0
 
 [node name="DescriptionLabel" type="RichTextLabel" parent="DescriptionContainer"]
 layout_mode = 1

@@ -8,6 +8,7 @@ var is_on_cd : bool
 @onready var description_container : Control = $DescriptionContainer
 @onready var description_label : RichTextLabel = $DescriptionContainer/DescriptionLabel
 @onready var timer_label : Label = $RemainingTimeLabel
+@onready var panel : Panel = $DescriptionContainer/Panel
 
 # Called by UI MANAGER
 func set_up(_ability : BaseAbility):
@@ -51,6 +52,8 @@ func on_ability_used():
 func _on_mouse_entered() -> void:
 	if !ability: return
 	description_label.text = "[center]" + ability.desc + "[/center]"
+	panel.size = description_label.size
+	panel.position = description_label.position
 	description_container.visible = true
 
 # when mouse exits the ability icon
