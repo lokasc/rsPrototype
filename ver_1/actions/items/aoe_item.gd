@@ -15,7 +15,7 @@ var hitbox_shape : CollisionShape2D
 
 func _init() -> void:
 	action_name = "Melodic Field"
-	card_desc = "A music field damages nearby enemies.\n[AoE][Max Hp][Cooldown]"
+	card_desc = "A music field damages nearby enemies.\n[AoE][Cooldown]"
 	action_icon_path = "res://assets/icons/aoe_icon.png"
 
 func _enter_tree() -> void:

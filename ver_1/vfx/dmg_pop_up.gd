@@ -27,7 +27,6 @@ var scale_multiplier : float = 1
 
 func set_up_data(id : int, number : float, gpos : Vector2):
 	container = get_child(0)
-	
 	current_dmg = number
 	(container.get_child(0) as Label).text = str(current_dmg)
 	
@@ -56,12 +55,14 @@ func _process(delta: float) -> void:
 
 
 func stack_dmg_reuse(number : float, gpos : Vector2) -> void:
+	# TODO: Scale multiplier by the amount of damage dealt compared to the current damage.
+	# So a large difference presents a bigger scale compared to a smaller difference.
+	scale_multiplier += 0.1
+	
 	current_dmg += number
 	(container.get_child(0) as Label).text = str(current_dmg)
 	global_position = gpos
 	container.position.y = 0
-	
-	scale_multiplier += 0.2
 	
 	# reset timer & animation
 	current_time = 0

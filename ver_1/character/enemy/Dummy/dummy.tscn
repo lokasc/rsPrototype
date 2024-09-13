@@ -63,10 +63,10 @@ shape = SubResource("CircleShape2D_gmdls")
 debug_color = Color(0, 0.592183, 0.742917, 0.42)
 
 [node name="Label" type="Label" parent="."]
-offset_left = -20.0
-offset_top = -127.0
-offset_right = 20.0
-offset_bottom = -58.0
+offset_left = -18.0
+offset_top = -286.0
+offset_right = 22.0
+offset_bottom = -149.0
 theme_override_font_sizes/font_size = 100
 
 [node name="TextPopUp" parent="." instance=ExtResource("4_jtw5c")]
