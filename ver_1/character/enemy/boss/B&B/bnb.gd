@@ -66,6 +66,11 @@ func phase_three_logic(delta):
 
 func on_hit(area : Area2D) -> void:
 	if !multiplayer.is_server(): return
+	# typecasting
+	var hero = area.get_parent() as BaseHero
+	if hero == null: return
+	
+	hero.take_damage(dmg)
 
 # Override this here to change the stats of the character.
 func _init_stats():

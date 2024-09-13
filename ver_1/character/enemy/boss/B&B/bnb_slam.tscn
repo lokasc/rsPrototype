@@ -3,12 +3,13 @@
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/bnb_slam.gd" id="1_r5yuy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e7nwo"]
+radius = 1000.0
 
 [node name="BnBSlam" type="Node2D"]
 script = ExtResource("1_r5yuy")
+slam_range = 1000.0
 
 [node name="SlamArea" type="Area2D" parent="."]
-scale = Vector2(100, 100)
 collision_layer = 0
 collision_mask = 2
 monitoring = false

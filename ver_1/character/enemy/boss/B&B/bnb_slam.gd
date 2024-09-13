@@ -12,7 +12,7 @@ var active_duration : float = 2
 # use variable HERO to access hero's variables and functions
 # Emit state_change(self, "new state name") to change out of state. 
 func _ready() -> void:
-	slam_area.scale = Vector2(slam_range, slam_range)
+	slam_area.get_child(0).shape.radius = slam_range
 
 func enter() -> void:
 	super()
@@ -49,5 +49,4 @@ func _on_slam_area_hit(area: Area2D) -> void:
 		character = area.get_parent()
 		
 	if !character: return 	# do not execute on non-characters or nulls
-	
-	character.add_status("Knockback", [600, global_position, 12])
+	character.add_status("Knockback", [slam_range-(character.global_position.distance_to(global_position)), global_position, 12])
