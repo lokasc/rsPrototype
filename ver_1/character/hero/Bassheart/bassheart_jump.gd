@@ -64,6 +64,7 @@ func _enter_tree() -> void:
 	desc = "Jump towards a location providing shields to allies when landing.\nBeat Sync: Provides additional shields.\nEmpowered: Provides additional shields and does damage"
 
 func _ready() -> void:
+	super()
 	# connect signal
 	hitbox.area_entered.connect(on_hit)
 	# initialise hitboxes
@@ -191,10 +192,6 @@ func set_curve_points() -> void:
 	path.curve.set_point_position(1,inter_pos)
 	path.curve.set_point_out(1, inter_out_pos)
 	path.curve.set_point_position(2,landing_pos)
-
-func use_ability() -> void:
-	if is_on_cd: return
-	super()
 
 # Increments level by 1, override virtual func to change upgrade logic.
 func _upgrade() -> void:

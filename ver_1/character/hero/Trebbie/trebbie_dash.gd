@@ -33,6 +33,7 @@ func _enter_tree():
 	desc = "Dash towards mouse direction.\nBeat Sync: Reduces cooldown by 70%"
 
 func _ready() -> void:
+	super()
 	# connect signal
 	hitbox.area_entered.connect(on_hit)
 	# initialise hitboxes
@@ -122,12 +123,6 @@ func on_hit(area : Area2D):
 		character.hit.disconnect(lifesteal)
 	if character is BaseHero:
 		character.gain_health(hero.tip_heal_amount)
-
-
-# This func is used for auto_attack, dont change this.
-func use_ability():
-	if is_on_cd: return
-	super()
 
 # Increments level by 1, override virtual func to change upgrade logic.
 func _upgrade():

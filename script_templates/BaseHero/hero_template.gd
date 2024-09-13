@@ -20,7 +20,7 @@ func _process(_delta: float) -> void:
 	# Rotates attack based on mouse direction
 	if input.is_use_mouse_auto_attack:
 		basic_attack.look_at(input.mouse_pos)
-	basic_attack.use_ability()
+	basic_attack.use_basic_attack()
 
 # Movement is handled here by super class
 func _physics_process(_delta:float) -> void:

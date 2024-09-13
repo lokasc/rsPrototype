@@ -37,7 +37,7 @@ func start_cd() -> void:
 	super()
 
 # This func is used for auto_attack, dont change this.
-func use_ability() -> void:
+func use_basic_attack() -> void:
 	if is_on_cd: return
 	super()
 

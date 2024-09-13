@@ -17,3 +17,6 @@ position = Vector2(45.6153, -1.90735e-06)
 shape = SubResource("RectangleShape2D_nwjjw")
 
 [node name="HitboxReset" type="Timer" parent="."]
+
+[connection signal="area_entered" from="AttackHitBox" to="." method="on_hit"]
+[connection signal="timeout" from="HitboxReset" to="." method="_hitbox_reset"]

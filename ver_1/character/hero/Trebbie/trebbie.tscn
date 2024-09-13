@@ -326,7 +326,6 @@ cd_reducion = 0.3
 action_name = "Trebbie Dash"
 
 [node name="TrebbieBuff" parent="." instance=ExtResource("5_mxiub")]
-recast_window = 0.6
 
 [node name="Sprites" type="Node2D" parent="."]
 scale = Vector2(2, 2)

@@ -20,7 +20,7 @@ func _process(delta) -> void:
 func start_cd() -> void:
 	return
 # FIXME: Refactor & change name
-func use_ability() -> void:
+func use_basic_attack() -> void:
 	return
 
 func _reset() -> void:

@@ -11,6 +11,8 @@ extends BaseAbility
 
 var ability_1_cd_display : int
 var ability_2_cd_display : int
+var has_attacked : bool = false
+var already_hit : Array[BaseEnemy] = []
 
 @onready var hitbox : Area2D = $AttackHitBox
 @onready var hitbox_timer : Timer = $HitboxReset
@@ -20,7 +22,7 @@ var ability_2_cd_display : int
 @onready var leg_sprite : AnimatedSprite2D = $"../Sprites/LegSprite2D"
 @onready var effect_sprite : AnimatedSprite2D = $"../Sprites/RotatingWeapon/EffectSprite2D"
 
-var already_hit : Array[BaseEnemy] = []
+
 
 func _init() -> void:
 	super()
@@ -29,15 +31,13 @@ func _enter_tree() -> void:
 	pass
 
 func _ready() -> void:
+	super()
 	hitbox.position.x = distance_to_center
 	initial_effect_scale = effect_sprite.scale
 	hitbox.monitoring = false
 	tip_hitbox.monitoring = false
 	hitbox.get_child(0).debug_color = Color("0099b36b")
 	
-	# connect signals
-	hitbox.area_entered.connect(on_hit)
-	hitbox_timer.timeout.connect(_hitbox_reset)
 
 func enter() -> void:
 	hitbox.visible = true
@@ -59,7 +59,12 @@ func update(_delta: float) -> void:
 		weapon_sprite.look_at(hero.input.get_mouse_position())
 	#Setting ability stats to hero stats
 	set_ability_to_hero_stats()
-	use_ability()
+	if beat_count == 1:
+		if not has_attacked:
+			use_basic_attack()
+			has_attacked = true
+	else: has_attacked = false
+	
 	# Process abilities
 	if hero.input.ability_1:
 		if hero.ability_1.is_ready():
@@ -125,7 +130,7 @@ func on_hit(area : Area2D) -> void:
 	enemy.take_damage(get_multiplied_atk())
 	enemy.hit.disconnect(lifesteal)
 
-func use_ability() -> void:
+func use_basic_attack() -> void:
 	if is_on_cd: return
 	super()
 	# Reset already hit targets.

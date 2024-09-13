@@ -57,6 +57,7 @@ func _enter_tree() -> void:
 	desc = "Freezes enemies towards mouse direction.\nDealing enough damage to frozen enemies will do additionall damage.\nBeat Sync: Increases the range.\nEmpowered: Increases range and freeze duration"
 
 func _ready() -> void:
+	super()
 	hitbox.area_entered.connect(on_hit)
 	hitbox.visible = false
 	hitbox.monitoring = false

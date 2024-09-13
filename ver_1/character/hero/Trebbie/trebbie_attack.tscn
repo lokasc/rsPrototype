@@ -34,4 +34,6 @@ debug_color = Color(0.687512, 0.290867, 1, 0.42)
 
 [node name="HitboxReset" type="Timer" parent="."]
 
+[connection signal="area_entered" from="AttackHitBox" to="." method="on_hit"]
 [connection signal="area_entered" from="TipHitBox" to="." method="_on_tip_hit"]
+[connection signal="timeout" from="HitboxReset" to="." method="_hitbox_reset"]

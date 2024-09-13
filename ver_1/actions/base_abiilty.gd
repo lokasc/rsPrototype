@@ -14,6 +14,11 @@ var is_synced : bool = false
 
 var initial_effect_scale := Vector2.ONE
 
+var beat_count : int = 0 #used in basic attack
+
+func _ready() -> void:
+	BeatController.Instance.on_beat.connect(add_beat)
+
 func enter() -> void:
 	_reset()
 	if hero == null: return
@@ -49,10 +54,8 @@ func start_cd() -> void:
 	if !is_on_cd:
 		is_on_cd = true
 
-# FIXME: Refactor & change name
-func use_ability() -> void:
-	if !is_on_cd:
-		is_on_cd = true
+func use_basic_attack() -> void:
+	pass
 
 func _reset() -> void:
 	is_on_cd = false
@@ -75,3 +78,9 @@ func get_multiplied_atk() -> float:
 
 func lifesteal(dmg_dealt : float) -> void:
 	hero.gain_health(dmg_dealt * hero.char_stats.lifesteal)
+
+func add_beat() -> void:
+	if beat_count == 4:
+		beat_count = 1
+	else:
+		beat_count += 1

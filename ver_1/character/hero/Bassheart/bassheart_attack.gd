@@ -10,6 +10,7 @@ extends BaseAbility
 
 var ability_1_cd_display : int
 var ability_2_cd_display : int
+var has_attacked: bool = false
 
 @onready var hitbox : Area2D = $AttackHitBox
 @onready var hitbox_timer : Timer = $HitboxReset
@@ -31,14 +32,11 @@ func _enter_tree() -> void:
 	pass
 
 func _ready() -> void:
+	super()
 	hitbox.position.x = distance_to_center
 	initial_effect_scale = effect_sprite.scale
 	hitbox.monitoring = false
 	hitbox.get_child(0).debug_color = Color("0099b36b")
-	
-	# connect signals
-	hitbox.area_entered.connect(on_hit)
-	hitbox_timer.timeout.connect(_hitbox_reset)
 
 # Use statemachine logic if ability requires it
 # use variable HERO to access hero's variables and functions
@@ -59,7 +57,12 @@ func update(_delta: float) -> void:
 		look_at(hero.input.get_mouse_position())
 		weapon_sprite.look_at(hero.input.get_mouse_position())
 	set_ability_to_hero_stats()
-	use_ability()
+	# Logic to make it only atk once
+	if beat_count == 1:
+		if not has_attacked:
+			use_basic_attack()
+			has_attacked = true
+	else: has_attacked = false
 	
 	# Process abilities
 	if hero.input.ability_1:
@@ -109,9 +112,7 @@ func _hitbox_reset() -> void:
 	hitbox.get_child(0).debug_color = Color("0099b36b") 
 
 # This func is used for auto_attack, dont change this.
-func use_ability() -> void:
-	if is_on_cd: return
-	super()
+func use_basic_attack() -> void:
 	if hero.animator.has_animation("attack"):
 		hero.animator.play("attack")
 		effect_sprite.show()

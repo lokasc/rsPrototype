@@ -5,6 +5,8 @@ const BPM = 120 ## Beats per minute
 
 signal on_beat ## signal for executing things on to the beat. 
 
+static var Instance : BeatController
+
 @onready var main_music_player = $MainMusicPlayer 
 @onready var test_interactive  : AudioStream = load("res://Resources/test_interactive.tres")
 
@@ -41,6 +43,9 @@ var current_global_bg_clip : BG_TRANSITION_TYPE ## current global clip.
 var current_bg_clip : BG_TRANSITION_TYPE # current clip
 
 var playback : AudioStreamPlayback
+
+func _init() -> void:
+	Instance = self
 
 func _enter_tree() -> void:
 	GameManager.Instance.bc = self

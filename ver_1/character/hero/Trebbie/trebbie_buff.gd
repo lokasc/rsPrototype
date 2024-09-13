@@ -51,6 +51,7 @@ func _enter_tree() -> void:
 	desc = "Increases damage and heal/shield gain for allies in an area.\nBeat Sync: Reapplies buff with increasing area \nup to maximum of 3"
 
 func _ready() -> void:
+	super()
 	hitbox.area_entered.connect(on_hit)
 	hitbox.visible = false
 	hitbox.monitoring = false
