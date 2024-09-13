@@ -9,9 +9,13 @@ extends BaseAbility
 @export var distance_to_center : float
 @export var tip_dmg_multiplier : float
 
+var ability_1_cd_display : int
+var ability_2_cd_display : int
+
 @onready var hitbox : Area2D = $AttackHitBox
 @onready var hitbox_timer : Timer = $HitboxReset
 @onready var tip_hitbox : Area2D = $TipHitBox
+
 @onready var weapon_sprite : Node2D = $"../Sprites/RotatingWeapon"
 @onready var leg_sprite : AnimatedSprite2D = $"../Sprites/LegSprite2D"
 @onready var effect_sprite : AnimatedSprite2D = $"../Sprites/RotatingWeapon/EffectSprite2D"
@@ -53,10 +57,24 @@ func update(_delta: float) -> void:
 	if hero.input.is_use_mouse_auto_attack:
 		look_at(hero.input.get_mouse_position())
 		weapon_sprite.look_at(hero.input.get_mouse_position())
-	
 	#Setting ability stats to hero stats
 	set_ability_to_hero_stats()
 	use_ability()
+	# Process abilities
+	if hero.input.ability_1:
+		if hero.ability_1.is_ready():
+			if hero.input.is_on_beat: #Entering buff state while in sync
+				hero.ability_1.is_synced = true
+			state_change.emit(self, "TrebbieBuff")
+		else: print("Ability 1 is on cooldown! ", ability_1_cd_display)
+	elif hero.input.ability_2:
+		if hero.ability_2.is_ready():
+			if hero.input.is_on_beat: #Entering buff state while in sync
+				hero.ability_2.is_synced = true
+			state_change.emit(self, "TrebbieDash")
+		else: print("Ability 2 is on cooldown! ", ability_2_cd_display)
+	hero.input.ability_1 = false
+	hero.input.ability_2 = false
 
 func physics_update(_delta: float) -> void:
 	if hero.input.direction:
@@ -72,24 +90,8 @@ func _process(delta : float) -> void:
 	super(delta)
 	
 	# calculating ability cooldown
-	var ability_1_cd_display : int = int(hero.ability_1.a_stats.cd - hero.ability_1.current_time)
-	var ability_2_cd_display : int = int(hero.ability_2.a_stats.cd - hero.ability_2.current_time)
-	
-	# Process abilities
-	if hero.input.ability_1 and hero.ability_1.is_ready():
-		if hero.input.is_on_beat: #Entering buff state while in sync
-			#print(str(multiplayer.is_server()) + " is on sync")
-			hero.ability_1.is_synced = true
-		state_change.emit(self, "TrebbieBuff")
-	elif hero.input.ability_1: 
-		print("Ability 1 is on cooldown! ", ability_1_cd_display)
-	elif hero.input.ability_2 and hero.ability_2.is_ready():
-		if hero.input.is_on_beat: #Entering buff state while in sync
-			hero.ability_2.is_synced = true
-		state_change.emit(self, "TrebbieDash")
-	elif hero.input.ability_2:
-		print("Ability 2 is on cooldown! ", ability_2_cd_display)
-
+	ability_1_cd_display = int(hero.ability_1.a_stats.cd - hero.ability_1.current_time)
+	ability_2_cd_display = int(hero.ability_2.a_stats.cd - hero.ability_2.current_time)
 
 func _on_tip_hit(area: Area2D) -> void:
 	var character : BaseCharacter = null 

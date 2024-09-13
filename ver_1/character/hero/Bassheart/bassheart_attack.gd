@@ -8,8 +8,13 @@ extends BaseAbility
 @export var hitbox_time_active : float = 0.1
 @export var distance_to_center : float = 0
 
+var ability_1_cd_display : int
+var ability_2_cd_display : int
+
 @onready var hitbox : Area2D = $AttackHitBox
 @onready var hitbox_timer : Timer = $HitboxReset
+
+@onready var beat_sync_effects : GPUParticles2D = $"../Sprites/BeatSyncEffect"
 @onready var weapon_sprite : Node2D = $"../Sprites/RotatingWeapon"
 @onready var leg_sprite : AnimatedSprite2D = $"../Sprites/LegSprite2D"
 @onready var effect_sprite : AnimatedSprite2D = $"../Sprites/RotatingWeapon/EffectSprite2D"
@@ -62,13 +67,13 @@ func update(_delta: float) -> void:
 			if hero.input.is_on_beat:
 				hero.ability_1.is_synced = true
 			state_change.emit(self, "BassheartFreeze")
+		else: print("Ability 1 is on cooldown! ", ability_1_cd_display)
 	elif hero.input.ability_2:
 		if hero.ability_2.is_ready():
 			if hero.input.is_on_beat: #Entering buff state while in sync
 				hero.ability_2.is_synced = true
 			state_change.emit(self, "BassheartJump")
-		else:
-			print("Server? %s:" %multiplayer.is_server() + " Ability 2 is on cooldown! ", hero.ability_2.current_time)
+		else: print(" Ability 2 is on cooldown! ", ability_2_cd_display)
 	hero.input.ability_1 = false
 	hero.input.ability_2 = false
 
@@ -86,11 +91,9 @@ func _process(delta) -> void:
 	super(delta)
 	
 	# calculating ability cooldown
-	var ability_1_cd_display : int = int(hero.ability_1.a_stats.cd - hero.ability_1.current_time)
-	var ability_2_cd_display : int = int(hero.ability_2.a_stats.cd - hero.ability_2.current_time)
-	
-	
-	
+	ability_1_cd_display = int(hero.ability_1.a_stats.cd - hero.ability_1.current_time)
+	ability_2_cd_display = int(hero.ability_2.a_stats.cd - hero.ability_2.current_time)
+
 
 func on_hit(area : Area2D) -> void:
 	# typecasting

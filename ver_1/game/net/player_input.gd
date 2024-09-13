@@ -13,7 +13,6 @@ var player : BaseHero
 		ability_1 = value
 @export var ability_2 : bool:
 	set(value):
-		print(value)
 		ability_2 = value
 @export_subgroup("Conditions")
 @export var canMove : bool = true

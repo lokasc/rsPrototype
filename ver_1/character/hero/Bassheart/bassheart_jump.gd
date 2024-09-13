@@ -44,8 +44,8 @@ var inter_in_pos : Vector2	# Determines how fast the hero curves into inter_pos
 var inter_out_pos : Vector2	# Determines how fast the hero curves out of inter_pos
 var landing_pos : Vector2	# The position of the landing point
 
-var has_triggered : bool = false # to prevent the hit timer from restarting
-var has_synced : bool = false
+var has_started_hit_timer : bool = false # to prevent the hit timer from restarting
+var has_synced : bool = false # different from is_synced, is_sync is for entering ability, has_sync is for the beat sync logic within the ability
 var failed_sync : bool = false # to prevent player from spamming the button
 
 @onready var hitbox : Area2D = $HitBox
@@ -53,7 +53,7 @@ var failed_sync : bool = false # to prevent player from spamming the button
 @onready var path : Path2D = $Path2D
 @onready var hit_timer : Timer = $HitTimer
 
-var input : PlayerInput
+@onready var beat_sync_effects : GPUParticles2D = $"../Sprites/BeatSyncEffect"
 
 func _init() -> void:
 	super()
@@ -64,7 +64,6 @@ func _enter_tree() -> void:
 	desc = "Jump towards a location providing shields to allies when landing.\nBeat Sync: Provides additional shields.\nEmpowered: Provides additional shields and does damage"
 
 func _ready() -> void:
-	input = get_parent().get_node("MultiplayerSynchronizer")
 	# connect signal
 	hitbox.area_entered.connect(on_hit)
 	# initialise hitboxes
@@ -80,14 +79,13 @@ func _ready() -> void:
 
 func enter() -> void:
 	super()
-	input.ability_2 = false
 	# Reseting variables
 	air_time = 0
 	path_follow.progress_ratio = 0
 	curve_amp = curve_amp_reset
 	set_ability_to_hero_stats()
 	
-	has_triggered = false
+	has_started_hit_timer = false
 	has_synced = false
 	failed_sync = false
 	
@@ -102,6 +100,9 @@ func enter() -> void:
 	get_curve_points()
 	set_curve_points()
 	hero.animator.play("jump")
+	
+	if is_synced:
+		beat_sync_effects.restart()
 
 func exit() -> void:
 	super() # starts cd here.
@@ -110,27 +111,29 @@ func exit() -> void:
 	hitbox.visible = false
 	hitbox.monitoring = false
 	
-	has_synced = false
 	hero.IS_INVINCIBLE = false
 	if is_empowered:
 		hero.reset_meter()
-	
+
 func update(delta: float) -> void:
 	super(delta)
-	if air_time >= landing_time and has_triggered == false:
-		hit_timer.start(active_duration)
-		hitbox.visible = true
-		hitbox.monitoring = true
-		has_triggered = true
-	
-	elif air_time >= landing_time - landing_grace_time and hero.input.ability_2 and failed_sync == false:
-		if hero.input.is_on_beat:
-			has_synced = true
-		else: 
-			failed_sync = true
-
-	else: air_time += delta
+	air_time += delta
+	if air_time >= landing_time and has_started_hit_timer == false:
+			hit_timer.start(active_duration + landing_grace_time)
+			hitbox.visible = true
+			hitbox.monitoring = true
+			has_started_hit_timer = true
+	if is_synced:
+		if hero.input.ability_2:
+			if air_time >= landing_time - landing_grace_time and hero.input.is_on_beat:
+				if not failed_sync:
+					beat_sync_effects.restart()
+					has_synced = true
+			else: 
+				failed_sync = true
+				has_synced = false
 	hero.move_and_slide()
+	hero.input.ability_2 = false
 
 func physics_update(delta: float) -> void:
 	super(delta)

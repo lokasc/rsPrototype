@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://ck0rs6xq3084g"]
+[gd_scene load_steps=85 format=3 uid="uid://ck0rs6xq3084g"]
 
 [ext_resource type="Script" path="res://ver_1/game/net/player_input.gd" id="1_kj3tt"]
 [ext_resource type="Script" path="res://ver_1/character/hero/Bassheart/bassheart.gd" id="1_m8vi0"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://deyt8maiuob5" path="res://assets/vfx/BassheartLanding_Effect.png" id="9_bagay"]
 [ext_resource type="Texture2D" uid="uid://ck71dhkni1tql" path="res://assets/vfx/BassheartAttack_Effect.png" id="9_ghrek"]
 [ext_resource type="PackedScene" uid="uid://brce2a12qkj7v" path="res://ver_1/character/hero/item_holder.tscn" id="10_2w6wo"]
+[ext_resource type="Texture2D" uid="uid://dcus6dga2uvym" path="res://assets/vfx/ShineEffect.png" id="10_dxwwa"]
 [ext_resource type="Texture2D" uid="uid://df5l601wyjnd8" path="res://assets/vfx/BassheartFreeze_Effect.png" id="10_tlph7"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_x3g2c"]
@@ -50,9 +51,15 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath("MultiplayerSynchronizer:mouse_pos")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath("MultiplayerSynchronizer:is_on_beat")
+properties/4/path = NodePath("MultiplayerSynchronizer:ability_1")
 properties/4/spawn = true
 properties/4/replication_mode = 2
+properties/5/path = NodePath("MultiplayerSynchronizer:ability_2")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath("MultiplayerSynchronizer:is_on_beat")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bf6yn"]
 radius = 18.0
@@ -232,6 +239,38 @@ animations = [{
 "name": &"walk",
 "speed": 5.0
 }]
+
+[sub_resource type="Curve" id="Curve_y2xtk"]
+_data = [Vector2(0, 0.805), 0.0, 0.0, 0, 0, Vector2(0.512579, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_hw02s"]
+curve = SubResource("Curve_y2xtk")
+
+[sub_resource type="Curve" id="Curve_yu37d"]
+_data = [Vector2(0, 0.545), 0.0, 0.0, 0, 0, Vector2(0.0660377, 1), 0.0, 0.0, 0, 0, Vector2(0.330189, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_rvqj1"]
+curve = SubResource("Curve_yu37d")
+
+[sub_resource type="Curve" id="Curve_ids2a"]
+max_value = 3.0
+_data = [Vector2(0, 0.733125), 0.0, 0.0, 0, 0, Vector2(0.235849, 1.5375), 0.0, 0.0, 0, 0, Vector2(0.59434, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_twm07"]
+curve = SubResource("Curve_ids2a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xc0k0"]
+particle_flag_disable_z = true
+angle_min = 1.07288e-05
+angle_max = 360.0
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_rvqj1")
+scale_over_velocity_curve = SubResource("CurveTexture_twm07")
+alpha_curve = SubResource("CurveTexture_hw02s")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3fbgt"]
 atlas = ExtResource("10_tlph7")
@@ -705,6 +744,15 @@ frame = 5
 [node name="LegSprite2D" type="AnimatedSprite2D" parent="Sprites"]
 sprite_frames = SubResource("SpriteFrames_0xcf2")
 offset = Vector2(11, -7)
+
+[node name="BeatSyncEffect" type="GPUParticles2D" parent="Sprites"]
+position = Vector2(0, 3.425)
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_xc0k0")
+texture = ExtResource("10_dxwwa")
+one_shot = true
+local_coords = true
 
 [node name="RotatingWeapon" type="Node2D" parent="Sprites"]
 

@@ -32,6 +32,8 @@ var duration_time : float
 @onready var hitbox_shape : CollisionShape2D = $HitBox/CollisionShape2D
 @onready var hitbox : Area2D = $HitBox
 @onready var recast_timer : Timer = $BuffRecastTimer
+
+@onready var beat_sync_effects : GPUParticles2D = $"../Sprites/BeatSyncEffect"
 @onready var buff_particles : GPUParticles2D = $"../Sprites/BuffParticles2D"
 
 
@@ -71,6 +73,7 @@ func enter() -> void:
 	set_ability_to_hero_stats()
 	if is_synced:
 		hitbox_shape.shape.radius *= beat_sync_multiplier
+		beat_sync_effects.restart()
 
 func exit() -> void:
 	super() # starts cd here.
@@ -88,7 +91,8 @@ func update(delta: float) -> void:
 		state_change.emit(self, "TrebbieAttack")
 	elif duration_time >= active_duration and is_synced == true: # Activated once, twice, thrice
 		start_recast_logic()
-		
+	hero.input.ability_1 = false
+
 func physics_update(_delta: float) -> void:
 	super(_delta)
 	if hero.input.direction:
@@ -139,6 +143,7 @@ func recast_ability():
 	hitbox.visible = true
 	hitbox.monitoring = true
 	buff_particles.show()
+	beat_sync_effects.restart()
 	buff_particles.process_material.scale *= beat_sync_multiplier * hero.char_stats.mus
 	duration_time = 0
 	recast_timer.start(recast_window)

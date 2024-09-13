@@ -18,6 +18,8 @@ var direction := Vector2.ZERO
 var duration : float = 0
 
 @onready var hitbox : Area2D = $HitBox
+
+@onready var beat_sync_effects : GPUParticles2D = $"../Sprites/BeatSyncEffect"
 @onready var dash_effect_particles : GPUParticles2D = $"../Sprites/RotatingWeapon/GPUParticles2D"
 @onready var collisionbox : CollisionShape2D = $CollisionBox/CollisionShape2D
 
@@ -54,6 +56,7 @@ func enter():
 	
 	if is_synced:
 		a_stats.cd *= cd_reducion / hero.char_stats.mus
+		beat_sync_effects.restart()
 	
 	look_at(hero.input.get_mouse_position())
 	direction = original_pos.direction_to(hero.input.get_mouse_position())
@@ -87,7 +90,7 @@ func exit():
 
 func update(_delta: float):
 	super(_delta)
-	pass
+	hero.input.ability_2 = false
 
 func physics_update(_delta: float):
 	super(_delta)

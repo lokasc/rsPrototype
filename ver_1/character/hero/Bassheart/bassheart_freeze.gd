@@ -39,6 +39,8 @@ var current_charge_time : float
 @onready var charge_timer : Timer = $ChargeTimer
 @onready var hitbox : Area2D = $HitBox
 @onready var hitbox_shape : CollisionPolygon2D = $HitBox/CollisionShape2D
+
+@onready var beat_sync_effects : GPUParticles2D = $"../Sprites/BeatSyncEffect"
 @onready var freeze_effect_sprite : AnimatedSprite2D = $"../Sprites/RotatingWeapon/FreezeEffectSprite2D"
 @onready var indicator : Area2D = $IndicatorBox
 
@@ -75,13 +77,15 @@ func enter() -> void:
 	set_ability_to_hero_stats()
 	is_charging = true
 	is_empowered = hero.is_empowered
-	charge_timer.start(charge_duration)
+	charge_timer.start(charge_duration + recast_grace_time)
 	indicator.visible = true
 	indicator.monitoring = true
 	if is_empowered:
 		hitbox_shape.scale *= area_multiplier
 		freeze_effect_sprite.scale *= area_multiplier
 		is_enlarged = true
+	if is_synced:
+		beat_sync_effects.restart()
 
 func _on_charge_timer_timeout() -> void:
 	hitbox.monitoring = true
@@ -125,6 +129,7 @@ func beat_sync_logic():
 			for timestamp in recast_timestamps:
 				if is_within_timestamp(timestamp):
 					synced_amount += 1
+					beat_sync_effects.restart()
 
 func physics_update(_delta: float) -> void:
 	super(_delta)
