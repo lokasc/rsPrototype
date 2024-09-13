@@ -76,7 +76,7 @@ func set_item_stats():
 	a_stats.aoe = area_of_effect * hero.char_stats.aoe 
 	hitbox_shape.shape.radius = a_stats.aoe
 	
-	desc = "Damages nearby enemies by " + change_text_color(str(snapped(a_stats.atk,0.01)),"red") + " every " + change_text_color(str(snapped(a_stats.cd,0.01)),"red") + " seconds."
+	desc = "Damages nearby enemies by " + change_text_color(str(snapped(a_stats.atk,0.01)),"cyan") + " every " + change_text_color(str(snapped(a_stats.cd,0.01)),"cyan") + " seconds."
 
 func ascended_ability():
 	hero.gain_health(heal_amount)

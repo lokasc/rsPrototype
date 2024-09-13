@@ -91,4 +91,4 @@ func set_item_stats() -> void:
 	a_stats.cd = deploy_cd * hero.char_stats.cd
 	a_stats.aoe = deploy_range * hero.char_stats.aoe
 	
-	desc = "Spawns " + change_text_color(str(deploy_amount), "red") + " turrets every " + change_text_color(str(snapped(a_stats.cd,0.01)),"red") + " seconds.\nEach turret doing " + change_text_color(str(snapped(damage_per_tick,0.01)),"red") + " damage every " + change_text_color(str(snapped(damage_tick_time,0.01)),"red") + " seconds" 
+	desc = "Spawns " + change_text_color(str(deploy_amount), "cyan") + " turrets every " + change_text_color(str(snapped(a_stats.cd,0.01)),"cyan") + " seconds.\nEach turret doing " + change_text_color(str(snapped(damage_per_tick,0.01)),"cyan") + " damage every " + change_text_color(str(snapped(damage_tick_time,0.01)),"cyan") + " seconds" 
