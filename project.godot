@@ -15,6 +15,13 @@ run/main_scene="res://ver_1/game/main/game_manager.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[debug]
+
+gdscript/warnings/unassigned_variable=0
+gdscript/warnings/unused_variable=0
+gdscript/warnings/unused_parameter=0
+gdscript/warnings/unused_signal=0
+
 [display]
 
 window/size/viewport_width=1280
@@ -83,3 +90,10 @@ ability_2={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+
+[shader_globals]
+
+spectrum_analyzer={
+"type": "sampler2D",
+"value": "res://icon.svg"
+}

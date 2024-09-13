@@ -42,7 +42,7 @@ func get_status_string() -> String:
 	# check level here
 	if _action.level != 5:
 		return "[center]" + "LVL:" + str(_action.level) + " to " + str(_action.level + 1) + "[/center]"
-	else:
+	elif _action.level >= 5:
 		return "[center]" + "Ascension" + "[/center]" 
 	
 	# If none of these work, display status
@@ -56,8 +56,6 @@ func get_amount_string() -> String:
 	# check level here
 	if _action.level != 5:
 		return "[center]" +  action.display_upgrade_amount + "[/center]"
-	else:
-		return " " 
 	
 	# If none of these work, display status
-	return " "
+	return " " 

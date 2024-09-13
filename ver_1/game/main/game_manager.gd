@@ -282,9 +282,9 @@ func change_ui():
 	ui.show_ui()
 	net.hide_ui()
 
-
-func sample(x : int) -> int:
-	return 100 + (10 * x)
+# Get max xp from lvl.
+func sample(_lvl : int) -> int:
+	return 100 + (10 * _lvl)
 
 # Death & Strawberry: Players connect to this function player.player_die signal rpc call this by GM.
 func check_alive_players() -> void:
