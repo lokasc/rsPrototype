@@ -24,6 +24,8 @@ func _ready() -> void:
 	on_cooldown_finish()
 
 func _process(delta: float) -> void:
+	panel.size = description_label.size
+	panel.position = description_label.position
 	# Dont get time if not on cd, save computation.
 	pass
 	#if is_on_cd:
@@ -55,8 +57,6 @@ func _on_mouse_entered() -> void:
 	if !action: return
 	
 	description_label.text = "[center]" + action.desc + "[/center]"
-	panel.size = description_label.size
-	panel.position = description_label.position
 	description_container.visible = true
 
 # when mouse exits the ability icon

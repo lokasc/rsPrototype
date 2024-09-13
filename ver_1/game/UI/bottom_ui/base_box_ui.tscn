@@ -35,28 +35,33 @@ anchors_preset = 0
 
 [node name="Panel" type="Panel" parent="DescriptionContainer"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -54.0
+offset_top = -41.0
+offset_right = -14.0
+offset_bottom = -1.0
 
 [node name="DescriptionLabel" type="RichTextLabel" parent="DescriptionContainer"]
 z_index = 1
+clip_contents = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -226.0
-offset_top = -26.0
-offset_right = 274.0
-offset_bottom = -7.0
+offset_left = -68.0
+offset_top = -28.0
+offset_right = 132.0
+offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(250, 28)
+pivot_offset = Vector2(100, 28)
 theme = ExtResource("3_vb22a")
 bbcode_enabled = true
 text = "[center][color=red] No [/color]description[/center]"
 fit_content = true
+scroll_active = false
+autowrap_mode = 0
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

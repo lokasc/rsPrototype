@@ -32,6 +32,9 @@ func _process(delta: float) -> void:
 			timer_label.text = "%d" % current_cd
 		else:
 			timer_label.text = "%.1f" % current_cd
+	
+	panel.size = description_label.size
+	panel.position = description_label.position
 
 #region CD display
 # functions below are connected to abilities via signals
@@ -52,8 +55,6 @@ func on_ability_used():
 func _on_mouse_entered() -> void:
 	if !ability: return
 	description_label.text = "[center]" + ability.desc + "[/center]"
-	panel.size = description_label.size
-	panel.position = description_label.position
 	description_container.visible = true
 
 # when mouse exits the ability icon

@@ -42,6 +42,7 @@ offset_right = -31.0
 offset_bottom = -11.0
 
 [node name="DescriptionLabel" type="RichTextLabel" parent="DescriptionContainer"]
+clip_contents = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
