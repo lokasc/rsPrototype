@@ -59,8 +59,9 @@ func take_damage(p_dmg:float) -> void:
 			death.rpc()
 		p_dmg = current_health
 	else:
-		current_health -= p_dmg
-	hit.emit(p_dmg)
+		if multiplayer.is_server():
+			current_health -= p_dmg
+			hit.emit(p_dmg)
 	
 	# dmg visual is actually how much u've dealt to remaining health
 	# not the raw power.

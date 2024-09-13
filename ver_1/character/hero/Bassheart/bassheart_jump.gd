@@ -53,6 +53,8 @@ var failed_sync : bool = false # to prevent player from spamming the button
 @onready var path : Path2D = $Path2D
 @onready var hit_timer : Timer = $HitTimer
 
+var input : PlayerInput
+
 func _init() -> void:
 	super()
 	pass
@@ -62,13 +64,14 @@ func _enter_tree() -> void:
 	desc = "Jump towards a location providing shields to allies when landing.\nBeat Sync: Provides additional shields.\nEmpowered: Provides additional shields and does damage"
 
 func _ready() -> void:
+	input = get_parent().get_node("MultiplayerSynchronizer")
 	# connect signal
 	hitbox.area_entered.connect(on_hit)
 	# initialise hitboxes
 	hitbox.visible = false
 	hitbox.monitoring = false
 	if zero_cd:
-		a_stats.cd = 0	
+		a_stats.cd = 0
 	
 	curve_amp_reset = curve_amp
 	# curve reduction has a lower limit, if too low, the curve would be bigger than curve amp at the start
@@ -77,7 +80,7 @@ func _ready() -> void:
 
 func enter() -> void:
 	super()
-	
+	input.ability_2 = false
 	# Reseting variables
 	air_time = 0
 	path_follow.progress_ratio = 0
@@ -114,18 +117,18 @@ func exit() -> void:
 	
 func update(delta: float) -> void:
 	super(delta)
-	
 	if air_time >= landing_time and has_triggered == false:
 		hit_timer.start(active_duration)
 		hitbox.visible = true
 		hitbox.monitoring = true
 		has_triggered = true
+	
 	elif air_time >= landing_time - landing_grace_time and hero.input.ability_2 and failed_sync == false:
 		if hero.input.is_on_beat:
 			has_synced = true
-		else: failed_sync = true
-			
-		
+		else: 
+			failed_sync = true
+
 	else: air_time += delta
 	hero.move_and_slide()
 

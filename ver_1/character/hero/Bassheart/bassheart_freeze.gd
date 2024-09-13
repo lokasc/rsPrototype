@@ -117,8 +117,11 @@ func update(_delta: float) -> void:
 	super(_delta)
 	if is_synced and is_charging:
 		current_charge_time = charge_duration - charge_timer.time_left
-	### Beat sync Logic
-		if recast_timestamps.is_empty() == false and hero.input.ability_1:
+		beat_sync_logic()
+	hero.input.ability_1 = false
+
+func beat_sync_logic():
+	if recast_timestamps.is_empty() == false and hero.input.ability_1:
 			for timestamp in recast_timestamps:
 				if is_within_timestamp(timestamp):
 					synced_amount += 1
@@ -136,9 +139,6 @@ func on_hit(area : Area2D) -> void:
 	var enemy = area.get_parent() as BaseEnemy
 	if enemy == null: return
 	
-	# TODO: not networked yet
-	# need to calculate how much damage based on 
-	# the attack value of this ability + my character's attack value
 	enemy.hit.connect(lifesteal)
 	if is_empowered:
 		enemy.take_damage(get_multiplied_atk() * (damage_multiplier + synced_amount * sync_dmg_multiplier * hero.char_stats.mus))

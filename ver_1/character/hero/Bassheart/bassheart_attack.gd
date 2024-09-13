@@ -41,6 +41,7 @@ func _ready() -> void:
 func enter() -> void:
 	hitbox.visible = true
 	set_ability_to_hero_stats()
+	current_time = 0
 
 # normal attacks dont super() exit
 func exit() -> void:
@@ -54,6 +55,22 @@ func update(_delta: float) -> void:
 		weapon_sprite.look_at(hero.input.get_mouse_position())
 	set_ability_to_hero_stats()
 	use_ability()
+	
+	# Process abilities
+	if hero.input.ability_1:
+		if hero.ability_1.is_ready():
+			if hero.input.is_on_beat:
+				hero.ability_1.is_synced = true
+			state_change.emit(self, "BassheartFreeze")
+	elif hero.input.ability_2:
+		if hero.ability_2.is_ready():
+			if hero.input.is_on_beat: #Entering buff state while in sync
+				hero.ability_2.is_synced = true
+			state_change.emit(self, "BassheartJump")
+		else:
+			print("Server? %s:" %multiplayer.is_server() + " Ability 2 is on cooldown! ", hero.ability_2.current_time)
+	hero.input.ability_1 = false
+	hero.input.ability_2 = false
 
 func physics_update(_delta: float) -> void:
 	if hero.input.direction:
@@ -68,29 +85,14 @@ func physics_update(_delta: float) -> void:
 func _process(delta) -> void:
 	super(delta)
 	
-	#print("is_server: %s time: %f" % [multiplayer.is_server(), current_time])
-	
 	# calculating ability cooldown
 	var ability_1_cd_display : int = int(hero.ability_1.a_stats.cd - hero.ability_1.current_time)
 	var ability_2_cd_display : int = int(hero.ability_2.a_stats.cd - hero.ability_2.current_time)
 	
-	# Process abilities
-	if hero.input.ability_1 and hero.ability_1.is_ready():
-		if hero.input.is_on_beat: #Entering buff state while in sync
-			hero.ability_1.is_synced = true
-		state_change.emit(self, "BassheartFreeze")
-	elif hero.input.ability_1: 
-		print("Ability 1 is on cooldown! ", ability_1_cd_display)
-	elif hero.input.ability_2 and hero.ability_2.is_ready():
-		if hero.input.is_on_beat: #Entering buff state while in sync
-			hero.ability_2.is_synced = true
-		state_change.emit(self, "BassheartJump")
-	elif hero.input.ability_2:
-		print("Ability 2 is on cooldown! ", ability_2_cd_display)
+	
+	
 
 func on_hit(area : Area2D) -> void:
-	if !multiplayer.is_server(): return
-	
 	# typecasting
 	var enemy = area.get_parent() as BaseEnemy
 	if enemy == null: return

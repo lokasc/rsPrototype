@@ -15,6 +15,7 @@ var is_synced : bool = false
 var initial_effect_scale := Vector2.ONE
 
 func enter() -> void:
+	_reset()
 	if hero == null: return
 	hero.ability_used.emit(self)
 	ability_used.emit()
