@@ -259,6 +259,8 @@ func on_level_up(_new_level) -> void:
 
 # add an item, call from GM
 func add_item(action_index : int) -> void:
+	if items.size() == 4: return
+	
 	var scene = GameManager.Instance.action_list.get_action_resource(action_index) as PackedScene
 	var new_item = scene.instantiate() as BaseItem
 	
@@ -277,12 +279,6 @@ func add_stat(index : int) -> void:
 	
 	GameManager.Instance.ui.set_stat_ui(new_stat, self)
 
-func has_stat(index : int) -> bool:
-	var new_stat_name = GameManager.Instance.action_list.get_new_class_script(index).get_class_name()
-	for _stat_card : BaseStatCard in stat_cards:
-		if _stat_card.get_class_name() == new_stat_name:
-			return true
-	return false
 
 func get_stat(index : int) -> BaseStatCard:
 	var new_stat_name = GameManager.Instance.action_list.get_new_class_script(index).get_class_name()
@@ -297,12 +293,20 @@ func upgrade_stat(index : int) -> void:
 		if _stat_card.get_class_name() == new_stat_name:
 			_stat_card._upgrade()
 
+func has_stat(index : int) -> bool:
+	var new_stat_name = GameManager.Instance.action_list.get_new_class_script(index).get_class_name()
+	for _stat_card : BaseStatCard in stat_cards:
+		if _stat_card.get_class_name() == new_stat_name:
+			return true
+	return false
+
 func remove_item(_name) -> void:
 	return
 
-func has_item(new_item : BaseItem) -> bool:
+func has_item(_index : int) -> bool:
+	var new_item_name = GameManager.Instance.action_list.get_new_class_script(_index).get_class_name()
 	for _item : BaseItem in items:
-		if _item.get_class_name() == new_item.get_class_name():
+		if _item.get_class_name() == new_item_name:
 			return true
 	return false
 

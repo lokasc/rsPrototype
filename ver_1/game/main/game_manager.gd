@@ -177,20 +177,21 @@ func choose_actions(_hero : BaseHero) -> Array[int]:
 	
 	# Select three actions randomly
 	for x in 3:
-		var _action_index = action_list.get_random_action()
-		
-		# only return a item/stat you already have if max amount is reached
+		var _action_index : int
+		var is_action_valid : int
 		while true:
-			if _hero.is_items_full() && action_list.is_item(_action_index):
-				if !_hero.has_item(action_list.get_new_class_script(_action_index)):
-					_action_index = action_list.get_random_action()
-					continue
-			if _hero.is_stats_full() && action_list.is_stat(_action_index):
-				if !_hero.has_stat(_action_index):
-					_action_index = action_list.get_random_action()
-					continue
-			break
-		
+			_action_index = action_list.get_random_action()
+			is_action_valid = action_list.is_action_valid(_action_index, _hero)
+			
+			if is_action_valid == 0:
+				continue
+			elif is_action_valid == 1:
+				break
+			else: 
+				# This happens when uve maxed out everything 
+				# for now if u've maxed out everything, return a max health card.
+				_action_index = 8
+				break
 		array.append(_action_index)
 	return array
 
@@ -206,7 +207,7 @@ func parse_action_card(id : int, action_index : int):
 	var action = action_list.get_new_class_script(action_index) as BaseAction
 
 	if action is BaseItem:
-		if !player.has_item(action):
+		if !player.has_item(action_index):
 			player.add_item(action_index)
 		else:
 			player.upgrade_item(action)

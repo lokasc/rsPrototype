@@ -42,10 +42,10 @@ func get_status_string() -> String:
 	# check level here
 	if _action.level != 5:
 		return "[center]" + "LVL:" + str(_action.level) + " to " + str(_action.level + 1) + "[/center]"
-	elif _action.level >= 5:
-		return "[center]" + "Ascension" + "[/center]" 
+	elif _action.level >= 5 && _action is not BaseStatCard:
+		return "[center]" + "Ascension" + "[/center]"
 	
-	# If none of these work, display status
+	# If none of these work, display statusw
 	return "[center]" + "status" + "[/center]"
 
 func get_amount_string() -> String:

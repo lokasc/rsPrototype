@@ -68,7 +68,7 @@ func physics_update(_delta: float) -> void:
 func _process(delta) -> void:
 	super(delta)
 	
-	print("is_server: %s time: %f" % [multiplayer.is_server(), current_time])
+	#print("is_server: %s time: %f" % [multiplayer.is_server(), current_time])
 	
 	# calculating ability cooldown
 	var ability_1_cd_display : int = int(hero.ability_1.a_stats.cd - hero.ability_1.current_time)
