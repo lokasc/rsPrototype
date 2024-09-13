@@ -57,6 +57,7 @@ func update(_delta: float) -> void:
 		look_at(hero.input.get_mouse_position())
 		weapon_sprite.look_at(hero.input.get_mouse_position())
 	set_ability_to_hero_stats()
+
 	# Logic to make it only atk once
 	if beat_count == 1:
 		if not has_attacked:

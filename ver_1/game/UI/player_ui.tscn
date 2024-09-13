@@ -82,7 +82,7 @@ text = "Waiting for players"
 layout_direction = 2
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.25
+size_flags_stretch_ratio = 0.35
 alignment = 1
 
 [node name="Ability2" parent="PlayerContainer/AbilityContainer" instance=ExtResource("4_ourxg")]
@@ -143,7 +143,7 @@ clip_text = true
 [node name="ActionContainers" type="HBoxContainer" parent="PlayerContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.3
+size_flags_stretch_ratio = 0.4
 alignment = 1
 
 [node name="Item1" parent="PlayerContainer/ActionContainers" instance=ExtResource("4_xv54i")]
@@ -169,3 +169,8 @@ layout_mode = 2
 
 [node name="Stat4" parent="PlayerContainer/ActionContainers" instance=ExtResource("4_xv54i")]
 layout_mode = 2
+
+[node name="Control" type="Control" parent="PlayerContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.15
