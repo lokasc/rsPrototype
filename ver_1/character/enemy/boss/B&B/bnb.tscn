@@ -60,6 +60,7 @@ projectile_scene = ExtResource("4_yiwhg")
 height = 100.0
 num_per_attack = 10
 offset_from_center = 200.0
+rain_range = 700.0
 frequency = 3.0
 num_per_player = 4
 range_from_player = 130.0
@@ -118,7 +119,6 @@ replication_config = SubResource("SceneReplicationConfig_t27sw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
 position = Vector2(-2.5, 2000)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_t7k3g")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
@@ -127,36 +127,30 @@ shape = SubResource("RectangleShape2D_t7k3g")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
 position = Vector2(2500, 0)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_cldfg")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
 position = Vector2(-2500, 0)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_cldfg")
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
 position = Vector2(1859.03, 1859.03)
 rotation = 0.785398
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_v83m5")
 
 [node name="CollisionShape2D7" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
 position = Vector2(-1859.03, 1859.03)
 rotation = 2.35619
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_v83m5")
 
 [node name="CollisionShape2D8" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
 position = Vector2(1859.03, -1859.03)
 rotation = 2.35619
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_v83m5")
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
 position = Vector2(-1859.03, -1859.03)
 rotation = 0.785398
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_v83m5")
 
 [connection signal="area_entered" from="HitBox" to="." method="on_hit"]

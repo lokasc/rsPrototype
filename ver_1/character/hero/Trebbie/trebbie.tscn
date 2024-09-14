@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://ce6nl4rbh16yy"]
+[gd_scene load_steps=41 format=3 uid="uid://ce6nl4rbh16yy"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie.gd" id="1_4x4su"]
 [ext_resource type="PackedScene" uid="uid://dl6n7678g0f18" path="res://ver_1/character/hero/Trebbie/trebbie_attack.tscn" id="2_psvnt"]
@@ -9,13 +9,12 @@
 [ext_resource type="Material" uid="uid://cs0bjx1j0r5d6" path="res://trebbiebuffparticle.tres" id="6_3qxhq"]
 [ext_resource type="Texture2D" uid="uid://csgji8jtaoqet" path="res://assets/vfx/TrebbieBuffParticle.png" id="6_d74fd"]
 [ext_resource type="Texture2D" uid="uid://cbs7jvrfy768n" path="res://assets/heroes/trebbie/TrebbieTorso.png" id="6_iy085"]
-[ext_resource type="Texture2D" uid="uid://dcus6dga2uvym" path="res://assets/vfx/ShineEffect.png" id="6_wqauk"]
 [ext_resource type="Texture2D" uid="uid://c1g7ifpd36a5x" path="res://assets/heroes/trebbie/TrebbieLegs.png" id="7_fj44h"]
 [ext_resource type="Texture2D" uid="uid://ckebh3vpkft4n" path="res://assets/heroes/trebbie/TrebbieAttack_Spear_32x32_sheet.png" id="7_h1fii"]
 [ext_resource type="PackedScene" uid="uid://d0b8cqs24tfpe" path="res://ver_1/game/camera/player_camera.tscn" id="7_wun86"]
 [ext_resource type="Texture2D" uid="uid://3eyeiu42nc0w" path="res://assets/vfx/TrebbieAttackEffect.png" id="9_m11f6"]
-[ext_resource type="Material" uid="uid://bv7mucwst180j" path="res://beat_sync_shine.tres" id="10_lq6hk"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="10_mee78"]
+[ext_resource type="PackedScene" uid="uid://dxcries0ll04" path="res://ver_1/vfx/beat_sync_vfx.tscn" id="10_tfljb"]
 [ext_resource type="PackedScene" uid="uid://brce2a12qkj7v" path="res://ver_1/character/hero/item_holder.tscn" id="11_ptp62"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_igvvo"]
@@ -343,14 +342,7 @@ sprite_frames = SubResource("SpriteFrames_p2rgp")
 animation = &"walk"
 offset = Vector2(16, -7.5)
 
-[node name="BeatSyncEffect" type="GPUParticles2D" parent="Sprites"]
-position = Vector2(0, 3.425)
-emitting = false
-amount = 1
-process_material = ExtResource("10_lq6hk")
-texture = ExtResource("6_wqauk")
-one_shot = true
-local_coords = true
+[node name="BeatSyncEffect" parent="Sprites" instance=ExtResource("10_tfljb")]
 
 [node name="RotatingWeapon" type="Node2D" parent="Sprites"]
 

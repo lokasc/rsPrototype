@@ -7,7 +7,7 @@ signal on_beat ## signal for executing things on to the beat.
 
 static var Instance : BeatController
 
-@onready var main_music_player = $MainMusicPlayer 
+@onready var main_music_player : AudioStreamPlayer = $MainMusicPlayer 
 @onready var test_interactive  : AudioStream = load("res://Resources/test_interactive.tres")
 
 @export_range(0.01 , 0.5, 0.01, "or_greater") var grace_time : float = 0.01 ## +- time for checks
@@ -44,6 +44,10 @@ var current_bg_clip : BG_TRANSITION_TYPE # current clip
 
 var playback : AudioStreamPlayback
 
+# Beats.
+var current_beat : int
+var prev_beat : int = -1 # or else we have a delay of 1 beat
+
 func _init() -> void:
 	Instance = self
 
@@ -57,12 +61,6 @@ func _ready() -> void:
 	current_global_bg_clip = main_music_player.stream.initial_clip
 
 func _process(delta: float) -> void:
-	#if Input.is_action_just_pressed("attack") && multiplayer.is_server():
-		#if current_bg_clip == BG_TRANSITION_TYPE.EARLY_GAME:
-			#change_bg(BG_TRANSITION_TYPE.LOW_HP)
-		#else:
-			#change_bg_from_local_to_global()
-	
 	if !is_playing: return
 	process_actual_audio_time()
 
@@ -83,31 +81,49 @@ func send_replicated_on_beat(local_value):
 #region Internal
 func start_music(start_position : float = 0) -> void:
 	is_playing = true
+	
+	# so that the first beat is at 0s
 	current_beat_time = beat_duration
 	
 	# Get latency.
 	time_begin = Time.get_ticks_usec()
 	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
-	main_music_player.play(start_position)
+	main_music_player.play(0)
+	$MimicPlayer.play(0)
 	playback = main_music_player.get_stream_playback()
 
 ## Calculates if exactly on beat and accounts for audio delay.
 func process_actual_audio_time(): 
-	# Get actual audio time independent of other systems.
-	var time = (Time.get_ticks_usec() - time_begin) / 1000000.0
-	# Compensate for latency.
-	time -= time_delay
-	# May be below 0 (did not begin yet).
-	time = max(0, time)
 	
-	# calculate time diff
-	current_beat_time += time - previous_time
-	previous_time = time
+	# when play() is executed, its not actually excuted immediately,
+	# the function starts the mixing of a chunk of the song and thus
+	# you can then hear it: therefore you need to get the "time to next mix"
 	
-	# check if exactly on beat (useful for ui sync)
-	if current_beat_time >= beat_duration:
-		current_beat_time = 0
-		on_beat.emit()
+	# get_playback_position() gets the current time of the song,
+	# since its not always updated per frame, we need to do more to find the
+	# exact position
+	
+	# Theres is a bug in godot with getting position with audio interactive.
+	# Thus the work around is to use 2 audio players, 
+	# One to play music, the other to track. (there might be multiple audio delay)
+	var time = $MimicPlayer.get_playback_position() + AudioServer.get_time_since_last_mix()
+	time -= AudioServer.get_output_latency()
+	#print(time)
+	# Calculate the current beat of the song.
+	current_beat = floor(time/0.5)
+	process_beat()
+	
+	# Get the current beat in the song without software clock (delta)
+
+func process_beat() -> void:
+	# Check if we are still in the same beat (return if is)
+	print(current_beat)
+	if prev_beat >= current_beat: return
+	
+	# Emit signal
+	#print("emited")
+	prev_beat = current_beat
+	on_beat.emit()
 
 # Changes backgrounud music
 @rpc("authority", "reliable", "call_remote")
