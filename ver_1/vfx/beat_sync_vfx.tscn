@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=3 uid="uid://dxcries0ll04"]
+
+[ext_resource type="Texture2D" uid="uid://dcus6dga2uvym" path="res://assets/vfx/ShineEffect.png" id="1_5fffj"]
+
+[sub_resource type="Curve" id="Curve_y2xtk"]
+_data = [Vector2(0, 0.805), 0.0, 0.0, 0, 0, Vector2(0.512579, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_hw02s"]
+curve = SubResource("Curve_y2xtk")
+
+[sub_resource type="Curve" id="Curve_yu37d"]
+_data = [Vector2(0, 0.545), 0.0, 0.0, 0, 0, Vector2(0.0660377, 1), 0.0, 0.0, 0, 0, Vector2(0.330189, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_rvqj1"]
+curve = SubResource("Curve_yu37d")
+
+[sub_resource type="Curve" id="Curve_ids2a"]
+max_value = 3.0
+_data = [Vector2(0, 0.733125), 0.0, 0.0, 0, 0, Vector2(0.235849, 1.5375), 0.0, 0.0, 0, 0, Vector2(0.59434, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_twm07"]
+curve = SubResource("Curve_ids2a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xc0k0"]
+particle_flag_disable_z = true
+angle_min = 1.07288e-05
+angle_max = 360.0
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_rvqj1")
+scale_over_velocity_curve = SubResource("CurveTexture_twm07")
+alpha_curve = SubResource("CurveTexture_hw02s")
+
+[node name="BeatSyncEffect" type="GPUParticles2D"]
+position = Vector2(0, 3.425)
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_xc0k0")
+texture = ExtResource("1_5fffj")
+one_shot = true
+speed_scale = 1.5
+local_coords = true
