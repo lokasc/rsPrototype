@@ -67,7 +67,6 @@ func _process(delta: float) -> void:
 ## Is the current moment on beat? (Accounting for grace)
 func is_on_beat() -> bool:
 	#print(str(multiplayer.is_server()) + " - Current_time: " + str(current_beat_time))
-	#if current_beat_time <= grace_time || current_beat_time >= beat_duration - grace_time:
 	if get_time_til_next_beat() <= grace_time || get_time_til_next_beat() >= beat_duration - grace_time:
 		print("on beat")
 		return true
@@ -223,7 +222,7 @@ func change_bg_from_local_to_global(player_id : int = 1) -> void:
 func stc_change_bg_to_global():
 	change_bg_from_local_to_global(-1)
 
-# returns time_til_next_beat as a float between 0.0 - 5.0, with 0.0 being onbeat
+# returns time_til_next_beat as a float between 0.0 - 0.5, with 0.0 being onbeat
 func get_time_til_next_beat() -> float:
 	if time == null: return 0
 	var time_til_next_beat: float = clamp(time - int(time) , 0, 1)
