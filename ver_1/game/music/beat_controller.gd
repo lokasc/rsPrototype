@@ -22,6 +22,7 @@ var beat_duration : float ## how many seconds a beat is (or till the next beat)
 var counter : int = 0 ## used for switching songs with m1
 
 # Latency
+var time
 var time_begin
 var time_delay
 var previous_time = 0
@@ -63,15 +64,15 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if !is_playing: return
 	process_actual_audio_time()
-
 ## Is the current moment on beat? (Accounting for grace)
 func is_on_beat() -> bool:
 	#print(str(multiplayer.is_server()) + " - Current_time: " + str(current_beat_time))
-	if current_beat_time <= grace_time || current_beat_time >= beat_duration - grace_time:
-		#print("on beat")
+	#if current_beat_time <= grace_time || current_beat_time >= beat_duration - grace_time:
+	if get_time_til_next_beat() <= grace_time || get_time_til_next_beat() >= beat_duration - grace_time:
+		print("on beat")
 		return true
 	else:
-		#print("not on beat")
+		print("not on beat")
 		return false 
 
 @rpc("any_peer", "call_remote", "reliable")
@@ -106,7 +107,7 @@ func process_actual_audio_time():
 	# Theres is a bug in godot with getting position with audio interactive.
 	# Thus the work around is to use 2 audio players, 
 	# One to play music, the other to track. (there might be multiple audio delay)
-	var time = $MimicPlayer.get_playback_position() + AudioServer.get_time_since_last_mix()
+	time = $MimicPlayer.get_playback_position() + AudioServer.get_time_since_last_mix()
 	time -= AudioServer.get_output_latency()
 	#print(time)
 	# Calculate the current beat of the song.
@@ -117,7 +118,7 @@ func process_actual_audio_time():
 
 func process_beat() -> void:
 	# Check if we are still in the same beat (return if is)
-	print(current_beat)
+	#print(current_beat)
 	if prev_beat >= current_beat: return
 	
 	# Emit signal
@@ -221,3 +222,11 @@ func change_bg_from_local_to_global(player_id : int = 1) -> void:
 @rpc("authority", "reliable", "call_remote")
 func stc_change_bg_to_global():
 	change_bg_from_local_to_global(-1)
+
+# returns time_til_next_beat as a float between 0.0 - 5.0, with 0.0 being onbeat
+func get_time_til_next_beat() -> float:
+	if time == null: return 0
+	var time_til_next_beat: float = clamp(time - int(time) , 0, 1)
+	if time_til_next_beat >= 0.5:
+		time_til_next_beat = clamp(time - int(time) - 0.5 , 0, 1)
+	return time_til_next_beat
