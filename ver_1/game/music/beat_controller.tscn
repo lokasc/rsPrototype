@@ -1,12 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://bi6kxlphddvs2"]
 
 [ext_resource type="Script" path="res://ver_1/game/music/beat_controller.gd" id="1_a6whl"]
-[ext_resource type="AudioStream" uid="uid://don0ll4pfq51n" path="res://Resources/test_interactive.tres" id="2_4m55p"]
-[ext_resource type="AudioStream" uid="uid://dj7qpfsya80wi" path="res://Resources/early_bgm_1.mp3" id="3_7ah1u"]
+[ext_resource type="AudioStream" uid="uid://don0ll4pfq51n" path="res://assets/bgm/test_interactive.tres" id="2_4m55p"]
+[ext_resource type="AudioStream" uid="uid://dj7qpfsya80wi" path="res://assets/bgm/early_bgm_1.mp3" id="3_7ah1u"]
 
 [node name="BeatController" type="Node"]
 process_mode = 3
 script = ExtResource("1_a6whl")
+interactive_resource = ExtResource("2_4m55p")
 grace_time = 0.1
 
 [node name="MainMusicPlayer" type="AudioStreamPlayer" parent="."]

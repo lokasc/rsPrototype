@@ -1,6 +1,8 @@
 class_name BeatController
 extends Node
 
+@export var interactive_resource : AudioStreamInteractive
+
 const BPM = 120 ## Beats per minute
 
 signal on_beat ## signal for executing things on to the beat. 
@@ -8,12 +10,8 @@ signal on_beat ## signal for executing things on to the beat.
 static var Instance : BeatController
 
 @onready var main_music_player : AudioStreamPlayer = $MainMusicPlayer 
-@onready var test_interactive  : AudioStream = load("res://Resources/test_interactive.tres")
 
 @export_range(0.01 , 0.5, 0.01, "or_greater") var grace_time : float = 0.01 ## +- time for checks
-
-# is_on_beat replication
-var replicated_on_beat_bool : bool = false
 
 var current_beat_time : float ## time until beat is hit. 
 var is_playing : bool ## is music track playing?
@@ -48,6 +46,8 @@ var playback : AudioStreamPlayback
 # Beats.
 var current_beat : int
 var prev_beat : int = -1 # or else we have a delay of 1 beat
+var max_beats : int # the maximum amount of beats in a song.
+
 
 func _init() -> void:
 	Instance = self
@@ -57,26 +57,27 @@ func _enter_tree() -> void:
 	is_playing = false
 
 func _ready() -> void:
-	main_music_player.stream = test_interactive
+	main_music_player.stream = interactive_resource
 	beat_duration = 60.0/BPM
 	current_global_bg_clip = main_music_player.stream.initial_clip
-
+	
+	max_beats = floor(main_music_player.stream.get_clip_stream(0).get_length()/0.5)
+	
 func _process(delta: float) -> void:
 	if !is_playing: return
 	process_actual_audio_time()
+
 ## Is the current moment on beat? (Accounting for grace)
 func is_on_beat() -> bool:
 	#print(str(multiplayer.is_server()) + " - Current_time: " + str(current_beat_time))
 	if get_time_til_next_beat() <= grace_time || get_time_til_next_beat() >= beat_duration - grace_time:
-		print("on beat")
+		print("on beat %f" % get_time_til_next_beat())
 		return true
 	else:
-		print("not on beat")
+		print("not on beat %f" % get_time_til_next_beat())
+		
 		return false 
 
-@rpc("any_peer", "call_remote", "reliable")
-func send_replicated_on_beat(local_value):
-	replicated_on_beat_bool = local_value
 
 #region Internal
 func start_music(start_position : float = 0) -> void:
@@ -116,14 +117,28 @@ func process_actual_audio_time():
 	# Get the current beat in the song without software clock (delta)
 
 func process_beat() -> void:
-	# Check if we are still in the same beat (return if is)
-	#print(current_beat)
-	if prev_beat >= current_beat: return
+	# detect looping by comparing the prev and current val:
+	if prev_beat == max_beats && current_beat == 0: 
+		prev_beat = -1
 	
-	# Emit signal
+	# return early if we are still in the same beat 
+	if prev_beat >= current_beat: return
 	#print("emited")
+	
 	prev_beat = current_beat
 	on_beat.emit()
+
+# returns time_til_next_beat as a float between 0.0 - 0.5, with 0.0 being onbeat
+func get_time_til_next_beat() -> float:
+	if time == null: return 0
+	var time_til_next_beat: float = clamp(time - floor(time) , 0, 1)
+	
+	# In the second half of a second, return offset of -0.5
+	if time_til_next_beat >= 0.5:
+		time_til_next_beat = clamp(time - int(time) - 0.5 , 0, 1)
+	return time_til_next_beat
+#endregion
+
 
 # Changes backgrounud music
 @rpc("authority", "reliable", "call_remote")
@@ -142,7 +157,7 @@ func stc_start_music(sent_time : float):
 	else:
 		start_music(diff)
 
-#endregion
+#region audio transitions
 ### Features we need
 # 1. a timer that sends a signal every beat [Done]
 # 2. a variable for grace period [Done]
@@ -222,10 +237,4 @@ func change_bg_from_local_to_global(player_id : int = 1) -> void:
 func stc_change_bg_to_global():
 	change_bg_from_local_to_global(-1)
 
-# returns time_til_next_beat as a float between 0.0 - 0.5, with 0.0 being onbeat
-func get_time_til_next_beat() -> float:
-	if time == null: return 0
-	var time_til_next_beat: float = clamp(time - int(time) , 0, 1)
-	if time_til_next_beat >= 0.5:
-		time_til_next_beat = clamp(time - int(time) - 0.5 , 0, 1)
-	return time_til_next_beat
+#endregion
