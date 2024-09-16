@@ -3,6 +3,7 @@ extends Node2D
 
 #Will change this in next patch
 @export var spawn_path : Node 
+@export var path_path : Node
 @export var spawns: SpawnsResource
 var player : BaseHero
 var time : int = 0
@@ -23,19 +24,27 @@ func _start_timer():
 func _on_timer_timeout():
 	time += 1
 	var enemy_spawns : Array[SpawnInfo] = spawns.array
+	var new_enemy: Resource
+	var counter : int
 	for info in enemy_spawns:
 		if (time >= info.time_start and time <= info.time_end) or info.time_end == -1:
+			#remove_children(path_path)
+			if info.spawn_type == SpawnInfo.Spawn_Type.None: 
+				continue
 			if info.spawn_delay_counter < info.enemy_spawn_delay:
 				info.spawn_delay_counter += 1
 			else:
 				info.spawn_delay_counter = 0
-				var new_enemy: Resource = info.enemy
-				var counter : int = 0
+				new_enemy = info.enemy
+				counter = 0
 				while  counter < info.enemy_num:
-					instantiate_enemy(new_enemy)
+					if info.spawn_type == SpawnInfo.Spawn_Type.Screen:
+						instantiate_enemy_from_screen(new_enemy)
+					elif info.spawn_type == SpawnInfo.Spawn_Type.Path:
+						instantiate_enemy_from_path(new_enemy, info.path)
 					counter += 1
 
-func instantiate_enemy(new_enemy)-> void:
+func instantiate_enemy_from_screen(new_enemy)-> void:
 	var copy : BaseEnemy = new_enemy.instantiate() as BaseEnemy
 	if copy is BaseBoss:
 		
@@ -45,8 +54,28 @@ func instantiate_enemy(new_enemy)-> void:
 	copy.global_position = get_random_position()
 	spawn_path.add_child(copy, true)
 
+func instantiate_enemy_from_path(new_enemy:Resource, path:Resource) -> void:
+	if path == null: return
+	var copy : BaseEnemy = new_enemy.instantiate() as BaseEnemy
+	copy.global_position = get_path_position(path)
+	print(copy.global_position)
+	spawn_path.add_child(copy, true)
+
+func get_path_position(path : PackedScene) -> Vector2:
+	var path_copy : Path2D = path.instantiate()
+	var player_pos : Vector2 = GameManager.Instance.players.pick_random().global_position
+	if path_copy.get_child(0) != PathFollow2D:
+		printerr("Please insert a PathFollow2D node as a child of the Path2D scene")
+	var path_follow : PathFollow2D = path_copy.get_child(0)
+	path_path.add_child(path_copy, true)
+	
+	var rand_progress_ratio = randf_range(0,1)
+	print(rand_progress_ratio)
+	path_follow.progress_ratio = rand_progress_ratio
+	return path_follow.global_position + player_pos
+
 # Consider a different algorithm for selecting location.
-func get_random_position():
+func get_random_position() -> Vector2:
 	var rect_pos = Vector2.ZERO
 	rect_pos = GameManager.Instance.players.pick_random().global_position
 	
@@ -111,3 +140,7 @@ func get_enemy_from_id(id : int) -> BaseEnemy:
 
 func on_end_game():
 	$Timer.stop()
+
+#func remove_children(node : Node) -> void:
+	#for child in node.get_children():
+		#child.queue_free()
