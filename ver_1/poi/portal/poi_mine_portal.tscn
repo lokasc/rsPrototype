@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://b55qajw1vuu8u"]
+
+[ext_resource type="Texture2D" uid="uid://bhn2ljfkopgk8" path="res://assets/poi/mine_portal_sprite.png" id="1_0eclw"]
+[ext_resource type="Script" path="res://ver_1/poi/portal/poi_mine_portal.gd" id="1_deitb"]
+[ext_resource type="PackedScene" uid="uid://dxcries0ll04" path="res://ver_1/vfx/beat_sync_vfx.tscn" id="2_s2wrx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8wu7q"]
+radius = 339.006
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4dyg3"]
+radius = 135.059
+
+[node name="MinePortal" type="Node2D"]
+script = ExtResource("1_deitb")
+unlock_amount = 500.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_0eclw")
+
+[node name="BeatSyncEffect" parent="." instance=ExtResource("2_s2wrx")]
+scale = Vector2(2, 2)
+
+[node name="StartTrigger" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StartTrigger"]
+shape = SubResource("CircleShape2D_8wu7q")
+
+[node name="TeleportTrigger" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TeleportTrigger"]
+shape = SubResource("CircleShape2D_4dyg3")
+debug_color = Color(0.868496, 0.000530208, 0.854024, 0.42)
+
+[connection signal="area_entered" from="StartTrigger" to="." method="_on_start_trigger_area_entered"]
+[connection signal="area_entered" from="TeleportTrigger" to="." method="_on_teleport_trigger_area_entered"]
