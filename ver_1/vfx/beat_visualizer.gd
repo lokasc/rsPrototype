@@ -34,11 +34,11 @@ func _process(delta: float) -> void:
 	set_opaque_ring_alpha()
 	set_opaque_ring_scale()
 
-
 func set_opaque_ring_alpha() -> void:
 	opaque_ring.self_modulate.a = appearing_curve.sample(completion_ratio)
 
-#Technically its on beat at the beginning of the animation, not at the end, but it is masked by the end_opaque_ring func
+# Technically its on beat at the beginning of the animation, not at the end, 
+# but it is masked by the end_opaque_ring func
 func set_opaque_ring_scale() -> void:
 	current_size = min_size + scaling_curve.sample(completion_ratio) * (max_size-min_size)
 	if current_size >= max_size:
