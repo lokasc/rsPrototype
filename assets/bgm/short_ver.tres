@@ -1,0 +1,13 @@
+[gd_resource type="AudioStreamInteractive" load_steps=3 format=3 uid="uid://dq171cyi00kjl"]
+
+[ext_resource type="AudioStream" uid="uid://bvb4vwh6n22jf" path="res://assets/bgm/30s_early_bgm.mp3" id="1_7t62y"]
+[ext_resource type="AudioStream" uid="uid://c48yeo5u8bj5d" path="res://assets/bgm/30s_early_bgm_dead.mp3" id="2_w0bgb"]
+
+[resource]
+clip_count = 2
+clip_0/name = &"early_bgm"
+clip_0/stream = ExtResource("1_7t62y")
+clip_0/auto_advance = 0
+clip_1/name = &"early_bgm_death"
+clip_1/stream = ExtResource("2_w0bgb")
+clip_1/auto_advance = 0
