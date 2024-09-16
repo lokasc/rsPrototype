@@ -1,6 +1,7 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://bdfq1nitrqrq"]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://bdfq1nitrqrq"]
 
 [ext_resource type="Texture2D" uid="uid://jsojn4bk61au" path="res://assets/map/tilemaps/floor/floor_tile.tres" id="1_2prl0"]
+[ext_resource type="Texture2D" uid="uid://17c7u6sqs6lx" path="res://assets/map/tilemaps/floor/floor_tiles_big.png" id="2_mqb8h"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_mk1xq"]
 tile_data = PackedInt32Array(0, 458752, 131072, 65536, 393216, 65536, 131072, 458752, 65536, 1, 393216, 196608, 65537, 196608, 0, 131073, 393216, 131072, 2, 458752, 196608, 65538, 393216, 0, 131074, 458752, 0)
@@ -206,6 +207,52 @@ use_texture_padding = false
 9:0/3/terrains_peering_bit/top_left_corner = 2
 9:0/3/terrains_peering_bit/top_right_corner = 2
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ycd6d"]
+texture = ExtResource("2_mqb8h")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+12:0/0 = 0
+13:0/0 = 0
+14:0/0 = 0
+15:0/0 = 0
+16:0/0 = 0
+17:0/0 = 0
+18:0/0 = 0
+19:0/0 = 0
+20:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+14:1/0 = 0
+15:1/0 = 0
+16:1/0 = 0
+17:1/0 = 0
+18:1/0 = 0
+19:1/0 = 0
+20:1/0 = 0
+
 [resource]
 tile_size = Vector2i(32, 32)
 terrain_set_0/mode = 1
@@ -216,5 +263,6 @@ terrain_set_0/terrain_1/color = Color(0.539351, 0.427788, 0, 1)
 terrain_set_0/terrain_2/name = "Corners"
 terrain_set_0/terrain_2/color = Color(0, 0.533333, 0.866667, 1)
 sources/0 = SubResource("TileSetAtlasSource_nbb71")
+sources/2 = SubResource("TileSetAtlasSource_ycd6d")
 pattern_0 = SubResource("TileMapPattern_mk1xq")
 pattern_1 = SubResource("TileMapPattern_pirja")

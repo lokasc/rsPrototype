@@ -59,7 +59,7 @@ properties/0/replication_mode = 1
 [node name="OneShot" type="CharacterBody2D"]
 scale = Vector2(0.2, 0.2)
 collision_layer = 4
-collision_mask = 4
+collision_mask = 5
 script = ExtResource("1_pb20v")
 max_health = 10.0
 speed = 40
