@@ -5,6 +5,7 @@ extends Camera2D
 ## Currently, it just follows the player.
 
 @export var target : NodePath #Assign the node this camera will follow.
+@export var hide_off_screen : bool
 @onready var visibility_notifier = $Area2D/CollisionShape2D
 
 func _physics_process(_delta:float):
@@ -18,5 +19,5 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 
 
 func _on_area_2d_area_exited(area: Area2D) -> void:
-	if area.get_parent() is BaseEnemy:
+	if area.get_parent() is BaseEnemy and hide_off_screen:
 		area.get_parent().hide()
