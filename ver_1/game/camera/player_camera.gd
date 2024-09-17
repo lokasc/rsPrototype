@@ -10,8 +10,14 @@ extends Camera2D
 
 func _physics_process(_delta:float):
 	visibility_notifier.shape.size = get_viewport().get_visible_rect().size
+	
+	if target: global_position = get_node(target).global_position 
+
+func _ready():
+	# connect signals if we have a target.
 	if target:
-		global_position = get_node(target).global_position 
+		$Area2D.area_entered.connect(_on_area_2d_area_entered)
+		$Area2D.area_exited.connect(_on_area_2d_area_exited)
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.get_parent() is BaseEnemy:
