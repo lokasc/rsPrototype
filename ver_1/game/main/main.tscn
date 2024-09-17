@@ -4,10 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://cssofedi35duh" path="res://assets/heroes/trebbie/Trebbie.png" id="2_xonf2"]
 [ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://assets/UI/rs_theme.tres" id="3_qq7n7"]
 
-[node name="Main" type="Node" node_paths=PackedStringArray("main_vbox", "play_options", "play_button", "join_button", "setting_button", "quit_button")]
+[node name="Main" type="Node" node_paths=PackedStringArray("main_vbox", "play_options", "use_steam_button", "play_button", "join_button", "setting_button", "quit_button")]
 script = ExtResource("1_1mqlp")
 main_vbox = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer")
 play_options = NodePath("MainMenuUI/SplashScreenUI/PlayOptionsContainer")
+use_steam_button = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer/SteamCheckBox")
 play_button = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer/PlayButton")
 join_button = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer/JoinButton")
 setting_button = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer/SettingsButton")
@@ -33,7 +34,12 @@ offset_bottom = 720.0
 [node name="Spacer" type="Control" parent="MainMenuUI/SplashScreenUI/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 3.71
+size_flags_stretch_ratio = 3.19
+
+[node name="SteamCheckBox" type="CheckButton" parent="MainMenuUI/SplashScreenUI/VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Use Steam?"
 
 [node name="PlayButton" type="Button" parent="MainMenuUI/SplashScreenUI/VBoxContainer"]
 layout_mode = 2
@@ -194,6 +200,7 @@ bbcode_enabled = true
 text = "Survivors"
 fit_content = true
 
+[connection signal="pressed" from="MainMenuUI/SplashScreenUI/VBoxContainer/SteamCheckBox" to="." method="_on_steam_check_box_pressed"]
 [connection signal="pressed" from="MainMenuUI/SplashScreenUI/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="MainMenuUI/SplashScreenUI/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
 [connection signal="pressed" from="MainMenuUI/SplashScreenUI/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

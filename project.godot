@@ -16,8 +16,13 @@ run/main_scene="res://ver_1/game/main/game_manager.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://assets/heroes/trebbie/Trebbie.png"
 
+[autoload]
+
+GlobalSteam="*res://ver_1/game/main/steam.gd"
+
 [debug]
 
+file_logging/enable_file_logging=true
 gdscript/warnings/unassigned_variable=0
 gdscript/warnings/unused_variable=0
 gdscript/warnings/unused_parameter=0
