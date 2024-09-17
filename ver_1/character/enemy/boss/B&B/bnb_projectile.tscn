@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://dx20go3g8f7e3"]
 
-[ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/bnb_projectile.gd" id="1_3uehv"]
-[ext_resource type="Texture2D" uid="uid://b5hgx2w4bvoc6" path="res://assets/bosses/bnb/PianoKeys.png" id="2_fyap6"]
-[ext_resource type="Texture2D" uid="uid://v8a8trryuops" path="res://assets/bosses/HitCircles.png" id="3_6v75k"]
+[ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/bnb_projectile.gd" id="1_yh5rt"]
+[ext_resource type="Texture2D" uid="uid://v8a8trryuops" path="res://assets/bosses/HitCircles.png" id="2_sb7ti"]
+[ext_resource type="Texture2D" uid="uid://b5hgx2w4bvoc6" path="res://assets/bosses/bnb/PianoKeys.png" id="3_0ls6j"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h0ef6"]
 radius = 35.8232
@@ -38,7 +38,7 @@ properties/7/replication_mode = 0
 
 [node name="RingProjectile" type="Node2D" node_paths=PackedStringArray("circle_container")]
 scale = Vector2(2, 2)
-script = ExtResource("1_3uehv")
+script = ExtResource("1_yh5rt")
 dmg = 40.0
 spd = 20.0
 circle_container = NodePath("CircleContainer")
@@ -48,12 +48,12 @@ modulate = Color(1, 1, 1, 0.556863)
 scale = Vector2(0.656, 0.301)
 
 [node name="MainRedCircle" type="Sprite2D" parent="CircleContainer"]
-texture = ExtResource("3_6v75k")
+texture = ExtResource("2_sb7ti")
 hframes = 3
 
 [node name="ExpandingCircle" type="Sprite2D" parent="CircleContainer"]
 modulate = Color(0.317279, 0.317279, 0.317279, 1)
-texture = ExtResource("3_6v75k")
+texture = ExtResource("2_sb7ti")
 hframes = 3
 
 [node name="HitBox" type="Area2D" parent="CircleContainer"]
@@ -66,7 +66,7 @@ shape = SubResource("CircleShape2D_h0ef6")
 [node name="ProjectileContainer" type="Node2D" parent="."]
 
 [node name="ProjectileSprite" type="Sprite2D" parent="ProjectileContainer"]
-texture = ExtResource("2_fyap6")
+texture = ExtResource("3_0ls6j")
 hframes = 4
 
 [node name="Right" type="Sprite2D" parent="ProjectileContainer/ProjectileSprite"]
@@ -75,7 +75,7 @@ modulate = Color(1, 0, 0, 1)
 position = Vector2(12, 0)
 rotation = 1.5708
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_fyap6")
+texture = ExtResource("3_0ls6j")
 hframes = 4
 
 [node name="Up" type="Sprite2D" parent="ProjectileContainer/ProjectileSprite"]
@@ -83,7 +83,7 @@ visible = false
 modulate = Color(0, 1, 0, 1)
 position = Vector2(0, 8)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_fyap6")
+texture = ExtResource("3_0ls6j")
 hframes = 4
 
 [node name="HitBox" type="Area2D" parent="ProjectileContainer"]

@@ -74,3 +74,5 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 	if !multiplayer.is_server(): return
 	
 	character.take_damage(boss_atk/initial_boss_atk * dmg)
+	visible = false
+	call_deferred("queue_free")
