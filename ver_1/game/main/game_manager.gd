@@ -1,12 +1,7 @@
 class_name GameManager
 extends Node2D
 
-## Controls the entire game: 
-## Main Menu 
-## Networking
-## Loading Levels
-## User Interface
-## This object is the root of the game
+## Controls the entire game_loop:
 
 static var Instance : GameManager
 

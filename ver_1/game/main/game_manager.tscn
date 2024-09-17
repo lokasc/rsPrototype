@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ck0rs6xq3084g" path="res://ver_1/character/hero/Bassheart/bassheart.tscn" id="7_rmtll"]
 [ext_resource type="PackedScene" uid="uid://bi6kxlphddvs2" path="res://ver_1/game/music/beat_controller.tscn" id="8_abtt5"]
 [ext_resource type="PackedScene" uid="uid://dgd1om0jy4rja" path="res://ver_1/vfx/vfx_manager.tscn" id="11_rn441"]
-[ext_resource type="PackedScene" uid="uid://bto377kul2r23" path="res://ver_1/poi/portal/poi_mine_portal.tscn" id="12_lp8m7"]
+[ext_resource type="PackedScene" uid="uid://b55qajw1vuu8u" path="res://ver_1/poi/portal/poi_mine_portal.tscn" id="12_lp8m7"]
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_btbqh")
@@ -43,7 +43,7 @@ initial_amount = 0
 z_index = -3
 position = Vector2(-986, -882)
 scale = Vector2(0.5, 0.5)
-teleport_locations = [NodePath("../PortalSpawnPos"), NodePath(""), NodePath(""), NodePath("")]
+teleport_locations = [NodePath("../PortalSpawnPos"), null, null, null]
 
 [node name="PortalSpawnPos" type="Node2D" parent="POIs"]
 position = Vector2(1459, 838)

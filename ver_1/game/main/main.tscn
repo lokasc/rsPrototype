@@ -1,0 +1,202 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4dusrau3cb78"]
+
+[ext_resource type="Script" path="res://ver_1/game/main/main.gd" id="1_1mqlp"]
+[ext_resource type="Texture2D" uid="uid://cssofedi35duh" path="res://assets/heroes/trebbie/Trebbie.png" id="2_xonf2"]
+[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://assets/UI/rs_theme.tres" id="3_qq7n7"]
+
+[node name="Main" type="Node" node_paths=PackedStringArray("main_vbox", "play_options", "play_button", "join_button", "setting_button", "quit_button")]
+script = ExtResource("1_1mqlp")
+main_vbox = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer")
+play_options = NodePath("MainMenuUI/SplashScreenUI/PlayOptionsContainer")
+play_button = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer/PlayButton")
+join_button = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer/JoinButton")
+setting_button = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer/SettingsButton")
+quit_button = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer/QuitButton")
+
+[node name="MainMenuUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="SplashScreenUI" type="Control" parent="MainMenuUI"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuUI/SplashScreenUI"]
+layout_mode = 0
+offset_left = 40.0
+offset_right = 342.0
+offset_bottom = 720.0
+
+[node name="Spacer" type="Control" parent="MainMenuUI/SplashScreenUI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.71
+
+[node name="PlayButton" type="Button" parent="MainMenuUI/SplashScreenUI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("3_qq7n7")
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 0.447059)
+theme_override_font_sizes/font_size = 35
+action_mode = 0
+text = "	Play"
+alignment = 0
+vertical_icon_alignment = 2
+
+[node name="JoinButton" type="Button" parent="MainMenuUI/SplashScreenUI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("3_qq7n7")
+theme_override_font_sizes/font_size = 35
+action_mode = 0
+text = "	Join"
+alignment = 0
+vertical_icon_alignment = 2
+
+[node name="SettingsButton" type="Button" parent="MainMenuUI/SplashScreenUI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("3_qq7n7")
+theme_override_font_sizes/font_size = 35
+action_mode = 0
+text = "	Settings"
+alignment = 0
+vertical_icon_alignment = 2
+
+[node name="QuitButton" type="Button" parent="MainMenuUI/SplashScreenUI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("3_qq7n7")
+theme_override_font_sizes/font_size = 35
+text = "	Quit"
+alignment = 0
+vertical_icon_alignment = 2
+
+[node name="Spacer2" type="Control" parent="MainMenuUI/SplashScreenUI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.87
+
+[node name="PlayOptionsContainer" type="VBoxContainer" parent="MainMenuUI/SplashScreenUI"]
+layout_mode = 0
+offset_left = 365.0
+offset_right = 690.0
+offset_bottom = 720.0
+
+[node name="Spacer" type="Control" parent="MainMenuUI/SplashScreenUI/PlayOptionsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.71
+
+[node name="HostButton" type="Button" parent="MainMenuUI/SplashScreenUI/PlayOptionsContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("3_qq7n7")
+theme_override_font_sizes/font_size = 35
+action_mode = 0
+text = "	Host"
+alignment = 0
+vertical_icon_alignment = 2
+
+[node name="SPButton" type="Button" parent="MainMenuUI/SplashScreenUI/PlayOptionsContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("3_qq7n7")
+theme_override_font_sizes/font_size = 35
+action_mode = 0
+text = "	Solo"
+alignment = 0
+vertical_icon_alignment = 2
+
+[node name="Spacer3" type="Control" parent="MainMenuUI/SplashScreenUI/PlayOptionsContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("3_qq7n7")
+
+[node name="Spacer4" type="Control" parent="MainMenuUI/SplashScreenUI/PlayOptionsContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("3_qq7n7")
+
+[node name="Spacer2" type="Control" parent="MainMenuUI/SplashScreenUI/PlayOptionsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.87
+
+[node name="SettingsUI" type="Control" parent="MainMenuUI"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TitleScreen" type="Control" parent="MainMenuUI"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ArtPose" type="TextureRect" parent="MainMenuUI/TitleScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 232.0
+offset_top = -1.0
+offset_right = 192.0
+offset_bottom = -41.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(18, 18)
+
+[node name="Shadow" type="Sprite2D" parent="MainMenuUI/TitleScreen/ArtPose"]
+visible = false
+self_modulate = Color(3.56168e-06, 0.671486, 0.474615, 1)
+position = Vector2(32.5714, 31.4762)
+texture = ExtResource("2_xonf2")
+
+[node name="Sprite2D" type="Sprite2D" parent="MainMenuUI/TitleScreen/ArtPose"]
+position = Vector2(32.0476, 31.4762)
+texture = ExtResource("2_xonf2")
+
+[node name="GameName" type="Control" parent="MainMenuUI/TitleScreen"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MainSkewer" type="Sprite2D" parent="MainMenuUI/TitleScreen/GameName"]
+position = Vector2(235, -11)
+skew = 0.418879
+
+[node name="Rhythm" type="RichTextLabel" parent="MainMenuUI/TitleScreen/GameName/MainSkewer"]
+offset_left = 343.728
+offset_top = 84.287
+offset_right = 1289.73
+offset_bottom = 358.287
+theme = ExtResource("3_qq7n7")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 15
+theme_override_font_sizes/normal_font_size = 90
+bbcode_enabled = true
+text = "Rhythm"
+fit_content = true
+
+[node name="Survivors" type="RichTextLabel" parent="MainMenuUI/TitleScreen/GameName/MainSkewer"]
+offset_left = 458.251
+offset_top = 193.751
+offset_right = 1404.25
+offset_bottom = 467.751
+theme = ExtResource("3_qq7n7")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 15
+theme_override_font_sizes/normal_font_size = 90
+bbcode_enabled = true
+text = "Survivors"
+fit_content = true
+
+[connection signal="pressed" from="MainMenuUI/SplashScreenUI/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MainMenuUI/SplashScreenUI/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="MainMenuUI/SplashScreenUI/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MainMenuUI/SplashScreenUI/VBoxContainer/QuitButton" to="." method="_on_quit_label_pressed"]
+[connection signal="pressed" from="MainMenuUI/SplashScreenUI/PlayOptionsContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="MainMenuUI/SplashScreenUI/PlayOptionsContainer/SPButton" to="." method="_on_sp_button_pressed"]
