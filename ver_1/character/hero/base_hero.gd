@@ -12,6 +12,9 @@ signal on_hit #enemy hit u
 signal player_die() #hero just die
 signal level_up(new_level)
 
+signal enter_low_health # when you enter low health
+signal exit_low_health # when you exit low health
+
 const DECELERATION : int = 80
 
 # Sprite direction
@@ -23,6 +26,9 @@ var sprite_dir : int
 var IS_DEAD : bool = false
 var IS_DOWNED : bool = false
 var IS_INVINCIBLE : bool = false 
+
+var low_health_threshold : int = 0.3
+var is_low_health : bool = false
 
 @onready var input : PlayerInput = $MultiplayerSynchronizer
 
@@ -86,13 +92,18 @@ func _enter_tree():
 	_init_stats()
 	current_health = char_stats.maxhp
 	current_shield = char_stats.shields
+	
+	# Connect_signals
 	player_die.connect(to_clients_player_died)
 	level_up.connect(on_level_up)
+	enter_low_health.connect(on_enter_low_health)
+	exit_low_health.connect(on_exit_low_health)
 
 func _ready():
 	super()
 	_init_states()
 	x_scale = sprite.scale.x # Stores scale.x
+	
 	# Get references
 	pop_up = $TextPopUp as TextPopUp
 	camera = $PlayerCamera as PlayerCamera
@@ -103,6 +114,7 @@ func _ready():
 	if is_multiplayer_authority():
 		# Set this camera to viewport if I'm controlling it
 		camera.make_current()
+		camera.target = self.get_path()
 		
 		# Set UI
 		GameManager.Instance.ui.set_ability_ui()
@@ -191,8 +203,8 @@ func lose_shield(shield:float):
 	shield_time = 0
 
 func take_damage(dmg:float):
-	if !multiplayer.is_server(): return
 	if IS_INVINCIBLE || IS_DEAD: return
+	if !multiplayer.is_server(): return
 	# Player damage logic
 	if current_shield == 0:
 		current_health -= dmg/char_stats.arm
@@ -201,6 +213,8 @@ func take_damage(dmg:float):
 	elif dmg/char_stats.arm > char_stats.shields:
 		current_health -= (dmg/char_stats.arm - current_shield)
 		current_shield = 0
+	
+	check_low_health()
 	check_death()
 
 func check_death():
@@ -213,6 +227,27 @@ func to_clients_player_died():
 	# this is always ran by server.
 	if id == 1: GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.LOW_HP)
 	else: GameManager.Instance.bc.stc_change_bg_music.rpc_id(id, BeatController.BG_TRANSITION_TYPE.LOW_HP)
+
+#region low_health
+
+# Emits to/from low health signal when entering or exiting a threshold 
+# Edgecase: if you gain shields, you also exit low_health mode.
+func check_low_health():
+	if !is_low_health && (current_shield + current_health <= char_stats.maxhp * low_health_threshold):
+		enter_low_health.emit()
+	elif is_low_health && (current_shield + current_health > char_stats.maxhp * low_health_threshold):
+		exit_low_health.emit()
+
+func on_enter_low_health():
+	# change bg
+	# and modulate the screen a bit.
+	
+	pass
+func on_exit_low_health():
+	# change bg
+	
+	pass
+#endregion low_health
 
 @rpc("call_local", "reliable", "any_peer")
 func on_player_die():

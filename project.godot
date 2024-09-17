@@ -10,10 +10,11 @@ config_version=5
 
 [application]
 
-config/name="RS_Prototype"
+config/name="Rhythm Survivors"
+config/version="0.1"
 run/main_scene="res://ver_1/game/main/game_manager.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://assets/heroes/trebbie/Trebbie.png"
 
 [debug]
 

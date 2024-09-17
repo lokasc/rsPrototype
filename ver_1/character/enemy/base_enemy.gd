@@ -87,8 +87,8 @@ func death() -> void:
 
 func delayed_death():
 	visible = false
-	call_deferred("queue_free")
-	pass
+	if multiplayer.is_server():
+		call_deferred("queue_free")
 
 func move_to_target(p_target = null) -> void:
 	if p_target == null: return

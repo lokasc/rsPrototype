@@ -17,7 +17,6 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.get_parent() is BaseEnemy:
 		area.get_parent().show()
 
-
 func _on_area_2d_area_exited(area: Area2D) -> void:
 	if area.get_parent() is BaseEnemy and hide_off_screen:
 		area.get_parent().hide()

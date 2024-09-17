@@ -7,6 +7,7 @@
 [node name="PlayerCamera" type="Camera2D"]
 zoom = Vector2(1.5, 1.5)
 script = ExtResource("1_bdtns")
+hide_off_screen = true
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

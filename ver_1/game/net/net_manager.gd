@@ -105,7 +105,7 @@ func _connect_signals():
 	multiplayer.peer_disconnected.connect(_on_peer_disconnect)
 	multiplayer.connection_failed.connect(_on_connection_failed)
 	multiplayer.connected_to_server.connect(_on_client_connect)
-	multiplayer.server_disconnected.connect(_on_client_disconnect)
+	multiplayer.server_disconnected.connect(_on_served_disconnected)
 
 #region UI
 # id is the person u've connected to
@@ -130,7 +130,7 @@ func show_ui():
 	friend_label.show()
 #endregion
 
-
+# When peer disconnect, we want to go back to the main menu and reset everything.
 func _on_peer_disconnect(_id):
 	pass
 
@@ -141,7 +141,7 @@ func _on_connection_failed():
 func _on_client_connect():
 	pass
 
-func _on_client_disconnect():
+func _on_served_disconnected():
 	pass
 
 
