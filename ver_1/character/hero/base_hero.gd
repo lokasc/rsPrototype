@@ -237,7 +237,6 @@ func to_clients_player_died():
 # Emits to/from low health signal when entering or exiting a threshold 
 # Edgecase: if you gain shields, you also exit low_health mode.
 func check_low_health():
-	print(current_health)
 	if !is_low_health && (current_shield + current_health <= char_stats.maxhp * low_health_threshold):
 		is_low_health = true
 		enter_low_health.emit()
@@ -246,7 +245,6 @@ func check_low_health():
 		exit_low_health.emit()
 
 func on_enter_low_health():
-	print("entered")
 	# change bg
 	# and modulate the screen a bit.
 	
@@ -254,7 +252,6 @@ func on_enter_low_health():
 	else: GameManager.Instance.bc.stc_change_bg_music.rpc_id(id, BeatController.BG_TRANSITION_TYPE.LOW_HP)
 
 func on_exit_low_health():
-	print("exited")
 	# change bg
 	
 	if id == 1: GameManager.Instance.bc.change_bg_from_local_to_global()
