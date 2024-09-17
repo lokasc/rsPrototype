@@ -1,9 +1,8 @@
-[gd_scene load_steps=16 format=4 uid="uid://bspypir426weo"]
+[gd_scene load_steps=15 format=4 uid="uid://bspypir426weo"]
 
 [ext_resource type="TileSet" uid="uid://bdfq1nitrqrq" path="res://assets/map/tilemaps/floor.tres" id="1_44wwc"]
 [ext_resource type="TileSet" uid="uid://c6h2xyay8oksc" path="res://assets/map/tilemaps/floor_decals.tres" id="2_6m6pg"]
 [ext_resource type="Texture2D" uid="uid://d0phkusy74tol" path="res://assets/common/redrawn.PNG" id="3_561fo"]
-[ext_resource type="PackedScene" uid="uid://ns7nfwyvbnq8" path="res://ver_1/character/enemy/boss/B&B/bnb.tscn" id="3_f8s12"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ianor"]
 size = Vector2(8251.63, 1953.75)
@@ -144,5 +143,3 @@ debug_color = Color(0.694118, 0.494118, 0, 0.803922)
 scale = Vector2(78.56, 78.56)
 shape = SubResource("CircleShape2D_0dyhq")
 debug_color = Color(0.967136, 0, 0.476165, 0.42)
-
-[node name="Beethoven&Biano" parent="." instance=ExtResource("3_f8s12")]
