@@ -24,9 +24,14 @@ signal portal_unlocked
 # time to recharge
 @export var recharge_time : float = 5
 
-var current_progress : float
+var current_progress : float = 0
 var teleport_charges : int
 var current_recharge_time : float
+
+@onready var progress_bar : ProgressBar = $ProgressBar
+
+func _ready() -> void:
+	progress_bar.max_value = unlock_amount
 
 func _process(delta: float) -> void:
 	if !started: return
@@ -34,8 +39,8 @@ func _process(delta: float) -> void:
 	if !unlocked:
 		mining_logic(delta)
 	else:
-		print(ready_to_teleport)
-		print(teleport_charges)
+		#print(ready_to_teleport)
+		#print(teleport_charges)
 		recharge_logic(delta)
 
 # Cool down on portal is dealt with on the server (for sync hassle sake)
@@ -52,7 +57,7 @@ func recharge_logic(delta : float):
 		
 	#print("charging!")
 	current_recharge_time += delta
-
+	#progress_bar.value = current_recharge_time
 
 
 func mining_logic(delta : float):
@@ -61,6 +66,7 @@ func mining_logic(delta : float):
 		if !multiplayer.is_server(): return
 		stc_portal_unlocked.rpc()
 	current_progress += delta * unlock_speed
+	progress_bar.value = current_progress
 
 func _on_start_trigger_area_entered(area: Area2D) -> void:
 	if !multiplayer.is_server(): return
@@ -68,6 +74,10 @@ func _on_start_trigger_area_entered(area: Area2D) -> void:
 	if started: return
 	if area.get_parent() is not BaseHero: return
 	stc_start_mining.rpc()
+
+func _on_start_trigger_area_exited(area: Area2D) -> void:
+	if !multiplayer.is_server(): return
+	stc_stop_mining.rpc()
 
 func _on_teleport_trigger_area_entered(area: Area2D) -> void:
 	if !started || !unlocked: return 
@@ -99,10 +109,17 @@ func decide_teleport_location() -> Vector2:
 	return teleport_locations[rand_loc_index].global_position
 
 @rpc("reliable", "call_local")
+func stc_stop_mining():
+	started = false
+	$BeatSyncEffect.modulate = Color.WHITE
+	$BeatSyncEffect.emitting = false
+
+
+@rpc("reliable", "call_local")
 func stc_start_mining():
 	started = true
 	$BeatSyncEffect.modulate = Color.WHITE
-	$BeatSyncEffect.restart()
+	$BeatSyncEffect.emitting = true
 
 @rpc("reliable", "call_local")
 func stc_portal_unlocked():
