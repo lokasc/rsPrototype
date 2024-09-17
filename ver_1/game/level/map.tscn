@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://bspypir426weo"]
+[gd_scene load_steps=16 format=4 uid="uid://bspypir426weo"]
 
 [ext_resource type="TileSet" uid="uid://bdfq1nitrqrq" path="res://assets/map/tilemaps/floor.tres" id="1_44wwc"]
 [ext_resource type="TileSet" uid="uid://c6h2xyay8oksc" path="res://assets/map/tilemaps/floor_decals.tres" id="2_6m6pg"]
+[ext_resource type="Texture2D" uid="uid://d0phkusy74tol" path="res://assets/common/redrawn.PNG" id="3_561fo"]
+[ext_resource type="PackedScene" uid="uid://ns7nfwyvbnq8" path="res://ver_1/character/enemy/boss/B&B/bnb.tscn" id="3_f8s12"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ianor"]
 size = Vector2(8251.63, 1953.75)
@@ -11,6 +13,29 @@ size = Vector2(769, 8581)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pxy28"]
 size = Vector2(7287, 907.875)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sbo1m"]
+size = Vector2(5785.81, 138.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13rjj"]
+size = Vector2(5785.81, 138.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xy264"]
+size = Vector2(5785.81, 138.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ycke3"]
+size = Vector2(5785.81, 138.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bx45e"]
+size = Vector2(595.75, 198)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iabdy"]
+size = Vector2(1869, 198)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8hujv"]
+size = Vector2(2558, 162)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0dyhq"]
 
 [node name="Map" type="Node2D"]
 
@@ -45,3 +70,79 @@ shape = SubResource("RectangleShape2D_pxy28")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(3595, 596.5)
 shape = SubResource("RectangleShape2D_o5hw4")
+
+[node name="BoundaryColiders" type="Node" parent="."]
+
+[node name="Redrawn" type="Sprite2D" parent="BoundaryColiders"]
+visible = false
+position = Vector2(-6.00006, 10.9999)
+scale = Vector2(10.96, 10.96)
+texture = ExtResource("3_561fo")
+
+[node name="StartZoneSB2D" type="StaticBody2D" parent="BoundaryColiders"]
+
+[node name="Right" type="CollisionShape2D" parent="BoundaryColiders/StartZoneSB2D"]
+position = Vector2(1646.75, 4)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_sbo1m")
+debug_color = Color(0, 0.984314, 0.701961, 0.411765)
+
+[node name="Left" type="CollisionShape2D" parent="BoundaryColiders/StartZoneSB2D"]
+position = Vector2(-1835, 0)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_13rjj")
+debug_color = Color(0, 0.984314, 0.701961, 0.411765)
+
+[node name="Down" type="CollisionShape2D" parent="BoundaryColiders/StartZoneSB2D"]
+position = Vector2(0, 1095)
+shape = SubResource("RectangleShape2D_xy264")
+debug_color = Color(0, 0.984314, 0.701961, 0.411765)
+
+[node name="Up" type="CollisionShape2D" parent="BoundaryColiders/StartZoneSB2D"]
+position = Vector2(0, -1204)
+shape = SubResource("RectangleShape2D_ycke3")
+debug_color = Color(0, 0.984314, 0.701961, 0.411765)
+
+[node name="StartZone" type="Node" parent="."]
+
+[node name="Blocking" type="Area2D" parent="StartZone"]
+position = Vector2(1, 2)
+
+[node name="w" type="CollisionShape2D" parent="StartZone/Blocking"]
+position = Vector2(-1033, -9)
+shape = SubResource("RectangleShape2D_bx45e")
+debug_color = Color(0.694118, 0.494118, 0, 0.803922)
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="StartZone/Blocking"]
+position = Vector2(831.875, -71.5)
+shape = SubResource("RectangleShape2D_bx45e")
+debug_color = Color(0.694118, 0.494118, 0, 0.803922)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StartZone/Blocking"]
+position = Vector2(-1363, -71.5)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_iabdy")
+debug_color = Color(0.694118, 0.494118, 0, 0.803922)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StartZone/Blocking"]
+position = Vector2(1187, -71.5)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_iabdy")
+debug_color = Color(0.694118, 0.494118, 0, 0.803922)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StartZone/Blocking"]
+position = Vector2(-200.25, -919)
+shape = SubResource("RectangleShape2D_8hujv")
+debug_color = Color(0.694118, 0.494118, 0, 0.803922)
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StartZone/Blocking"]
+position = Vector2(21, 829)
+shape = SubResource("RectangleShape2D_8hujv")
+debug_color = Color(0.694118, 0.494118, 0, 0.803922)
+
+[node name="CENTER CIRCLE" type="CollisionShape2D" parent="StartZone/Blocking"]
+scale = Vector2(78.56, 78.56)
+shape = SubResource("CircleShape2D_0dyhq")
+debug_color = Color(0.967136, 0, 0.476165, 0.42)
+
+[node name="Beethoven&Biano" parent="." instance=ExtResource("3_f8s12")]
