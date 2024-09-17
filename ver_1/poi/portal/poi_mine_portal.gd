@@ -10,7 +10,7 @@ signal portal_unlocked
 @export var started : bool = false
 
 @export_category("POI Information")
-@export var teleport_end_location : Vector2 = Vector2.ZERO
+@export var teleport_end_node : Node2D
 
 @export_subgroup("POI Stats")
 # progress is measured in seconds
@@ -45,16 +45,18 @@ func _on_teleport_trigger_area_entered(area: Area2D) -> void:
 	if !started || !unlocked: return 
 	if !multiplayer.is_server(): return
 	
-	
-	print("Emit")
+
 	# teleport player
 	var hero = area.get_parent()
 	if hero is not BaseHero || !hero: return
 	
-	hero.global_position = teleport_end_location
+	#Typecast
+	hero = hero as BaseHero
 	
-	
-	pass # Replace with function body.
+	# The client determines the position of their character
+	# we will need to use RPCs, regular set position would not work.
+	if !teleport_end_node: hero.teleport.rpc(Vector2.ZERO)
+	else: hero.teleport.rpc(teleport_end_node.global_position)
 
 @rpc("reliable", "call_local")
 func stc_start_mining():

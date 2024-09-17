@@ -350,3 +350,7 @@ func is_items_full() -> bool:
 		return true
 	else:
 		return false
+
+@rpc("any_peer", "call_local")
+func teleport(gpos : Vector2):
+	global_position = gpos
