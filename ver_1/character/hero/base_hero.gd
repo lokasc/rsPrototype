@@ -27,7 +27,7 @@ var IS_DEAD : bool = false
 var IS_DOWNED : bool = false
 var IS_INVINCIBLE : bool = false 
 
-var low_health_threshold : int = 0.3
+var low_health_threshold : float = 0.3
 var is_low_health : bool = false
 
 @onready var input : PlayerInput = $MultiplayerSynchronizer
@@ -185,6 +185,8 @@ func gain_health(heal:float):
 		current_health += heal * char_stats.hsg
 	else:
 		current_health = char_stats.maxhp
+	
+	check_low_health()
 
 func gain_shield(shield:float, duration:float):
 	if !multiplayer.is_server(): return
@@ -224,7 +226,9 @@ func check_death():
 
 func to_clients_player_died():
 	on_player_die.rpc()
-	# this is always ran by server.
+	
+	# Currently, music is handled by the server 
+	# TODO: Music handled by the client
 	if id == 1: GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.LOW_HP)
 	else: GameManager.Instance.bc.stc_change_bg_music.rpc_id(id, BeatController.BG_TRANSITION_TYPE.LOW_HP)
 
@@ -233,20 +237,29 @@ func to_clients_player_died():
 # Emits to/from low health signal when entering or exiting a threshold 
 # Edgecase: if you gain shields, you also exit low_health mode.
 func check_low_health():
+	print(current_health)
 	if !is_low_health && (current_shield + current_health <= char_stats.maxhp * low_health_threshold):
+		is_low_health = true
 		enter_low_health.emit()
 	elif is_low_health && (current_shield + current_health > char_stats.maxhp * low_health_threshold):
+		is_low_health = false
 		exit_low_health.emit()
 
 func on_enter_low_health():
+	print("entered")
 	# change bg
 	# and modulate the screen a bit.
 	
-	pass
+	if id == 1: GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.LOW_HP)
+	else: GameManager.Instance.bc.stc_change_bg_music.rpc_id(id, BeatController.BG_TRANSITION_TYPE.LOW_HP)
+
 func on_exit_low_health():
+	print("exited")
 	# change bg
 	
-	pass
+	if id == 1: GameManager.Instance.bc.change_bg_from_local_to_global()
+	else: GameManager.Instance.bc.stc_change_bg_to_global.rpc_id(id)
+
 #endregion low_health
 
 @rpc("call_local", "reliable", "any_peer")

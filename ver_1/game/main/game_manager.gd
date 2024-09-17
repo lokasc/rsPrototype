@@ -10,6 +10,8 @@ extends Node2D
 
 static var Instance : GameManager
 
+var is_host : bool # this var is so that we can see in testing. 
+
 ## TEST BOOLS
 @export_subgroup("Debug")
 @export var wait_for_player : bool = false
@@ -100,6 +102,7 @@ func cts_request_spawn(index : int):
 #endregion
 
 func start_game():
+	is_host = multiplayer.is_server()
 	time = 0
 	is_started = true
 	bc.stc_start_music.rpc(Time.get_unix_time_from_system())
@@ -301,3 +304,10 @@ func check_alive_players() -> void:
 			return
 	# End game, players all dead
 	tell_everyone_end_game.rpc()
+
+# check if the client running this controls this the character on their screen.
+func is_local_player(id : int):
+	if id == local_player.id:
+		return true
+	else:
+		return false
