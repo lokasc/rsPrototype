@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bwvh74v7ecdf1" path="res://assets/icons/trebbie_dash_icon.png" id="1_0xqsl"]
 [ext_resource type="Script" path="res://ver_1/game/UI/bottom_ui/ability_box_ui.gd" id="2_s46ra"]
-[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="3_h8up4"]
+[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://assets/UI/rs_theme.tres" id="3_h8up4"]
 
 [node name="AbilityBoxUi" type="TextureRect"]
 offset_right = 100.0

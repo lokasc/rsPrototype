@@ -5,9 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://cioljtydwmxxg" path="res://ver_1/character/enemy/boss/B&B/bnb_rain.tscn" id="3_cf4r5"]
 [ext_resource type="PackedScene" uid="uid://cj873jqq3y6ol" path="res://ver_1/character/enemy/boss/B&B/bnb_ring.tscn" id="4_lyvfk"]
 [ext_resource type="PackedScene" uid="uid://dx20go3g8f7e3" path="res://ver_1/character/enemy/boss/B&B/ring_projectile.tscn" id="4_yiwhg"]
-[ext_resource type="Texture2D" uid="uid://sawcsqocstmg" path="res://assets/bosses/Biano.png" id="6_guti8"]
+[ext_resource type="Texture2D" uid="uid://sawcsqocstmg" path="res://assets/bosses/bnb/Biano.png" id="6_guti8"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="7_18tij"]
-[ext_resource type="Texture2D" uid="uid://cl8mxxadfv78b" path="res://assets/bosses/Beethoven2.png" id="7_jl8nu"]
+[ext_resource type="Texture2D" uid="uid://cl8mxxadfv78b" path="res://assets/bosses/bnb/Beethoven2.png" id="7_jl8nu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ttgp"]
 radius = 70.0

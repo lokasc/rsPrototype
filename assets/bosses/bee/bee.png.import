@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cl8mxxadfv78b"
-path="res://.godot/imported/Beethoven2.png-a632bb43072905385077c044cd7b3d2f.ctex"
+uid="uid://m0w7duynn73"
+path="res://.godot/imported/bee.png-9a7fecae6ea597a5cb8cc88b06d6d305.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/bosses/Beethoven2.png"
-dest_files=["res://.godot/imported/Beethoven2.png-a632bb43072905385077c044cd7b3d2f.ctex"]
+source_file="res://assets/bosses/bee/bee.png"
+dest_files=["res://.godot/imported/bee.png-9a7fecae6ea597a5cb8cc88b06d6d305.ctex"]
 
 [params]
 

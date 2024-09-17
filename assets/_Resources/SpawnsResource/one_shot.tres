@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SpawnsResource" load_steps=3 format=3 uid="uid://dt2vweyb7eook"]
+
+[ext_resource type="Script" path="res://ver_1/game/spawn_system/spawn_info.gd" id="1_35540"]
+[ext_resource type="Script" path="res://ver_1/game/spawn_system/spawns_resource.gd" id="5_mlnsy"]
+
+[resource]
+script = ExtResource("5_mlnsy")
+array = Array[ExtResource("1_35540")]([])

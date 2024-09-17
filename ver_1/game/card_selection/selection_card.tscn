@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://b63rc61fnfhv0"]
 
-[ext_resource type="Script" path="res://ver_1/game/UI/selection_card.gd" id="1_hjopn"]
+[ext_resource type="Script" path="res://ver_1/game/card_selection/selection_card.gd" id="1_hjopn"]
 [ext_resource type="Texture2D" uid="uid://sxavbsunw0tr" path="res://assets/UI/upgrade.png" id="1_y7nmh"]
-[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="3_l15hg"]
+[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://assets/UI/rs_theme.tres" id="3_l15hg"]
 
 [node name="SelectionCard" type="Panel"]
 process_mode = 3

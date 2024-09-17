@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://ver_1/character/hero/base_hero.gd" id="1_g61si"]
 [ext_resource type="Texture2D" uid="uid://cssofedi35duh" path="res://assets/heroes/trebbie/Trebbie.png" id="3_85a5c"]
 [ext_resource type="Script" path="res://ver_1/game/net/player_input.gd" id="3_xjkk8"]
-[ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/text_pop_up.tscn" id="4_8jjbb"]
+[ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/pop_up/text_pop_up.tscn" id="4_8jjbb"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="5_njwas"]
 [ext_resource type="PackedScene" uid="uid://d0b8cqs24tfpe" path="res://ver_1/game/camera/player_camera.tscn" id="6_p1dga"]
 [ext_resource type="PackedScene" uid="uid://brce2a12qkj7v" path="res://ver_1/character/hero/item_holder.tscn" id="7_6ln42"]

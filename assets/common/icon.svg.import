@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5hgx2w4bvoc6"
-path="res://.godot/imported/PianoKeys.png-1ab618b680cc7318f6e8aa30beeef6a7.ctex"
+uid="uid://bj87if3xp5tym"
+path="res://.godot/imported/icon.svg-cf1a1c4e858d7059664df6edf2f565dd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://PianoKeys.png"
-dest_files=["res://.godot/imported/PianoKeys.png-1ab618b680cc7318f6e8aa30beeef6a7.ctex"]
+source_file="res://assets/common/icon.svg"
+dest_files=["res://.godot/imported/icon.svg-cf1a1c4e858d7059664df6edf2f565dd.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

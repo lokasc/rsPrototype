@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cswrokaic6o8t"]
 
 [ext_resource type="Script" path="res://ver_1/game/UI/net_ui.gd" id="1_d13jg"]
-[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="2_4hxvb"]
+[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://assets/UI/rs_theme.tres" id="2_4hxvb"]
 
 [node name="NetUI" type="Control"]
 layout_mode = 3

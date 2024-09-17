@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4raa8pik23k4"
-path="res://.godot/imported/Godlucdimje_Demo_Cubes.png-659b483ec4564256333828c69607d1d4.ctex"
+uid="uid://sawcsqocstmg"
+path="res://.godot/imported/Biano.png-a117384777dbc3077d03cfd84c208287.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Godlucdimje_Demo_Cubes.png"
-dest_files=["res://.godot/imported/Godlucdimje_Demo_Cubes.png-659b483ec4564256333828c69607d1d4.ctex"]
+source_file="res://assets/bosses/bnb/Biano.png"
+dest_files=["res://.godot/imported/Biano.png-a117384777dbc3077d03cfd84c208287.ctex"]
 
 [params]
 

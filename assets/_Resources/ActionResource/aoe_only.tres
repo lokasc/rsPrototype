@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ActionResource" load_steps=3 format=3 uid="uid://bxxr340x5kv31"]
 
 [ext_resource type="PackedScene" uid="uid://h52vrgcs0ig2" path="res://ver_1/actions/items/aoe_item.tscn" id="1_15elk"]
-[ext_resource type="Script" path="res://actions_resource.gd" id="1_xcvxu"]
+[ext_resource type="Script" path="res://ver_1/game/card_selection/actions_resource.gd" id="1_xcvxu"]
 
 [resource]
 script = ExtResource("1_xcvxu")

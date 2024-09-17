@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://61v1jyejjt02"]
 
 [ext_resource type="Script" path="res://ver_1/game/UI/character_selection/character_selection_card.gd" id="1_l727a"]
-[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="2_ncwcg"]
+[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://assets/UI/rs_theme.tres" id="2_ncwcg"]
 
 [node name="CharacterSelectionCard" type="Panel"]
 process_mode = 3

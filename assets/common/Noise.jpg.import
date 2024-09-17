@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://sawcsqocstmg"
-path="res://.godot/imported/Biano.png-c420e7784f87d7d970b5bc6f00e046f2.ctex"
+uid="uid://dh4gjwlv05i00"
+path="res://.godot/imported/Noise.jpg-c5a9e01b7ef9fd58e0680a15ad93cb5b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/bosses/Biano.png"
-dest_files=["res://.godot/imported/Biano.png-c420e7784f87d7d970b5bc6f00e046f2.ctex"]
+source_file="res://assets/common/Noise.jpg"
+dest_files=["res://.godot/imported/Noise.jpg-c5a9e01b7ef9fd58e0680a15ad93cb5b.ctex"]
 
 [params]
 

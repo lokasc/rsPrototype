@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://b7wg1bew4jfy7"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/Beethoven/beethoven.gd" id="1_a4kde"]
-[ext_resource type="Texture2D" uid="uid://m0w7duynn73" path="res://bee.png" id="2_fa11c"]
+[ext_resource type="Texture2D" uid="uid://m0w7duynn73" path="res://assets/bosses/bee/bee.png" id="2_fa11c"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="3_g7paf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8h38y"]

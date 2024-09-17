@@ -2,7 +2,7 @@ class_name VFXManager
 extends Node
 
 @export_subgroup("Pop Ups")
-var pop_up_scene = preload("res://ver_1/vfx/dmg_pop_up.tscn")
+@export var pop_up_scene : Resource
 @onready var spawn_path = $PopUpContainer
 
 # Object Pool

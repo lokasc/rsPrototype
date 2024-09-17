@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://dx20go3g8f7e3"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/bnb_projectile.gd" id="1_3uehv"]
-[ext_resource type="Texture2D" uid="uid://b5hgx2w4bvoc6" path="res://PianoKeys.png" id="2_fyap6"]
-[ext_resource type="Texture2D" uid="uid://v8a8trryuops" path="res://HitCircles.png" id="3_6v75k"]
+[ext_resource type="Texture2D" uid="uid://b5hgx2w4bvoc6" path="res://assets/bosses/bnb/PianoKeys.png" id="2_fyap6"]
+[ext_resource type="Texture2D" uid="uid://v8a8trryuops" path="res://assets/bosses/HitCircles.png" id="3_6v75k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h0ef6"]
 radius = 35.8232

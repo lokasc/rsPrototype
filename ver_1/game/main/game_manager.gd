@@ -153,16 +153,19 @@ func change_max_xp() -> void:
 ### Card Sequence 
 #region Card Sequence
 
+#DEPRECATED
 func serialize(action : BaseAction) -> String:
 	var rs : String = action.get_script().resource_path
 	rs = rs.get_file().get_slice(".", 0)
 	return rs
 
+#DEPRECATED
 func deserialize(string : String) -> BaseAction:
 	# add a check for abilities as well...
 	var action = load("res://ver_1/actions/items/" + string + ".gd").new() as BaseAction
 	return action
 
+#DEPRECATED
 func script_name_to_item_scene(string) -> String:
 	var filename : String = string.resource_path
 	filename = filename.get_file().get_slice(".", 0)

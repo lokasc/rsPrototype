@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/Dummy/dummy.gd" id="1_t3ry6"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="2_nybyr"]
-[ext_resource type="Texture2D" uid="uid://c4raa8pik23k4" path="res://Godlucdimje_Demo_Cubes.png" id="2_pbgnb"]
-[ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/text_pop_up.tscn" id="4_jtw5c"]
+[ext_resource type="Texture2D" uid="uid://c4raa8pik23k4" path="res://assets/common/Godlucdimje_Demo_Cubes.png" id="2_pbgnb"]
+[ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/pop_up/text_pop_up.tscn" id="4_jtw5c"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_t27sw"]
 properties/0/path = NodePath(".:position")

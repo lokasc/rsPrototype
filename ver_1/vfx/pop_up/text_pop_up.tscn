@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cygb46cfx7bom"]
 
-[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="1_7icpl"]
-[ext_resource type="Script" path="res://ver_1/vfx/text_pop_up.gd" id="1_wpoxx"]
+[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://assets/UI/rs_theme.tres" id="1_7icpl"]
+[ext_resource type="Script" path="res://ver_1/vfx/pop_up/text_pop_up.gd" id="1_wpoxx"]
 
 [node name="TextPopUp" type="RichTextLabel"]
 theme = ExtResource("1_7icpl")

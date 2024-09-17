@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://t47qf2h3bwpv" path="res://assets/UI/LevelBar.png" id="1_qd6ae"]
 [ext_resource type="Script" path="res://ver_1/game/UI/boss_ui/boss_health_bar_ui.gd" id="2_nvbkd"]
-[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="3_mlscp"]
+[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://assets/UI/rs_theme.tres" id="3_mlscp"]
 
 [node name="BossHealthBarUI" type="TextureProgressBar"]
 anchors_preset = 15

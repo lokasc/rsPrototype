@@ -26,8 +26,8 @@ var label_duration : int = 10
 @onready var player_container : Node = $Players
 @onready var label_timer : Timer = $LabelTimer
 
-var trebbie_scene : PackedScene = preload("res://ver_1/character/hero/Trebbie/trebbie.tscn")
-var bass_scene : PackedScene = preload("res://ver_1/character/hero/Bassheart/bassheart.tscn")
+@export var trebbie_scene : PackedScene
+@export var bass_scene : PackedScene
 
 func _enter_tree() -> void:
 	GameManager.Instance.net = self

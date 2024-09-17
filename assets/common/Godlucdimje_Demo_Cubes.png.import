@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bigor0d77nlqh"
-path="res://.godot/imported/Beethoven.png-4d42f47d6078881a6610160208661a68.ctex"
+uid="uid://c4raa8pik23k4"
+path="res://.godot/imported/Godlucdimje_Demo_Cubes.png-e070ffb3377905cf85acee2c87917736.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/bosses/Beethoven.png"
-dest_files=["res://.godot/imported/Beethoven.png-4d42f47d6078881a6610160208661a68.ctex"]
+source_file="res://assets/common/Godlucdimje_Demo_Cubes.png"
+dest_files=["res://.godot/imported/Godlucdimje_Demo_Cubes.png-e070ffb3377905cf85acee2c87917736.ctex"]
 
 [params]
 

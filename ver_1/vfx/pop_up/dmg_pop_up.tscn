@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://csasck8oirrl3"]
 
-[ext_resource type="Script" path="res://ver_1/vfx/dmg_pop_up.gd" id="1_lhh4n"]
-[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="2_2dd6w"]
+[ext_resource type="Script" path="res://ver_1/vfx/pop_up/dmg_pop_up.gd" id="1_lhh4n"]
+[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://assets/UI/rs_theme.tres" id="2_2dd6w"]
 
 [node name="DmgPopUp" type="Node2D"]
 visible = false

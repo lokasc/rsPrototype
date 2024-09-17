@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://c3vtdiit6y6fr"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/Biano/biano.gd" id="1_yh4o6"]
-[ext_resource type="Texture2D" uid="uid://ddxghwpdca1is" path="res://piano.png" id="2_3cjxf"]
+[ext_resource type="Texture2D" uid="uid://ddxghwpdca1is" path="res://assets/bosses/biano/piano.png" id="2_3cjxf"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="3_q0mwj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8h38y"]
@@ -25,7 +25,16 @@ scale = Vector2(0.2, 0.2)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_yh4o6")
+max_health = null
+speed = null
+dmg = null
+can_move = null
+frozen = null
+xp_worth = null
+xp_drop_spread = null
+update_frequency = null
 char_name = "Biano"
+char_id = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_3cjxf")

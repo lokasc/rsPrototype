@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://v8a8trryuops"
-path="res://.godot/imported/HitCircles.png-545bf50fd73641480599ad9edbdc99d4.ctex"
+uid="uid://b5hgx2w4bvoc6"
+path="res://.godot/imported/PianoKeys.png-65f263afd8448e722a5252a29c160c90.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://HitCircles.png"
-dest_files=["res://.godot/imported/HitCircles.png-545bf50fd73641480599ad9edbdc99d4.ctex"]
+source_file="res://assets/bosses/bnb/PianoKeys.png"
+dest_files=["res://.godot/imported/PianoKeys.png-65f263afd8448e722a5252a29c160c90.ctex"]
 
 [params]
 

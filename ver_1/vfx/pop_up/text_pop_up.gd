@@ -40,4 +40,3 @@ func on_fade_timeout():
 func reset():
 	visible = false
 	clear()
-	

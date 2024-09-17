@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://ver_1/game/net/player_input.gd" id="1_kj3tt"]
 [ext_resource type="Script" path="res://ver_1/character/hero/Bassheart/bassheart.gd" id="1_m8vi0"]
-[ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/text_pop_up.tscn" id="3_7eocm"]
+[ext_resource type="PackedScene" uid="uid://cygb46cfx7bom" path="res://ver_1/vfx/pop_up/text_pop_up.tscn" id="3_7eocm"]
 [ext_resource type="PackedScene" uid="uid://bwo8lp8xokw8t" path="res://ver_1/character/hero/Bassheart/bassheart_attack.tscn" id="3_yap6b"]
 [ext_resource type="PackedScene" uid="uid://dqbf2f5u4tq66" path="res://ver_1/character/hero/Bassheart/bassheart_freeze.tscn" id="4_dw3mb"]
 [ext_resource type="PackedScene" uid="uid://d0b8cqs24tfpe" path="res://ver_1/game/camera/player_camera.tscn" id="5_4lu4u"]

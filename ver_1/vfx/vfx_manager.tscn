@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://dgd1om0jy4rja"]
+[gd_scene load_steps=3 format=3 uid="uid://dgd1om0jy4rja"]
 
 [ext_resource type="Script" path="res://ver_1/vfx/vfx_manager.gd" id="1_t6he4"]
+[ext_resource type="PackedScene" uid="uid://csasck8oirrl3" path="res://ver_1/vfx/pop_up/dmg_pop_up.tscn" id="2_850da"]
 
 [node name="VfxManager" type="Node"]
 script = ExtResource("1_t6he4")
+pop_up_scene = ExtResource("2_850da")
 initial_amount = 10
 
 [node name="PopUpContainer" type="Node" parent="."]

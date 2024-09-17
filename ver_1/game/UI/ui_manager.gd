@@ -9,9 +9,10 @@ extends Control
 @export var player_info_scene : PackedScene
 @export var player_info_container : Control
 
+@export var card_scn : PackedScene
+
 @onready var level_label : Label = player_container.find_child("Level")
 @onready var level_bar : TextureProgressBar = player_container.find_child("LevelBar")
-@onready var card_scn : PackedScene = load("res://ver_1/game/UI/selection_card.tscn")
 @onready var waiting_label : Label = player_container.find_child("Waiting")
 @onready var time_label : Label = player_container.find_child("TimeLabel")
 
