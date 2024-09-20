@@ -58,8 +58,16 @@ text = "FID"
 [node name="NetUI" parent="CanvasLayer" instance=ExtResource("2_q0iv7")]
 top_level = true
 
+[node name="UseSteam" type="CheckButton" parent="CanvasLayer/NetUI"]
+offset_left = -1.0
+offset_top = 80.0
+offset_right = 137.0
+offset_bottom = 111.0
+text = "Use Steam?"
+
 [node name="LabelTimer" type="Timer" parent="."]
 
+[connection signal="toggled" from="CanvasLayer/NetUI/UseSteam" to="." method="_on_check_button_toggled"]
 [connection signal="timeout" from="LabelTimer" to="." method="_on_label_timer_timeout"]
 
 [editable path="CanvasLayer/NetUI"]

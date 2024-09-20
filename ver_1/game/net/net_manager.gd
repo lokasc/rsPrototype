@@ -16,7 +16,9 @@ const MAX_CLIENTS = 2
 var app_id : int = 480
 var host_lobby_id : int = 0
 
-var peer : SteamMultiplayerPeer
+@export var use_steam : bool
+var steam_peer : SteamMultiplayerPeer
+var enet_peer : ENetMultiplayerPeer
 
 @export var auth_label : Label
 @export var id_label : Label
@@ -41,17 +43,81 @@ func _init() -> void:
 
 func _enter_tree() -> void:
 	GameManager.Instance.net = self
-	pass
 
 func _ready():
-	init_steam()
-	multiplayer.server_relay = false
-	peer = SteamMultiplayerPeer.new()
+	peer_type_switch()
 	_connect_signals()
+	multiplayer.server_relay = false
+
+
+
+#Checker, use this to start as steam or start as enet
+func peer_type_switch():
+	if use_steam:
+		init_steam()
+		steam_peer = SteamMultiplayerPeer.new()
+		_connect_steam_signals()
+		enet_peer = null
+		print("Using Steam!")
+	else:
+		enet_peer = ENetMultiplayerPeer.new()
+		steam_peer = null
+		print("Using ENET!")
+
+# wrapper for steam & enet
+func host_pressed():
+	if use_steam:
+		steam_host()
+	else:
+		enet_host()
+
+func client_pressed(ip):
+	if use_steam:
+		steam_client()
+	else:
+		enet_client(ip)
+
+func steam_host():
+	steam_peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC, 2)
+	multiplayer.multiplayer_peer = steam_peer
+	
+	# Set UI
+	auth_label.text = "Creating Lobby"
+	id_label.text = str(multiplayer.get_unique_id())
+
+func enet_host():
+	enet_peer.create_server(DEFAULT_PORT, MAX_CLIENTS)
+	multiplayer.multiplayer_peer = enet_peer
+
+	# Set UI
+	auth_label.text = "Server"
+	id_label.text = str(multiplayer.get_unique_id())
+
+	GameManager.Instance.show_character_select_screen()
+	GameManager.Instance.change_ui()
+
+func steam_client():
+	# Set UI & show lobbies
+	auth_label.text = "Client"
+	list_lobbies()
+	pass
+
+func enet_client(ip):
+	if ip == "":
+		enet_peer.create_client(DEFAULT_ADDRESS, DEFAULT_PORT)
+	else:
+		enet_peer.create_client(ip, DEFAULT_PORT)
+	multiplayer.multiplayer_peer = enet_peer
+
+	# Set UI
+	auth_label.text = "Client"
+	id_label.text = str(multiplayer.get_unique_id())
+	GameManager.Instance.change_ui()
+	GameManager.Instance.show_character_select_screen()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	Steam.run_callbacks()
+	if use_steam: Steam.run_callbacks()
 	if !multiplayer.is_server(): return
 	
 	if !GameManager.Instance.is_game_started() && GameManager.Instance.wait_for_player && get_player_count() >= 2:
@@ -59,6 +125,7 @@ func _process(_delta):
 	if !GameManager.Instance.is_game_started() && !GameManager.Instance.wait_for_player && get_player_count() >= 1:
 		GameManager.Instance.start_game()
 
+#region steam
 func init_steam() -> void:
 	var initialize_response: Dictionary = Steam.steamInitEx()
 	print("Did Steam initialize?: %s" % initialize_response)
@@ -71,15 +138,6 @@ func init_steam() -> void:
 	if !Steam.isSubscribed(): 
 		printerr("Steam is not on, or we dont have this game")
 		get_tree().quit()
-
-# Create lobby here.
-func on_host_pressed():
-	peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC, 2)
-	multiplayer.multiplayer_peer = peer
-	
-	# Set UI
-	auth_label.text = "Creating Lobby"
-	id_label.text = str(multiplayer.get_unique_id())
 
 func _on_lobby_created(connect: int, lobby_id):
 	if connect != 1: return
@@ -135,16 +193,13 @@ func _on_lobby_match_list(lobbies : Array):
 			lobbies_container.get_child(0).add_child(lobby_button)
 
 func join_lobby(lobby_id = 0):
-	peer.connect_lobby(lobby_id)
-	multiplayer.multiplayer_peer = peer
+	steam_peer.connect_lobby(lobby_id)
+	multiplayer.multiplayer_peer = steam_peer
 	id_label.text = str(multiplayer.get_unique_id())
 	GameManager.Instance.change_ui()
 	GameManager.Instance.show_character_select_screen()
 
-func on_client_pressed():
-	# Set UI & show lobbies
-	auth_label.text = "Client"
-	list_lobbies()
+#endregion
 
 func add_player(id = 1, char_index : int = 0):
 	var player
@@ -170,13 +225,11 @@ func _connect_signals():
 	# Player container
 	player_container.child_entered_tree.connect(_add_to_list)
 	
-	# Others
-	net_ui.request_host.connect(on_host_pressed)
-	net_ui.request_client.connect(on_client_pressed)
+	# UI
+	net_ui.request_host.connect(host_pressed)
+	net_ui.request_client.connect(client_pressed)
 	
-	#steam signals
-	peer.lobby_created.connect(_on_lobby_created)
-	Steam.lobby_match_list.connect(_on_lobby_match_list)
+	_connect_steam_signals()
 	
 	# Godot signals
 	multiplayer.peer_connected.connect(_on_peer_connect)
@@ -184,6 +237,15 @@ func _connect_signals():
 	multiplayer.connection_failed.connect(_on_connection_failed)
 	multiplayer.connected_to_server.connect(_on_client_connect)
 	multiplayer.server_disconnected.connect(_on_served_disconnected)
+
+func _connect_steam_signals():
+	if !use_steam: return
+	
+	
+	if !steam_peer.lobby_created.is_connected(_on_lobby_created):
+		steam_peer.lobby_created.connect(_on_lobby_created)
+	if !Steam.lobby_match_list.is_connected(_on_lobby_match_list):
+		Steam.lobby_match_list.connect(_on_lobby_match_list)
 
 #region UI
 # id is the person u've connected to
@@ -227,3 +289,8 @@ func _on_label_timer_timeout() -> void:
 	auth_label.hide()
 	id_label.hide()
 	friend_label.hide()
+
+
+func _on_check_button_toggled(toggled_on: bool) -> void:
+	use_steam = toggled_on
+	peer_type_switch()
