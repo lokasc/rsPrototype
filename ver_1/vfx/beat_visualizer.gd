@@ -2,18 +2,28 @@ extends Control
 
 @export var max_size : float
 @export var min_size : float
-@export var scaling_curve : Curve
-@export var appearing_curve : Curve
+@export var time_to_max_size : float
+@export var ring_path : Control
+## the starting color of the moving ring
+@export var starting_color : Color
 
-var current_size : float
-var completion_ratio : float # number between 0 - 1 determining how far along the journey is the animation, 0 is at the start of the journey, 1 is at the end
-var time : float = 0
+## the ending color of the moving ring
+@export var ending_color : Color
 
+## the color of the particle effects
+@export var particle_color : Color
 
-@onready var opaque_ring : TextureRect = $OpaqueRing
+## the color of the outer trans ring when NOT on beat
+@export var transparent_color : Color
+
+## the color of the outer trans ring when IT IS on beat
+@export var beating_color : Color
+
+var opaque_ring : Resource = preload("res://opaque_ring.tscn")
+
 @onready var trans_ring : TextureRect = $TransparentRing
 @onready var particles : GPUParticles2D = $GPUParticles2D
-@onready var timer : Timer = $Timer
+@onready var effect_timer : Timer = $EffectTimer
 
 @onready var bc : BeatController = GameManager.Instance.bc
 var time_til_next_beat: float
@@ -23,33 +33,32 @@ func _ready() -> void:
 	$TransparentRing.scale = max_size * Vector2.ONE
 	#The beat does effects which give the illusion that the rings are arriving on time
 	bc.on_beat.connect(end_opaque_ring)
-	# Sets the particle colors equal to the transparent ring, without transparenncy
-	particles.process_material.color = trans_ring.self_modulate
-	particles.process_material.color.a = 1
+	bc.on_beat.connect(spawn_opaque_ring)
+	
+	particles.process_material.color = particle_color
+	trans_ring.self_modulate = transparent_color
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	time_til_next_beat = bc.get_time_til_next_beat()
-	completion_ratio = time_til_next_beat/0.5
-	set_opaque_ring_alpha()
-	set_opaque_ring_scale()
+	pass
 
-func set_opaque_ring_alpha() -> void:
-	opaque_ring.self_modulate.a = appearing_curve.sample(completion_ratio)
+func init_ring(ring : BeatTexture) -> void:
+	ring.min_size = min_size
+	ring.max_size = max_size
+	ring.time_to_max_size = time_to_max_size
+	ring.starting_color = starting_color
+	ring.ending_color = ending_color
 
-# Technically its on beat at the beginning of the animation, not at the end, 
-# but it is masked by the end_opaque_ring func
-func set_opaque_ring_scale() -> void:
-	current_size = min_size + scaling_curve.sample(completion_ratio) * (max_size-min_size)
-	if current_size >= max_size:
-		current_size -= max_size-min_size
-	opaque_ring.scale = current_size * Vector2.ONE
+func spawn_opaque_ring() -> void:
+	var new_ring = opaque_ring.instantiate()
+	init_ring(new_ring)
+	ring_path.add_child(new_ring)
 
 #Activates particles and changes trans ring colour to give the illusion
 func end_opaque_ring() -> void:
 	particles.restart()
-	trans_ring.self_modulate.a = 0.8
-	timer.start(0.1)
+	trans_ring.self_modulate = beating_color
+	effect_timer.start(bc.grace_time)
 
-func _on_timer_timeout() -> void:
-	trans_ring.self_modulate.a = 0.2
+func _on_effect_timer_timeout() -> void:
+	trans_ring.self_modulate = transparent_color

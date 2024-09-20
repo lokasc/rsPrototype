@@ -1,16 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dowgychr7wgj2"]
+[gd_scene load_steps=7 format=3 uid="uid://dowgychr7wgj2"]
 
 [ext_resource type="Script" path="res://ver_1/vfx/beat_visualizer.gd" id="1_rc47k"]
 [ext_resource type="Texture2D" uid="uid://b48bg22uuhx8x" path="res://beat_sync/WhiteCircle.png" id="2_p5k5f"]
 [ext_resource type="Texture2D" uid="uid://sxavbsunw0tr" path="res://assets/UI/upgrade.png" id="3_kxs4u"]
-
-[sub_resource type="Curve" id="Curve_2kktb"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 2.44776, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_r6563"]
-_data = [Vector2(0, 0.0673914), 0.0, 0.689822, 0, 0, Vector2(0.497207, 0.561957), 2.42817, 0.0, 0, 0]
-point_count = 2
 
 [sub_resource type="Curve" id="Curve_4epxo"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.512579, 0), 0.0, 0.0, 0, 0]
@@ -24,8 +16,8 @@ particle_flag_disable_z = true
 emission_shape = 6
 emission_ring_axis = Vector3(0, 0, 1)
 emission_ring_height = 1.0
-emission_ring_radius = 270.0
-emission_ring_inner_radius = 260.0
+emission_ring_radius = 230.0
+emission_ring_inner_radius = 220.0
 spread = 180.0
 initial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
@@ -35,55 +27,23 @@ scale_max = 10.3
 color = Color(0, 1, 1, 1)
 alpha_curve = SubResource("CurveTexture_ig6rq")
 
-[node name="BeatVisualizer" type="Control"]
+[node name="BeatVisualizer" type="Control" node_paths=PackedStringArray("ring_path")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_rc47k")
-max_size = 0.7
-min_size = 0.4
-scaling_curve = SubResource("Curve_2kktb")
-appearing_curve = SubResource("Curve_r6563")
-
-[node name="OpaqueRing" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -490.0
-offset_top = -490.0
-offset_right = 490.0
-offset_bottom = 490.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.35, 0.35)
-pivot_offset = Vector2(490, 490)
-texture = ExtResource("2_p5k5f")
-
-[node name="TransparentRing" type="TextureRect" parent="."]
-self_modulate = Color(0, 1, 1, 0.192157)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -490.0
-offset_top = -490.0
-offset_right = 490.0
-offset_bottom = 490.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.7, 0.7)
-pivot_offset = Vector2(490, 490)
-texture = ExtResource("2_p5k5f")
-
-[node name="Timer" type="Timer" parent="."]
+max_size = 0.6
+min_size = 0.1
+time_to_max_size = 1.5
+ring_path = NodePath("Rings")
+starting_color = Color(0, 1, 1, 0.0901961)
+ending_color = Color(0, 1, 1, 0.262745)
+particle_color = Color(0, 1, 0.92549, 1)
+transparent_color = Color(0.852168, 1, 0.996491, 0.658824)
+beating_color = Color(0, 1, 1, 1)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 emitting = false
-amount = 200
+amount = 400
 process_material = SubResource("ParticleProcessMaterial_ptbyu")
 lifetime = 0.5
 one_shot = true
@@ -108,4 +68,27 @@ scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(256, 256)
 texture = ExtResource("3_kxs4u")
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="Rings" type="Control" parent="."]
+anchors_preset = 0
+
+[node name="TransparentRing" type="TextureRect" parent="."]
+self_modulate = Color(0, 1, 1, 0.192157)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -490.0
+offset_top = -490.0
+offset_right = 490.0
+offset_bottom = 490.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(490, 490)
+texture = ExtResource("2_p5k5f")
+
+[node name="EffectTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="EffectTimer" to="." method="_on_effect_timer_timeout"]
