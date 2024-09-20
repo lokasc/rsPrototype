@@ -21,5 +21,6 @@ LineEdit/fonts/font = ExtResource("1_u7q7c")
 ProgressBar/fonts/font = ExtResource("1_u7q7c")
 RichTextLabel/constants/line_separation = 5
 RichTextLabel/constants/outline_size = 1
+RichTextLabel/fonts/italics_font = null
 RichTextLabel/fonts/normal_font = ExtResource("1_u7q7c")
 TextEdit/fonts/font = ExtResource("1_u7q7c")

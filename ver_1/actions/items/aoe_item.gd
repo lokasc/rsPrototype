@@ -36,6 +36,7 @@ func aoe_dmg() -> void:
 			if not enemy.die.is_connected(ascended_ability):
 				enemy.die.connect(ascended_ability)
 		enemy.take_damage(a_stats.get_total_dmg())
+
 func _upgrade() -> void:
 	super()
 	damage_per_tick += 5

@@ -61,3 +61,5 @@ top_level = true
 [node name="LabelTimer" type="Timer" parent="."]
 
 [connection signal="timeout" from="LabelTimer" to="." method="_on_label_timer_timeout"]
+
+[editable path="CanvasLayer/NetUI"]

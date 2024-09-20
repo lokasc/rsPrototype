@@ -49,7 +49,9 @@ func _ready() -> void:
 		a_stats.cd = 0
 
 func enter():
-	super()
+	_reset()
+	if hero == null: return
+	
 	# Store hero position and the direction when the ability is used
 	original_pos = hero.position
 	a_stats.cd = initial_cd
@@ -74,6 +76,8 @@ func enter():
 	
 	# Temporary dash effects
 	dash_effect_particles.emitting = true
+	hero.ability_used.emit(self)
+	ability_used.emit()
 
 func exit():
 	super() # starts cd here.
@@ -97,7 +101,12 @@ func physics_update(_delta: float):
 	super(_delta)
 	# Ability movement
 	duration += _delta
-	hero.position = hero.position.move_toward(new_position, speed)
+	
+	# velocity is pixels per second. 
+	# move towards moves the position to a new position by x amount pEr frame. 
+	# this would just maen 10 pixels per physics update frame.
+	hero.velocity = direction * speed * Engine.physics_ticks_per_second
+	#hero.position = hero.position.move_toward(new_position, speed)
 	if hero.position == new_position or duration >= 0.35:
 		state_change.emit(self, "TrebbieAttack")
 	hero.move_and_slide()

@@ -11,3 +11,7 @@ func _enter_tree() -> void:
 
 func _update(_delta:float) -> void:
 	pass
+
+# Override this to affect stats.
+func set_item_stats() -> void:
+	pass

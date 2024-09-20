@@ -3,7 +3,7 @@ extends BaseAction
 
 signal state_change
 signal cooldown_finish
-signal ability_used
+signal ability_used # this signal is used to skip nam parsing.
 
 enum Timing {NULL, EARLY, ON_BEAT, LATE}
 

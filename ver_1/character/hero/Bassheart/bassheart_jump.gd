@@ -43,6 +43,7 @@ var inter_pos : Vector2		# The intermediate position of the curve
 var inter_in_pos : Vector2	# Determines how fast the hero curves into inter_pos
 var inter_out_pos : Vector2	# Determines how fast the hero curves out of inter_pos
 var landing_pos : Vector2	# The position of the landing point
+var new_position : Vector2	# same as landing_pos, used for items.
 
 var has_started_hit_timer : bool = false # to prevent the hit timer from restarting
 var has_synced : bool = false # different from is_synced, is_sync is for entering ability, has_sync is for the beat sync logic within the ability
@@ -54,6 +55,10 @@ var failed_sync : bool = false # to prevent player from spamming the button
 @onready var hit_timer : Timer = $HitTimer
 
 @onready var beat_sync_effects : GPUParticles2D = $"../Sprites/BeatSyncEffect"
+
+
+# moving bassheart via velocity: VEL = (POS - OLD_POS) / Delta
+var old_pos : Vector2
 
 func _init() -> void:
 	super()
@@ -79,7 +84,12 @@ func _ready() -> void:
 		curve_red = 0.37
 
 func enter() -> void:
-	super()
+	
+	# Dont use super, need to emit signal after calculation
+	# and assignment
+	_reset()
+	if hero == null: return
+	
 	# Reseting variables
 	air_time = 0
 	path_follow.progress_ratio = 0
@@ -95,8 +105,13 @@ func enter() -> void:
 	
 	# Setting curve values
 	original_pos = hero.position
+	old_pos = original_pos
 	direction = original_pos.direction_to(hero.input.get_mouse_position())
 	landing_pos = original_pos + direction * distance
+	new_position = landing_pos
+	
+	hero.ability_used.emit(self)
+	ability_used.emit()
 	
 	get_curve_points()
 	set_curve_points()
@@ -140,7 +155,9 @@ func physics_update(delta: float) -> void:
 	super(delta)
 	# Ability movement
 	path_follow.progress_ratio += delta/landing_time
-	hero.position = path_follow.position
+	hero.velocity = (path_follow.position - old_pos) / delta
+	old_pos = path_follow.position
+	#hero.position = path_follow.position
 
 func _process(delta : float) -> void:
 	super(delta)

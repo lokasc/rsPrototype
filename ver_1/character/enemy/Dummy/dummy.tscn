@@ -26,6 +26,7 @@ radius = 27.6134
 
 [node name="Dummy" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
+collision_layer = 4
 script = ExtResource("1_t3ry6")
 char_name = "Dummy"
 
