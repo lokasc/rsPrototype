@@ -1,21 +1,22 @@
 [gd_scene load_steps=6 format=3 uid="uid://bto377kul2r23"]
 
-[ext_resource type="Texture2D" uid="uid://bhn2ljfkopgk8" path="res://assets/poi/mine_portal_sprite.png" id="1_0eclw"]
 [ext_resource type="Script" path="res://ver_1/poi/portal/poi_mine_portal.gd" id="1_deitb"]
+[ext_resource type="Texture2D" uid="uid://blqfqacdtf1kh" path="res://assets/poi/CryptoMine.png" id="2_1fani"]
 [ext_resource type="PackedScene" uid="uid://dxcries0ll04" path="res://ver_1/vfx/beat_sync_vfx.tscn" id="2_s2wrx"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8wu7q"]
-radius = 339.006
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vw7st"]
+size = Vector2(500, 500)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4dyg3"]
 radius = 135.059
 
 [node name="MinePortal" type="Node2D"]
 script = ExtResource("1_deitb")
-unlock_amount = 250.0
+unlock_amount = 300.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_0eclw")
+scale = Vector2(2, 2)
+texture = ExtResource("2_1fani")
 
 [node name="BeatSyncEffect" parent="." instance=ExtResource("2_s2wrx")]
 scale = Vector2(2, 2)
@@ -26,7 +27,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartTrigger"]
-shape = SubResource("CircleShape2D_8wu7q")
+shape = SubResource("RectangleShape2D_vw7st")
 
 [node name="TeleportTrigger" type="Area2D" parent="."]
 collision_layer = 0

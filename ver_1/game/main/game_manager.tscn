@@ -22,6 +22,16 @@ spawns = ExtResource("4_7rbme")
 
 [node name="Loot" type="Node2D" parent="." groups=["loot"]]
 
+[node name="POIs" type="Node" parent="."]
+
+[node name="MinePortal" parent="POIs" node_paths=PackedStringArray("teleport_locations") instance=ExtResource("12_lp8m7")]
+position = Vector2(959, -800)
+scale = Vector2(0.5, 0.5)
+teleport_locations = [NodePath("../PortalSpawnPos")]
+
+[node name="PortalSpawnPos" type="Node2D" parent="POIs"]
+position = Vector2(1459, 838)
+
 [node name="Map" parent="." instance=ExtResource("5_68xy0")]
 z_index = -5
 
@@ -36,16 +46,5 @@ player_scene = ExtResource("7_rmtll")
 
 [node name="VfxManager" parent="." instance=ExtResource("11_rn441")]
 initial_amount = 0
-
-[node name="POIs" type="Node" parent="."]
-
-[node name="MinePortal" parent="POIs" node_paths=PackedStringArray("teleport_locations") instance=ExtResource("12_lp8m7")]
-z_index = -3
-position = Vector2(-986, -882)
-scale = Vector2(0.5, 0.5)
-teleport_locations = [NodePath("../PortalSpawnPos"), null, null, null]
-
-[node name="PortalSpawnPos" type="Node2D" parent="POIs"]
-position = Vector2(1459, 838)
 
 [editable path="BeatController"]
