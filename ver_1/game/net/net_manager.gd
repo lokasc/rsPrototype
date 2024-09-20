@@ -161,7 +161,7 @@ func _on_lobby_created(connect: int, lobby_id):
 	print("Allowing Steam to be relay backup: %s" % set_relay)
 
 func list_lobbies():
-	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_DEFAULT)
+	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)
 	Steam.addRequestLobbyListStringFilter("name", "RH", Steam.LOBBY_COMPARISON_EQUAL)
 	Steam.requestLobbyList()
 

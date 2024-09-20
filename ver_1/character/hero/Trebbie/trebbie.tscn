@@ -294,6 +294,7 @@ height = 34.0
 radius = 100.0
 
 [node name="Trebbie" type="CharacterBody2D" node_paths=PackedStringArray("basic_attack", "ability_1", "ability_2", "animator")]
+z_index = 1
 collision_layer = 2
 script = ExtResource("1_4x4su")
 basic_attack = NodePath("TrebbieAttack")
