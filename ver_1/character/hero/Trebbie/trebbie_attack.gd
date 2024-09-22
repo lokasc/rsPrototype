@@ -32,6 +32,7 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	super()
+	effect_sprite.visible = false
 	hitbox.position.x = distance_to_center
 	initial_effect_scale = effect_sprite.scale
 	hitbox.monitoring = false
@@ -132,6 +133,7 @@ func on_hit(area : Area2D) -> void:
 
 func use_basic_attack() -> void:
 	if is_on_cd: return
+	effect_sprite.visible = true
 	super()
 	# Reset already hit targets.
 	already_hit.clear()
