@@ -79,11 +79,7 @@ func client_pressed(ip):
 
 func steam_host():
 	steam_peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC, 2)
-	multiplayer.multiplayer_peer = steam_peer
-	
-	# Set UI
 	auth_label.text = "Creating Lobby"
-	id_label.text = str(multiplayer.get_unique_id())
 
 func enet_host():
 	enet_peer.create_server(DEFAULT_PORT, MAX_CLIENTS)
@@ -141,6 +137,8 @@ func init_steam() -> void:
 
 func _on_lobby_created(connect: int, lobby_id):
 	if connect != 1: return
+	multiplayer.multiplayer_peer = steam_peer
+	id_label.text = str(multiplayer.get_unique_id())
 	
 	auth_label.text = "Host"
 	
@@ -188,13 +186,21 @@ func _on_lobby_match_list(lobbies : Array):
 			lobby_button.add_theme_font_override("font", fv)
 			lobby_button.set_name("lobby_%s" % lobby)
 			lobby_button.alignment = HORIZONTAL_ALIGNMENT_LEFT
-			lobby_button.connect("pressed", Callable(self, "join_lobby").bind(lobby))
+			lobby_button.connect("pressed", Callable(self, "request_join_lobby").bind(lobby))
 			
 			lobbies_container.get_child(0).add_child(lobby_button)
 
-func join_lobby(lobby_id = 0):
+# request to join. (similar to hosting metadata)
+func request_join_lobby(lobby_id = 0):
 	steam_peer.connect_lobby(lobby_id)
+	auth_label.text = "Joining jam session" 
+
+# when you actually succesfully joined.
+func _on_lobby_joined(lobby: int, permissions: int, locked: bool, response: int):
 	multiplayer.multiplayer_peer = steam_peer
+	auth_label.text = "Client"
+
+	
 	id_label.text = str(multiplayer.get_unique_id())
 	GameManager.Instance.change_ui()
 	GameManager.Instance.show_character_select_screen()
@@ -241,11 +247,15 @@ func _connect_signals():
 func _connect_steam_signals():
 	if !use_steam: return
 	
-	
 	if !steam_peer.lobby_created.is_connected(_on_lobby_created):
 		steam_peer.lobby_created.connect(_on_lobby_created)
 	if !Steam.lobby_match_list.is_connected(_on_lobby_match_list):
 		Steam.lobby_match_list.connect(_on_lobby_match_list)
+	if !steam_peer.lobby_joined.is_connected(_on_lobby_joined):
+		
+		# Find out why steam peer here doesnt work but steam works.
+		#steam_peer.lobby_joined.connect(_on_lobby_joined)
+		Steam.lobby_joined.connect(_on_lobby_joined)
 
 #region UI
 # id is the person u've connected to
