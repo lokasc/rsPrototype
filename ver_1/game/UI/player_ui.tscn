@@ -1,16 +1,50 @@
-[gd_scene load_steps=8 format=3 uid="uid://di3afbvqsygw0"]
+[gd_scene load_steps=10 format=3 uid="uid://di3afbvqsygw0"]
 
-[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://rs_theme.tres" id="1_kc8fy"]
+[ext_resource type="PackedScene" uid="uid://dowgychr7wgj2" path="res://ver_1/vfx/beat_visualizer_lines.tscn" id="1_7vfam"]
+[ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://assets/UI/rs_theme.tres" id="1_kc8fy"]
+[ext_resource type="PackedScene" uid="uid://d2hl0wtm1t4ix" path="res://ver_1/vfx/beat_visualizer.tscn" id="2_m5ow6"]
 [ext_resource type="Texture2D" uid="uid://t47qf2h3bwpv" path="res://assets/UI/LevelBar.png" id="3_0hlrc"]
 [ext_resource type="PackedScene" uid="uid://1qhg1e7k11m1" path="res://ver_1/game/UI/bottom_ui/ability_box_ui.tscn" id="4_ourxg"]
 [ext_resource type="PackedScene" uid="uid://c15g2l1arshqn" path="res://ver_1/game/UI/bottom_ui/base_box_ui.tscn" id="4_xv54i"]
-[ext_resource type="PackedScene" uid="uid://ddkcw1u2xi1ok" path="res://audiovisualizer.tscn" id="5_4g6wq"]
+[ext_resource type="PackedScene" uid="uid://ddkcw1u2xi1ok" path="res://ver_1/vfx/audiovisualizer.tscn" id="5_4g6wq"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_w6xs3"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_oso7w"]
 
 [node name="PlayerUi" type="CanvasLayer"]
+
+[node name="BeatVisualizerLines" parent="." instance=ExtResource("1_7vfam")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -811.545
+offset_top = -393.16
+offset_right = -811.545
+offset_bottom = -393.16
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.2, 0.3)
+textpopup_pos_offset = Vector2(540, 350)
+great_grace_time = 0.05
+perfect_grace_time = 0.02
+
+[node name="BeatVisualizer" parent="." instance=ExtResource("2_m5ow6")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="BeatVisualizer2" parent="." instance=ExtResource("2_m5ow6")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
 
 [node name="AudioVisualizer" parent="." instance=ExtResource("5_4g6wq")]
 offset_left = 163.0
