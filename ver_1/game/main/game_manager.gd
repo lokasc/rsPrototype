@@ -65,7 +65,7 @@ func _init() -> void:
 	Instance = self
 	time = 0
 	current_xp = 0
-	max_xp = 100
+	max_xp = 30
 	end_game.connect(on_end_game)
 
 func _ready() -> void:
@@ -289,7 +289,7 @@ func change_ui():
 
 # Get max xp from lvl.
 func sample(_lvl : int) -> int:
-	return 100 + (10 * _lvl)
+	return max_xp + (15 * _lvl)
 
 # Death & Strawberry: Players connect to this function player.player_die signal rpc call this by GM.
 func check_alive_players() -> void:
