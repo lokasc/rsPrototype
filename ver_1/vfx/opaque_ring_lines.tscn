@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3sk7eswsjexv"]
+
+[ext_resource type="Texture2D" uid="uid://dmk8gf6pp3esw" path="res://assets/UI/HealthBar2.png" id="1_n5phb"]
+[ext_resource type="Script" path="res://ver_1/vfx/opaque_ring.gd" id="2_o33ad"]
+
+[node name="OpaqueRingLines" type="TextureRect"]
+offset_right = 980.0
+offset_bottom = 980.0
+scale = Vector2(0.7, 0.2)
+texture = ExtResource("1_n5phb")
+script = ExtResource("2_o33ad")
+starting_pos = Vector2(0, -300)
+is_lines = true
+
+[node name="TweenContainer" type="Node" parent="."]

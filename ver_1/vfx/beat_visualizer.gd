@@ -1,5 +1,6 @@
 extends Control
 
+@export var is_lines : bool
 @export var max_size : float
 @export var min_size : float
 @export var time_to_max_size : float
@@ -20,6 +21,7 @@ extends Control
 @export var beating_color : Color
 
 var opaque_ring : Resource = preload("res://ver_1/vfx/opaque_ring.tscn")
+var opaque_lines : Resource = preload("res://ver_1/vfx/opaque_ring_lines.tscn")
 
 @onready var trans_ring : TextureRect = $TransparentRing
 @onready var particles : GPUParticles2D = $GPUParticles2D
@@ -30,7 +32,8 @@ var time_til_next_beat: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$TransparentRing.scale = max_size * Vector2.ONE
+	if not is_lines:
+		$TransparentRing.scale = max_size * Vector2.ONE
 	#The beat does effects which give the illusion that the rings are arriving on time
 	bc.on_beat.connect(end_opaque_ring)
 	bc.on_beat.connect(spawn_opaque_ring)
@@ -50,7 +53,11 @@ func init_ring(ring : BeatTexture) -> void:
 	ring.ending_color = ending_color
 
 func spawn_opaque_ring() -> void:
-	var new_ring = opaque_ring.instantiate()
+	var new_ring 
+	if is_lines:
+		new_ring = opaque_lines.instantiate()
+	else:
+		new_ring = opaque_ring.instantiate()
 	init_ring(new_ring)
 	ring_path.add_child(new_ring)
 
