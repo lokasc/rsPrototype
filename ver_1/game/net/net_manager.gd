@@ -246,7 +246,6 @@ func _connect_steam_signals():
 		## Find out why steam peer here doesnt work but Steam works.
 		Steam.lobby_joined.connect(_on_lobby_joined)
 
-
 #region UI
 # id is the person u've connected to
 func _on_peer_connect(id):
@@ -278,9 +277,16 @@ func show_ui():
 	friend_label.show()
 #endregion
 
-# When peer disconnect, we want to go back to the main menu and reset everything.
+# when we disconnect, we want to stop the game and remove the gm scene and reload.
 func _on_peer_disconnect(_id):
-	pass
+	# we want to delete the game manager, and then reload it in.
+	
+	GameManager.Instance.reset_game()
+	
+	if multiplayer.is_server():
+		print("Client: "+ str(_id) + " disconnected")
+	else:
+		print("Server: " + str(_id) + " disconnected")
 
 func _on_connection_failed():
 	pass
@@ -291,7 +297,6 @@ func _on_client_connect():
 
 func _on_served_disconnected():
 	pass
-
 
 func _on_label_timer_timeout() -> void:
 	auth_label.hide()

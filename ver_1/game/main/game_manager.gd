@@ -95,6 +95,7 @@ func cts_request_spawn(index : int):
 	net.add_player(multiplayer.get_remote_sender_id(), index)
 #endregion
 
+
 func start_game():
 	hide_lobby.rpc()
 	is_host = multiplayer.is_server()
@@ -119,6 +120,9 @@ func start_game():
 @rpc("authority", "call_local")
 func hide_lobby():
 	get_node("WaitingLobby").turn_off_lobby()
+
+func reset_game():
+	(get_parent() as Main).reset()
 
 func on_end_game():
 	is_started = false

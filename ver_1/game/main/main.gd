@@ -10,18 +10,30 @@ extends Node
 @export var setting_button : Button
 @export var quit_button : Button
 
+@onready var gm_scene = preload("res://ver_1/game/main/game_manager.tscn")
+
+var current_gm_scene
 var in_play_options : bool
 var in_join : bool
 var in_settings : bool
 var use_steam : bool
 
+func reset():
+	current_gm_scene.free()
+	current_gm_scene = gm_scene.instantiate()
+	add_child(current_gm_scene)
 
 # This controls the entire application
 func _ready() -> void:
+	current_gm_scene = get_child(0)
+	return
 	hide_ui_at_start()
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	use_steam = true
-	GlobalSteam.init_steam()
+
+func _process(_delta) -> void:
+	if Input.is_key_pressed(KEY_0):
+		reset()
 
 func hide_ui_at_start():
 	in_play_options = false
@@ -81,13 +93,8 @@ func _on_quit_label_pressed() -> void:
 	# quit, will not save local files.
 	get_tree().quit()
 
-# DEPRECATED We wont use steam or enet, just steam only.
 func _on_steam_check_box_pressed() -> void:
 	use_steam = !use_steam
-	if use_steam:
-		GlobalSteam.init_steam()
-	else:
-		GlobalSteam.clear_steam()
 
 # Create a lobby
 func _on_host_button_pressed() -> void:
