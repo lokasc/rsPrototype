@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c3sk7eswsjexv"]
 
 [ext_resource type="Texture2D" uid="uid://b48bg22uuhx8x" path="res://beat_sync/WhiteCircle.png" id="1_0xxdj"]
-[ext_resource type="Script" path="res://opaque_ring.gd" id="2_khh17"]
+[ext_resource type="Script" path="res://ver_1/vfx/opaque_ring.gd" id="2_khh17"]
 
 [node name="OpaqueRing" type="TextureRect"]
 anchors_preset = 8

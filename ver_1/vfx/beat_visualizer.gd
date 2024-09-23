@@ -19,7 +19,7 @@ extends Control
 ## the color of the outer trans ring when IT IS on beat
 @export var beating_color : Color
 
-var opaque_ring : Resource = preload("res://opaque_ring.tscn")
+var opaque_ring : Resource = preload("res://ver_1/vfx/opaque_ring.tscn")
 
 @onready var trans_ring : TextureRect = $TransparentRing
 @onready var particles : GPUParticles2D = $GPUParticles2D
