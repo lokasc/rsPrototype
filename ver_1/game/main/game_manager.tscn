@@ -16,7 +16,6 @@
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_btbqh")
-wait_for_player = true
 action_list = ExtResource("2_em5st")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_l8iil")]

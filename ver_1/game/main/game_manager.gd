@@ -9,7 +9,6 @@ var is_host : bool # this var is so that we can see in testing.
 
 ## TEST BOOLS
 @export_subgroup("Debug")
-@export var wait_for_player : bool = false
 @export var dont_spawn_enemies : bool = false
 @export var no_music : bool = false
 @export var spawn_dummy : bool = false
