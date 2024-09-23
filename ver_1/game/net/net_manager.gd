@@ -153,7 +153,7 @@ func _on_lobby_created(connect: int, lobby_id):
 	# Set some lobby data
 	Steam.setLobbyData(lobby_id, "name", "RH")
 	Steam.setLobbyData(lobby_id, "mode", "Co-op")
-
+	
 	# Allow P2P connections to fallback to being relayed through Steam if needed
 	var set_relay: bool = Steam.allowP2PPacketRelay(true)
 	print("Allowing Steam to be relay backup: %s" % set_relay)
@@ -190,20 +190,17 @@ func _on_lobby_match_list(lobbies : Array):
 			
 			lobbies_container.get_child(0).add_child(lobby_button)
 
-# request to join. (similar to hosting metadata)
+# request to join. (not yet joined)
 func request_join_lobby(lobby_id = 0):
 	steam_peer.connect_lobby(lobby_id)
+	multiplayer.multiplayer_peer = steam_peer
 	auth_label.text = "Joining jam session" 
 
 # when you actually succesfully joined.
 func _on_lobby_joined(lobby: int, permissions: int, locked: bool, response: int):
-	multiplayer.multiplayer_peer = steam_peer
-	auth_label.text = "Client"
-
-	
-	id_label.text = str(multiplayer.get_unique_id())
-	GameManager.Instance.change_ui()
-	GameManager.Instance.show_character_select_screen()
+	if response != 1:
+		# TODO: Throw errors here
+		pass
 
 #endregion
 
@@ -251,11 +248,10 @@ func _connect_steam_signals():
 		steam_peer.lobby_created.connect(_on_lobby_created)
 	if !Steam.lobby_match_list.is_connected(_on_lobby_match_list):
 		Steam.lobby_match_list.connect(_on_lobby_match_list)
-	if !steam_peer.lobby_joined.is_connected(_on_lobby_joined):
-		
-		# Find out why steam peer here doesnt work but steam works.
-		#steam_peer.lobby_joined.connect(_on_lobby_joined)
+	if !Steam.lobby_joined.is_connected(_on_lobby_joined):
+		## Find out why steam peer here doesnt work but Steam works.
 		Steam.lobby_joined.connect(_on_lobby_joined)
+
 
 #region UI
 # id is the person u've connected to
@@ -263,7 +259,15 @@ func _on_peer_connect(id):
 	if multiplayer.is_server():
 		friend_label.text = str(id) + " connected"
 	else:
-		friend_label.text = "Connected to: " + str(id) 
+		friend_label.text = "Connected to: " + str(id)
+		
+		if !use_steam: return
+		
+		# this is for client + steam
+		auth_label.text = "Client"
+		id_label.text = str(multiplayer.get_unique_id())
+		GameManager.Instance.change_ui()
+		GameManager.Instance.show_character_select_screen()
 
 #endregion UI
 #region Helper functions
