@@ -62,6 +62,7 @@ func _process(delta: float) -> void:
 		if GameManager.Instance.local_player != null:
 			if GameManager.Instance.local_player.input.ability_1 or GameManager.Instance.local_player.input.ability_2:
 				ability_input_pressed.emit()
+				if text_pop_up == null: return
 				text_pop_up.set_pop(check_accuracy(bc.get_time_til_next_beat()), textpopup_pos_offset, text_color, 0.5)
 	pass
 
