@@ -312,7 +312,6 @@ replication_config = SubResource("SceneReplicationConfig_6jp8r")
 script = ExtResource("3_tkpg3")
 
 [node name="TrebbieAttack" parent="." instance=ExtResource("2_psvnt")]
-hitbox_time_active = 0.05
 action_name = "Trebbie Attack"
 
 [node name="TrebbieDash" parent="." instance=ExtResource("4_s00wb")]

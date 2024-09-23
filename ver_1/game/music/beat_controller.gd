@@ -71,10 +71,10 @@ func _process(delta: float) -> void:
 func is_on_beat() -> bool:
 	#print(str(multiplayer.is_server()) + " - Current_time: " + str(current_beat_time))
 	if get_time_til_next_beat() <= grace_time || get_time_til_next_beat() >= beat_duration - grace_time:
-		print("on beat %f" % get_time_til_next_beat())
+		#print("on beat %f" % get_time_til_next_beat())
 		return true
 	else:
-		print("not on beat %f" % get_time_til_next_beat())
+		#print("not on beat %f" % get_time_til_next_beat())
 		
 		return false 
 
