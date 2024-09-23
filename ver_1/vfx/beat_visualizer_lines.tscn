@@ -26,7 +26,7 @@ scale_max = 10.3
 color = Color(0, 1, 1, 1)
 alpha_curve = SubResource("CurveTexture_ig6rq")
 
-[node name="BeatVisualizerLines" type="Control" node_paths=PackedStringArray("ring_path")]
+[node name="BeatVisualizerLines" type="Control" node_paths=PackedStringArray("ring_path", "text_pop_up")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_rc47k")
@@ -40,6 +40,7 @@ particle_color = Color(0, 1, 0.92549, 1)
 transparent_color = Color(0.852168, 1, 0.996491, 0.658824)
 beating_color = Color(0, 1, 1, 1)
 is_lines = true
+text_pop_up = NodePath("TextPopUp")
 great_grace_time = 0.05
 perfect_grace_time = 0.02
 perfect_color = Color(0, 1, 1, 1)

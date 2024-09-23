@@ -23,6 +23,7 @@ signal ability_input_pressed
 
 @export_category("Lines")
 @export var is_lines : bool
+@export var text_pop_up : TextPopUp 
 @export var textpopup_pos_offset : Vector2
 @export var great_grace_time : float
 @export var perfect_grace_time : float
@@ -38,7 +39,7 @@ var opaque_lines : Resource = preload("res://ver_1/vfx/opaque_ring_lines.tscn")
 @onready var trans_ring : TextureRect = $TransparentRing
 @onready var particles : GPUParticles2D = $GPUParticles2D
 @onready var effect_timer : Timer = $EffectTimer
-@onready var text_pop_up : TextPopUp = $TextPopUp
+
 
 @onready var bc : BeatController = GameManager.Instance.bc
 var time_til_next_beat: float
