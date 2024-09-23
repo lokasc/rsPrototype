@@ -1,13 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://b3ouif0d4g8f0"]
+[gd_scene load_steps=14 format=3 uid="uid://b3ouif0d4g8f0"]
 
 [ext_resource type="Script" path="res://ver_1/game/main/game_manager.gd" id="1_btbqh"]
-[ext_resource type="Resource" uid="uid://b5neg2qagtby4" path="res://assets/_Resources/ActionResource/list_items.tres" id="2_5eu4a"]
 [ext_resource type="PackedScene" uid="uid://o5mopq7q46cq" path="res://ver_1/game/net/net_manager.tscn" id="2_188hs"]
+[ext_resource type="Resource" uid="uid://b5neg2qagtby4" path="res://assets/_Resources/ActionResource/list_items.tres" id="2_em5st"]
 [ext_resource type="PackedScene" uid="uid://h4w7naqbhls5" path="res://assets/map/enemy_spawner.tscn" id="3_l8iil"]
 [ext_resource type="Resource" uid="uid://c2uk57jlhco74" path="res://assets/_Resources/SpawnsResource/predev_enemies.tres" id="4_7rbme"]
 [ext_resource type="PackedScene" uid="uid://cn3n52t8ej5n4" path="res://ver_1/game/UI/UI.tscn" id="4_u70ly"]
 [ext_resource type="PackedScene" uid="uid://bspypir426weo" path="res://ver_1/game/level/map.tscn" id="5_68xy0"]
 [ext_resource type="PackedScene" uid="uid://cign40xw4w43g" path="res://ver_1/game/level/dummy_level.tscn" id="6_cbvl2"]
+[ext_resource type="PackedScene" uid="uid://b8tle2ad14gxw" path="res://ver_1/game/level/waiting_lobby.tscn" id="6_o0mj8"]
 [ext_resource type="PackedScene" uid="uid://ck0rs6xq3084g" path="res://ver_1/character/hero/Bassheart/bassheart.tscn" id="7_rmtll"]
 [ext_resource type="PackedScene" uid="uid://bi6kxlphddvs2" path="res://ver_1/game/music/beat_controller.tscn" id="8_abtt5"]
 [ext_resource type="PackedScene" uid="uid://dgd1om0jy4rja" path="res://ver_1/vfx/vfx_manager.tscn" id="11_rn441"]
@@ -15,25 +16,18 @@
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_btbqh")
-action_list = ExtResource("2_5eu4a")
+wait_for_player = true
+action_list = ExtResource("2_em5st")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_l8iil")]
 spawns = ExtResource("4_7rbme")
 
 [node name="Loot" type="Node2D" parent="." groups=["loot"]]
 
-[node name="POIs" type="Node" parent="."]
-
-[node name="MinePortal" parent="POIs" node_paths=PackedStringArray("teleport_locations") instance=ExtResource("12_lp8m7")]
-position = Vector2(959, -800)
-scale = Vector2(0.5, 0.5)
-teleport_locations = [NodePath("../PortalSpawnPos")]
-
-[node name="PortalSpawnPos" type="Node2D" parent="POIs"]
-position = Vector2(1459, 838)
-
 [node name="Map" parent="." instance=ExtResource("5_68xy0")]
 z_index = -5
+
+[node name="WaitingLobby" parent="." instance=ExtResource("6_o0mj8")]
 
 [node name="DummyLevel" parent="." instance=ExtResource("6_cbvl2")]
 
@@ -44,7 +38,20 @@ player_scene = ExtResource("7_rmtll")
 
 [node name="BeatController" parent="." instance=ExtResource("8_abtt5")]
 
+[node name="MainMusicPlayer" parent="BeatController" index="0"]
+volume_db = -25.752
+
 [node name="VfxManager" parent="." instance=ExtResource("11_rn441")]
 initial_amount = 0
+
+[node name="POIs" type="Node" parent="."]
+
+[node name="MinePortal" parent="POIs" node_paths=PackedStringArray("teleport_locations") instance=ExtResource("12_lp8m7")]
+position = Vector2(-986, -882)
+scale = Vector2(0.5, 0.5)
+teleport_locations = [NodePath("../PortalSpawnPos"), null, null, null]
+
+[node name="PortalSpawnPos" type="Node2D" parent="POIs"]
+position = Vector2(1459, 838)
 
 [editable path="BeatController"]

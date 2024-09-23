@@ -59,6 +59,7 @@ text = "FID"
 top_level = true
 
 [node name="UseSteam" type="CheckButton" parent="CanvasLayer/NetUI"]
+layout_mode = 0
 offset_left = -1.0
 offset_top = 80.0
 offset_right = 137.0

@@ -97,6 +97,7 @@ func cts_request_spawn(index : int):
 #endregion
 
 func start_game():
+	hide_lobby.rpc()
 	is_host = multiplayer.is_server()
 	time = 0
 	is_started = true
@@ -115,6 +116,10 @@ func start_game():
 	if dont_spawn_enemies: 
 		return
 	spawner._start_timer()
+
+@rpc("authority", "call_local")
+func hide_lobby():
+	get_node("WaitingLobby").turn_off_lobby()
 
 func on_end_game():
 	is_started = false

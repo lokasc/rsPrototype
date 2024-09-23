@@ -114,12 +114,6 @@ func enet_client(ip):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if use_steam: Steam.run_callbacks()
-	if !multiplayer.is_server(): return
-	
-	if !GameManager.Instance.is_game_started() && GameManager.Instance.wait_for_player && get_player_count() >= 2:
-		GameManager.Instance.start_game()
-	if !GameManager.Instance.is_game_started() && !GameManager.Instance.wait_for_player && get_player_count() >= 1:
-		GameManager.Instance.start_game()
 
 #region steam
 func init_steam() -> void:
@@ -262,10 +256,10 @@ func _on_peer_connect(id):
 		friend_label.text = "Connected to: " + str(id)
 		
 		if !use_steam: return
-		
-		# this is for client + steam
+		# this is for client + steam (edge case)
 		auth_label.text = "Client"
 		id_label.text = str(multiplayer.get_unique_id())
+		
 		GameManager.Instance.change_ui()
 		GameManager.Instance.show_character_select_screen()
 
