@@ -24,7 +24,7 @@ distance = 200
 cd_reducion = 0.5
 
 [node name="HitBox" type="Area2D" parent="."]
-collision_layer = 4
+collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
