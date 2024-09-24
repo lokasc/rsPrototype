@@ -12,8 +12,12 @@ extends BaseItem
 @export var follow_spd : float = 5
 @export var charge_extra_dist = 100
 
-# single attack
-var target : BaseEnemy
+@export_subgroup("references")
+@export var sprite : Sprite2D
+
+# Sprite rotation
+var new_position : Vector2
+var is_left : bool
 
 # dog charge
 var is_charging : bool = false
@@ -38,31 +42,35 @@ func _update(_delta:float) -> void:
 	
 	# TODO: Dog will go through walls
 	# charge logic
-	if is_charging: 
-		position = position.move_toward(charge_pos, charge_spd)
+	if is_charging:
+		new_position = position.move_toward(charge_pos, charge_spd)
+		set_sprite_direction()
+		position = new_position
 		if position == charge_pos:
 			is_charging = false
 	else:
-		position = position.move_toward(hero.position + Vector2(15, 15), follow_spd)
+		new_position = position.move_toward(hero.position + Vector2(15, 15), follow_spd)
+		set_sprite_direction()
+		position = new_position
 
-# Dog Idle Behaviour, no enemies.
-func idle_logic() -> void:
-	# dog in alert
-	# follow player but in an random offset.
+func set_sprite_direction():
+	# world space to camera space
+	var new_pos_from_old_pos = new_position - position
 	
-	pass
+	if new_pos_from_old_pos.x < 0:
+		if is_left == false:
+			is_left = !is_left
+			sprite.scale.x *= -1
+	else:
+		if is_left == true:
+			is_left = !is_left
+			sprite.scale.x *= -1
 
-# Dog attack behaviour, starts once you have a target.
-func attack_logic() -> void:
-	pass
 
 func _upgrade() -> void:
 	super()
 
 func on_movement_ability_used() -> void:
-	# Charges towards the end of the ability's position + a little extra distance.
-	# both ability2s have new_position as their variable
-	
 	charge_pos = hero.ability_2.new_position + position.direction_to(hero.ability_2.new_position) * charge_extra_dist
 	is_charging = true
 
