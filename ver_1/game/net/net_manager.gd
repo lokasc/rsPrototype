@@ -27,7 +27,6 @@ var enet_peer : ENetMultiplayerPeer
 @export var player_scene : PackedScene
 
 var label_duration : int = 10
-@onready var lobbies_container : ScrollContainer = $CanvasLayer/NetUI/Lobbies
 
 @onready var spawnable_path : Node2D = $Spawnables
 @onready var player_container : Node = $Players
@@ -151,6 +150,9 @@ func _on_lobby_created(connect: int, lobby_id):
 	# Allow P2P connections to fallback to being relayed through Steam if needed
 	var set_relay: bool = Steam.allowP2PPacketRelay(true)
 	print("Allowing Steam to be relay backup: %s" % set_relay)
+	
+	# Show up invite dialogue
+	Steam.activateGameOverlayInviteDialog(lobby_id)
 
 func list_lobbies():
 	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)
@@ -160,6 +162,7 @@ func list_lobbies():
 # called once you requested data.
 func _on_lobby_match_list(lobbies : Array):
 	print("On lobby match list")
+	var lobbies_container = GameManager.Instance.get_parent().join_lobby_container
 	
 	for lobby_child in lobbies_container.get_child(0).get_children():
 		lobby_child.queue_free()
@@ -183,6 +186,9 @@ func _on_lobby_match_list(lobbies : Array):
 			lobby_button.connect("pressed", Callable(self, "request_join_lobby").bind(lobby))
 			
 			lobbies_container.get_child(0).add_child(lobby_button)
+
+func _on_join_requested(lobby_id: int, steam_id: int):
+	print("on join requested " + str(lobby_id) + " : " + str(steam_id))
 
 # request to join. (not yet joined)
 func request_join_lobby(lobby_id = 0):
@@ -241,6 +247,8 @@ func _connect_steam_signals():
 	if !Steam.lobby_joined.is_connected(_on_lobby_joined):
 		## Find out why steam peer here doesnt work but Steam works.
 		Steam.lobby_joined.connect(_on_lobby_joined)
+	if !Steam.join_requested.is_connected(_on_join_requested):
+		Steam.join_requested.connect(_on_join_requested)
 
 #region UI
 # id is the person u've connected to

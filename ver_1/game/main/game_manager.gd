@@ -17,6 +17,7 @@ var is_host : bool # this var is so that we can see in testing.
 
 @export_subgroup("References")
 @export var map : Node2D
+@export var waiting_lobby : WaitingLobby
 
 @export_category("Game Settings")
 @export var action_list : ActionResource
@@ -81,6 +82,8 @@ func _ready() -> void:
 	get_parent().reset()
 	current_gm_scene = self
 	map.visible = false
+	waiting_lobby.visible = true
+	
 	if no_music:
 		bc.main_music_player.volume_db = -100
 	if quick_leveling:

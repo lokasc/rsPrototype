@@ -8,6 +8,7 @@ extends Node
 @export var main_control_node : Control
 @export var main_vbox : VBoxContainer
 @export var play_options : VBoxContainer
+@export var join_lobby_container : ScrollContainer
 
 @export var use_steam_button : CheckButton
 @export var play_button : Button
@@ -31,6 +32,8 @@ func _ready() -> void:
 
 func hide_ui_at_start():
 	in_play_options = false
+	in_join = false
+	join_lobby_container.hide()
 	play_options.hide()
 
 func reset_splash_default():
@@ -43,6 +46,7 @@ func reset_splash_default():
 	setting_button.modulate.a = 1
 	quit_button.modulate.a = 1
 	play_options.hide()
+	join_lobby_container.hide()
 
 func modulate_all_buttons():
 	play_button.modulate.a = 0.4
@@ -63,20 +67,18 @@ func _on_play_button_pressed() -> void:
 
 # show lobbies from friends?
 func _on_join_button_pressed() -> void:
-	# Using enet, go straight in 
-	if !use_steam: GameManager.Instance.net.client_pressed("")
-	else:
-		# Create lobbies here.
-		pass
-	
 	if in_join:
 		reset_splash_default()
 		return
-	
-	reset_splash_default()
-	modulate_all_buttons()
-	join_button.modulate.a = 1
-	in_join = true
+	else:
+		reset_splash_default()
+		modulate_all_buttons()
+		join_button.modulate.a = 1
+		in_join = true
+		
+		# use enet, go straight in, use steam show lobby 
+		if !use_steam: GameManager.Instance.net.client_pressed("")
+		else: show_lobbies()
 
 func _on_settings_button_pressed() -> void:
 	if in_settings:
@@ -99,7 +101,6 @@ func _on_steam_check_box_pressed() -> void:
 # Create a lobby
 func _on_host_button_pressed() -> void:
 	GameManager.Instance.net.host_pressed()
-	pass
 
 # Maybe you can instantiate here instead of doing something crazy.
 func _on_sp_button_pressed() -> void:
@@ -113,3 +114,7 @@ func reset():
 	use_steam_button.button_pressed = false
 	use_steam = false
 	display_all_ui(true)
+
+func show_lobbies() -> void:
+	join_lobby_container.show()
+	GameManager.Instance.net.list_lobbies()
