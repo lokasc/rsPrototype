@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ck0rs6xq3084g" path="res://ver_1/character/hero/Bassheart/bassheart.tscn" id="3_q7t8h"]
 
 [node name="NetManager" type="Node" node_paths=PackedStringArray("auth_label", "id_label", "friend_label")]
+process_mode = 3
 script = ExtResource("1_2atps")
 auth_label = NodePath("CanvasLayer/AuthLabel")
 id_label = NodePath("CanvasLayer/IdLabel")
