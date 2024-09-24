@@ -32,7 +32,7 @@ extends BaseAbility
 var is_charging : bool
 var is_enlarged : bool
 
-var pressed_count : int = 0
+var note_count : int = 0
 var synced_amount : int = 0
 var current_charge_time : float
 
@@ -127,7 +127,7 @@ func exit() -> void:
 	hitbox_shape.scale /= (1+ synced_amount * sync_area_multiplier * hero.char_stats.mus)
 	freeze_effect_sprite.scale /= (1+ synced_amount * sync_area_multiplier * hero.char_stats.mus)
 	synced_amount = 0
-	pressed_count = 0
+	note_count = 0
 	beat_visual.hide()
 	beat_visual2.hide()
 
@@ -136,17 +136,22 @@ func update(_delta: float) -> void:
 	if is_synced and is_charging:
 		current_charge_time = charge_duration - charge_timer.time_left
 		beat_sync_logic()
+		if current_charge_time > recast_timestamps[note_count]:
+			note_count += 1
+		print(note_count)
 	hero.input.ability_1 = false
 
 func beat_sync_logic():
 	if recast_timestamps.is_empty() == false and hero.input.ability_1:
-		beat_visual.check_accuracy(current_charge_time, recast_timestamps[pressed_count], 0.01, 0.03, recast_grace_time)
-		beat_visual2.check_accuracy(current_charge_time, recast_timestamps[pressed_count], 0.01, 0.03, recast_grace_time)
-		for timestamp in recast_timestamps:
-			if is_within_timestamp(timestamp):
+		if note_count <= recast_timestamps.size() - 1:
+			beat_visual.check_accuracy(current_charge_time, recast_timestamps[note_count], 0.01, 0.03, recast_grace_time)
+			beat_visual2.check_accuracy(current_charge_time, recast_timestamps[note_count], 0.01, 0.03, recast_grace_time)
+			if is_within_timestamp(recast_timestamps[note_count]):
 				beat_sync_effects.restart()
 				synced_amount += 1
-		pressed_count += 1
+			else:
+				if synced_amount > 0: #Punishes if you don't sync
+					synced_amount -= 1
 
 func physics_update(_delta: float) -> void:
 	super(_delta)
