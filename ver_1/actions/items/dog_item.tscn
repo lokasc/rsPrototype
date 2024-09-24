@@ -5,11 +5,12 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_owqer"]
 
-[node name="DogItem" type="Node2D"]
+[node name="DogItem" type="Node2D" node_paths=PackedStringArray("sprite")]
 script = ExtResource("1_kqv6o")
 charge_spd = 5.0
 follow_spd = 1.0
 charge_extra_dist = 50
+sprite = NodePath("Sprite")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
