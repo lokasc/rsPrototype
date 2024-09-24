@@ -72,6 +72,7 @@ func _init() -> void:
 	end_game.connect(on_end_game)
 
 func _ready() -> void:
+	get_parent().reset()
 	current_gm_scene = self
 	if no_music:
 		bc.main_music_player.volume_db = -100
@@ -296,10 +297,10 @@ func show_character_select_screen(_arg = 1):
 	# this _arg is not used.
 	ui.show_character_select()
 
-# turns net ui off and player_ui on
+# turns off main menu ui and shows gameplay ui
 func change_ui():
 	ui.show_ui()
-	net.hide_ui()
+	get_parent().display_all_ui(false)
 
 # Get max xp from lvl.
 func sample(_lvl : int) -> int:

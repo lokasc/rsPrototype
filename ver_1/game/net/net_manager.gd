@@ -45,21 +45,21 @@ func _enter_tree() -> void:
 	GameManager.Instance.net = self
 
 func _ready():
-	peer_type_switch()
 	_connect_signals()
 	multiplayer.server_relay = false
 
-
-
-#Checker, use this to start as steam or start as enet
-func peer_type_switch():
-	if use_steam:
+# Called by Main
+func peer_type_switch(main_use_steam):
+	print(main_use_steam)
+	if main_use_steam:
+		use_steam = true
 		init_steam()
 		steam_peer = SteamMultiplayerPeer.new()
 		_connect_steam_signals()
 		enet_peer = null
 		print("Using Steam!")
 	else:
+		use_steam = false
 		enet_peer = ENetMultiplayerPeer.new()
 		steam_peer = null
 		print("Using ENET!")
@@ -222,10 +222,6 @@ func _connect_signals():
 	# Player container
 	player_container.child_entered_tree.connect(_add_to_list)
 	
-	# UI
-	net_ui.request_host.connect(host_pressed)
-	net_ui.request_client.connect(client_pressed)
-	
 	_connect_steam_signals()
 	
 	# Godot signals
@@ -277,16 +273,13 @@ func show_ui():
 	friend_label.show()
 #endregion
 
-# when we disconnect, we want to stop the game and remove the gm scene and reload.
+# when we disconnect, we remove the gm scene and reload it in
 func _on_peer_disconnect(_id):
-	# we want to delete the game manager, and then reload it in.
-	
-	GameManager.Instance.reset_game()
-	
 	if multiplayer.is_server():
 		print("Client: "+ str(_id) + " disconnected")
 	else:
 		print("Server: " + str(_id) + " disconnected")
+	GameManager.Instance.reset_game()
 
 func _on_connection_failed():
 	pass
@@ -302,8 +295,3 @@ func _on_label_timer_timeout() -> void:
 	auth_label.hide()
 	id_label.hide()
 	friend_label.hide()
-
-
-func _on_check_button_toggled(toggled_on: bool) -> void:
-	use_steam = toggled_on
-	peer_type_switch()

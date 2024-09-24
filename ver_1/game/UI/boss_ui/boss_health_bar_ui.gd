@@ -1,8 +1,6 @@
 class_name BossHealthBarUI
 extends TextureProgressBar
 
-
-
 ## How long for bar value to reach to max (At the start)
 @export var time_to_full : float
 
@@ -10,7 +8,7 @@ extends TextureProgressBar
 
 var current_time : float = 0
 var is_animating : bool
-
+var is_started : bool = false # to make sure we modify health when in game.
 var boss : BaseBoss
 
 func set_up(_boss : BaseBoss):
@@ -20,14 +18,17 @@ func set_up(_boss : BaseBoss):
 	max_value = boss.max_health
 	value = 0
 	is_animating = true
+	is_started = true
+	
 	current_time = 0
 	boss_name_label.text = "[b]" + "[center]"+ boss.char_name + "[/center]" +"[/b]"
 
 func _process(delta: float) -> void:
 	if is_animating:
 		animation_logic(delta)
-		
-	if !multiplayer.is_server() && boss: value = boss.current_health
+	
+	if is_started:
+		if !multiplayer.is_server() && boss: value = boss.current_health
 
 func animation_logic(delta):
 	current_time += delta

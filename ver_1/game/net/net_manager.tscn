@@ -1,17 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://o5mopq7q46cq"]
+[gd_scene load_steps=5 format=3 uid="uid://o5mopq7q46cq"]
 
 [ext_resource type="Script" path="res://ver_1/game/net/net_manager.gd" id="1_2atps"]
 [ext_resource type="PackedScene" uid="uid://ce6nl4rbh16yy" path="res://ver_1/character/hero/Trebbie/trebbie.tscn" id="2_escgf"]
-[ext_resource type="PackedScene" uid="uid://cswrokaic6o8t" path="res://ver_1/game/UI/net_ui.tscn" id="2_q0iv7"]
 [ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://assets/UI/rs_theme.tres" id="3_mdjmr"]
 [ext_resource type="PackedScene" uid="uid://ck0rs6xq3084g" path="res://ver_1/character/hero/Bassheart/bassheart.tscn" id="3_q7t8h"]
 
-[node name="NetManager" type="Node" node_paths=PackedStringArray("auth_label", "id_label", "friend_label", "net_ui")]
+[node name="NetManager" type="Node" node_paths=PackedStringArray("auth_label", "id_label", "friend_label")]
 script = ExtResource("1_2atps")
 auth_label = NodePath("CanvasLayer/AuthLabel")
 id_label = NodePath("CanvasLayer/IdLabel")
 friend_label = NodePath("CanvasLayer/FriendLabel")
-net_ui = NodePath("CanvasLayer/NetUI")
 player_scene = ExtResource("2_escgf")
 trebbie_scene = ExtResource("2_escgf")
 bass_scene = ExtResource("3_q7t8h")
@@ -25,6 +23,7 @@ spawn_path = NodePath("../Players")
 [node name="Spawnables" type="Node2D" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="AuthLabel" type="Label" parent="CanvasLayer"]
 custom_minimum_size = Vector2(100, 50)
@@ -55,20 +54,6 @@ theme = ExtResource("3_mdjmr")
 theme_override_font_sizes/font_size = 35
 text = "FID"
 
-[node name="NetUI" parent="CanvasLayer" instance=ExtResource("2_q0iv7")]
-top_level = true
-
-[node name="UseSteam" type="CheckButton" parent="CanvasLayer/NetUI"]
-layout_mode = 0
-offset_left = -1.0
-offset_top = 80.0
-offset_right = 137.0
-offset_bottom = 111.0
-text = "Use Steam?"
-
 [node name="LabelTimer" type="Timer" parent="."]
 
-[connection signal="toggled" from="CanvasLayer/NetUI/UseSteam" to="." method="_on_check_button_toggled"]
 [connection signal="timeout" from="LabelTimer" to="." method="_on_label_timer_timeout"]
-
-[editable path="CanvasLayer/NetUI"]

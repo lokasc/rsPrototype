@@ -1,6 +1,11 @@
 class_name Main
 extends Node
 
+@export_category("Options")
+@export var fullscreen_on_start : bool = false
+
+@export_subgroup("UI References")
+@export var main_control_node : Control
 @export var main_vbox : VBoxContainer
 @export var play_options : VBoxContainer
 
@@ -10,30 +15,19 @@ extends Node
 @export var setting_button : Button
 @export var quit_button : Button
 
-@onready var gm_scene = preload("res://ver_1/game/main/game_manager.tscn")
-
-var current_gm_scene
 var in_play_options : bool
 var in_join : bool
 var in_settings : bool
-var use_steam : bool
-
-func reset():
-	current_gm_scene.free()
-	current_gm_scene = gm_scene.instantiate()
-	add_child(current_gm_scene)
+var use_steam : bool:
+	set(value):
+		use_steam = value
+		GameManager.Instance.net.peer_type_switch(value)
 
 # This controls the entire application
 func _ready() -> void:
-	current_gm_scene = get_child(0)
-	return
 	hide_ui_at_start()
-	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	use_steam = true
-
-func _process(_delta) -> void:
-	if Input.is_key_pressed(KEY_0):
-		reset()
+	
+	if fullscreen_on_start: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 func hide_ui_at_start():
 	in_play_options = false
@@ -69,6 +63,12 @@ func _on_play_button_pressed() -> void:
 
 # show lobbies from friends?
 func _on_join_button_pressed() -> void:
+	# Using enet, go straight in 
+	if !use_steam: GameManager.Instance.net.client_pressed("")
+	else:
+		# Create lobbies here.
+		pass
+	
 	if in_join:
 		reset_splash_default()
 		return
@@ -98,8 +98,18 @@ func _on_steam_check_box_pressed() -> void:
 
 # Create a lobby
 func _on_host_button_pressed() -> void:
+	GameManager.Instance.net.host_pressed()
 	pass
 
 # Maybe you can instantiate here instead of doing something crazy.
 func _on_sp_button_pressed() -> void:
 	pass
+
+func display_all_ui(value : bool) -> void:
+	main_control_node.visible = value
+
+func reset():
+	reset_splash_default()
+	use_steam_button.button_pressed = false
+	use_steam = false
+	display_all_ui(true)

@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4dusrau3cb78"]
+[gd_scene load_steps=5 format=3 uid="uid://c4dusrau3cb78"]
 
 [ext_resource type="Script" path="res://ver_1/game/main/main.gd" id="1_1mqlp"]
 [ext_resource type="Texture2D" uid="uid://cssofedi35duh" path="res://assets/heroes/trebbie/Trebbie.png" id="2_xonf2"]
 [ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://assets/UI/rs_theme.tres" id="3_qq7n7"]
+[ext_resource type="PackedScene" uid="uid://b3ouif0d4g8f0" path="res://ver_1/game/main/game_manager.tscn" id="4_444we"]
 
-[node name="Main" type="Node" node_paths=PackedStringArray("main_vbox", "play_options", "use_steam_button", "play_button", "join_button", "setting_button", "quit_button")]
+[node name="Main" type="Node" node_paths=PackedStringArray("main_control_node", "main_vbox", "play_options", "use_steam_button", "play_button", "join_button", "setting_button", "quit_button")]
 script = ExtResource("1_1mqlp")
+main_control_node = NodePath("MainMenuUI")
 main_vbox = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer")
 play_options = NodePath("MainMenuUI/SplashScreenUI/PlayOptionsContainer")
 use_steam_button = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer/SteamCheckBox")
@@ -14,11 +16,20 @@ join_button = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer/JoinButton")
 setting_button = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer/SettingsButton")
 quit_button = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer/QuitButton")
 
+[node name="GameManager" parent="." instance=ExtResource("4_444we")]
+
 [node name="MainMenuUI" type="Control" parent="."]
+z_index = 10
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1280.0
 offset_bottom = 720.0
+
+[node name="ColorRect" type="ColorRect" parent="MainMenuUI"]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.301961, 0.301961, 0.301961, 1)
 
 [node name="SplashScreenUI" type="Control" parent="MainMenuUI"]
 anchors_preset = 0
@@ -200,6 +211,7 @@ bbcode_enabled = true
 text = "Survivors"
 fit_content = true
 
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
 [connection signal="pressed" from="MainMenuUI/SplashScreenUI/VBoxContainer/SteamCheckBox" to="." method="_on_steam_check_box_pressed"]
 [connection signal="pressed" from="MainMenuUI/SplashScreenUI/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="MainMenuUI/SplashScreenUI/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
