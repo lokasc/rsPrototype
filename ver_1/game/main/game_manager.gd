@@ -15,6 +15,13 @@ var is_host : bool # this var is so that we can see in testing.
 @export var spawn_boss : bool = false
 @export var quick_leveling : bool = false
 
+@export_subgroup("References")
+@export var map : Node2D
+
+@export_category("Game Settings")
+@export var action_list : ActionResource
+
+
 signal end_game
 signal start_lvl_up_sequence(item : Array)
 signal end_lvl_up_sequence()
@@ -32,7 +39,6 @@ var local_player : BaseHero
 # For selecting cards.
 var players_ready : int
 var action_selected : bool
-@export var action_list : ActionResource
 
 # For selecting characters
 var players_selection_ready : int
@@ -74,6 +80,7 @@ func _init() -> void:
 func _ready() -> void:
 	get_parent().reset()
 	current_gm_scene = self
+	map.visible = false
 	if no_music:
 		bc.main_music_player.volume_db = -100
 	if quick_leveling:
@@ -125,6 +132,7 @@ func start_game():
 @rpc("authority", "call_local")
 func hide_lobby():
 	get_node("WaitingLobby").turn_off_lobby()
+	map.visible = true
 
 func reset_game():
 	current_gm_scene.queue_free()

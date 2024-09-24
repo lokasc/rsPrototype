@@ -14,8 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://dgd1om0jy4rja" path="res://ver_1/vfx/vfx_manager.tscn" id="11_rn441"]
 [ext_resource type="PackedScene" uid="uid://bto377kul2r23" path="res://ver_1/poi/portal/poi_mine_portal.tscn" id="12_lp8m7"]
 
-[node name="GameManager" type="Node2D"]
+[node name="GameManager" type="Node2D" node_paths=PackedStringArray("map")]
 script = ExtResource("1_btbqh")
+map = NodePath("Map")
 action_list = ExtResource("2_em5st")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_l8iil")]
