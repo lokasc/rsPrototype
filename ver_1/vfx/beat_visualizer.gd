@@ -27,6 +27,7 @@ signal ability_input_pressed()
 @export_group("Lines")
 @export var is_lines : bool
 @export var text_pop_up : TextPopUp 
+@export var text_pos : Vector2
 
 @export var starting_position : Vector2
 
@@ -80,21 +81,13 @@ func _ready() -> void:
 	if is_lines:
 		hide()
 		ability_input_pressed.connect(show_pressed_effect)
-		#bc.on_beat.connect(spawn_beatline.bind(time_to_finish, starting_position))
 		trans_ring.self_modulate = transparent_line_color
 	particles.process_material.color = particle_color
 	trans_ring.self_modulate = transparent_ring_color
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if not is_lines: return
-	if GameManager.Instance.local_player == null: return
-	
-	hero = GameManager.Instance.local_player
-	if hero.input.ability_1 and visible:
-		ability_input_pressed.emit()
-		if text_pop_up == null: return
-		check_accuracy(bc.get_time_til_next_beat())
+	pass
 
 
 func spawn_beatline(_time_to_finish : float, _starting_pos : Vector2) -> void:
@@ -133,16 +126,16 @@ func _on_effect_timer_timeout() -> void:
 	else:
 		trans_ring.self_modulate = transparent_ring_color
 
-func check_accuracy(time_til_beat : float) -> void:
-	if time_til_beat <= perfect_grace_time|| time_til_beat >= 0.5 - perfect_grace_time:
+func check_accuracy(time_pressed : float, accurate_to : float, _perfect_grace_time : float, _great_grace_time : float, _good_grace_time :float ) -> void:
+	if time_pressed <= accurate_to + _perfect_grace_time and time_pressed >= accurate_to - _perfect_grace_time:
 		text_color = perfect_color
-		text_pop_up.set_pop("Perfect", Vector2(545,375), text_color, text_pop_up.DEFAULT_DURATION)
-	elif time_til_beat <= great_grace_time|| time_til_beat >= 0.5 - great_grace_time:
+		text_pop_up.set_pop("Perfect", text_pos, text_color, text_pop_up.DEFAULT_DURATION)
+	elif time_pressed <= accurate_to + _great_grace_time and time_pressed >= accurate_to - _great_grace_time:
 		text_color = great_color
-		text_pop_up.set_pop("Great", Vector2(545,375), text_color, text_pop_up.DEFAULT_DURATION)
-	elif time_til_beat <= bc.grace_time|| time_til_beat >= 0.5 - bc.grace_time:
+		text_pop_up.set_pop("Great", text_pos, text_color, text_pop_up.DEFAULT_DURATION)
+	elif time_pressed <= accurate_to + _good_grace_time and time_pressed >= accurate_to - _good_grace_time:
 		text_color = good_color
-		text_pop_up.set_pop("Good", Vector2(545,375), text_color, text_pop_up.DEFAULT_DURATION)
+		text_pop_up.set_pop("Good", text_pos, text_color, text_pop_up.DEFAULT_DURATION)
 	else:
 		text_color = bad_color
-		text_pop_up.set_pop("Bad", Vector2(545,375), text_color, text_pop_up.DEFAULT_DURATION)
+		text_pop_up.set_pop("Bad", text_pos, text_color, text_pop_up.DEFAULT_DURATION)

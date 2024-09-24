@@ -32,6 +32,7 @@ extends BaseAbility
 var is_charging : bool
 var is_enlarged : bool
 
+var pressed_count : int = 0
 var synced_amount : int = 0
 var current_charge_time : float
 
@@ -94,8 +95,8 @@ func enter() -> void:
 		beat_visual2.show()
 		
 		for timestamp in recast_timestamps:
-			beat_visual.spawn_note(timestamp, Vector2(-timestamp*200,0))
-			beat_visual2.spawn_note(timestamp, Vector2(timestamp*200,0))
+			beat_visual.spawn_note(timestamp, Vector2(-timestamp*400,0))
+			beat_visual2.spawn_note(timestamp, Vector2(timestamp*400,0))
 
 func _on_charge_timer_timeout() -> void:
 	hitbox.monitoring = true
@@ -126,6 +127,7 @@ func exit() -> void:
 	hitbox_shape.scale /= (1+ synced_amount * sync_area_multiplier * hero.char_stats.mus)
 	freeze_effect_sprite.scale /= (1+ synced_amount * sync_area_multiplier * hero.char_stats.mus)
 	synced_amount = 0
+	pressed_count = 0
 	beat_visual.hide()
 	beat_visual2.hide()
 
@@ -138,10 +140,13 @@ func update(_delta: float) -> void:
 
 func beat_sync_logic():
 	if recast_timestamps.is_empty() == false and hero.input.ability_1:
-			for timestamp in recast_timestamps:
-				if is_within_timestamp(timestamp):
-					synced_amount += 1
-					beat_sync_effects.restart()
+		beat_visual.check_accuracy(current_charge_time, recast_timestamps[pressed_count], 0.01, 0.03, recast_grace_time)
+		beat_visual2.check_accuracy(current_charge_time, recast_timestamps[pressed_count], 0.01, 0.03, recast_grace_time)
+		for timestamp in recast_timestamps:
+			if is_within_timestamp(timestamp):
+				beat_sync_effects.restart()
+				synced_amount += 1
+		pressed_count += 1
 
 func physics_update(_delta: float) -> void:
 	super(_delta)

@@ -29,6 +29,7 @@ extends BaseAbility
 var recast : int
 var duration_time : float
 
+@onready var bc : BeatController = GameManager.Instance.bc
 @onready var beat_visual : BeatVisualizer = GameManager.Instance.ui.player_ui_layer.get_node("BeatVisualizerLines")
 @onready var beat_visual2 : BeatVisualizer = GameManager.Instance.ui.player_ui_layer.get_node("BeatVisualizerLines2")
 @onready var hitbox_shape : CollisionShape2D = $HitBox/CollisionShape2D
@@ -105,6 +106,9 @@ func update(delta: float) -> void:
 	if duration_time >= active_duration and is_synced == false:
 		state_change.emit(self, "TrebbieAttack")
 	elif duration_time >= active_duration and is_synced == true: # Activated once, twice, thrice
+		if hero.input.ability_1:
+			beat_visual.check_accuracy(duration_time, 0.5, beat_visual.perfect_grace_time, beat_visual.great_grace_time, bc.grace_time)
+			beat_visual2.check_accuracy(duration_time, 0.5, beat_visual.perfect_grace_time, beat_visual.great_grace_time, bc.grace_time)
 		start_recast_logic()
 	if hero.input.ability_2:
 		state_change.emit(self, "TrebbieDash")
