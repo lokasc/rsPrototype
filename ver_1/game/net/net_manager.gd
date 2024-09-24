@@ -144,6 +144,7 @@ func _on_lobby_created(connect: int, lobby_id):
 	Steam.setLobbyJoinable(lobby_id, true)
 
 	# Set some lobby data
+	#var player_name : String = Steam.getPersonaName()
 	Steam.setLobbyData(lobby_id, "name", "RH")
 	Steam.setLobbyData(lobby_id, "mode", "Co-op")
 	
@@ -175,14 +176,14 @@ func _on_lobby_match_list(lobbies : Array):
 			
 			var lobby_button: Button = Button.new()
 			lobby_button.set_text(lobby_name + " | " + lobby_mode)
-			lobby_button.set_size(Vector2(100, 30))
+			lobby_button.set_size(Vector2(200, 30))
 			lobby_button.add_theme_font_size_override("font_size", 8)
 			
 			var fv = FontVariation.new()
 			fv.set_base_font(load("res://font/dogica/TTF/dogicapixel.ttf"))
 			lobby_button.add_theme_font_override("font", fv)
 			lobby_button.set_name("lobby_%s" % lobby)
-			lobby_button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+			lobby_button.alignment = HORIZONTAL_ALIGNMENT_CENTER
 			lobby_button.connect("pressed", Callable(self, "request_join_lobby").bind(lobby))
 			
 			lobbies_container.get_child(0).add_child(lobby_button)
