@@ -1,7 +1,6 @@
 class_name TurretItem
 extends BaseItem
 
-#@onready var turret = load("res://ver_1/actions/items/turret.tscn")
 @export var turret : Resource
 
 @export_category("Deploying stats")
