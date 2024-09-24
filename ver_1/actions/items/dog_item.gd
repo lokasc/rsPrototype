@@ -9,6 +9,7 @@ extends BaseItem
 
 @export var dog_freedom_radius : float = 400
 @export var charge_spd : float = 1
+@export var follow_spd : float = 5
 @export var charge_extra_dist = 100
 
 # single attack
@@ -19,8 +20,8 @@ var is_charging : bool = false
 var charge_pos : Vector2 = Vector2.ZERO
 
 func _init() -> void:
-	action_name = "Dog"
-	card_desc = "snowy!"
+	action_name = "DAW.G"
+	card_desc = "NB: G means good boy v2"
 	action_icon_path = "res://assets/icons/dog_icon.png"
 
 # Connect any signals from the hero here.
@@ -28,27 +29,26 @@ func _enter_tree() -> void:
 	# all movement abilities are on ability2.
 	hero.ability_2.ability_used.connect(on_movement_ability_used)
 	
-# Write logic below here....
 func _ready() -> void:
-	pass
+	position = hero.position + Vector2(50, 50)
 
 # Update is called by the main character
 func _update(_delta:float) -> void:
 	super(_delta)
 	
-	
-	
+	# TODO: Dog will go through walls
 	# charge logic
-	if !is_charging: return
-	position = position.move_toward(charge_pos, charge_spd)
-	if position == charge_pos:
-		is_charging = false
+	if is_charging: 
+		position = position.move_toward(charge_pos, charge_spd)
+		if position == charge_pos:
+			is_charging = false
+	else:
+		position = position.move_toward(hero.position + Vector2(15, 15), follow_spd)
 
 # Dog Idle Behaviour, no enemies.
 func idle_logic() -> void:
 	# dog in alert
 	# follow player but in an random offset.
-	
 	
 	pass
 
