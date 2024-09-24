@@ -35,6 +35,9 @@ var is_enlarged : bool
 var synced_amount : int = 0
 var current_charge_time : float
 
+@onready var bc : BeatController = GameManager.Instance.bc
+@onready var beat_visual : BeatVisualizer = GameManager.Instance.ui.player_ui_layer.get_node("BeatVisualizerLines")
+@onready var beat_visual2 : BeatVisualizer = GameManager.Instance.ui.player_ui_layer.get_node("BeatVisualizerLines2")
 @onready var wave_timer : Timer = $WaveTimer
 @onready var charge_timer : Timer = $ChargeTimer
 @onready var hitbox : Area2D = $HitBox
@@ -87,6 +90,12 @@ func enter() -> void:
 		is_enlarged = true
 	if is_synced:
 		beat_sync_effects.restart()
+		beat_visual.show()
+		beat_visual2.show()
+		
+		for timestamp in recast_timestamps:
+			beat_visual.spawn_note(timestamp, Vector2(-timestamp*200,0))
+			beat_visual2.spawn_note(timestamp, Vector2(timestamp*200,0))
 
 func _on_charge_timer_timeout() -> void:
 	hitbox.monitoring = true
@@ -117,6 +126,8 @@ func exit() -> void:
 	hitbox_shape.scale /= (1+ synced_amount * sync_area_multiplier * hero.char_stats.mus)
 	freeze_effect_sprite.scale /= (1+ synced_amount * sync_area_multiplier * hero.char_stats.mus)
 	synced_amount = 0
+	beat_visual.hide()
+	beat_visual2.hide()
 
 func update(_delta: float) -> void:
 	super(_delta)

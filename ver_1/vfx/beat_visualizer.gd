@@ -80,7 +80,7 @@ func _ready() -> void:
 	if is_lines:
 		hide()
 		ability_input_pressed.connect(show_pressed_effect)
-		bc.on_beat.connect(spawn_beatline.bind(time_to_finish, starting_position))
+		#bc.on_beat.connect(spawn_beatline.bind(time_to_finish, starting_position))
 		trans_ring.self_modulate = transparent_line_color
 	particles.process_material.color = particle_color
 	trans_ring.self_modulate = transparent_ring_color
