@@ -31,6 +31,7 @@ var duration_time : float
 
 @onready var bc : BeatController = GameManager.Instance.bc
 @onready var beat_visual : BeatVisualizer = GameManager.Instance.ui.player_ui_layer.get_node("BeatVisualizerLines")
+@onready var beat_visual2 : BeatVisualizer = GameManager.Instance.ui.player_ui_layer.get_node("BeatVisualizerLines2")
 @onready var hitbox_shape : CollisionShape2D = $HitBox/CollisionShape2D
 @onready var hitbox : Area2D = $HitBox
 @onready var recast_timer : Timer = $BuffRecastTimer
@@ -79,7 +80,12 @@ func enter() -> void:
 		hitbox_shape.shape.radius *= beat_sync_multiplier
 		beat_visual.spawn_note(0.5, Vector2(-100,0))
 		bc.on_beat.connect(beat_visual.spawn_note.bind(0.5, Vector2(-100,0)))
+		
+		beat_visual2.spawn_note(0.5, Vector2(100,0))
+		bc.on_beat.connect(beat_visual2.spawn_note.bind(0.5, Vector2(100,0)))
+		
 		beat_visual.show()
+		beat_visual2.show()
 		beat_sync_effects.restart()
 
 func exit() -> void:
@@ -90,6 +96,7 @@ func exit() -> void:
 	buff_particles.emitting = false
 	buff_particles.hide()
 	beat_visual.hide()
+	beat_visual2.hide()
 	is_synced = false
 
 func update(delta: float) -> void:
@@ -144,11 +151,11 @@ func start_recast_logic() -> void:
 		# Resets if recasted too many times or didn't press on beat
 		elif hero.input.ability_1:
 			if recast >= recast_amount or hero.input.is_on_beat == false:
+				bc.on_beat.disconnect(beat_visual.spawn_note)
+				bc.on_beat.disconnect(beat_visual2.spawn_note)
 				buff_particles.emitting = false
 				recast_timer.timeout.emit()
 				state_change.emit(self, "TrebbieAttack")
-		if recast >= recast_amount -1 or hero.input.is_on_beat == false:
-			bc.on_beat.disconnect(beat_visual.spawn_note)
 
 func recast_ability():
 	hitbox_shape.shape.radius *= beat_sync_multiplier * hero.char_stats.mus
@@ -160,6 +167,11 @@ func recast_ability():
 	duration_time = 0
 	recast_timer.start(recast_window)
 	recast += 1
+	if recast > recast_amount - 1:
+		beat_visual.hide()
+		beat_visual2.hide()
+		bc.on_beat.disconnect(beat_visual.spawn_note)
+		bc.on_beat.disconnect(beat_visual2.spawn_note)
 
 func _on_buff_recast_timer_timeout() -> void:
 	if recast <= recast_amount:
