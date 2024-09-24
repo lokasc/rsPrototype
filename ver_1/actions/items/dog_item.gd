@@ -2,7 +2,6 @@ class_name DogItem
 extends BaseItem
 
 # dog (snowy) [Stat Dependancy: Not Sure Yet] 
-# attacks single targets and inflicts freeze.
 # when a movement ability is used, it charges with you in a duet attack.
 # when asc: at the end of a charge, snowy flings his tail in an aoe
 # freezing all enemies hit by his tail.
@@ -49,6 +48,7 @@ func _update(_delta:float) -> void:
 		if position == charge_pos:
 			is_charging = false
 	else:
+		$Sprite.material.set_shader_parameter("flash_speed", 0)
 		new_position = position.move_toward(hero.position + Vector2(15, 15), follow_spd)
 		set_sprite_direction()
 		position = new_position
@@ -66,11 +66,11 @@ func set_sprite_direction():
 			is_left = !is_left
 			sprite.scale.x *= -1
 
-
 func _upgrade() -> void:
 	super()
 
 func on_movement_ability_used() -> void:
+	$Sprite.material.set_shader_parameter("flash_speed", 6)
 	charge_pos = hero.ability_2.new_position + position.direction_to(hero.ability_2.new_position) * charge_extra_dist
 	is_charging = true
 

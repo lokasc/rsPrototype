@@ -1,7 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cr1h2yqjdv1hn"]
+[gd_scene load_steps=6 format=3 uid="uid://cr1h2yqjdv1hn"]
 
 [ext_resource type="Script" path="res://ver_1/actions/items/dog_item.gd" id="1_kqv6o"]
+[ext_resource type="Shader" path="res://ver_1/vfx/shaders/dog_flash.gdshader" id="2_sbwkh"]
 [ext_resource type="Texture2D" uid="uid://t7xtsh603bus" path="res://assets/items/DOG.png" id="2_yy6wk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sa4u0"]
+shader = ExtResource("2_sbwkh")
+shader_parameter/end_color = Color(0, 0.341176, 0.643137, 1)
+shader_parameter/flash_speed = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_owqer"]
 
@@ -13,6 +19,7 @@ charge_extra_dist = 50
 sprite = NodePath("Sprite")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_sa4u0")
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_yy6wk")
 
