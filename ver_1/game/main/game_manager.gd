@@ -59,6 +59,10 @@ var current_lvl : int:
 		if !local_player || !ui : return
 		ui.update_lvl_label(value)
 
+# Reseting the game.
+@onready var gm_scene = preload("res://ver_1/game/main/game_manager.tscn")
+var current_gm_scene
+
 #region Godot Functions
 func _init() -> void:
 	Instance = self
@@ -68,6 +72,7 @@ func _init() -> void:
 	end_game.connect(on_end_game)
 
 func _ready() -> void:
+	current_gm_scene = self
 	if no_music:
 		bc.main_music_player.volume_db = -100
 	if quick_leveling:
@@ -95,7 +100,6 @@ func cts_request_spawn(index : int):
 	net.add_player(multiplayer.get_remote_sender_id(), index)
 #endregion
 
-
 func start_game():
 	hide_lobby.rpc()
 	is_host = multiplayer.is_server()
@@ -122,7 +126,9 @@ func hide_lobby():
 	get_node("WaitingLobby").turn_off_lobby()
 
 func reset_game():
-	(get_parent() as Main).reset()
+	current_gm_scene.queue_free()
+	current_gm_scene = gm_scene.instantiate()
+	add_sibling(current_gm_scene)
 
 func on_end_game():
 	is_started = false
