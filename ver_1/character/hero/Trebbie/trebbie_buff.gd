@@ -29,6 +29,8 @@ extends BaseAbility
 var recast : int
 var duration_time : float
 
+@onready var bc : BeatController = GameManager.Instance.bc
+@onready var beat_visual : BeatVisualizer = GameManager.Instance.ui.player_ui_layer.get_node("BeatVisualizerLines")
 @onready var hitbox_shape : CollisionShape2D = $HitBox/CollisionShape2D
 @onready var hitbox : Area2D = $HitBox
 @onready var recast_timer : Timer = $BuffRecastTimer
@@ -72,8 +74,12 @@ func enter() -> void:
 	duration_time = 0 
 	recast = 0
 	set_ability_to_hero_stats()
+	
 	if is_synced:
 		hitbox_shape.shape.radius *= beat_sync_multiplier
+		beat_visual.spawn_note(0.5, Vector2(-100,0))
+		bc.on_beat.connect(beat_visual.spawn_note.bind(0.5, Vector2(-100,0)))
+		beat_visual.show()
 		beat_sync_effects.restart()
 
 func exit() -> void:
@@ -83,6 +89,7 @@ func exit() -> void:
 	hitbox.monitoring = false
 	buff_particles.emitting = false
 	buff_particles.hide()
+	beat_visual.hide()
 	is_synced = false
 
 func update(delta: float) -> void:
@@ -92,6 +99,8 @@ func update(delta: float) -> void:
 		state_change.emit(self, "TrebbieAttack")
 	elif duration_time >= active_duration and is_synced == true: # Activated once, twice, thrice
 		start_recast_logic()
+	if hero.input.ability_2:
+		state_change.emit(self, "TrebbieDash")
 	hero.input.ability_1 = false
 
 func physics_update(_delta: float) -> void:
@@ -138,6 +147,8 @@ func start_recast_logic() -> void:
 				buff_particles.emitting = false
 				recast_timer.timeout.emit()
 				state_change.emit(self, "TrebbieAttack")
+		if recast >= recast_amount -1 or hero.input.is_on_beat == false:
+			bc.on_beat.disconnect(beat_visual.spawn_note)
 
 func recast_ability():
 	hitbox_shape.shape.radius *= beat_sync_multiplier * hero.char_stats.mus

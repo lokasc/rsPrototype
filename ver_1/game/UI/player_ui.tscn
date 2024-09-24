@@ -15,21 +15,11 @@
 [node name="PlayerUi" type="CanvasLayer"]
 
 [node name="BeatVisualizerLines" parent="." instance=ExtResource("1_7vfam")]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -811.545
-offset_top = -393.16
-offset_right = -811.545
-offset_bottom = -393.16
-grow_horizontal = 0
-grow_vertical = 0
-scale = Vector2(0.2, 0.3)
-textpopup_pos_offset = Vector2(540, 350)
-great_grace_time = 0.05
-perfect_grace_time = 0.02
+offset_left = 598.0
+offset_top = 311.0
+offset_right = 598.0
+offset_bottom = 311.0
+scale = Vector2(0.2, 0.2)
 
 [node name="BeatVisualizer" parent="." instance=ExtResource("2_m5ow6")]
 anchors_preset = 3

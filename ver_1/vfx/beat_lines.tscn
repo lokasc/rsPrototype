@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://lhi55f48kgst"]
+
+[ext_resource type="Texture2D" uid="uid://dmk8gf6pp3esw" path="res://assets/UI/HealthBar2.png" id="1_u5w2x"]
+[ext_resource type="Script" path="res://ver_1/vfx/beat_lines.gd" id="2_1mj1o"]
+
+[node name="BeatLines" type="TextureRect"]
+self_modulate = Color(1, 1, 1, 0.713726)
+offset_right = 980.0
+offset_bottom = 980.0
+rotation = 1.5708
+scale = Vector2(0.3, 0.2)
+texture = ExtResource("1_u5w2x")
+script = ExtResource("2_1mj1o")
+starting_color = Color(0.808998, 0.808998, 0.808998, 0.427451)
+ending_color = Color(0.796243, 0.796243, 0.796243, 0.439216)
+
+[node name="TweenContainer" type="Node" parent="."]

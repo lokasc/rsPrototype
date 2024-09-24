@@ -3,13 +3,13 @@ extends TextureRect
 
 @export var starting_pos : Vector2
 @export var is_lines : bool
+@export var starting_color : Color = Color.WHITE
+@export var ending_color : Color = Color.WHITE
 
-var time_to_max_size : float
-var max_size : float
-var min_size : float
-var speed : float
-var starting_color : Color
-var ending_color : Color
+var time_to_finish : float = 1.5
+var max_size : float = 0
+var min_size : float = 0
+
 
 @onready var tween_container : Node = $TweenContainer
 
@@ -23,7 +23,7 @@ func _ready() -> void:
 	tween.set_trans(Tween.TRANS_LINEAR)
 	tween.finished.connect(queue_free)
 	if is_lines:
-		tween.tween_property(self, "position", Vector2.ZERO, time_to_max_size)
+		tween.tween_property(self, "position", Vector2.ZERO, time_to_finish)
 	else:
-		tween.tween_property(self, "scale", max_size * Vector2.ONE, time_to_max_size)
-	tween.parallel().tween_property(self, "self_modulate", ending_color, time_to_max_size)
+		tween.tween_property(self, "scale", max_size * Vector2.ONE, time_to_finish)
+	tween.parallel().tween_property(self, "self_modulate", ending_color, time_to_finish)

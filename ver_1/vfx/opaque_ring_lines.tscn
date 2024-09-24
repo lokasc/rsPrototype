@@ -6,10 +6,10 @@
 [node name="OpaqueRingLines" type="TextureRect"]
 offset_right = 980.0
 offset_bottom = 980.0
-scale = Vector2(0.7, 0.2)
+rotation = 1.5708
+scale = Vector2(0.3, 0.2)
 texture = ExtResource("1_n5phb")
 script = ExtResource("2_o33ad")
-starting_pos = Vector2(0, -300)
 is_lines = true
 
 [node name="TweenContainer" type="Node" parent="."]

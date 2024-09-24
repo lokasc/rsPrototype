@@ -27,18 +27,18 @@ scale_max = 10.3
 color = Color(0, 1, 1, 1)
 alpha_curve = SubResource("CurveTexture_ig6rq")
 
-[node name="BeatVisualizer" type="Control" node_paths=PackedStringArray("ring_path")]
+[node name="BeatVisualizer" type="Control" node_paths=PackedStringArray("note_path")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_rc47k")
+time_to_finish = 1.5
+note_path = NodePath("Rings")
 max_size = 0.6
 min_size = 0.1
-time_to_max_size = 1.5
-ring_path = NodePath("Rings")
 starting_color = Color(0, 1, 1, 0.0901961)
 ending_color = Color(0, 1, 1, 0.262745)
 particle_color = Color(0, 1, 0.92549, 1)
-transparent_color = Color(0.852168, 1, 0.996491, 0.658824)
+transparent_ring_color = Color(1, 1, 1, 0.752941)
 beating_color = Color(0, 1, 1, 1)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]

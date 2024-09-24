@@ -14,9 +14,9 @@ curve = SubResource("Curve_4epxo")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ptbyu"]
 particle_flag_disable_z = true
-emission_shape_offset = Vector3(350, 100, 0)
+emission_shape_offset = Vector3(-90, 150, 0)
 emission_shape = 3
-emission_box_extents = Vector3(350, 1, 1)
+emission_box_extents = Vector3(2, 165, 1)
 spread = 180.0
 initial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
@@ -26,23 +26,25 @@ scale_max = 10.3
 color = Color(0, 1, 1, 1)
 alpha_curve = SubResource("CurveTexture_ig6rq")
 
-[node name="BeatVisualizerLines" type="Control" node_paths=PackedStringArray("ring_path", "text_pop_up")]
+[node name="BeatVisualizerLines" type="Control" node_paths=PackedStringArray("note_path", "text_pop_up")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_rc47k")
+time_to_finish = 1.5
+note_path = NodePath("Notes")
 max_size = 0.6
 min_size = 0.1
-time_to_max_size = 1.5
-ring_path = NodePath("Rings")
 starting_color = Color(0, 1, 1, 0.0901961)
 ending_color = Color(0, 1, 1, 0.262745)
 particle_color = Color(0, 1, 0.92549, 1)
-transparent_color = Color(0.852168, 1, 0.996491, 0.658824)
+transparent_ring_color = Color(0.847474, 0.847474, 0.847474, 0.627451)
 beating_color = Color(0, 1, 1, 1)
 is_lines = true
 text_pop_up = NodePath("TextPopUp")
+starting_position = Vector2(-300, 0)
 great_grace_time = 0.05
 perfect_grace_time = 0.02
+transparent_line_color = Color(0.709804, 0.709804, 0.709804, 0.643137)
 perfect_color = Color(0, 1, 1, 1)
 great_color = Color(0, 1, 0, 1)
 good_color = Color(1, 1, 1, 1)
@@ -50,7 +52,7 @@ bad_color = Color(1, 0, 0, 1)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 emitting = false
-amount = 50
+amount = 20
 process_material = SubResource("ParticleProcessMaterial_ptbyu")
 lifetime = 0.5
 one_shot = true
@@ -75,25 +77,27 @@ scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(256, 256)
 texture = ExtResource("3_kxs4u")
 
-[node name="Rings" type="Control" parent="."]
+[node name="Notes" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 0
 
 [node name="TransparentRing" type="TextureRect" parent="."]
 self_modulate = Color(0, 1, 1, 0.192157)
-layout_mode = 1
+layout_mode = 0
 offset_right = 980.0
 offset_bottom = 980.0
-scale = Vector2(0.7, 0.2)
+rotation = 1.5708
+scale = Vector2(0.3, 0.2)
 texture = ExtResource("3_hhcp6")
 
 [node name="EffectTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="TextPopUp" parent="." instance=ExtResource("4_iubs3")]
 layout_mode = 0
-offset_left = 291.0
-offset_top = 84.0
-offset_right = 453.0
-offset_bottom = 103.0
+offset_right = 506.0
+offset_bottom = 49.0
 theme_override_font_sizes/normal_font_size = 50
+DEFAULT_DURATION = 0.5
 
 [connection signal="timeout" from="EffectTimer" to="." method="_on_effect_timer_timeout"]
