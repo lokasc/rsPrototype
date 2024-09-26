@@ -1,0 +1,92 @@
+[gd_scene load_steps=13 format=3 uid="uid://bbb82cq1whdjb"]
+
+[ext_resource type="Script" path="res://ver_1/character/enemy/ImBusyRightNow/i_am_busy_rn.gd" id="1_6cepp"]
+[ext_resource type="Texture2D" uid="uid://bqp1o7iap6knb" path="res://assets/enemies/OneShot.png" id="2_dlrcc"]
+[ext_resource type="PackedScene" uid="uid://3qhplft0kbjb" path="res://ver_1/character/enemy/ImBusyRightNow/projectile.tscn" id="2_tbsy0"]
+[ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="3_v5pvs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64ogx"]
+atlas = ExtResource("2_dlrcc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2g4q"]
+atlas = ExtResource("2_dlrcc")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2yds"]
+atlas = ExtResource("2_dlrcc")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_visk7"]
+atlas = ExtResource("2_dlrcc")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ev4yl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64ogx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2g4q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2yds")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_visk7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mu2ll"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_15m4i"]
+radius = 15.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lhxmk"]
+radius = 15.0
+height = 50.0
+
+[node name="IAmBusyRn" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("1_6cepp")
+min_range = 300.0
+max_range = 500.0
+shooting_frequency = 0.25
+projectile_scene = ExtResource("2_tbsy0")
+max_health = 1000.0
+speed = 30
+dmg = 20.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_ev4yl")
+offset = Vector2(0, 3)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_mu2ll")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CircleShape2D_15m4i")
+
+[node name="StatusHolder" parent="." instance=ExtResource("3_v5pvs")]
+
+[node name="HitBox" type="Area2D" parent="."]
+z_index = 2
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+rotation = 1.5708
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_lhxmk")
+debug_color = Color(0, 0.592183, 0.742917, 0.42)
