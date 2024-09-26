@@ -79,7 +79,13 @@ func get_random_position() -> Vector2:
 	var rect_pos_p1 := Vector2.ZERO
 	var rect_pos_p2 := Vector2.ZERO
 	rect_pos_p1 = GameManager.Instance.players[0].global_position
-	rect_pos_p2 = GameManager.Instance.players[0].global_position
+	
+	# hot fix for singleplayer
+	if GameManager.Instance.net.MAX_CLIENTS == 1:
+		rect_pos_p2 = GameManager.Instance.players[0].global_position
+	else:
+		rect_pos_p2 = GameManager.Instance.players[1].global_position
+	
 	
 	var vpr : Vector2 = get_viewport_rect().size * randf_range(0.7,1.1)
 	

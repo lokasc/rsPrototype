@@ -12,6 +12,8 @@ var hero : CharacterBody2D
 func _process(_delta: float) -> void:
 	if collected == true:
 		# The movement may be more fancy than just moving towards the players
+		
+		if !hero: return
 		position = position.move_toward(hero.position,speed)
 		speed *= 1.01
 		

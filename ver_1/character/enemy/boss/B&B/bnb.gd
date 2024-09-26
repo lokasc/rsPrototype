@@ -59,7 +59,6 @@ func _process(delta: float) -> void:
 		printerr("Going to phase 2!")
 		state_change_from_any("BnBSlam")
 
-
 func phase_three_logic(delta):
 	rain.update(delta)
 	ring.update(delta)
@@ -71,6 +70,9 @@ func on_hit(area : Area2D) -> void:
 	if hero == null: return
 	
 	hero.take_damage(dmg)
+
+func check_death():
+	pass
 
 # Override this here to change the stats of the character.
 func _init_stats():

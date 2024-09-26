@@ -54,18 +54,18 @@ func _enter_tree() -> void:
 		current_update_time = randf_range(0, update_frequency)
 
 func take_damage(p_dmg:float) -> void:
-	if current_health - p_dmg <= 0:
-		if multiplayer.is_server():
-			death.rpc()
-		p_dmg = current_health
-	else:
-		if multiplayer.is_server():
-			current_health -= p_dmg
-			hit.emit(p_dmg)
 	
-	# dmg visual is actually how much u've dealt to remaining health
-	# not the raw power.
-	GameManager.Instance.vfx.spawn_pop_up(get_instance_id(), int(p_dmg), global_position)
+	# calculate dmg dealt to remaining health
+	var dmg_dealt = p_dmg
+	if current_health - p_dmg <= 0:
+		dmg_dealt = current_health
+	
+	if multiplayer.is_server():
+		current_health -= p_dmg
+		hit.emit(p_dmg)
+	
+	GameManager.Instance.vfx.spawn_pop_up(get_instance_id(), int(dmg_dealt), global_position)
+	check_death()
 
 func _process(delta: float) -> void:
 	#print(str(multiplayer.is_server()) + " : " + str(current_health))
@@ -75,6 +75,11 @@ func _process(delta: float) -> void:
 	if current_update_time >= update_frequency:
 		target = get_closest_target_position()
 		current_update_time = 0
+
+func check_death():
+	if !multiplayer.is_server(): return
+	if current_health <= 0:
+		death.rpc()
 
 @rpc("reliable", "call_local")
 func death() -> void:
