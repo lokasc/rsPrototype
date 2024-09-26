@@ -21,7 +21,7 @@ func start_countdown() -> void:
 func _on_start_zone_body_entered(body: Node2D) -> void:
 	no_players += 1
 	
-	if no_players == 2:
+	if no_players == GameManager.Instance.net.MAX_CLIENTS:
 		start_countdown()
 
 func _on_start_zone_body_exited(body: Node2D) -> void:

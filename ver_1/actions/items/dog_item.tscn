@@ -9,21 +9,28 @@ shader = ExtResource("2_sbwkh")
 shader_parameter/end_color = Color(0, 0.341176, 0.643137, 1)
 shader_parameter/flash_speed = 0.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_owqer"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_dxm88"]
+radius = 33.0
 
-[node name="DogItem" type="Node2D" node_paths=PackedStringArray("sprite")]
+[node name="DogItem" type="Node2D" node_paths=PackedStringArray("sprite", "hitbox")]
 script = ExtResource("1_kqv6o")
+dog_dmg = 20.0
 charge_spd = 5.0
 follow_spd = 1.0
 charge_extra_dist = 50
 sprite = NodePath("Sprite")
+hitbox = NodePath("Area2D")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_sa4u0")
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_yy6wk")
 
-[node name="DetectionRadius" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionRadius"]
-shape = SubResource("CircleShape2D_owqer")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_dxm88")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

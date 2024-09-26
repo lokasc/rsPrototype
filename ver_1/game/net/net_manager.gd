@@ -10,7 +10,7 @@ extends Node
 
 const DEFAULT_ADDRESS = "127.0.0.1"
 const DEFAULT_PORT = 28960
-const MAX_CLIENTS = 2
+var MAX_CLIENTS = 2
 
 # Steam
 var app_id : int = 480
@@ -70,6 +70,13 @@ func host_pressed():
 	else:
 		enet_host()
 
+func sp_pressed():
+	MAX_CLIENTS = 1
+	if use_steam:
+		steam_host()
+	else:
+		enet_host()
+
 func client_pressed(ip):
 	if use_steam:
 		steam_client()
@@ -77,7 +84,7 @@ func client_pressed(ip):
 		enet_client(ip)
 
 func steam_host():
-	steam_peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC, 2)
+	steam_peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC, MAX_CLIENTS)
 	auth_label.text = "Creating Lobby"
 
 func enet_host():

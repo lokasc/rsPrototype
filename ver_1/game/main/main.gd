@@ -104,7 +104,7 @@ func _on_host_button_pressed() -> void:
 
 # Maybe you can instantiate here instead of doing something crazy.
 func _on_sp_button_pressed() -> void:
-	pass
+	GameManager.Instance.net.sp_pressed()
 
 func display_all_ui(value : bool) -> void:
 	main_control_node.visible = value
