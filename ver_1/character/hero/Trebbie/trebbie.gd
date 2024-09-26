@@ -44,6 +44,8 @@ var lifesteal : float = 0.01
 var is_personal_camera : bool = true
 
 @onready var pick_up : CollisionShape2D = $PickUpRadius/CollisionShape2D
+@onready var audio_spectrum_helper = $AudioSpectrumHelper
+@onready var weapon_sprite = $Sprites/RotatingWeapon/WeaponSprite2D
 
 func _enter_tree() -> void:
 	super()
@@ -63,6 +65,7 @@ func _ready() -> void:
 func _process(_delta : float) -> void:
 	super(_delta)
 	pick_up.shape.radius = pick_up_radius * char_stats.pick
+	weapon_sprite.scale = Vector2.ONE * (1 + audio_spectrum_helper.lerped_spectrum[6])
 
 func _physics_process(_delta : float) -> void:
 	super(_delta)

@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://17pcy4xe0kgk"]
+
+[ext_resource type="Script" path="res://audio_spectrum_helper.gd" id="1_8mupn"]
+[ext_resource type="Shader" path="res://spectrum_visualizer.gdshader" id="2_osgka"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ko1yq"]
+shader = ExtResource("2_osgka")
+
+[sub_resource type="QuadMesh" id="QuadMesh_wnp5e"]
+
+[node name="AudioSpectrumHelper" type="Node2D"]
+script = ExtResource("1_8mupn")
+lerp_smoothing = 4.0
+multiplier = 50.0
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_ko1yq")
+scale = Vector2(200, 200)
+mesh = SubResource("QuadMesh_wnp5e")

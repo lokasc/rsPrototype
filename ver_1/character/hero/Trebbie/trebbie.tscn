@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://ce6nl4rbh16yy"]
+[gd_scene load_steps=42 format=3 uid="uid://ce6nl4rbh16yy"]
 
 [ext_resource type="Script" path="res://ver_1/character/hero/Trebbie/trebbie.gd" id="1_4x4su"]
 [ext_resource type="PackedScene" uid="uid://dl6n7678g0f18" path="res://ver_1/character/hero/Trebbie/trebbie_attack.tscn" id="2_psvnt"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="10_mee78"]
 [ext_resource type="PackedScene" uid="uid://dxcries0ll04" path="res://ver_1/vfx/beat_sync_vfx.tscn" id="10_tfljb"]
 [ext_resource type="PackedScene" uid="uid://brce2a12qkj7v" path="res://ver_1/character/hero/item_holder.tscn" id="11_ptp62"]
+[ext_resource type="PackedScene" uid="uid://17pcy4xe0kgk" path="res://audio_spectrum_helper.tscn" id="18_vffn6"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_igvvo"]
 properties/0/path = NodePath(".:current_health")
@@ -398,5 +399,8 @@ offset_right = 95.0
 offset_bottom = 23.0
 
 [node name="ItemHolder" parent="." instance=ExtResource("11_ptp62")]
+
+[node name="AudioSpectrumHelper" parent="." instance=ExtResource("18_vffn6")]
+multiplier = 3.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="TrebbieAttack" method="_on_animation_player_animation_finished"]

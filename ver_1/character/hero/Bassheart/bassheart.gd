@@ -47,6 +47,8 @@ var is_personal_camera : bool = true
 
 @onready var particles : GPUParticles2D = $Sprites/GPUParticles2D
 @onready var pick_up : CollisionShape2D = $PickUpRadius/CollisionShape2D
+@onready var audio_spectrum_helper = $AudioSpectrumHelper
+@onready var weapon_sprite = $Sprites/RotatingWeapon/WeaponSprite2D
 
 # Initalize export variables, called before @onready or _ready()
 # WARNING: Child nodes have not entered the tree yet. 
@@ -68,6 +70,7 @@ func _ready() -> void:
 func _process(_delta:float) -> void:
 	super(_delta)
 	pick_up.shape.radius = pick_up_radius * char_stats.pick
+	weapon_sprite.scale = Vector2.ONE * (1 + audio_spectrum_helper.lerped_spectrum[6])
 	if meter >= 100:
 		is_empowered = true
 		particles.emitting = true

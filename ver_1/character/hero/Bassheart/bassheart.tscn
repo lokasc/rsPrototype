@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://ck0rs6xq3084g"]
+[gd_scene load_steps=79 format=3 uid="uid://ck0rs6xq3084g"]
 
 [ext_resource type="Script" path="res://ver_1/game/net/player_input.gd" id="1_kj3tt"]
 [ext_resource type="Script" path="res://ver_1/character/hero/Bassheart/bassheart.gd" id="1_m8vi0"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://brce2a12qkj7v" path="res://ver_1/character/hero/item_holder.tscn" id="10_2w6wo"]
 [ext_resource type="PackedScene" uid="uid://dxcries0ll04" path="res://ver_1/vfx/beat_sync_vfx.tscn" id="10_fnuan"]
 [ext_resource type="Texture2D" uid="uid://df5l601wyjnd8" path="res://assets/vfx/BassheartFreeze_Effect.png" id="10_tlph7"]
+[ext_resource type="PackedScene" uid="uid://17pcy4xe0kgk" path="res://audio_spectrum_helper.tscn" id="18_gc8t2"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_x3g2c"]
 properties/0/path = NodePath(".:current_health")
@@ -763,5 +764,8 @@ libraries = {
 [node name="StatusHolder" parent="." instance=ExtResource("9_1s0eh")]
 
 [node name="ItemHolder" parent="." instance=ExtResource("10_2w6wo")]
+
+[node name="AudioSpectrumHelper" parent="." instance=ExtResource("18_gc8t2")]
+multiplier = 3.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="BassheartAttack" method="_on_animation_player_animation_finished"]
