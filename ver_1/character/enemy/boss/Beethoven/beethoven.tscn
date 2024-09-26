@@ -29,6 +29,7 @@ script = ExtResource("1_a4kde")
 sting = NodePath("BeethovenSting")
 main_state = NodePath("BeethovenSting")
 max_health = 200.0
+dmg = 1.0
 char_name = "Beethoven"
 
 [node name="BeethovenSting" parent="." instance=ExtResource("2_2fnb1")]

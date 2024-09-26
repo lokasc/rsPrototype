@@ -1,7 +1,7 @@
 class_name BeethovenSting
 extends BossAbility
 
-@export var time_to_reach : float = 0.5
+@export var charge_speed : float = 10
 @export var initial_dmg : float = 20
 
 var target : BaseHero
@@ -39,22 +39,13 @@ func enter() -> void:
 
 func update(delta) -> void:
 	if is_waiting: return
-	current_duration += delta
+	boss.global_position = boss.global_position.move_toward(target_position, charge_speed)
+	if boss.global_position == target_position:
+		state_change.emit(self, "BeethovenSting")
+		return
 
 func physics_update(delta) -> void:
 	if is_waiting: return
-	
-	current_duration += delta
-	if current_duration >= time_to_reach:
-		state_change.emit(self, "BeethovenSting")
-		boss.velocity = Vector2.ZERO
-		boss.move_and_slide()
-		return
-	
-	boss.velocity = direction * speed
-	
-	
-	boss.move_and_slide()
 
 func exit() -> void:
 	$Area2D.monitoring = false
@@ -63,12 +54,6 @@ func exit() -> void:
 
 func _on_waiting_timer_timeout() -> void:
 	target_position = target.global_position
-	direction = global_position.direction_to(target_position)
-	
-	var distance = global_position.distance_to(target_position)
-	speed = distance/time_to_reach
-	print(speed)
-	
 	
 	$Area2D.look_at(target_position)
 	$Area2D.monitoring = true
