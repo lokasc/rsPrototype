@@ -13,6 +13,16 @@ radius = 135.059
 [node name="MinePortal" type="StaticBody2D"]
 script = ExtResource("1_deitb")
 unlock_amount = 300.0
+aoe_increase = 0.4
+armour_increase = 0.6
+cooldown_decrease = 0.2
+damage_increase = 30.0
+duration_increase = 0.4
+heal_and_shield_increase = 0.04
+max_hp_increase = 80.0
+music_multiplier_increase = 0.2
+pick_up_radius_increase = 1.0
+speed_increase = 20.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(-229, 49)
