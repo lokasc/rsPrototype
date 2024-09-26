@@ -10,9 +10,12 @@ var current_state : BaseAbility
 var initial_state : BaseAbility
 # Bosses have state-machines
 
+var initial_atk : float
+
 func _ready() -> void:
 	super()
 	_init_states()
+	initial_atk = char_stats.atk
 
 
 func _process(_delta: float) -> void:

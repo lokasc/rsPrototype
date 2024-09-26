@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7wg1bew4jfy7"]
+[gd_scene load_steps=9 format=3 uid="uid://b7wg1bew4jfy7"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/Beethoven/beethoven.gd" id="1_a4kde"]
+[ext_resource type="PackedScene" uid="uid://ck6a1wk6xj4e2" path="res://ver_1/character/enemy/boss/Beethoven/beethoven_sting.tscn" id="2_2fnb1"]
 [ext_resource type="Texture2D" uid="uid://m0w7duynn73" path="res://assets/bosses/bee/bee.png" id="2_fa11c"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="3_g7paf"]
 
@@ -20,13 +21,18 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Beethoven" type="CharacterBody2D"]
+[node name="Beethoven" type="CharacterBody2D" node_paths=PackedStringArray("sting", "main_state")]
 scale = Vector2(0.2, 0.2)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_a4kde")
+sting = NodePath("BeethovenSting")
+main_state = NodePath("BeethovenSting")
 max_health = 200.0
 char_name = "Beethoven"
+
+[node name="BeethovenSting" parent="." instance=ExtResource("2_2fnb1")]
+scale = Vector2(1, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_fa11c")
