@@ -4,6 +4,8 @@ extends BaseBoss
 @onready var hitbox : Area2D = $HitBox
 @onready var collidebox : CollisionShape2D = $CollisionBox
 
+@export var ring : BossAbility
+
 
 func _enter_tree() -> void:
 	super()
@@ -15,6 +17,8 @@ func _process(delta: float) -> void:
 
 #override this to add your states in 
 func _init_states():
+	_parse_abilities(ring)
+	super()
 	pass
 
 func on_hit(area : Area2D) -> void:

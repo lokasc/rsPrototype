@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://c3vtdiit6y6fr"]
+[gd_scene load_steps=9 format=3 uid="uid://c3vtdiit6y6fr"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/Biano/biano.gd" id="1_yh4o6"]
 [ext_resource type="Texture2D" uid="uid://ddxghwpdca1is" path="res://assets/bosses/biano/piano.png" id="2_3cjxf"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="3_q0mwj"]
+[ext_resource type="PackedScene" uid="uid://cj873jqq3y6ol" path="res://ver_1/character/enemy/boss/B&B/bnb_ring.tscn" id="4_6wvb1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8h38y"]
 radius = 140.089
@@ -20,12 +21,14 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Biano" type="CharacterBody2D"]
+[node name="Biano" type="CharacterBody2D" node_paths=PackedStringArray("ring", "main_state")]
 scale = Vector2(0.2, 0.2)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_yh4o6")
-max_health = 100.0
+ring = NodePath("BnBRing")
+main_state = NodePath("BnBRing")
+max_health = 5000.0
 char_name = "Biano"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -59,3 +62,5 @@ debug_color = Color(0, 0.592183, 0.742917, 0.42)
 replication_config = SubResource("SceneReplicationConfig_t27sw")
 
 [node name="StatusHolder" parent="." instance=ExtResource("3_q0mwj")]
+
+[node name="BnBRing" parent="." instance=ExtResource("4_6wvb1")]

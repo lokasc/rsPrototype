@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://deu84e8eevafj"]
+
+[ext_resource type="Script" path="res://ver_1/character/enemy/boss/Beethoven/beethoven_idle.gd" id="1_enyfn"]
+
+[node name="BeethovenIdle" type="Node2D"]
+script = ExtResource("1_enyfn")

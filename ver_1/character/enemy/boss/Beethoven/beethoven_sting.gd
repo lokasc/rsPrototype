@@ -8,6 +8,7 @@ var target : BaseHero
 var target_position : Vector2
 var direction
 var speed
+
 # the bee waits for a bit before dashing towards you
 
 @onready var waiting_timer : Timer = $WaitingTimer
@@ -41,7 +42,7 @@ func update(delta) -> void:
 	if is_waiting: return
 	boss.global_position = boss.global_position.move_toward(target_position, charge_speed)
 	if boss.global_position == target_position:
-		state_change.emit(self, "BeethovenSting")
+		state_change.emit(self, "BeethovenIdle")
 		return
 
 func physics_update(delta) -> void:

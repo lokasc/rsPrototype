@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8ojvm7c0x1wr"]
+
+[ext_resource type="Script" path="res://ver_1/character/enemy/boss/Beethoven/beethoven_dashnslash.gd" id="1_h056g"]
+
+[node name="BeethovenDashNSlash" type="Node2D"]
+script = ExtResource("1_h056g")
