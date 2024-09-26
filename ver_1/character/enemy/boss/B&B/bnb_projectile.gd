@@ -34,7 +34,6 @@ func _ready() -> void:
 	else:
 		projectile_container.get_child(0).frame = randi_range(0,2)
 		circle_container.visible = false
-	
 
 func _process(delta: float) -> void:
 	if is_rain:
