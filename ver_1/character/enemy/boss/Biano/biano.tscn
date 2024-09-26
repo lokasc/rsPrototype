@@ -25,16 +25,8 @@ scale = Vector2(0.2, 0.2)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_yh4o6")
-max_health = null
-speed = null
-dmg = null
-can_move = null
-frozen = null
-xp_worth = null
-xp_drop_spread = null
-update_frequency = null
+max_health = 100.0
 char_name = "Biano"
-char_id = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_3cjxf")

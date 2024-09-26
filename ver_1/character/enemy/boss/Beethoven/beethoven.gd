@@ -1,31 +1,19 @@
 class_name Beethoven
-extends BaseEnemy
+extends BaseBoss
 
 @onready var hitbox : Area2D = $HitBox
 @onready var collidebox : CollisionShape2D = $CollisionBox
 
-@export var update_frequency : float = 3
-var current_update_time : float = 0
-
-func _init() -> void:
-	super()
-	max_health = 1000
-	
 func _enter_tree() -> void:
 	super()
-	# assign random time, so enemies dont update all together
-	if multiplayer.is_server():
-		current_update_time = randf_range(1, update_frequency)
-	pass
+	char_id = 22
 
-func _ready() -> void:
-	super()
-
-
+# process your states here
 func _process(delta: float) -> void:
-	pass
+	super(delta)
 
-func _physics_process(_delta:float) -> void:
+#override this to add your states in 
+func _init_states():
 	pass
 
 func on_hit(area : Area2D) -> void:

@@ -71,8 +71,14 @@ func on_hit(area : Area2D) -> void:
 	
 	hero.take_damage(dmg)
 
-func check_death():
-	pass
+# on death, spawn the two together.
+func death() -> void:
+	# execute some special effects here, then spawn them here, then delete self.
+	
+	if multiplayer.is_server():
+		GameManager.Instance.spawner.custom_spawn("res://ver_1/character/enemy/boss/Biano/biano.tscn", position - Vector2(100, 0))
+		GameManager.Instance.spawner.custom_spawn("res://ver_1/character/enemy/boss/Beethoven/beethoven.tscn", position + Vector2(100, 0))
+	delayed_death()
 
 # Override this here to change the stats of the character.
 func _init_stats():
