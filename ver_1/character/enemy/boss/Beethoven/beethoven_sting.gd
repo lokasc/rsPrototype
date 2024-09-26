@@ -27,7 +27,9 @@ func choose_player():
 			closest_player = x
 	
 	return closest_player
-
+	
+func _enter_tree() -> void:
+	$Area2D.monitoring = false
 
 func enter() -> void:
 	super()

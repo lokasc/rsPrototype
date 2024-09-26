@@ -91,8 +91,9 @@ func enter() -> void:
 		is_enlarged = true
 	if is_synced:
 		beat_sync_effects.restart()
-		beat_visual.show()
-		beat_visual2.show()
+		if hero.is_multiplayer_authority():
+			beat_visual.show()
+			beat_visual2.show()
 		
 		for timestamp in recast_timestamps:
 			beat_visual.spawn_note(timestamp, Vector2(-timestamp*400,0))
@@ -128,8 +129,11 @@ func exit() -> void:
 	freeze_effect_sprite.scale /= (1+ synced_amount * sync_area_multiplier * hero.char_stats.mus)
 	synced_amount = 0
 	note_count = 0
-	beat_visual.hide()
-	beat_visual2.hide()
+	
+	# Call this on the local player
+	if hero.is_multiplayer_authority():
+		beat_visual.hide()
+		beat_visual2.hide()
 
 func update(_delta: float) -> void:
 	super(_delta)

@@ -85,8 +85,11 @@ func enter() -> void:
 		beat_visual.spawn_note(1.5, Vector2(-300,0))
 		beat_visual2.spawn_note(1.5, Vector2(300,0))
 		
-		beat_visual.show()
-		beat_visual2.show()
+		# Call this on the local player
+		if hero.is_multiplayer_authority():
+			beat_visual.show()
+			beat_visual2.show()
+		
 		beat_sync_effects.restart()
 
 func exit() -> void:
@@ -96,8 +99,10 @@ func exit() -> void:
 	hitbox.monitoring = false
 	buff_particles.emitting = false
 	buff_particles.hide()
-	beat_visual.hide()
-	beat_visual2.hide()
+	
+	if hero.is_multiplayer_authority():
+		beat_visual.hide()
+		beat_visual2.hide()
 	is_synced = false
 
 func update(delta: float) -> void:
