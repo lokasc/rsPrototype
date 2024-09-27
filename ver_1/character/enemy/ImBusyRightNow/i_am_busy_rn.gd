@@ -7,11 +7,15 @@ extends BaseEnemy
 @export var min_range : float
 @export var max_range : float
 
+@export_group("Projectile")
+@export var projectile_speed : float
+@export var projectile_dmg : float
 @export var shooting_frequency : float 
-
-
 @export var projectile_scene : PackedScene
+
+
 @onready var spawn_path = get_parent()
+@onready var hitbox : Area2D = $HitBox
 
 var actual_distance_to_shoot
 var current_time = 0
@@ -41,7 +45,7 @@ func _physics_process(_delta:float) -> void:
 	if can_move == true:
 		var distance_to_target = global_position.distance_to(target.global_position)
 		if distance_to_target > max_range:
-			print("Moving towards: " + str(distance_to_target))
+			#print("Moving towards: " + str(distance_to_target))
 			move_to_target(target)
 		#elif distance_to_target <= min_range:
 			#print("Moving away: " + str(distance_to_target))
@@ -56,8 +60,7 @@ func _physics_process(_delta:float) -> void:
 
 func move_to_target(p_target = null) -> void:
 	if p_target == null: return
-
-# direction need to go towards
+	# direction need to go towards
 	var direction : Vector2 = global_position.direction_to(p_target.global_position)
 	var distance : float = global_position.distance_to(p_target.global_position)
 	
@@ -94,14 +97,18 @@ func move_away_from_target(p_target = null) -> void:
 		sprite.scale.x = x_scale * -1
 	move_and_slide()
 
-@rpc("authority", "call_local")
+#@rpc("authority", "call_local")
 func shoot_projectile() -> void:
+	if !multiplayer.is_server(): return
+	target = get_closest_target_position()
 	var new_proj : BaseProjectile = projectile_scene.instantiate()
 	new_proj.global_position = global_position
 	new_proj.look_at(target.global_position)
+	new_proj.damage = projectile_dmg
+	new_proj.speed = projectile_speed
 	
 	#rmb to spawn it here
-	GameManager.Instance.net.spawnable_path.add_child(new_proj)
+	GameManager.Instance.net.spawnable_path.add_child(new_proj, true)
 
 func on_hit(area : Area2D) -> void:
 	if !multiplayer.is_server(): return
