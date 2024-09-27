@@ -16,6 +16,7 @@
 
 [node name="GameManager" type="Node2D" node_paths=PackedStringArray("map", "waiting_lobby")]
 script = ExtResource("1_btbqh")
+no_music = true
 map = NodePath("Map")
 waiting_lobby = NodePath("WaitingLobby")
 action_list = ExtResource("2_em5st")
@@ -38,9 +39,6 @@ z_index = -5
 player_scene = ExtResource("7_rmtll")
 
 [node name="BeatController" parent="." instance=ExtResource("8_abtt5")]
-
-[node name="MainMusicPlayer" parent="BeatController" index="0"]
-volume_db = -25.752
 
 [node name="VfxManager" parent="." instance=ExtResource("11_rn441")]
 initial_amount = 0

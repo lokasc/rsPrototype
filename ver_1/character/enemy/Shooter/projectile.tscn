@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://3qhplft0kbjb"]
+
+[ext_resource type="Script" path="res://ver_1/character/enemy/Shooter/projectile.gd" id="1_3osvl"]
+[ext_resource type="Texture2D" uid="uid://dhey1d0ulfppm" path="res://assets/map/tilemaps/decals/Plaza.png" id="2_dfuqk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gefsn"]
+radius = 20.025
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_324q6"]
+properties/0/path = NodePath(".:damage")
+properties/0/spawn = true
+properties/0/replication_mode = 0
+properties/1/path = NodePath(".:speed")
+properties/1/spawn = true
+properties/1/replication_mode = 0
+properties/2/path = NodePath(".:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 0
+properties/3/path = NodePath(".:position")
+properties/3/spawn = true
+properties/3/replication_mode = 0
+
+[node name="Projectile" type="Node2D"]
+script = ExtResource("1_3osvl")
+speed = 10.0
+
+[node name="AnimatedSprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.364706, 0, 1, 1)
+scale = Vector2(0.045, 0.045)
+texture = ExtResource("2_dfuqk")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_gefsn")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_324q6")
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

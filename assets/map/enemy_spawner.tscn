@@ -10,7 +10,7 @@ path_path = NodePath("Paths")
 [node name="Timer" type="Timer" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://ver_1/character/enemy/Dummy/dummy.tscn", "res://ver_1/character/enemy/boss/B&B/bnb.tscn", "res://ver_1/character/enemy/boss/B&B/bnb_projectile.tscn", "res://ver_1/character/enemy/boss/Beethoven/beethoven.tscn", "res://ver_1/character/enemy/boss/Biano/biano.tscn", "res://ver_1/character/enemy/ImBusyRightNow/i_am_busy_rn.tscn")
+_spawnable_scenes = PackedStringArray("res://ver_1/character/enemy/Dummy/dummy.tscn", "res://ver_1/character/enemy/boss/B&B/bnb.tscn", "res://ver_1/character/enemy/boss/B&B/bnb_projectile.tscn", "res://ver_1/character/enemy/boss/Beethoven/beethoven.tscn", "res://ver_1/character/enemy/boss/Biano/biano.tscn", "res://ver_1/character/enemy/Shooter/shooter.tscn")
 spawn_path = NodePath("../Enemies")
 
 [node name="Enemies" type="Node" parent="."]

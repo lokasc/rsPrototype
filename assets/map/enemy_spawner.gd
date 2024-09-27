@@ -65,7 +65,6 @@ func instantiate_enemy_from_path(new_enemy:Resource, path:Resource) -> void:
 	if path == null: return
 	var copy : BaseEnemy = new_enemy.instantiate() as BaseEnemy
 	copy.global_position = get_path_position(path)
-	print(copy.global_position)
 	spawn_path.add_child(copy, true)
 
 func get_path_position(path : PackedScene) -> Vector2:
@@ -77,7 +76,6 @@ func get_path_position(path : PackedScene) -> Vector2:
 	path_path.add_child(path_copy, true)
 	
 	var rand_progress_ratio = randf_range(0,1)
-	print(rand_progress_ratio)
 	path_follow.progress_ratio = rand_progress_ratio
 	return path_follow.global_position + player_pos
 

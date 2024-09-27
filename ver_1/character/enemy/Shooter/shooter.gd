@@ -3,16 +3,20 @@ extends BaseEnemy
 
 @onready var collidebox : CollisionShape2D = $CollisionBox
 
-# Min range and max range the enemy will be in order to start shooting.
+## Min range where the enemy will start shooting.
 @export var min_range : float
+
+## Max range where the enemy will start shooting, moves towards the player if they are outside this range
 @export var max_range : float
 
-@export_group("Projectile")
-@export var projectile_speed : float
-@export var projectile_dmg : float
-@export var shooting_frequency : float 
-@export var projectile_scene : PackedScene
+@export var look_ahead : float
 
+@export_group("Projectile")
+@export var projectile_speed : int
+@export var projectile_dmg : float
+@export var projectile_size : float
+@export var shooting_period : float 
+@export var projectile_scene : PackedScene
 
 @onready var spawn_path = get_parent()
 @onready var hitbox : Area2D = $HitBox
@@ -52,7 +56,7 @@ func _physics_process(_delta:float) -> void:
 			#move_away_from_target(target)
 		else:
 			current_time += _delta
-			if current_time >= 1/shooting_frequency:
+			if current_time >= shooting_period:
 				shoot_projectile()
 				current_time = 0
 	
@@ -105,9 +109,8 @@ func shoot_projectile() -> void:
 	
 	var new_proj : BaseProjectile = projectile_scene.instantiate()
 	new_proj.global_position = global_position
-	new_proj.look_at(target.global_position)
-	new_proj.damage = projectile_dmg
-	new_proj.speed = projectile_speed
+	new_proj.look_at(target.global_position + target.velocity.normalized() * look_ahead)
+	new_proj.set_projectile_stats(projectile_dmg, projectile_speed, projectile_size)
 	
 	#rmb to spawn it here
 	GameManager.Instance.net.spawnable_path.add_child(new_proj, true)

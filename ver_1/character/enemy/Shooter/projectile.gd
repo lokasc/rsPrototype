@@ -22,9 +22,10 @@ func _physics_process(delta: float) -> void:
 	pass
 
 # called by abilites
-func set_projectile_stats(_sprites : SpriteFrames) -> void:
-	$AnimatedSprite2D.sprite_frames = _sprites
-	pass
+func set_projectile_stats(_damage : float, _speed : int, size : float) -> void:
+	damage = _damage
+	speed = _speed
+	scale = size * Vector2.ONE
 
 
 func _on_hitbox_area_entered(area: Area2D) -> void:

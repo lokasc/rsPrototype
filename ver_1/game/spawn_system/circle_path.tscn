@@ -7,7 +7,7 @@ _data = {
 point_count = 5
 
 [node name="circle_path" type="Path2D"]
-scale = Vector2(3, 3)
+scale = Vector2(5, 5)
 curve = SubResource("Curve2D_a03dy")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]

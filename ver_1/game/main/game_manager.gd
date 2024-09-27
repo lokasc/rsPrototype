@@ -90,7 +90,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	timer_logic(delta)
-#endregion
+#endregion"res://ver_1/character/enemy/Shooter/shooter.tscn"
 
 #region character_selection
 # this func connected by signals from UI
