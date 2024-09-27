@@ -63,7 +63,6 @@ func exit() -> void:
 	current_delta = 0
 
 func check_if_player_in_range() -> void:
-	return
 	if target.global_position.distance_to(global_position) <= melee_range:
 		last_used_atk = (boss as Beethoven).dash
 		state_change.emit(self, "BeethovenDash")

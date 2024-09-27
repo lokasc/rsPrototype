@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8fnoo6qbb307"
-path="res://.godot/imported/stressmarker.png-247b88fa787583baf8b8deacd6215023.ctex"
+path="res://.godot/imported/stressmarker.png-1c71211f8533211a129c3389c1e388c7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/vfx/buffs/stressmarker.png"
-dest_files=["res://.godot/imported/stressmarker.png-247b88fa787583baf8b8deacd6215023.ctex"]
+source_file="res://assets/common/indicators/stressmarker.png"
+dest_files=["res://.godot/imported/stressmarker.png-1c71211f8533211a129c3389c1e388c7.ctex"]
 
 [params]
 

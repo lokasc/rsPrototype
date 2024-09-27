@@ -25,7 +25,7 @@ var curve_position
 # Beethoven dashes forward piercing you and slashes towards you
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
 func enter() -> void:
 	super()
@@ -49,7 +49,10 @@ func physics_update(delta: float) -> void:
 	var old_position : Vector2
 	var old_y
 	var delta_curve_position
-
+	
+	if !is_direction_changed:
+		boss.show_warning.emit(target.global_position ,0)
+	
 	if time < desired_time:
 		old_y = y_curve.sample(time/desired_time)
 		
@@ -60,6 +63,7 @@ func physics_update(delta: float) -> void:
 			is_direction_changed = true
 			var future_pos = target.global_position + target.velocity.normalized() * 100
 			direction = (future_pos - global_position).normalized()
+			boss.hide_warning.emit()
 			
 		# Calculate delta X position
 		delta_curve_position = y_curve.sample(time/desired_time) - old_y

@@ -27,6 +27,9 @@ card_scn = ExtResource("3_26dur")
 
 [node name="PlayerUi" parent="." instance=ExtResource("2_3208f")]
 
+[node name="Waiting" parent="PlayerUi/PlayerContainer/SelectionContainer/VBoxContainer" index="1"]
+text = " "
+
 [node name="BossHealthBarUI" parent="PlayerUi" instance=ExtResource("3_nyue8")]
 anchors_preset = 0
 anchor_right = 0.0
@@ -38,9 +41,6 @@ offset_bottom = 94.0
 scale = Vector2(1, 1)
 size_flags_horizontal = 4
 size_flags_vertical = 0
-
-[node name="Waiting" parent="PlayerUi/PlayerContainer/SelectionContainer/VBoxContainer" index="1"]
-text = " "
 
 [node name="CharSelectLayer" type="CanvasLayer" parent="."]
 
