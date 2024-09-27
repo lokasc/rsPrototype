@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://ver_1/game/spawn_system/spawn_info.gd" id="1_p03vi"]
 [ext_resource type="PackedScene" uid="uid://cpkr32elxa7a8" path="res://ver_1/character/enemy/OneShot/one_shot.tscn" id="2_tg56a"]
 [ext_resource type="PackedScene" uid="uid://ye6jjalknsgf" path="res://ver_1/character/enemy/MinorBug/minor_bug.tscn" id="3_8jv2c"]
-[ext_resource type="PackedScene" uid="uid://bbb82cq1whdjb" path="res://ver_1/character/enemy/ImBusyRightNow/i_am_busy_rn.tscn" id="3_fbnl4"]
+[ext_resource type="PackedScene" uid="uid://bbb82cq1whdjb" path="res://ver_1/character/enemy/ImBusyRightNow/shooter.tscn" id="3_fbnl4"]
 [ext_resource type="PackedScene" uid="uid://ns7nfwyvbnq8" path="res://ver_1/character/enemy/boss/B&B/bnb.tscn" id="4_30ou6"]
 [ext_resource type="Script" path="res://ver_1/game/spawn_system/spawns_resource.gd" id="5_futvf"]
 
