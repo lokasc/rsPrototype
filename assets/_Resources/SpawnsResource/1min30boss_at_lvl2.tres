@@ -1,18 +1,28 @@
-[gd_resource type="Resource" script_class="SpawnsResource" load_steps=9 format=3 uid="uid://clm6tejothhjk"]
+[gd_resource type="Resource" script_class="SpawnsResource" load_steps=11 format=3 uid="uid://clm6tejothhjk"]
 
 [ext_resource type="Script" path="res://ver_1/game/spawn_system/spawn_info.gd" id="1_p03vi"]
 [ext_resource type="PackedScene" uid="uid://cpkr32elxa7a8" path="res://ver_1/character/enemy/OneShot/one_shot.tscn" id="2_tg56a"]
 [ext_resource type="PackedScene" uid="uid://ye6jjalknsgf" path="res://ver_1/character/enemy/MinorBug/minor_bug.tscn" id="3_8jv2c"]
+[ext_resource type="PackedScene" uid="uid://bbb82cq1whdjb" path="res://ver_1/character/enemy/ImBusyRightNow/i_am_busy_rn.tscn" id="3_fbnl4"]
 [ext_resource type="PackedScene" uid="uid://ns7nfwyvbnq8" path="res://ver_1/character/enemy/boss/B&B/bnb.tscn" id="4_30ou6"]
 [ext_resource type="Script" path="res://ver_1/game/spawn_system/spawns_resource.gd" id="5_futvf"]
 
 [sub_resource type="Resource" id="Resource_7m6ej"]
 script = ExtResource("1_p03vi")
 time_start = 0
-time_end = 60
+time_end = 30
 enemy = ExtResource("2_tg56a")
 enemy_num = 5
 enemy_spawn_delay = 1
+spawn_type = 0
+
+[sub_resource type="Resource" id="Resource_dv4mf"]
+script = ExtResource("1_p03vi")
+time_start = 20
+time_end = 50
+enemy = ExtResource("3_fbnl4")
+enemy_num = 3
+enemy_spawn_delay = 8
 spawn_type = 0
 
 [sub_resource type="Resource" id="Resource_ev3my"]
@@ -35,4 +45,4 @@ spawn_type = 0
 
 [resource]
 script = ExtResource("5_futvf")
-array = Array[ExtResource("1_p03vi")]([SubResource("Resource_7m6ej"), SubResource("Resource_ev3my"), SubResource("Resource_kxvjf")])
+array = Array[ExtResource("1_p03vi")]([SubResource("Resource_7m6ej"), SubResource("Resource_dv4mf"), SubResource("Resource_ev3my"), SubResource("Resource_kxvjf")])

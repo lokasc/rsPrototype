@@ -226,6 +226,8 @@ func check_death():
 
 func to_clients_player_died():
 	on_player_die.rpc()
+	if multiplayer.is_server():
+		GameManager.Instance.check_alive_players()
 	
 	# Currently, music is handled by the server 
 	# TODO: Music handled by the client

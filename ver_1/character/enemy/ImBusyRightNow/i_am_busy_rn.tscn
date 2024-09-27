@@ -5,6 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://3qhplft0kbjb" path="res://ver_1/character/enemy/ImBusyRightNow/projectile.tscn" id="2_tbsy0"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="3_v5pvs"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lhxmk"]
+radius = 15.0
+height = 50.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_64ogx"]
 atlas = ExtResource("2_dlrcc")
 region = Rect2(0, 0, 32, 32)
@@ -49,10 +53,6 @@ properties/0/replication_mode = 1
 [sub_resource type="CircleShape2D" id="CircleShape2D_15m4i"]
 radius = 15.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lhxmk"]
-radius = 15.0
-height = 50.0
-
 [node name="IAmBusyRn" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 5
@@ -66,6 +66,17 @@ projectile_scene = ExtResource("2_tbsy0")
 max_health = 1000.0
 speed = 30
 dmg = 20.0
+
+[node name="HitBox" type="Area2D" parent="."]
+z_index = 2
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+rotation = 1.5708
+scale = Vector2(2, 2)
+shape = SubResource("CapsuleShape2D_lhxmk")
+debug_color = Color(0, 0.592183, 0.742917, 0.42)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(0, 0, 0, 1)
@@ -81,14 +92,3 @@ rotation = 1.5708
 shape = SubResource("CircleShape2D_15m4i")
 
 [node name="StatusHolder" parent="." instance=ExtResource("3_v5pvs")]
-
-[node name="HitBox" type="Area2D" parent="."]
-z_index = 2
-collision_layer = 4
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-rotation = 1.5708
-scale = Vector2(2, 2)
-shape = SubResource("CapsuleShape2D_lhxmk")
-debug_color = Color(0, 0.592183, 0.742917, 0.42)

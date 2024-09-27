@@ -101,6 +101,8 @@ func move_away_from_target(p_target = null) -> void:
 func shoot_projectile() -> void:
 	if !multiplayer.is_server(): return
 	target = get_closest_target_position()
+	if target == null: return
+	
 	var new_proj : BaseProjectile = projectile_scene.instantiate()
 	new_proj.global_position = global_position
 	new_proj.look_at(target.global_position)

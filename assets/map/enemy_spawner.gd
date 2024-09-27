@@ -169,6 +169,8 @@ func get_enemy_from_id(id : int) -> BaseEnemy:
 
 func on_end_game():
 	$Timer.stop()
+	for enemy : BaseEnemy in spawn_path.get_children():
+		enemy.on_end_game()
 
 #func remove_children(node : Node) -> void:
 	#for child in node.get_children():

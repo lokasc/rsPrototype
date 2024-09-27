@@ -124,3 +124,7 @@ func get_closest_target_position() -> BaseHero:
 			closest_hero = x
 			closest_magnitude = x.global_position.distance_to(self.global_position)
 	return closest_hero
+
+func on_end_game():
+	set_process(false)
+	set_physics_process(false)
