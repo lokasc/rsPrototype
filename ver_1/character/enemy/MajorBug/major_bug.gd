@@ -19,9 +19,12 @@ func _ready() -> void:
 	sprite.play("default")
 	x_scale = sprite.scale.x #Sets initial x scale dimension
 
-func _physics_process(_delta:float) -> void:
+func _physics_process(delta:float) -> void:
 	if can_move == true:
-		move_to_target(target)
+		if use_pathfinding:
+			pathfind_to_target(target, delta)
+		else:
+			move_to_target(target)
 	if frozen:
 		collidebox.disabled = true
 	else:

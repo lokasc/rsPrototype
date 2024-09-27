@@ -10,6 +10,12 @@ signal die # enemy dies here.
 @export var speed : int
 @export var dmg : float
 
+@export_subgroup("Pathfinding")
+@export var path_update_period : float = 1.0
+@export var path_update_rand_offset : float = 1.0
+@export var use_pathfinding : bool = false
+@export var nav : NavigationAgent2D
+
 @export_subgroup("Status")
 @export var can_move : bool
 @export var frozen : bool
@@ -20,6 +26,11 @@ signal die # enemy dies here.
 @export var xp_drop_spread : int
 @onready var loot : Node = get_tree().get_first_node_in_group("loot")
 @onready var xp_orb : Resource = load("res://ver_1/game/spawn_system/experience_orbs.tscn")
+
+var next_path_position : Vector2
+var current_agent_position : Vector2
+var path_wait_time : float = 0
+var prev_target_pos : Vector2
 
 var target : BaseHero
 var sprite
@@ -52,6 +63,13 @@ func _enter_tree() -> void:
 	# assign random time, so enemies dont update all together
 	if multiplayer.is_server():
 		current_update_time = randf_range(0, update_frequency)
+
+func _ready() -> void:
+	super()
+	if use_pathfinding:
+		call_deferred("path_find_set_up")
+		target = get_closest_target_position()
+		prev_target_pos = target.global_position
 
 func take_damage(p_dmg:float) -> void:
 	
@@ -129,3 +147,30 @@ func get_closest_target_position() -> BaseHero:
 func on_end_game():
 	set_process(false)
 	set_physics_process(false)
+
+func get_path_update_period() -> float:
+	var offset = randf_range(0,path_update_rand_offset)
+	return path_update_period + offset
+
+func path_find_set_up() -> void:
+	if nav == null: return
+	await get_tree().physics_frame
+	if target: nav.target_position = target.global_position
+
+func set_path_position(_target : BaseCharacter = null) -> void:
+	if nav == null or _target == null: return
+	if nav.is_navigation_finished(): return
+	nav.target_position = _target.global_position
+	next_path_position = nav.get_next_path_position()
+	current_agent_position = global_position
+	prev_target_pos = target.global_position
+
+func pathfind_to_target(_target : BaseCharacter, _delta : float):
+	if path_wait_time >= get_path_update_period():
+		if target.global_position != prev_target_pos:
+			set_path_position(target)
+			path_wait_time = 0
+			prev_target_pos = target.global_position
+	path_wait_time += _delta
+	velocity = current_agent_position.direction_to(next_path_position) * char_stats.spd
+	move_and_slide()

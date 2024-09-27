@@ -48,15 +48,15 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="MinorBug" type="CharacterBody2D"]
+[node name="MinorBug" type="CharacterBody2D" node_paths=PackedStringArray("nav")]
 z_index = 2
 scale = Vector2(0.2, 0.2)
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_atini")
-max_health = 150
 speed = 50
 dmg = 10.0
+nav = NodePath("NavigationAgent2D")
 xp_drop_spread = 5
 char_name = "Minor Bug"
 
@@ -97,3 +97,7 @@ debug_color = Color(0, 0.592183, 0.742917, 0.42)
 replication_config = SubResource("SceneReplicationConfig_t27sw")
 
 [node name="StatusHolder" parent="." instance=ExtResource("3_q356f")]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+simplify_path = true
+simplify_epsilon = 10.0
