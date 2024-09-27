@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8ojvm7c0x1wr"]
+
+[ext_resource type="Script" path="res://ver_1/character/enemy/boss/Beethoven/special/beethoven_pumpfake.gd" id="1_h056g"]
+[ext_resource type="Curve" uid="uid://d4fypstyestc0" path="res://ver_1/character/enemy/boss/Beethoven/special/dash1_curve.tres" id="2_6nyfq"]
+
+[node name="BeethovenPumpFake" type="Node2D"]
+script = ExtResource("1_h056g")
+y_curve = ExtResource("2_6nyfq")

@@ -17,7 +17,7 @@ extends Control
 @onready var time_label : Label = player_container.find_child("TimeLabel")
 
 # Boss UI
-@onready var boss_health_bar : BossHealthBarUI = player_container.find_child("BossHealthBarUI")
+@onready var boss_health_bar : BossHealthBarUI = player_ui_layer.find_child("BossHealthBarUI")
 
 # Abilities, Stats & Items
 @onready var ability1 : AbilityBoxUI = player_container.find_child("Ability1")

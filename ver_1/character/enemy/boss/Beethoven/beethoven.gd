@@ -6,7 +6,8 @@ extends BaseBoss
 
 @export var idle : BossAbility
 @export var sting : BossAbility 
-@export var dash_n_slash : BossAbility
+@export var pump_fake : BossAbility
+@export var dash : BossAbility
 
 
 func _enter_tree() -> void:
@@ -33,7 +34,8 @@ func _physics_process(delta : float) -> void:
 func _init_states():
 	_parse_abilities(idle)
 	_parse_abilities(sting)
-	_parse_abilities(dash_n_slash)
+	_parse_abilities(pump_fake)
+	_parse_abilities(dash)
 	super()
 
 func on_hit(area : Area2D) -> void:

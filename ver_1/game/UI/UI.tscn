@@ -27,8 +27,15 @@ card_scn = ExtResource("3_26dur")
 
 [node name="PlayerUi" parent="." instance=ExtResource("2_3208f")]
 
-[node name="BossHealthBarUI" parent="PlayerUi/PlayerContainer" index="1" instance=ExtResource("3_nyue8")]
-layout_mode = 2
+[node name="BossHealthBarUI" parent="PlayerUi" instance=ExtResource("3_nyue8")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 176.0
+offset_top = 46.0
+offset_right = 1104.0
+offset_bottom = 94.0
+scale = Vector2(1, 1)
 size_flags_horizontal = 4
 size_flags_vertical = 0
 

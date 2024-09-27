@@ -32,6 +32,7 @@ var current_agent_position : Vector2
 var path_wait_time : float = 0
 var prev_target_pos : Vector2
 
+var move_towards_threshold = 15
 var target : BaseHero
 var sprite
 var x_scale : int
@@ -121,7 +122,7 @@ func move_to_target(p_target = null) -> void:
 	var direction : Vector2 = global_position.direction_to(p_target.global_position)
 	var distance : float = global_position.distance_to(p_target.global_position)
 	
-	if distance < 15:
+	if distance < move_towards_threshold:
 		velocity = Vector2.ZERO
 	else:
 		velocity = direction * char_stats.spd

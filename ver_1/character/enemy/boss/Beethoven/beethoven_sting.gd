@@ -16,17 +16,6 @@ var is_waiting : bool
 
 var current_duration : float = 0
 var max_duration : float
-
-# TODO: Proability of picking a character depends on the distance to the bee
-func choose_player():
-	var closest_player : BaseHero
-	var closest_pos = 1000000
-	
-	for x in GameManager.Instance.players:
-		if closest_pos > global_position.distance_to(x.global_position):
-			closest_player = x
-	
-	return closest_player
 	
 func _enter_tree() -> void:
 	$Area2D.monitoring = false

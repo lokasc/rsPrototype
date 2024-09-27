@@ -291,6 +291,8 @@ func show_ui():
 
 # when we disconnect, we remove the gm scene and reload it in
 func _on_peer_disconnect(_id):
+	# Add disconnect from lobby when restarting
+	
 	if multiplayer.is_server():
 		print("Client: "+ str(_id) + " disconnected")
 	else:

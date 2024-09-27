@@ -1,21 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://deu84e8eevafj"]
+[gd_scene load_steps=2 format=3 uid="uid://deu84e8eevafj"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/Beethoven/beethoven_idle.gd" id="1_enyfn"]
 
-[sub_resource type="Curve2D" id="Curve2D_cfhqh"]
-_data = {
-"points": PackedVector2Array(0, 11.8433, 0, -50, 0, 0, -50, 0, 50, 0, 100, -55, -50, 0, 50, 0, 200, 55, 0, 50, 0, -13.6071, 300, 0)
-}
-point_count = 4
-
-[node name="BeethovenIdle" type="Node2D" node_paths=PackedStringArray("path_follow", "path")]
+[node name="BeethovenIdle" type="Node2D"]
 script = ExtResource("1_enyfn")
-path_follow = NodePath("Path2D/PathFollow2D")
-path = NodePath("Path2D")
-
-[node name="Path2D" type="Path2D" parent="."]
-curve = SubResource("Curve2D_cfhqh")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-rotation = -1.5708
-loop = false
+amplitutde = 0.5
+speed = 200.0
