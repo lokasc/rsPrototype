@@ -21,6 +21,7 @@ func _process(delta):
 	global_position.y += -40 * delta
 	
 func print_ability(_abs):
+	return
 	set_pop(_abs.get_class_name(), get_parent().global_position)
 
 func set_pop (_text : String, _gpos : Vector2, _color : Color = DEFAULT_COLOR, _duration : float = DEFAULT_DURATION):
