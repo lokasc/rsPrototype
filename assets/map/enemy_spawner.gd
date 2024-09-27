@@ -1,10 +1,17 @@
 class_name EnemySpawner
 extends Node2D
 
+@export var spawning_min_range : float = 1
+@export var spawning_max_range : float = 1
+## distance between two player's global position that when greater, would change the spawn type from enveloping viewport to random individual viewports
+@export var switch_spawn_type_distance : int = 1280
+
 #Will change this in next patch
 @export var spawn_path : Node 
 @export var path_path : Node
 @export var spawns: SpawnsResource
+
+
 var player : BaseHero
 var time : int = 0
 
@@ -78,26 +85,45 @@ func get_path_position(path : PackedScene) -> Vector2:
 func get_random_position() -> Vector2:
 	var rect_pos_p1 := Vector2.ZERO
 	var rect_pos_p2 := Vector2.ZERO
-	rect_pos_p1 = GameManager.Instance.players[0].global_position
 	
+	# Spawning Rectangle corners
+	var top_left := Vector2.ZERO
+	var top_right := Vector2.ZERO
+	var bottom_left := Vector2.ZERO
+	var bottom_right := Vector2.ZERO
+	
+	var vpr : Vector2 = Vector2(1280,720) * randf_range(spawning_min_range,spawning_max_range)
+	
+	rect_pos_p1 = GameManager.Instance.players[0].global_position
 	# hot fix for singleplayer
 	if GameManager.Instance.net.MAX_CLIENTS == 1:
 		rect_pos_p2 = GameManager.Instance.players[0].global_position
 	else:
 		rect_pos_p2 = GameManager.Instance.players[1].global_position
 	
-	
-	var vpr : Vector2 = get_viewport_rect().size * randf_range(0.7,1.1)
-	
+	# Setting Viewport rectangles of each player
 	var top_left_p1 : Vector2 = Vector2(rect_pos_p1.x - vpr.x/2, rect_pos_p1.y - vpr.y/2)
-	var top_right_p1 : Vector2 = Vector2(rect_pos_p1.x + vpr.x/2, rect_pos_p1.y - vpr.y/2)
-	var bottom_left_p1 : Vector2 = Vector2(rect_pos_p1.x - vpr.x/2, rect_pos_p1.y + vpr.y/2)
 	var bottom_right_p1 : Vector2 = Vector2(rect_pos_p1.x + vpr.x/2, rect_pos_p1.y + vpr.y/2)
-	
 	var top_left_p2 : Vector2 = Vector2(rect_pos_p2.x - vpr.x/2, rect_pos_p2.y - vpr.y/2)
-	var top_right_p2 : Vector2 = Vector2(rect_pos_p2.x + vpr.x/2, rect_pos_p2.y - vpr.y/2)
-	var bottom_left_p2 : Vector2 = Vector2(rect_pos_p2.x - vpr.x/2, rect_pos_p2.y + vpr.y/2)
 	var bottom_right_p2 : Vector2 = Vector2(rect_pos_p2.x + vpr.x/2, rect_pos_p2.y + vpr.y/2)
+	
+	# Setting the Spawning Rectangle size
+	# Two ways of spawning, 1 is a big rectangle enveloping both viewports, 2 is choosing between individual viewports
+	if rect_pos_p2.distance_to(rect_pos_p1) < switch_spawn_type_distance:
+		top_left.x = top_left_p1.x if top_left_p1.x < top_left_p2.x else top_left_p2.x
+		top_left.y = top_left_p1.y if top_left_p1.y < top_left_p2.y else top_left_p2.y
+		bottom_right.x = bottom_right_p1.x if bottom_right_p1.x > bottom_right_p2.x else bottom_right_p2.x
+		bottom_right.y = bottom_right_p1.y if bottom_right_p1.y > bottom_right_p2.y else bottom_right_p2.y
+		top_right.x = bottom_right.x
+		top_right.y = top_left.y
+		bottom_left.x = top_left.x
+		bottom_left.y = bottom_right.y
+	else:
+		var rect_pos_rand = [rect_pos_p1,rect_pos_p2].pick_random()
+		top_left = Vector2(rect_pos_rand.x - vpr.x/2, rect_pos_rand.y - vpr.y/2)
+		top_right = Vector2(rect_pos_rand.x + vpr.x/2, rect_pos_rand.y - vpr.y/2)
+		bottom_left = Vector2(rect_pos_rand.x - vpr.x/2, rect_pos_rand.y + vpr.y/2)
+		bottom_right = Vector2(rect_pos_rand.x + vpr.x/2, rect_pos_rand.y + vpr.y/2)
 	
 	var pos_side : String = ["up","down","right","left"].pick_random()
 	var spawn_pos1 : Vector2 = Vector2.ZERO
@@ -105,33 +131,17 @@ func get_random_position() -> Vector2:
 	
 	match pos_side:
 		"up":
-			if top_left_p1.length_squared() > top_left_p2.length_squared():
-				spawn_pos1 = top_left_p1
-			else: spawn_pos1 = top_left_p2
-			if top_right_p1.length_squared() > top_right_p2.length_squared():
-				spawn_pos2 = top_right_p1
-			else: spawn_pos1 = top_right_p2
+			spawn_pos1 = top_left
+			spawn_pos2 = top_right
 		"down":
-			if bottom_left_p1.length_squared() > bottom_left_p2.length_squared():
-				spawn_pos1 = bottom_left_p1
-			else: spawn_pos1 = bottom_left_p2
-			if bottom_right_p1.length_squared() > bottom_right_p2.length_squared():
-				spawn_pos2 = bottom_right_p1
-			else: spawn_pos1 = bottom_right_p2
+			spawn_pos1 = bottom_left
+			spawn_pos2 = bottom_right
 		"right":
-			if top_right_p1.length_squared() > top_right_p2.length_squared():
-				spawn_pos1 = top_right_p1
-			else: spawn_pos1 = top_right_p2
-			if bottom_right_p1.length_squared() > bottom_right_p2.length_squared():
-				spawn_pos2 = bottom_right_p1
-			else: spawn_pos1 = bottom_right_p2
+			spawn_pos1 = bottom_right
+			spawn_pos2 = top_right
 		"left":
-			if top_left_p1.length_squared() > top_left_p2.length_squared():
-				spawn_pos1 = top_left_p1
-			else: spawn_pos1 = top_left_p2
-			if bottom_left_p1.length_squared() > bottom_left_p2.length_squared():
-				spawn_pos2 = bottom_left_p1
-			else: spawn_pos1 = bottom_left_p2
+			spawn_pos1 = bottom_left
+			spawn_pos2 = top_left
 	
 	var x_spawn : float = randf_range(spawn_pos1.x, spawn_pos2.x)
 	var y_spawn : float = randf_range(spawn_pos1.y,spawn_pos2.y)
