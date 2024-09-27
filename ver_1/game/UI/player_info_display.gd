@@ -21,7 +21,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if !player: return
 	
-	# Translate to screem space coordinate system
+	# Translate to screan space coordinate system
 	global_position = player.get_screen_transform().origin.clamp(Vector2.ZERO, player.get_viewport_rect().size)
 	global_position += offset
 	

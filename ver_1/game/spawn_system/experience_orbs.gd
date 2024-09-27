@@ -9,6 +9,7 @@ var collected : bool = false
 # Getting the player who collected the xp orb
 var hero : CharacterBody2D
 
+# TODO: Optimize with Object Pooling, Hide() and using physics server
 func _process(_delta: float) -> void:
 	if collected == true:
 		# The movement may be more fancy than just moving towards the players
@@ -19,8 +20,9 @@ func _process(_delta: float) -> void:
 		
 		# Destroys the node when the player within the threshold (prevent floating calcs)
 		
-		if (position - hero.position).length() <= 0.1:
+		if (position - hero.position).length() <= 10:
 			xp_collected.emit()
+			# replace this with hide()..
 			queue_free()
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
