@@ -84,7 +84,7 @@ func _ready() -> void:
 	waiting_lobby.visible = true
 	
 	if no_music:
-		bc.main_music_player.volume_db = -100
+		AudioServer.set_bus_mute(0, true)
 	if quick_leveling:
 		max_xp = 1
 
