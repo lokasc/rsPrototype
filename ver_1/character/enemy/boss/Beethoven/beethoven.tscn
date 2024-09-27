@@ -93,7 +93,6 @@ replication_config = SubResource("SceneReplicationConfig_t27sw")
 
 [node name="WarningIndicator" type="Sprite2D" parent="."]
 visible = false
-self_modulate = Color(1, 0, 0, 1)
 texture = ExtResource("8_8bpn6")
 offset = Vector2(150, 0)
 
