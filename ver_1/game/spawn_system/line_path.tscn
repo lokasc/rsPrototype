@@ -2,7 +2,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_a03dy"]
 _data = {
-"points": PackedVector2Array(-42.255, -2.94314, 0, 0, 100, -300, 0, 0, 0, 0, 100, 300, 0, 0, 0, 0, -100, 300, 0, 0, 0, 0, -100, -300)
+"points": PackedVector2Array(-42.255, -2.94314, 0, 0, 50, -300, 0, 0, 0, 0, 50, 300, 0, 0, 0, 0, -50, 300, 0, 0, 0, 0, -50, -300)
 }
 point_count = 4
 
@@ -11,5 +11,5 @@ scale = Vector2(5, 5)
 curve = SubResource("Curve2D_a03dy")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
-position = Vector2(100, -300)
+position = Vector2(50, -300)
 rotation = 1.5708
