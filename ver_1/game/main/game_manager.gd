@@ -22,7 +22,6 @@ var is_host : bool # this var is so that we can see in testing.
 @export_category("Game Settings")
 @export var action_list : ActionResource
 
-
 signal end_game
 signal start_lvl_up_sequence(item : Array)
 signal end_lvl_up_sequence()
@@ -115,7 +114,6 @@ func start_game():
 	hide_lobby.rpc()
 	is_host = multiplayer.is_server()
 	time = 0
-	is_started = true
 	bc.stc_start_music.rpc(Time.get_unix_time_from_system())
 	if spawn_dummy:
 		# for testing.
@@ -138,6 +136,9 @@ func start_game():
 func hide_lobby():
 	get_node("WaitingLobby").turn_off_lobby()
 	map.visible = true
+	
+	# put this here, so it can be synced by the client as well.
+	is_started = true
 
 func reset_game():
 	current_gm_scene.queue_free()
