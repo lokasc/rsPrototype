@@ -81,7 +81,8 @@ func check_death():
 	if current_health <= 0:
 		death.rpc()
 
-@rpc("reliable", "call_local")
+# unreliable_ordered as XP doesnt have to be exactly position synced.
+@rpc("unreliable_ordered", "call_local")
 func death() -> void:
 	die.emit()
 	for i in range(xp_worth):
