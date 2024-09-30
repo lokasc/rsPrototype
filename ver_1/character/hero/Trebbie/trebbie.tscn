@@ -393,6 +393,7 @@ shape = SubResource("CircleShape2D_fdqo3")
 debug_color = Color(0.578613, 0.518871, 0.52597, 0.42)
 
 [node name="PlayerCamera" parent="." instance=ExtResource("7_wun86")]
+target = NodePath("..")
 
 [node name="TextPopUp" parent="." instance=ExtResource("4_ghe2d")]
 offset_right = 95.0
