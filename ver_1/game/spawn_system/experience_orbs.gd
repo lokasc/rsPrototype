@@ -1,3 +1,4 @@
+class_name XpOrbs
 extends Node2D
 
 signal xp_collected
