@@ -114,10 +114,12 @@ func _ready():
 	if is_multiplayer_authority():
 		# Set this camera to viewport if I'm controlling it
 		camera.make_current()
-		camera.target = self.get_path()
+		camera.target = self
 		
 		# Set UI
 		GameManager.Instance.ui.set_ability_ui()
+	else:
+		camera.target = null
 
 func _process(_delta:float) -> void:
 	if current_state:

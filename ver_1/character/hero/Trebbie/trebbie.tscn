@@ -392,7 +392,7 @@ metadata/_edit_group_ = true
 shape = SubResource("CircleShape2D_fdqo3")
 debug_color = Color(0.578613, 0.518871, 0.52597, 0.42)
 
-[node name="PlayerCamera" parent="." instance=ExtResource("7_wun86")]
+[node name="PlayerCamera" parent="." node_paths=PackedStringArray("target") instance=ExtResource("7_wun86")]
 target = NodePath("..")
 
 [node name="TextPopUp" parent="." instance=ExtResource("4_ghe2d")]

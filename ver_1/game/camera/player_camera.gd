@@ -4,7 +4,7 @@ extends Camera2D
 ## Controls the camera movement & effects. 
 ## Currently, it just follows the player.
 
-@export var target : NodePath #Assign the node this camera will follow.
+@export var target : BaseHero #Assign the node this camera will follow.
 @export var hide_off_screen : bool
 
 @export_subgroup("Optimization")
@@ -18,26 +18,31 @@ func _process(delta:float) -> void:
 	current_update_time += delta
 	
 	if current_update_time >= update_frequency:
-		change_area_shape()
+		#change_area_shape()
 		current_update_time = 0
-	
 
 func _ready():
 	# connect signals if we have a target.
 	if target:
 		$Area2D.area_entered.connect(_on_area_2d_area_entered)
 		$Area2D.area_exited.connect(_on_area_2d_area_exited)
-		
-	visibility_notifier.shape.size = Vector2(1280,720)
+		visibility_notifier.shape.size = Vector2(1280,720)
 
 # May have to do the same to experience orbs
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	if area.get_parent() is BaseEnemy:
-		area.get_parent().show()
+	if !target: return
+	var enemy = area.get_parent()
+	if enemy is BaseEnemy && !enemy.visible:
+		
+		if multiplayer.is_server(): print("Ive shown " + str(enemy))
+		enemy.show()
 
 func _on_area_2d_area_exited(area: Area2D) -> void:
-	if area.get_parent() is BaseEnemy and hide_off_screen:
-		area.get_parent().hide()
+	if !target: return
+	var enemy = area.get_parent()
+	if enemy is BaseEnemy && hide_off_screen && enemy.visible:
+		if multiplayer.is_server(): print("Ive Hidden " + str(enemy))
+		enemy.hide()
 
 func change_area_shape() -> void:
 	var r_width : float # right side calculated width
@@ -113,3 +118,6 @@ func change_area_shape() -> void:
 	# Sets the position and size
 	visibility_notifier.shape.size = Vector2(width, height)
 	visibility_notifier.global_position = visibility_notifier_position
+
+func camera_shake(intensity : float) -> void: 
+	pass
