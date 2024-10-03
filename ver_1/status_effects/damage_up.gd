@@ -5,7 +5,7 @@ var dmg_multiplier : float
 var duration : float
 var duration_time : float
 
-@onready var buff_sprite : CompressedTexture2D = load("res://assets/vfx/buffs/stressmarker.png")
+#@onready var buff_sprite : CompressedTexture2D = load("res://assets/vfx/buffs/stressmarker.png")
 
 var sprite_node : Sprite2D
 var fade_speed : float = 0.5
@@ -40,6 +40,6 @@ func on_removed() -> void:
 
 func create_icon():
 	sprite_node = Sprite2D.new()
-	sprite_node.texture = buff_sprite
+	#sprite_node.texture = buff_sprite
 	holder.add_child(sprite_node)
 	sprite_node.position = offset
