@@ -11,5 +11,8 @@ func on_added():
 func update(_delta:float):
 	return null
 
+func physics_update(_delta:float):
+	return null
+
 func on_removed():
 	return null

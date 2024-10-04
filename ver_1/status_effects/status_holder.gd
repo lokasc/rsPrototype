@@ -13,6 +13,10 @@ func _process(_delta:float):
 	for status : BaseStatus in statuses:
 		status.update(_delta)
 
+func _physics_process(_delta: float) -> void:
+	for status : BaseStatus in statuses:
+		status.physics_update(_delta)
+
 func remove_status(status : BaseStatus):
 	status.on_removed()
 	statuses.erase(status)

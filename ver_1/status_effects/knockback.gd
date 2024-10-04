@@ -32,6 +32,13 @@ func update(_delta:float):
 	if character.position == new_pos:
 		holder.remove_status(self)
 
+func physics_update(_delta:float):
+	return
+	character.velocity = direction * SPEED * kb_speed_multiplier
+	# remove me
+	if character.position.x >= abs(new_pos.x) && character.position.y*-1 > new_pos.y * -1 :
+		holder.remove_status(self)
+
 func on_removed():
 	if character is BaseHero:
 		character.input.canMove = true
