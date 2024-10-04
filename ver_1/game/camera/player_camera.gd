@@ -32,16 +32,15 @@ func _ready():
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if !target: return
 	var enemy = area.get_parent()
-	if enemy is BaseEnemy && !enemy.visible:
-		
-		if multiplayer.is_server(): print("Ive shown " + str(enemy))
+	if (enemy is BaseEnemy || enemy is XpOrbs) && !enemy.visible:
+		#if multiplayer.is_server(): print("Ive shown " + str(enemy))
 		enemy.show()
 
 func _on_area_2d_area_exited(area: Area2D) -> void:
 	if !target: return
 	var enemy = area.get_parent()
-	if enemy is BaseEnemy && hide_off_screen && enemy.visible:
-		if multiplayer.is_server(): print("Ive Hidden " + str(enemy))
+	if (enemy is BaseEnemy || enemy is XpOrbs) && hide_off_screen && enemy.visible:
+		#if multiplayer.is_server(): print("Ive Hidden " + str(enemy))
 		enemy.hide()
 
 func change_area_shape() -> void:
