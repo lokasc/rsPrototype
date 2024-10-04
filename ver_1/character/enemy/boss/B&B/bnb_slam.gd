@@ -7,7 +7,7 @@ extends BossAbility
 
 
 var s_current_time : float = 0
-var active_duration : float = 2
+var active_duration : float = 0.1
 # Use statemachine logic if ability requires it
 # use variable HERO to access hero's variables and functions
 # Emit state_change(self, "new state name") to change out of state. 
@@ -33,7 +33,7 @@ func on_slam_animation_finish() -> void:
 	if is_tgt: change_state_phase_one()
 
 func change_state_phase_one() -> void:
-	printerr(boss.phase)
+	#printerr(boss.phase)
 	if boss.phase == 1:
 		state_change.emit(self, "BnBRing")
 	elif boss.phase == 2:
