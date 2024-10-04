@@ -89,6 +89,6 @@ func spawn_projectile(gpos : Vector2) -> void:
 	copy.look_at(global_position)
 	copy.rotate(deg_to_rad(180-90))
 	
-	spawn_path.add_child(copy, true)
+	GameManager.Instance.net.spawnable_path.add_child(copy, true)
 	# spawn in network node.
 	

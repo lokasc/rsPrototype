@@ -160,6 +160,9 @@ func custom_spawn(file_name, location):
 	spawn_path.add_child(copy, true)
 
 func spawn_boss(_boss : BaseBoss, location : Vector2):
+	# kill all children first.
+	remove_all_children()
+	
 	_boss.global_position = location
 	spawn_path.add_child(_boss, true)
 	GameManager.Instance.ui.stc_set_boss_ui.rpc(_boss.char_id)
@@ -180,6 +183,7 @@ func on_end_game():
 	for enemy : BaseEnemy in spawn_path.get_children():
 		enemy.on_end_game()
 
-#func remove_children(node : Node) -> void:
-	#for child in node.get_children():
-		#child.queue_free()
+
+func remove_all_children() -> void:
+	for x : Node in spawn_path.get_children():
+		x.queue_free()

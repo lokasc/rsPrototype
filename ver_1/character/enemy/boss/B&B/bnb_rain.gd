@@ -6,8 +6,6 @@ extends BossAbility
 @export var is_tgt : bool = false
 @export var projectile_scene : PackedScene
 
-@onready var spawn_path = get_parent().get_parent()
-
 @export_category("Attack settings")
 @export var height : float # How far you drop.
 @export var num_per_attack : int
@@ -101,4 +99,4 @@ func spawn_projectile(gpos : Vector2) -> void:
 	copy.global_position = gpos
 	
 	# spawn in network node for sync
-	spawn_path.add_child(copy, true)
+	GameManager.Instance.net.spawnable_path.add_child(copy, true)
