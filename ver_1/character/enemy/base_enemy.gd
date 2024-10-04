@@ -73,6 +73,7 @@ func _ready() -> void:
 		prev_target_pos = target.global_position
 
 func take_damage(p_dmg:float) -> void:
+	if current_health <= 0: return
 	
 	# calculate dmg dealt to remaining health
 	var dmg_dealt = p_dmg
@@ -80,7 +81,7 @@ func take_damage(p_dmg:float) -> void:
 		dmg_dealt = current_health
 	
 	if multiplayer.is_server():
-		current_health -= p_dmg
+		current_health -= p_dmg 
 		hit.emit(p_dmg)
 	
 	GameManager.Instance.vfx.spawn_pop_up(get_instance_id(), int(dmg_dealt), global_position)

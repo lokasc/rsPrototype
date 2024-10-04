@@ -54,6 +54,7 @@ scale = Vector2(0.2, 0.2)
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_atini")
+max_health = 200.0
 speed = 50
 dmg = 10.0
 nav = NodePath("NavigationAgent2D")
