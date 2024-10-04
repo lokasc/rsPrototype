@@ -51,6 +51,12 @@ func on_state_change(state_old, state_new_name:String):
 	current_state = new_state
 
 func state_change_from_any(state_new_name : String):
+	if state_new_name == "null":
+		current_state.exit()
+		current_state = null
+		return
+	
+	
 	var new_state = states.get(state_new_name.to_lower())
 	if !new_state:
 		return

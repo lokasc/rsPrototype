@@ -38,6 +38,8 @@ func change_state_phase_one() -> void:
 		state_change.emit(self, "BnBRing")
 	elif boss.phase == 2:
 		state_change.emit(self, "BnBRain")
+	elif boss.phase == 3:
+		boss.state_change_from_any("null")
 
 
 func _on_slam_area_hit(area: Area2D) -> void:

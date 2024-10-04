@@ -47,8 +47,10 @@ func _process(delta: float) -> void:
 	if current_health <= max_health/3 &&( phase == 1 || phase == 2 ):
 		phase = 3
 		printerr("Going to phase 3!")
-		current_state.exit()
-		current_state = null
+		state_change_from_any("BnBSlam")
+		
+		# slam again and then bring the rain and rings in.
+		
 		rain.enter()
 		ring.enter()
 
