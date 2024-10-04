@@ -36,6 +36,7 @@ func update(delta:float) -> void:
 func on_removed() -> void:
 	if character is BaseHero:
 		character.char_stats.atk_mul /= dmg_multiplier
+		character.char_stats.atk_mul = max(1, character.char_stats.atk_mul)
 		#sprite_node.queue_free()
 
 func create_icon():

@@ -19,6 +19,7 @@ extends BaseAbility
 @export_category("Beat Sync Stats")
 ## the area multiplier of the hitbox
 @export var beat_sync_multiplier : float
+@export var recast_buff_inc : float
 
 ## The time window where it checks if the player pressed the same ability button and it's on beat for a recast
 @export var recast_window : float
@@ -140,7 +141,12 @@ func on_hit(area : Area2D) -> void:
 	if character == null: return
 	
 	# may do additional recast logic here
-	character.add_status("DamageUp", [dmg_multiplier, status_duration * hero.char_stats.dur])
+	if recast > 0:
+		character.add_status("DamageUp", [recast_buff_inc, status_duration * hero.char_stats.dur])
+	else:
+		character.add_status("DamageUp", [dmg_multiplier, status_duration * hero.char_stats.dur])
+	
+	
 	character.add_status("HealShieldGainUp", [hsg_multiplier, status_duration * hero.char_stats.dur])
 
 # Increments level by 1, override virtual func to change upgrade logic.
@@ -165,6 +171,7 @@ func start_recast_logic() -> void:
 				state_change.emit(self, "TrebbieAttack")
 
 func recast_ability():
+	recast += 1
 	hitbox_shape.shape.radius *= beat_sync_multiplier * hero.char_stats.mus
 	hitbox.visible = true
 	hitbox.monitoring = true
@@ -173,7 +180,6 @@ func recast_ability():
 	buff_particles.process_material.scale *= beat_sync_multiplier * hero.char_stats.mus
 	duration_time = 0
 	recast_timer.start(recast_window)
-	recast += 1
 	if recast > recast_amount - 1:
 		beat_visual.hide()
 		beat_visual2.hide()
