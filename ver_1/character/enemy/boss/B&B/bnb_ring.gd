@@ -40,20 +40,19 @@ func exit() -> void:
 func update(_delta: float) -> void:
 	super(_delta)
 	if is_resting:
-		current_rest_time = 0
 		current_rest_time += _delta
 		
 		# Change to atk state.
 		if current_rest_time >= rest_time:
 			attack_count = 0
 			is_resting = false
+			current_rest_time = 0
 	else:
 		# attacking for atk_time seconds.
 		current_atk_time += _delta
 		current_time += _delta
 
 		if current_time >= 1/frequency:
-			attack_count += 1
 			spawn_pattern()
 			current_time = 0
 		
@@ -86,7 +85,8 @@ func spawn_pattern() -> void:
 	if !multiplayer.is_server(): return
 	
 	if attack_count == 1:
-		shotgun_pattern()
+		#shotgun_pattern()
+		ring_pattern()
 	else:
 		ring_pattern()
 
