@@ -42,8 +42,11 @@ func _ready() -> void:
 
 # do not get a new enemy per second 
 func _process(delta: float) -> void:
+	super(delta)
 	pass
 
+func process_get_enemy(delta) -> void:
+	return
 
 func _physics_process(_delta:float) -> void:
 	if can_move == true:

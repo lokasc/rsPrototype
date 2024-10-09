@@ -3,6 +3,7 @@ extends BaseCharacter
 
 signal hit(dmg) # hit by enemy
 signal die # enemy dies here.
+signal status_applied # When a new status is applied.
 
 # For inspector view only, cant modify class stats in inspector. 
 @export_category("Basic information")
@@ -41,6 +42,13 @@ var x_scale : int
 @export var update_frequency : float = 3
 var current_update_time : float = 0
 
+@export_subgroup("Juice")
+@export var flash_time : float = 0.15
+var flash_current_time : float
+var is_flashing : bool = false
+var original_modulation : Color
+
+
 ## Base class for all enemy types.
 ## Has a position and health.
 
@@ -67,6 +75,7 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	super()
+	hit.connect(flash_sprite)
 	if use_pathfinding:
 		call_deferred("path_find_set_up")
 		target = get_closest_target_position()
@@ -82,19 +91,15 @@ func take_damage(p_dmg:float) -> void:
 	
 	if multiplayer.is_server():
 		current_health -= p_dmg 
-		hit.emit(p_dmg)
 	
+	hit.emit(p_dmg) # this is to signify that something has been hit.
 	GameManager.Instance.vfx.spawn_pop_up(get_instance_id(), int(dmg_dealt), global_position)
 	check_death()
 
 func _process(delta: float) -> void:
 	#print(str(multiplayer.is_server()) + " : " + str(current_health))
-	
-	current_update_time += delta
-	
-	if current_update_time >= update_frequency:
-		target = get_closest_target_position()
-		current_update_time = 0
+	process_get_enemy(delta)
+	process_flash(delta)
 
 func check_death():
 	if !multiplayer.is_server(): return
@@ -176,3 +181,25 @@ func pathfind_to_target(_target : BaseCharacter, _delta : float):
 	path_wait_time += _delta
 	velocity = current_agent_position.direction_to(next_path_position) * char_stats.spd
 	move_and_slide()
+
+func flash_sprite(p_dmg):
+	original_modulation = sprite.self_modulate
+	sprite.self_modulate = Color(1,0,0)
+	flash_current_time = flash_time
+	is_flashing = true
+
+func process_get_enemy(delta):
+	current_update_time += delta
+	
+	if current_update_time >= update_frequency:
+		target = get_closest_target_position()
+		current_update_time = 0
+
+# Counts down to 0, when it does modulates sprite back to normal.
+func process_flash(delta):
+	# Stop timer activity when countdown finishes.
+	if is_flashing:
+		flash_current_time -= delta
+		if flash_current_time <= 0:
+			sprite.self_modulate = original_modulation
+			is_flashing = false

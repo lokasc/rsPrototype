@@ -77,6 +77,7 @@ func get_multiplied_atk() -> float:
 	return int(hero.get_atk_mul() * a_stats.atk)
 
 func lifesteal(dmg_dealt : float) -> void:
+	if !multiplayer.is_server(): return
 	hero.gain_health(dmg_dealt * hero.char_stats.lifesteal)
 
 func add_beat() -> void:

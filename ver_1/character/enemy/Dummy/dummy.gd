@@ -25,7 +25,11 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	# display my health please thank u very much
+	super(delta)
 	$Label.text = str(current_health)
+
+func process_get_enemy(delta):
+	return
 
 func on_hit(area : Area2D):
 	if !multiplayer.is_server(): return
