@@ -10,7 +10,6 @@ extends BaseBoss
 # 6. if current_health <= max_health/3
 # 7. Ability1: SLAM
 # 8. Ability4: RAINFALL + Ring.
-# 9. Die, go back to china.
 
 @onready var hitbox : Area2D = $HitBox
 @onready var collidebox : CollisionShape2D = $CollisionBox
@@ -32,6 +31,7 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	super()
+	sprite = $Sprites
 
 func _process(delta: float) -> void:
 	if frozen:
