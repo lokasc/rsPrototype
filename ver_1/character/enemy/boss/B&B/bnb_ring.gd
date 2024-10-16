@@ -28,11 +28,14 @@ var is_resting : bool = false
 
 var attack_count : int
 
+@export var spawn_time_array : Array[float] = [0.25, 0.375, 0.5, 1.25]
+var rand_color = 0
 
 func enter() -> void:
 	super()
 	attack_count = 0
-	current_time = 1/frequency
+	current_time = 0
+	rand_color = 0
 	
 func exit() -> void:
 	super() # starts cd here.
@@ -47,14 +50,16 @@ func update(_delta: float) -> void:
 			attack_count = 0
 			is_resting = false
 			current_rest_time = 0
+			current_time = 0
 	else:
 		# attacking for atk_time seconds.
 		current_atk_time += _delta
 		current_time += _delta
-
-		if current_time >= 1/frequency:
+		
+		if !(attack_count >= spawn_time_array.size()) && current_time >= spawn_time_array[attack_count]:
 			spawn_pattern()
-			current_time = 0
+			#print(attack_count,": ",current_time)
+			attack_count += 1
 		
 		# change to rest state.
 		if current_atk_time >= atk_time:
@@ -79,16 +84,20 @@ func ring_pattern() -> void:
 		rotation_vec = Vector2.UP.rotated(rand_rotation)
 		spawn_position = global_position + offset_from_center * rotation_vec
 		spawn_projectile(spawn_position)
+	rand_color += 1
+	rand_color = rand_color%4
 	pass
 
 func spawn_pattern() -> void:
 	if !multiplayer.is_server(): return
 	
-	if attack_count == 1:
-		#shotgun_pattern()
-		ring_pattern()
-	else:
-		ring_pattern()
+	ring_pattern()
+	# SCOPE CREEP
+	#if attack_count == 1:
+		##shotgun_pattern()
+		#ring_pattern()
+	#else:
+		#ring_pattern()
 
 func spawn_projectile(gpos : Vector2) -> void:
 	var copy = projectile_scene.instantiate()
@@ -103,6 +112,13 @@ func spawn_projectile(gpos : Vector2) -> void:
 	copy.look_at(global_position)
 	copy.rotate(deg_to_rad(180-90))
 	
+	if rand_color == 0:
+		copy.modulate = Color(255,0,0)
+	if rand_color == 1:
+		copy.modulate = Color(0,255,0)
+	if rand_color == 2:
+		copy.modulate = Color(0,0,255)
+	
+	
 	GameManager.Instance.net.spawnable_path.add_child(copy, true)
 	# spawn in network node.
-	

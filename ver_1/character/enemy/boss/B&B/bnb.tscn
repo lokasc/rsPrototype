@@ -69,11 +69,12 @@ dmg = 20.0
 
 [node name="BnBRing" parent="." instance=ExtResource("4_lyvfk")]
 is_tgt = true
-num_per_attack = 20
+num_per_attack = 35
 offset_from_center = 10.0
 frequency = 2.0
 rest_time = 2.0
 atk_time = 2.0
+speed = 110.0
 
 [node name="Sprites" type="Node2D" parent="."]
 scale = Vector2(3, 3)
