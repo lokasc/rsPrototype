@@ -183,7 +183,14 @@ func pathfind_to_target(_target : BaseCharacter, _delta : float):
 	move_and_slide()
 
 func flash_sprite(p_dmg):
-	original_modulation = sprite.self_modulate
+	
+	# this line of code ensures that the red flash modulation is not copied
+	# when enemy gets hit again during the flashing animation. 
+	if original_modulation && original_modulation != sprite.self_modulate:
+		pass
+	else:
+		original_modulation = sprite.self_modulate
+	
 	sprite.self_modulate = Color(1,0,0)
 	flash_current_time = flash_time
 	is_flashing = true
