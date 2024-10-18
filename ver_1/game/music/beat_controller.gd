@@ -30,7 +30,10 @@ enum BG_TRANSITION_TYPE {
 	EARLY_GAME,	#global -> all should hear
 	MID_GAME,	#global
 	LATE_GAME,	#global
-	BOSS,	# global
+	BNB_INTRO,	# global (this directly leads to p1.)
+	BNB_P2,
+	BNB_P3,
+	BNB_FILL,
 	LOW_HP, # local -> only player can hear it
 	DEAD,  # local
 	}
@@ -66,16 +69,18 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if !is_playing: return
 	process_actual_audio_time()
+	
+	if Input.is_action_just_pressed("attack"):
+		print(prev_beat, " : ", get_current_beat_time_elapsed(), " INPUT")
 
 ## Is the current moment on beat? (Accounting for grace)
 func is_on_beat() -> bool:
 	#print(str(multiplayer.is_server()) + " - Current_time: " + str(current_beat_time))
-	if get_time_til_next_beat() <= grace_time || get_time_til_next_beat() >= beat_duration - grace_time:
-		#print("on beat %f" % get_time_til_next_beat())
+	if get_current_beat_time_elapsed() <= grace_time || get_current_beat_time_elapsed() >= beat_duration - grace_time:
+		#print("on beat %f" % get_current_beat_time_elapsed())
 		return true
 	else:
-		#print("not on beat %f" % get_time_til_next_beat())
-		
+		#print("not on beat %f" % get_current_beat_time_elapsed())
 		return false 
 
 
@@ -95,7 +100,6 @@ func start_music(start_position : float = 0) -> void:
 
 ## Calculates if exactly on beat and accounts for audio delay.
 func process_actual_audio_time(): 
-	
 	# when play() is executed, its not actually excuted immediately,
 	# the function starts the mixing of a chunk of the song and thus
 	# you can then hear it: therefore you need to get the "time to next mix"
@@ -125,11 +129,12 @@ func process_beat() -> void:
 	if prev_beat >= current_beat: return
 	#print("emited")
 	
+	#print(prev_beat, " : ", get_current_beat_time_elapsed())
 	prev_beat = current_beat
 	on_beat.emit()
 
-# returns time_til_next_beat as a float between 0.0 - 0.5, with 0.0 being onbeat
-func get_time_til_next_beat() -> float:
+# returns time enslapased in the current beat, 0.0-0.5 where 0.0 is onbeat
+func get_current_beat_time_elapsed() -> float:
 	if time == null: return 0
 	var time_til_next_beat: float = clamp(time - floor(time) , 0, 1)
 	
@@ -137,6 +142,17 @@ func get_time_til_next_beat() -> float:
 	if time_til_next_beat >= 0.5:
 		time_til_next_beat = clamp(time - int(time) - 0.5 , 0, 1)
 	return time_til_next_beat
+
+# returns the time remaining until the next bar (float)
+func get_time_til_next_bar() -> float:
+	# get the amount of time left in this beat
+	var remaining_time = 0.5 - get_current_beat_time_elapsed()
+	
+	# calculate remaining beats after this beat. (-1 cuz do not account for current beat)
+	var remaining_beats = max(4 - 1 - current_beat%4, 0)
+	
+	# Returned value may not be exact due to processing time
+	return remaining_time + remaining_beats * 0.5
 #endregion
 
 
@@ -207,17 +223,47 @@ func change_bg(type : BG_TRANSITION_TYPE) -> void:
 			
 			playback.switch_to_clip_by_name("early_bgm")
 			current_bg_clip = type
-		BG_TRANSITION_TYPE.BOSS: # rpc call
+			
+		BG_TRANSITION_TYPE.BNB_INTRO: 
 			if multiplayer.is_server(): stc_change_bg_music.rpc(type)
 			current_global_bg_clip = type
 			
 			if !is_current_clip_global(): return
 			
-			playback.switch_to_clip_by_name("early_bgm")
+			playback.switch_to_clip_by_name("bnb_intro")
 			current_bg_clip = type
+			
+		BG_TRANSITION_TYPE.BNB_FILL: 
+			if multiplayer.is_server(): stc_change_bg_music.rpc(type)
+			current_global_bg_clip = type
+			
+			if !is_current_clip_global(): return
+			
+			playback.switch_to_clip_by_name("bnb_fill")
+			current_bg_clip = type
+		
+		BG_TRANSITION_TYPE.BNB_P2: 
+			if multiplayer.is_server(): stc_change_bg_music.rpc(type)
+			current_global_bg_clip = type
+			
+			if !is_current_clip_global(): return
+			
+			playback.switch_to_clip_by_name("bnb_p2")
+			current_bg_clip = type
+		
+		BG_TRANSITION_TYPE.BNB_P3: 
+			if multiplayer.is_server(): stc_change_bg_music.rpc(type)
+			current_global_bg_clip = type
+			
+			if !is_current_clip_global(): return
+			
+			playback.switch_to_clip_by_name("bnb_p3")
+			current_bg_clip = type
+		
 		BG_TRANSITION_TYPE.LOW_HP:
 			current_bg_clip = type
 			playback.switch_to_clip_by_name("early_bgm_death")
+			
 		BG_TRANSITION_TYPE.DEAD:
 			current_bg_clip = type
 		_:

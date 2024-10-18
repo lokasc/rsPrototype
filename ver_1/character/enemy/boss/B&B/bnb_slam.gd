@@ -18,6 +18,9 @@ func enter() -> void:
 	super()
 	slam_area.monitoring = true
 	slam_area.get_child(0).debug_color = Color("ff8bffcf")
+	
+	# calculate fill time and phase 1 changes
+	calculate_fill_time()
 
 func update(delta) -> void:
 	s_current_time += delta
@@ -30,17 +33,19 @@ func exit() -> void:
 	s_current_time = 0
 
 func on_slam_animation_finish() -> void:
-	if is_tgt: change_state_phase_one()
+	if is_tgt: 
+		change_state_phase_one()
 
 func change_state_phase_one() -> void:
 	#printerr(boss.phase)
 	if boss.phase == 1:
 		state_change.emit(self, "BnBRing")
 	elif boss.phase == 2:
+		#GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.BNB_P2)
 		state_change.emit(self, "BnBRain")
 	elif boss.phase == 3:
+		GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.BNB_P3)
 		boss.state_change_from_any("null")
-
 
 func _on_slam_area_hit(area: Area2D) -> void:
 	if !multiplayer.is_server(): return
@@ -52,3 +57,20 @@ func _on_slam_area_hit(area: Area2D) -> void:
 		
 	if !character: return 	# do not execute on non-characters or nulls
 	character.add_status("Knockback", [slam_range-(character.global_position.distance_to(global_position)), global_position, 12])
+
+# changes the duration of the slam. 
+func calculate_fill_time() -> void:
+	if !is_tgt: return
+	match boss.phase:
+		1:
+			var intro_duration = 8
+			active_duration = intro_duration
+			GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.BNB_INTRO)
+			
+		2:
+			GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.BNB_FILL)
+			active_duration = GameManager.Instance.bc.get_time_til_next_bar()
+		3:
+			GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.BNB_FILL)
+			GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.BNB_P2)
+			active_duration = GameManager.Instance.bc.get_time_til_next_bar()
