@@ -142,7 +142,6 @@ func update(_delta: float) -> void:
 		beat_sync_logic()
 		if current_charge_time > recast_timestamps[note_count]:
 			note_count += 1
-		print(note_count)
 	hero.input.ability_1 = false
 
 func beat_sync_logic():
