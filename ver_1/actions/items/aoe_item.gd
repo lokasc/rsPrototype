@@ -8,6 +8,8 @@ extends BaseItem
 @export_category("Ascended")
 @export var heal_amount : float
 
+@onready var sprite : Sprite2D = $Sprite2D
+
 var enemies_in_hitbox : Array[BaseEnemy] = []
 var current_time : float
 
@@ -55,7 +57,7 @@ func _ready() -> void:
 	
 	#hitbox_shape.debug_color = Color.WEB_GREEN
 	
-	hitbox_shape.shape.radius = area_of_effect
+	hitbox_shape.shape.radius = a_stats.aoe
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	var enemy : BaseEnemy = area.get_parent() as BaseEnemy
@@ -72,12 +74,13 @@ func _on_hit_box_area_exited(area: Area2D) -> void:
 		enemies_in_hitbox.erase(enemy)
 
 func set_item_stats():
-	a_stats.atk = damage_per_tick * hero.char_stats.maxhp/100
+	a_stats.atk = damage_per_tick * hero.char_stats.atk/hero.initial_damage
 	a_stats.cd = initial_tick_time * hero.char_stats.cd
 	a_stats.aoe = area_of_effect * hero.char_stats.aoe 
 	hitbox_shape.shape.radius = a_stats.aoe
 	
 	desc = "Damages nearby enemies by " + change_text_color(str(snapped(a_stats.atk,0.01)),"cyan") + " every " + change_text_color(str(snapped(a_stats.cd,0.01)),"cyan") + " seconds."
+	sprite.scale = Vector2.ONE * a_stats.aoe * 0.2
 
 func ascended_ability():
 	hero.gain_health(heal_amount)

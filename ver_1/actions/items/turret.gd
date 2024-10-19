@@ -31,6 +31,7 @@ func _ready() -> void:
 	hitbox.monitoring = true
 	hitbox.area_entered.connect(_on_hit_box_area_entered)
 	hitbox.area_exited.connect(_on_hit_box_area_exited)
+	$AoESprite2D.scale = Vector2.ONE * turret_range * 0.02
 
 func _update(delta) -> void:
 	current_time += delta
