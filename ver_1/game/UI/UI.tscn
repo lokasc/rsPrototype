@@ -41,6 +41,7 @@ offset_bottom = 94.0
 scale = Vector2(1, 1)
 size_flags_horizontal = 4
 size_flags_vertical = 0
+time_to_full = 4.0
 
 [node name="CharSelectLayer" type="CanvasLayer" parent="."]
 
