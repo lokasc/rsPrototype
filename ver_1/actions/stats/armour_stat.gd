@@ -16,3 +16,4 @@ func _upgrade():
 	hero.char_stats.arm += amount_per_upgrade
 	#print("I upgraded my hp to %i", hero.char_stats.maxhp)
 	desc = "Armour\n" + str((1+amount_per_upgrade)*10*level)
+	set_hero_items_stats()

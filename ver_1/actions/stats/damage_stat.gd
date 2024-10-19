@@ -16,3 +16,4 @@ func _upgrade():
 	hero.char_stats.atk += int(amount_per_upgrade)
 	#print("I upgraded my hp to %i", hero.char_stats.atk)
 	desc = "Damage\n" + "+"+ str(level*amount_per_upgrade)
+	set_hero_items_stats()

@@ -16,3 +16,4 @@ func _upgrade():
 	hero.char_stats.spd += int(amount_per_upgrade)
 	#print("I upgraded my hp to %i", hero.char_stats.maxhp)
 	desc = "Speed\n" + "+" + str(snapped(level*amount_per_upgrade/150*100,1)) +"%"
+	set_hero_items_stats()

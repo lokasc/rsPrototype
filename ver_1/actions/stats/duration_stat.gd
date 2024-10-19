@@ -17,3 +17,4 @@ func _upgrade():
 	hero.char_stats.dur += amount_per_upgrade
 	#print("I upgraded my hp to %i", hero.char_stats.maxhp)
 	desc = "Duration\n" + "+" + str(level*amount_per_upgrade*100) +"%"
+	set_hero_items_stats()

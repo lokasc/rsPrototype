@@ -16,3 +16,4 @@ func _upgrade():
 	hero.char_stats.pick += amount_per_upgrade
 	#print("I upgraded my hp to %i", hero.char_stats.maxhp)
 	desc = "Pickup Radius\n" + "+" + str(level*amount_per_upgrade*100) +"%"
+	set_hero_items_stats()

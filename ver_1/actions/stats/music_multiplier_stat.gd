@@ -16,3 +16,4 @@ func _upgrade():
 	hero.char_stats.mus += amount_per_upgrade
 	#print("I upgraded my hp to %i", hero.char_stats.maxhp)
 	desc = "Music Multiplier\n" + "+" + str(level*amount_per_upgrade*100) +"%"
+	set_hero_items_stats()
