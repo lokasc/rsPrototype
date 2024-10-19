@@ -57,22 +57,28 @@ Vector2i(2, 3): {
 "from_time": 1,
 "to_time": 1
 },
-Vector2i(3, 6): {
+Vector2i(3, 4): {
 "fade_beats": 0,
 "fade_mode": 0,
 "from_time": 0,
+"to_time": 0
+},
+Vector2i(3, 6): {
+"fade_beats": 0,
+"fade_mode": 0,
+"from_time": 2,
 "to_time": 1
 },
 Vector2i(4, 6): {
 "fade_beats": 0,
 "fade_mode": 0,
-"from_time": 0,
+"from_time": 2,
 "to_time": 1
 },
 Vector2i(5, 6): {
 "fade_beats": 0,
 "fade_mode": 0,
-"from_time": 0,
+"from_time": 2,
 "to_time": 1
 },
 Vector2i(6, 4): {

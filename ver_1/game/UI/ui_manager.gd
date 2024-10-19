@@ -18,6 +18,7 @@ extends Control
 
 # Boss UI
 @onready var boss_health_bar : BossHealthBarUI = player_ui_layer.find_child("BossHealthBarUI")
+@onready var cinematic_bars = player_ui_layer.find_child("CinematicBars")
 
 # Abilities, Stats & Items
 @onready var ability1 : AbilityBoxUI = player_container.find_child("Ability1")
@@ -46,6 +47,7 @@ func _ready() -> void:
 	hide_player_ui()
 	update_max_xp(GameManager.Instance.max_xp)
 	boss_health_bar.visible = false
+	cinematic_bars.visible = false
 
 func update_xp(xp : int):
 	level_bar.value = xp
@@ -156,6 +158,7 @@ func set_stat_ui(_stat : BaseStatCard, hero : BaseHero):
 
 #endregion
 
+#region boss_ui
 func set_boss_ui(_boss : BaseBoss):
 	boss_health_bar.set_up(_boss)
 	boss_health_bar.visible = true
@@ -165,3 +168,17 @@ func stc_set_boss_ui(id : int):
 	# get boss from id.
 	var _boss = GameManager.Instance.spawner.get_enemy_from_id(id)
 	set_boss_ui(_boss)
+
+
+# Turns everything off in player container but the timer.
+func turn_on_cinematic_bars():
+	for x in player_ui_layer.get_children():
+		x.visible = false
+	cinematic_bars.visible = true
+	boss_health_bar.visible = true
+
+func turn_off_cinematic_bars():
+	for x in player_ui_layer.get_children():
+		x.visible = true
+	cinematic_bars.visible = false
+#endregion

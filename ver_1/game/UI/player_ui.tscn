@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://di3afbvqsygw0"]
+[gd_scene load_steps=11 format=3 uid="uid://di3afbvqsygw0"]
 
 [ext_resource type="PackedScene" uid="uid://dowgychr7wgj2" path="res://ver_1/vfx/beat_visualizer_lines.tscn" id="1_7vfam"]
 [ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://assets/UI/rs_theme.tres" id="1_kc8fy"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://1qhg1e7k11m1" path="res://ver_1/game/UI/bottom_ui/ability_box_ui.tscn" id="4_ourxg"]
 [ext_resource type="PackedScene" uid="uid://c15g2l1arshqn" path="res://ver_1/game/UI/bottom_ui/base_box_ui.tscn" id="4_xv54i"]
 [ext_resource type="PackedScene" uid="uid://ddkcw1u2xi1ok" path="res://ver_1/vfx/audiovisualizer.tscn" id="5_4g6wq"]
+[ext_resource type="Texture2D" uid="uid://bj87if3xp5tym" path="res://assets/common/icon.svg" id="8_hdevh"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_w6xs3"]
 
@@ -77,6 +78,7 @@ offset_right = 1280.0
 offset_bottom = 720.0
 
 [node name="TimeLabel" type="Label" parent="PlayerContainer"]
+z_index = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
@@ -213,3 +215,26 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.15
+
+[node name="CinematicBars" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -851.0
+offset_right = -811.0
+offset_bottom = 40.0
+scale = Vector2(24.32, 1)
+
+[node name="TextureRect" type="TextureRect" parent="CinematicBars"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("8_hdevh")
+
+[node name="TextureRect2" type="TextureRect" parent="CinematicBars"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_top = 592.0
+offset_right = 128.0
+offset_bottom = 720.0
+texture = ExtResource("8_hdevh")

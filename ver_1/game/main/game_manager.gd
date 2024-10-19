@@ -342,3 +342,23 @@ func is_local_player(id : int):
 		return true
 	else:
 		return false
+
+func boss_cinematic_camera_move(_gpos : Vector2, time : float, delay : float = 0):
+	tween_camera_to_pos(_gpos, time, delay)
+	ui.turn_on_cinematic_bars()
+
+
+# tweens the player's camera to a given position, pauses for x seconds, then instantly goes back to the original position
+func tween_camera_to_pos(_gpos : Vector2, time : float, delay : float = 0):
+	var player_cam = local_player.camera
+	var tween = player_cam.create_tween()
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(local_player.camera, "global_position", _gpos, time)
+	tween.tween_property(player_cam, "global_position", player_cam.global_position, 0).set_delay(delay)
+	tween.finished.connect(reset_cam_pos)
+
+func reset_cam_pos():
+	local_player.camera.position = Vector2.ZERO
+	ui.turn_off_cinematic_bars()
+	

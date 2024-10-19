@@ -20,6 +20,7 @@ extends BaseBoss
 @export var ring : BossAbility
 
 var phase : int = 1
+var p3_slam_ended : bool = false # this bool is triggered by slam as theres no way to know when slam ends and start p3 update logic
 
 func _init() -> void:
 	super()
@@ -39,7 +40,7 @@ func _process(delta: float) -> void:
 	
 	super(delta)
 	
-	if phase == 3 && current_health >= 0:
+	if phase == 3 && current_health >= 0 && p3_slam_ended:
 		phase_three_logic(delta)
 		return
 	

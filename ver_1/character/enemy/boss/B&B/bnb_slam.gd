@@ -41,11 +41,10 @@ func change_state_phase_one() -> void:
 	if boss.phase == 1:
 		state_change.emit(self, "BnBRing")
 	elif boss.phase == 2:
-		#GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.BNB_P2)
 		state_change.emit(self, "BnBRain")
 	elif boss.phase == 3:
-		GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.BNB_P3)
 		boss.state_change_from_any("null")
+		(boss as BeethovenAndBiano).p3_slam_ended = true
 
 func _on_slam_area_hit(area: Area2D) -> void:
 	if !multiplayer.is_server(): return
@@ -66,11 +65,23 @@ func calculate_fill_time() -> void:
 			var intro_duration = 8
 			active_duration = intro_duration
 			GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.BNB_INTRO)
+			GameManager.Instance.boss_cinematic_camera_move(self.global_position, 4, 4)
 			
 		2:
+			# Set the piano scream/battlecry for the remaining time left + mp3 fill time.
+			active_duration = GameManager.Instance.bc.get_time_til_next_bar() + 4
 			GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.BNB_FILL)
-			active_duration = GameManager.Instance.bc.get_time_til_next_bar()
+			
+			# Turns on auto-advance for fill and go to phase 2 right after
+			GameManager.Instance.bc.interactive_resource.set_clip_auto_advance(6 ,AudioStreamInteractive.AUTO_ADVANCE_ENABLED)
+			GameManager.Instance.bc.interactive_resource.set_clip_auto_advance_next_clip(6, 4)
+			GameManager.Instance.boss_cinematic_camera_move(self.global_position, active_duration-4, 4)
 		3:
+			# Set the piano scream/battlecry for the remaining time left + mp3 fill time.
+			active_duration = GameManager.Instance.bc.get_time_til_next_bar() + 4
 			GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.BNB_FILL)
-			GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.BNB_P2)
-			active_duration = GameManager.Instance.bc.get_time_til_next_bar()
+			
+			# Turns on auto-advance for fill and go to phase 3 right after
+			GameManager.Instance.bc.interactive_resource.set_clip_auto_advance(6 ,AudioStreamInteractive.AUTO_ADVANCE_ENABLED)
+			GameManager.Instance.bc.interactive_resource.set_clip_auto_advance_next_clip(6, 5)
+			GameManager.Instance.boss_cinematic_camera_move(self.global_position, active_duration-4, 4)
