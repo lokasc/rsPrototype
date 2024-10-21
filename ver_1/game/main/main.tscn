@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://ver_1/game/main/main.gd" id="1_1mqlp"]
 [ext_resource type="Texture2D" uid="uid://cssofedi35duh" path="res://assets/heroes/trebbie/Trebbie.png" id="2_xonf2"]
 [ext_resource type="Theme" uid="uid://bi5qmx7rssrn2" path="res://assets/UI/rs_theme.tres" id="3_qq7n7"]
-[ext_resource type="PackedScene" uid="uid://b3ouif0d4g8f0" path="res://ver_1/game/main/game_manager.tscn" id="4_444we"]
+[ext_resource type="PackedScene" uid="uid://dqajjxcxn42ii" path="res://ver_1/game/main/game_manager.tscn" id="4_444we"]
 
 [node name="Main" type="Node" node_paths=PackedStringArray("main_control_node", "main_vbox", "play_options", "join_lobby_container", "use_steam_button", "play_button", "join_button", "setting_button", "quit_button")]
 script = ExtResource("1_1mqlp")
@@ -110,6 +110,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 3.71
 
 [node name="HostButton" type="Button" parent="MainMenuUI/SplashScreenUI/PlayOptionsContainer"]
+z_index = 100
 layout_mode = 2
 size_flags_vertical = 6
 theme = ExtResource("3_qq7n7")
@@ -120,6 +121,7 @@ alignment = 0
 vertical_icon_alignment = 2
 
 [node name="SPButton" type="Button" parent="MainMenuUI/SplashScreenUI/PlayOptionsContainer"]
+z_index = 100
 layout_mode = 2
 size_flags_vertical = 6
 theme = ExtResource("3_qq7n7")
@@ -160,6 +162,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="TitleScreen" type="Control" parent="MainMenuUI"]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
