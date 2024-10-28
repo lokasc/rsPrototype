@@ -48,6 +48,8 @@ func on_state_change(state_old, state_new_name:String):
 		current_state.exit()
 	
 	new_state.enter()
+	
+	#print("State Change! ",current_state, " : ", new_state)
 	current_state = new_state
 
 func state_change_from_any(state_new_name : String):

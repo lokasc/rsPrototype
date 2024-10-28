@@ -161,7 +161,8 @@ func custom_spawn(file_name, location):
 
 func spawn_boss(_boss : BaseBoss, location : Vector2):
 	# kill all children first.
-	remove_all_children()
+	if multiplayer.is_server():
+		remove_all_children()
 	
 	_boss.global_position = location
 	spawn_path.add_child(_boss, true)
@@ -183,7 +184,8 @@ func on_end_game():
 	for enemy : BaseEnemy in spawn_path.get_children():
 		enemy.on_end_game()
 
-
+# removes every child that is not a boss
 func remove_all_children() -> void:
 	for x : Node in spawn_path.get_children():
+		if x is BaseBoss: continue
 		x.queue_free()

@@ -23,9 +23,7 @@ var old_position
 var curve_position
 
 # Beethoven dashes forward piercing you and slashes towards you
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
+# max length needed -> If the maximum length of this is reached, we do not extend further.
 
 func enter() -> void:
 	super()
@@ -40,6 +38,7 @@ func enter() -> void:
 func exit() -> void:
 	super()
 	time = 0
+	boss.hide_warning.emit()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func update(delta: float) -> void:

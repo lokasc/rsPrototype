@@ -1,20 +1,21 @@
-[gd_scene load_steps=13 format=3 uid="uid://b7wg1bew4jfy7"]
+[gd_scene load_steps=14 format=3 uid="uid://b7wg1bew4jfy7"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/Beethoven/beethoven.gd" id="1_a4kde"]
-[ext_resource type="PackedScene" uid="uid://ck6a1wk6xj4e2" path="res://ver_1/character/enemy/boss/Beethoven/beethoven_sting.tscn" id="2_2fnb1"]
+[ext_resource type="PackedScene" uid="uid://ck6a1wk6xj4e2" path="res://ver_1/character/enemy/boss/Beethoven/bee_zoning_strike.tscn" id="2_2fnb1"]
 [ext_resource type="PackedScene" uid="uid://deu84e8eevafj" path="res://ver_1/character/enemy/boss/Beethoven/beethoven_idle.tscn" id="2_6tg8c"]
 [ext_resource type="Texture2D" uid="uid://m0w7duynn73" path="res://assets/bosses/bee/bee.png" id="2_fa11c"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="3_g7paf"]
 [ext_resource type="PackedScene" uid="uid://b8ojvm7c0x1wr" path="res://ver_1/character/enemy/boss/Beethoven/special/beethoven_pumpfake.tscn" id="4_g6vtx"]
 [ext_resource type="PackedScene" uid="uid://c4rt4xx1w00se" path="res://ver_1/character/enemy/boss/Beethoven/beethoven_dash.tscn" id="5_c0de1"]
+[ext_resource type="PackedScene" uid="uid://dihaydwgwur6d" path="res://ver_1/character/enemy/boss/Beethoven/bee_bodyguard.tscn" id="6_asokl"]
 [ext_resource type="Texture2D" uid="uid://dc3v3w646tlvf" path="res://assets/common/indicators/WarningIndication.png" id="8_8bpn6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8h38y"]
 radius = 140.357
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1m36h"]
-radius = 175.0
-height = 350.0
+radius = 180.0
+height = 410.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_papkv"]
 radius = 80.0
@@ -25,20 +26,21 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Beethoven" type="CharacterBody2D" node_paths=PackedStringArray("idle", "sting", "pump_fake", "dash", "indicator", "main_state")]
+[node name="Beethoven" type="CharacterBody2D" node_paths=PackedStringArray("indicator", "idle", "zoning_strike", "bodyguard", "pump_fake", "dash", "main_state")]
 scale = Vector2(0.2, 0.2)
 disable_mode = 1
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_a4kde")
+indicator = NodePath("WarningIndicator")
 idle = NodePath("BeethovenIdle")
-sting = NodePath("BeethovenSting")
+zoning_strike = NodePath("ZoningStrike")
+bodyguard = NodePath("BeeBodyguard")
 pump_fake = NodePath("BeethovenPumpFake")
 dash = NodePath("BeethovenDash")
-indicator = NodePath("WarningIndicator")
 main_state = NodePath("BeethovenIdle")
 max_health = 5000.0
-speed = 50
+speed = 100
 dmg = 1.0
 char_name = "Beethoven"
 
@@ -48,15 +50,19 @@ off_time_after_attack = 1.0
 amplitutde = 1.0
 speed = 100.0
 
-[node name="BeethovenSting" parent="." instance=ExtResource("2_2fnb1")]
-charge_speed = 5.0
+[node name="ZoningStrike" parent="." instance=ExtResource("2_2fnb1")]
 
 [node name="BeethovenPumpFake" parent="." instance=ExtResource("4_g6vtx")]
 
 [node name="BeethovenDash" parent="." instance=ExtResource("5_c0de1")]
 desired_time = 2.0
 
+[node name="BeeBodyguard" parent="." instance=ExtResource("6_asokl")]
+scale = Vector2(1, 1)
+dive_speed = 1000.0
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(70, -10)
 texture = ExtResource("2_fa11c")
 offset = Vector2(0, 3)
 region_enabled = true
@@ -72,6 +78,7 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(30, -5)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_1m36h")
 debug_color = Color(0.930156, 0.224969, 0.360381, 0.42)

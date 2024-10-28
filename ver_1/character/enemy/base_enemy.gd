@@ -20,6 +20,7 @@ signal status_applied # When a new status is applied.
 @export_subgroup("Status")
 @export var can_move : bool
 @export var frozen : bool
+@export var invulnerable : bool
 
 # XP & Loot
 @export_subgroup("XP")
@@ -82,6 +83,7 @@ func _ready() -> void:
 		prev_target_pos = target.global_position
 
 func take_damage(p_dmg:float) -> void:
+	if invulnerable: return
 	if current_health <= 0: return
 	
 	# calculate dmg dealt to remaining health

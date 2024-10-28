@@ -81,8 +81,6 @@ func spawn_near_players() -> void:
 			spawn_position = player.global_position + rand_position
 			spawn_position.y -= height
 			spawn_projectile(spawn_position)
-	
-	
 
 func spawn_projectile(gpos : Vector2) -> void:
 	var copy = projectile_scene.instantiate()

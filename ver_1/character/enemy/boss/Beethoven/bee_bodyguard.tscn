@@ -1,0 +1,128 @@
+[gd_scene load_steps=17 format=3 uid="uid://dihaydwgwur6d"]
+
+[ext_resource type="Script" path="res://ver_1/character/enemy/boss/Beethoven/bee_bodyguard.gd" id="1_wh5ea"]
+[ext_resource type="Texture2D" uid="uid://deyt8maiuob5" path="res://assets/vfx/BassheartLanding_Effect.png" id="2_5aqv4"]
+[ext_resource type="Shader" path="res://ver_1/vfx/shaders/energy_shield.gdshader" id="2_iaent"]
+[ext_resource type="Texture2D" uid="uid://bj87if3xp5tym" path="res://assets/common/icon.svg" id="3_14vr4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xtrd"]
+atlas = ExtResource("2_5aqv4")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cu7ej"]
+atlas = ExtResource("2_5aqv4")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6uab2"]
+atlas = ExtResource("2_5aqv4")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_myc0o"]
+atlas = ExtResource("2_5aqv4")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dutu"]
+atlas = ExtResource("2_5aqv4")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghcpk"]
+atlas = ExtResource("2_5aqv4")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmdcj"]
+atlas = ExtResource("2_5aqv4")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_al0f8"]
+atlas = ExtResource("2_5aqv4")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jmf1e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8xtrd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cu7ej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6uab2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_myc0o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dutu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghcpk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmdcj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_al0f8")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_msne2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3too6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_67tb3"]
+shader = ExtResource("2_iaent")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/outer_radius = 0.08
+shader_parameter/inner_radius = 0.03
+shader_parameter/fade_effect_amount = 0.01
+
+[node name="BeeBodyguard" type="Node2D"]
+script = ExtResource("1_wh5ea")
+bodyguard_duration = 2.0
+dive_dmg = 80.0
+dive_min_offset = 100.0
+dive_cutoff = 400.0
+
+[node name="AreaDive" type="Area2D" parent="."]
+scale = Vector2(95, 95)
+collision_mask = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AreaDive"]
+self_modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_jmf1e")
+frame = 7
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDive"]
+shape = SubResource("CircleShape2D_msne2")
+debug_color = Color(2.88785e-07, 0.542505, 0.179859, 0.42)
+
+[node name="AreaBodyguard" type="Area2D" parent="."]
+scale = Vector2(50, 50)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaBodyguard"]
+shape = SubResource("CircleShape2D_3too6")
+debug_color = Color(0.953074, 3.85046e-07, 0.555419, 0.42)
+
+[node name="ShieldSprite" type="Sprite2D" parent="AreaBodyguard"]
+visible = false
+material = SubResource("ShaderMaterial_67tb3")
+texture = ExtResource("3_14vr4")
+
+[node name="LingerTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="BGTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="area_entered" from="AreaDive" to="." method="_on_area_dive_area_entered"]
+[connection signal="area_entered" from="AreaBodyguard" to="." method="_on_area_bodyguard_area_entered"]
+[connection signal="timeout" from="LingerTimer" to="." method="_on_linger_timer_timeout"]
+[connection signal="timeout" from="BGTimer" to="." method="_on_bg_timer_timeout"]

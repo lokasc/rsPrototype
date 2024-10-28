@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://ck6a1wk6xj4e2"]
+
+[ext_resource type="Script" path="res://ver_1/character/enemy/boss/Beethoven/bee_zoning_strike.gd" id="1_a1g3o"]
+[ext_resource type="Texture2D" uid="uid://dts18jrswqs08" path="res://assets/bosses/bee/zoning_strike_indicator.png" id="2_6p0bj"]
+
+[node name="ZoningStrike" type="Node2D"]
+script = ExtResource("1_a1g3o")
+initial_dmg = 60.0
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(301, 1, 213, 262, 576, 624, 987, 170, 982, -241, 604, -647, 245, -371)
+
+[node name="ZoningStrikeIndicator" type="Sprite2D" parent="Area2D"]
+z_index = -1
+position = Vector2(820, -34)
+rotation = 3.14159
+scale = Vector2(30, 30)
+texture = ExtResource("2_6p0bj")
+
+[node name="WaitTimer" type="Timer" parent="."]
+
+[node name="LingerTimer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]
+[connection signal="timeout" from="LingerTimer" to="." method="_on_linger_timer_timeout"]
