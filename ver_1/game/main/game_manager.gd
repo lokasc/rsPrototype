@@ -118,7 +118,7 @@ func start_game():
 	bc.stc_start_music.rpc(Time.get_unix_time_from_system())
 	if spawn_dummy:
 		# for testing.
-		spawner.custom_spawn("res://ver_1/character/enemy/Dummy/dummy.tscn", Vector2(651,335))
+		spawner.custom_spawn("res://ver_1/character/enemy/Dummy/dummy.tscn", Vector2(0,0))
 		#spawner.custom_spawn("res://ver_1/character/enemy/MajorBug/major_bug.tscn", Vector2(651,335))
 		#spawner.custom_spawn("res://ver_1/character/enemy/MinorBug/minor_bug.tscn", Vector2(651,235))
 		spawner.custom_spawn("res://ver_1/character/enemy/Shooter/shooter.tscn", Vector2(651,132))
@@ -343,10 +343,15 @@ func is_local_player(id : int):
 	else:
 		return false
 
+# Turns on cinematic bars and tween camera.
 func boss_cinematic_camera_move(_gpos : Vector2, time : float, delay : float = 0):
 	tween_camera_to_pos(_gpos, time, delay)
 	ui.turn_on_cinematic_bars()
 
+# Shakes all players camera by given strength and fade (how long it returns to normal)
+# Time to completion= strength/fade
+func screen_shake(strength : float, fade : float):
+	local_player.camera.start_shake(strength, fade)
 
 # tweens the player's camera to a given position, pauses for x seconds, then instantly goes back to the original position
 func tween_camera_to_pos(_gpos : Vector2, time : float, delay : float = 0):
@@ -358,7 +363,7 @@ func tween_camera_to_pos(_gpos : Vector2, time : float, delay : float = 0):
 	tween.tween_property(player_cam, "global_position", player_cam.global_position, 0).set_delay(delay)
 	tween.finished.connect(reset_cam_pos)
 
+
 func reset_cam_pos():
 	local_player.camera.position = Vector2.ZERO
 	ui.turn_off_cinematic_bars()
-	
