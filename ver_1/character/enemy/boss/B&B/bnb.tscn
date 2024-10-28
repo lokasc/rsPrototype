@@ -49,7 +49,7 @@ ring = NodePath("BnBRing")
 main_state = NodePath("BnBSlam")
 max_health = 10000.0
 dmg = 100.0
-char_name = "Beethoven & Biano"
+char_name = "BnB"
 
 [node name="BnBSlam" parent="." instance=ExtResource("2_7nmc2")]
 is_tgt = true

@@ -35,9 +35,6 @@ func _ready() -> void:
 	sprite = $Sprites
 
 func _process(delta: float) -> void:
-	if frozen:
-		return
-	
 	super(delta)
 	
 	if phase == 3 && current_health >= 0 && p3_slam_ended:
