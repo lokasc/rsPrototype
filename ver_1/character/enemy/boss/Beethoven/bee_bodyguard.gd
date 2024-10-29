@@ -62,6 +62,10 @@ func physics_update(_delta: float) -> void:
 			$LingerTimer.stop()
 			$LingerTimer.start(dive_hitbox_linger_time)
 			$AreaDive.monitoring = true
+			
+			# Show visuals and check if playing already.
+			$AreaDive/AnimatedSprite2D.stop()
+			$AreaDive/AnimatedSprite2D.visible = true
 			$AreaDive/AnimatedSprite2D.play()
 
 # returns the mid of point of all points within a radius (+ extra edge cases)
