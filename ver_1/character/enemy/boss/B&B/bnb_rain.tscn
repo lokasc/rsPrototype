@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://cioljtydwmxxg"]
+[gd_scene load_steps=3 format=3 uid="uid://cioljtydwmxxg"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/bnb_rain.gd" id="1_17pv8"]
+[ext_resource type="PackedScene" uid="uid://dx20go3g8f7e3" path="res://ver_1/character/enemy/boss/B&B/bnb_projectile.tscn" id="2_eo06f"]
 
 [node name="BnBRain" type="Node2D"]
 script = ExtResource("1_17pv8")
+projectile_scene = ExtResource("2_eo06f")
+
+[node name="BianoWaitTimer" type="Timer" parent="."]
+one_shot = true

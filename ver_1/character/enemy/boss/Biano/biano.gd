@@ -2,10 +2,12 @@ class_name Biano
 extends BaseBoss
 
 signal request_assistance
+signal died
 
-@export_category("Mechanics")
-
-@export var ring : BossAbility
+@export_subgroup("abilities")
+@export var idle : BossAbility
+@export var covering_fire : BossAbility
+@export var rain : BossAbility # use BnBRain to switch due to file name
 
 @export_subgroup("Stress Heuristic")
 @export var cutoff : float # how much can I take. 
@@ -18,6 +20,7 @@ signal request_assistance
 
 @onready var hitbox : Area2D = $HitBox
 @onready var collidebox : CollisionShape2D = $CollisionBox
+
 var ally : BaseBoss
 
 func _enter_tree() -> void:
@@ -29,16 +32,21 @@ func _ready() -> void:
 	super()
 	init_duo_signals()
 	sprite = $Sprite2D
+	x_scale = sprite.scale.x
 
 # process your states here
 func _process(delta: float) -> void:
 	super(delta)
+	
 	if Input.is_action_just_pressed("attack"):
+		return
 		request_assistance.emit()
 
 #override this to add your states in 
 func _init_states():
-	_parse_abilities(ring)
+	_parse_abilities(idle)
+	_parse_abilities(covering_fire)
+	_parse_abilities(rain)
 	super()
 
 func on_hit(area : Area2D) -> void:

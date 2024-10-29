@@ -6,6 +6,10 @@ extends BossAbility
 @export var is_tgt : bool = false
 @export var projectile_scene : PackedScene
 
+@export_group("Biano Specific")
+@export var wait_time : float # this is long it takes for Biano to "shoot" it into the skies and then the tiles show up.
+
+
 @export_category("Attack settings")
 @export var height : float # How far you drop.
 @export var num_per_attack : int
@@ -19,26 +23,27 @@ extends BossAbility
 @export var num_per_player : int
 @export var range_from_player : float
 
-
 @export_category("Projectile settings")
 @export var speed : float
 @export var dmg : float
 
 func enter() -> void:
 	super()
-	current_time = 1/frequency
+	if is_tgt:
+		$BianoWaitTimer.play()
+		pass
+	else:
+		current_time = 1/frequency
 	
 func exit() -> void:
 	super() # starts cd here.
 
 func update(_delta: float) -> void:
 	super(_delta)
-	
-	current_time += _delta
-	if current_time >= 1/frequency:
-		spawn_pattern()
-		spawn_near_players()
-		current_time = 0
+	if is_tgt:
+		biano_update_loop(_delta)
+	else:
+		bnb_update_loop(_delta)
 
 
 ###
@@ -98,3 +103,19 @@ func spawn_projectile(gpos : Vector2) -> void:
 	
 	# spawn in network node for sync
 	GameManager.Instance.net.spawnable_path.add_child(copy, true)
+
+func bnb_update_loop(_delta : float) -> void:
+	current_time += _delta
+	if current_time >= 1/frequency:
+		spawn_pattern()
+		spawn_near_players()
+		current_time = 0
+
+
+#region falling tiles attack (Biano normal attack)
+func biano_update_loop(_delta :float) -> void:
+	pass
+
+func biano_spawn_pattern():
+	pass
+#endregion

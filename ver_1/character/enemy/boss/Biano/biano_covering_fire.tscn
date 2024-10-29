@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://db0dofn3ah4i5"]
+
+[ext_resource type="Script" path="res://ver_1/character/enemy/boss/Biano/biano_covering_fire.gd" id="1_d0jd1"]
+[ext_resource type="PackedScene" uid="uid://dx20go3g8f7e3" path="res://ver_1/character/enemy/boss/B&B/bnb_projectile.tscn" id="2_h4gfn"]
+
+[node name="BianoCoveringFire" type="Node2D"]
+script = ExtResource("1_d0jd1")
+projectile_scene = ExtResource("2_h4gfn")
+p_dmg = 80.0
+p_spd = 200.0
