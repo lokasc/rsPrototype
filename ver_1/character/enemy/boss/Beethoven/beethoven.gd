@@ -35,9 +35,10 @@ func _ready() -> void:
 
 # process your states here
 func _process(delta: float) -> void:
-	if frozen: return
-	
 	super(delta)
+	
+	if Input.is_action_just_pressed("attack"):
+		request_assistance.emit()
 
 func _physics_process(delta : float) -> void:
 	if frozen: return
@@ -66,12 +67,11 @@ func assign_duo_boss():
 	other.ally = self
 	ally = other
 
-# initialize signals that require connection between duos
-# after ally has been assigned.
+
 func init_duo_signals():
 	if ally == null: return
 	ally.request_assistance.connect(on_request_assistance)
-	pass
+	ally.init_duo_signals() # IMPORTANT: BIANO MUST SPAWN BEFORE BEETHOVEN
 
 # Displays warning symbol when about to attack.
 func on_show_warning(pos, seconds) -> void:

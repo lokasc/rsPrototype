@@ -8,11 +8,14 @@ signal died
 @export var idle : BossAbility
 @export var covering_fire : BossAbility
 @export var rain : BossAbility # use BnBRain to switch due to file name
+@export var escape : BossAbility
 
 @export_subgroup("Stress Heuristic")
 @export var cutoff : float # how much can I take. 
 @export var hit_frequency : int # How many times I get hit consequetively.
 @export var hit_time_frame : float # How long am I checking for?
+
+
 
 # array and time stamps. 
 # hm not actually too sure then here, ill have to think but its an array that leads to 
@@ -22,6 +25,8 @@ signal died
 @onready var collidebox : CollisionShape2D = $CollisionBox
 
 var ally : BaseBoss
+
+
 
 func _enter_tree() -> void:
 	super()
@@ -39,7 +44,6 @@ func _process(delta: float) -> void:
 	super(delta)
 	
 	if Input.is_action_just_pressed("attack"):
-		return
 		request_assistance.emit()
 
 #override this to add your states in 
@@ -47,6 +51,7 @@ func _init_states():
 	_parse_abilities(idle)
 	_parse_abilities(covering_fire)
 	_parse_abilities(rain)
+	_parse_abilities(escape)
 	super()
 
 func on_hit(area : Area2D) -> void:
@@ -62,7 +67,14 @@ func assign_duo_boss():
 	ally = other
 
 func try_follow_up():
-	pass
+	# maybe we want a heuristic? 
+	# if we are in the falling biano state we cannot do it. 
+	# Scope Creep: We can only do it if biano finishes firing the tiles.
+	
+	if current_state.name == "BianoEscapeFall": return
+	
+	
+	state_change_from_any("BianoCoveringFire")
 
 func on_request_assistance(): 
 	pass

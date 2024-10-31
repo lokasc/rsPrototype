@@ -8,7 +8,13 @@ extends BossAbility
 
 @export_group("Biano Specific")
 @export var wait_time : float # this is long it takes for Biano to "shoot" it into the skies and then the tiles show up.
+@export var biano_num_per_attack : int
 
+@export_subgroup("Motar Visuals")
+@export var num_of_visuals : int
+@export var visual_time_between : float
+@export var visual_tile_speed : float
+@export var tile_visual : Sprite2D
 
 @export_category("Attack settings")
 @export var height : float # How far you drop.
@@ -27,16 +33,26 @@ extends BossAbility
 @export var speed : float
 @export var dmg : float
 
+var visual_count
+
 func enter() -> void:
 	super()
 	if is_tgt:
-		$BianoWaitTimer.play()
-		pass
+		$BianoWaitTimer.start(wait_time)
+		$GPUParticles2D.visible = true
+		spawn_visual()
+		visual_count = 1
+		$SpawnVisualsTimer.start(visual_time_between)
 	else:
 		current_time = 1/frequency
 	
 func exit() -> void:
-	super() # starts cd here.
+	super()
+	$BianoWaitTimer.stop()
+	$AfterProjectileTimer.stop()
+	$SpawnVisualsTimer.stop()
+	$GPUParticles2D.visible = false
+	$GPUParticles2D.emitting = false
 
 func update(_delta: float) -> void:
 	super(_delta)
@@ -78,7 +94,7 @@ func spawn_near_players() -> void:
 	var rotation_vec : Vector2
 	
 	for player in GameManager.Instance.players:
-		for x in num_per_player:
+		for x in biano_num_per_attack:
 			# Add a random position point within range.
 			rand_position.x = randf_range(-range_from_player, range_from_player)
 			rand_position.y = randf_range(-range_from_player, range_from_player)
@@ -116,6 +132,51 @@ func bnb_update_loop(_delta : float) -> void:
 func biano_update_loop(_delta :float) -> void:
 	pass
 
+# For each player, we spawn a few around them.
 func biano_spawn_pattern():
+	if !multiplayer.is_server(): return
+	
+	var spawn_position : Vector2
+	var rand_rotation : float
+	var rand_position : Vector2
+	var rotation_vec : Vector2
+	
+	for player in GameManager.Instance.players:
+		for x in biano_num_per_attack:
+			# Add a random position point within range.
+			rand_position.x = randf_range(-range_from_player, range_from_player)
+			rand_position.y = randf_range(-range_from_player, range_from_player)
+			
+			spawn_position = player.global_position + rand_position
+			spawn_position.y -= height
+			spawn_projectile(spawn_position)
+	$AfterProjectileTimer.start(height/speed)
+	#print("waiting to drop!")
+
+func _on_biano_wait_timer_timeout() -> void:
+	biano_spawn_pattern()
+
+func _on_after_projectile_timer_timeout() -> void:
+	state_change.emit(self, "BianoIdle")
 	pass
+
 #endregion
+
+#region falling tiles motar animation
+
+
+func spawn_visual() -> void:
+	var copy : NonInteractiveProjectile = tile_visual.duplicate()
+	copy.set_projectile_stats(0, visual_tile_speed, 20)
+	add_child(copy, true)
+	copy.visible = true
+	$GPUParticles2D.emitting = true
+	$GPUParticles2D.restart()
+
+func _on_spawn_visuals_timer_timeout() -> void:
+	spawn_visual()
+	visual_count += 1
+	if visual_count >= num_of_visuals:
+		$SpawnVisualsTimer.stop()
+#endregion
+# When the projectile lands we go back.

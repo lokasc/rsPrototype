@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="3_q0mwj"]
 [ext_resource type="PackedScene" uid="uid://db0dofn3ah4i5" path="res://ver_1/character/enemy/boss/Biano/biano_covering_fire.tscn" id="3_qy6rg"]
 [ext_resource type="PackedScene" uid="uid://cioljtydwmxxg" path="res://ver_1/character/enemy/boss/B&B/bnb_rain.tscn" id="4_0x53s"]
-[ext_resource type="PackedScene" uid="uid://dx20go3g8f7e3" path="res://ver_1/character/enemy/boss/B&B/bnb_projectile.tscn" id="5_vi7fo"]
+[ext_resource type="PackedScene" uid="uid://yw7j6gt8ycx8" path="res://ver_1/character/enemy/boss/Biano/biano_escape_fall.tscn" id="5_grjrp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8h38y"]
 radius = 140.089
@@ -24,25 +24,44 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Biano" type="CharacterBody2D" node_paths=PackedStringArray("idle", "covering_fire", "main_state")]
+[node name="Biano" type="CharacterBody2D" node_paths=PackedStringArray("idle", "covering_fire", "rain", "escape", "main_state")]
 scale = Vector2(0.2, 0.2)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_yh4o6")
 idle = NodePath("BianoIdle")
 covering_fire = NodePath("BianoCoveringFire")
+rain = NodePath("BnBRain")
+escape = NodePath("BianoEscapeFall")
 main_state = NodePath("BianoIdle")
 max_health = 5000.0
+dmg = 10.0
 char_name = "Biano"
 
 [node name="BianoIdle" parent="." instance=ExtResource("2_0ep1u")]
 fear_distance = 50.0
 
 [node name="BianoCoveringFire" parent="." instance=ExtResource("3_qy6rg")]
+p_spd = 500.0
 
 [node name="BnBRain" parent="." instance=ExtResource("4_0x53s")]
+position = Vector2(0, -130)
 is_tgt = true
-projectile_scene = ExtResource("5_vi7fo")
+wait_time = 1.5
+biano_num_per_attack = 10
+num_of_visuals = 5
+visual_time_between = 0.25
+visual_tile_speed = 200.0
+height = 100.0
+offset_from_center = 200.0
+range_from_player = 125.0
+speed = 80.0
+dmg = 20.0
+
+[node name="GPUParticles2D" parent="BnBRain" index="3"]
+scale = Vector2(15, 15)
+
+[node name="BianoEscapeFall" parent="." instance=ExtResource("5_grjrp")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_3cjxf")
@@ -75,3 +94,5 @@ debug_color = Color(0, 0.592183, 0.742917, 0.42)
 replication_config = SubResource("SceneReplicationConfig_t27sw")
 
 [node name="StatusHolder" parent="." instance=ExtResource("3_q0mwj")]
+
+[editable path="BnBRain"]

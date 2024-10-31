@@ -46,15 +46,15 @@ func decide_attack() -> void:
 	# check for both players, if too close we jump away
 	#for x in GameManager.Instance.players:
 		#if global_position.distance_to(x.global_position) <= fear_distance:
-			#state_change.emit(self, "EscapeFall")
+			#state_change.emit(self, "BianoEscapeFall")
 			#return
 	
 	
 	last_used_atk = boss.idle
+	
+	#state_change.emit(self, "BnBRain")
 	#state_change.emit(self, "BianoCoveringFire")
-	 
-	#assign last used attack after emit change. 
-
+	state_change.emit(self, "BianoEscapeFall")
 
 # if the player is not in range, we check after a interval 
 func check_if_player_in_range() -> void:

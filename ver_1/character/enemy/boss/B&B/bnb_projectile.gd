@@ -15,7 +15,7 @@ extends Node2D
 var dist_travelled : float = 0
 var initial_boss_atk : float
 var boss_atk : float
-# we will try to reuse this piece of code for both pRojectiles.
+# we will try to reuse this piece of code for both projectiles.
 
 func _enter_tree() -> void:
 	pass

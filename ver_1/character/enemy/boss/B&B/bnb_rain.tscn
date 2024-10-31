@@ -1,11 +1,58 @@
-[gd_scene load_steps=3 format=3 uid="uid://cioljtydwmxxg"]
+[gd_scene load_steps=8 format=3 uid="uid://cioljtydwmxxg"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/bnb_rain.gd" id="1_17pv8"]
 [ext_resource type="PackedScene" uid="uid://dx20go3g8f7e3" path="res://ver_1/character/enemy/boss/B&B/bnb_projectile.tscn" id="2_eo06f"]
+[ext_resource type="Texture2D" uid="uid://b5hgx2w4bvoc6" path="res://assets/bosses/bnb/PianoKeys.png" id="3_tvf7g"]
+[ext_resource type="Script" path="res://ver_1/character/enemy/non_interactive_projectile.gd" id="4_uq1ms"]
 
-[node name="BnBRain" type="Node2D"]
+[sub_resource type="Curve" id="Curve_8j0k3"]
+max_value = 1.5
+_data = [Vector2(0, 1.5), 0.0, 0.0, 0, 0, Vector2(0.520561, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0w6jt"]
+curve = SubResource("Curve_8j0k3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d6lhf"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 60.0
+initial_velocity_min = 57.59
+initial_velocity_max = 83.45
+gravity = Vector3(0, 100, 0)
+scale_min = 5.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_0w6jt")
+
+[node name="BnBRain" type="Node2D" node_paths=PackedStringArray("tile_visual")]
 script = ExtResource("1_17pv8")
 projectile_scene = ExtResource("2_eo06f")
+tile_visual = NodePath("TileVisual")
 
 [node name="BianoWaitTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="AfterProjectileTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="SpawnVisualsTimer" type="Timer" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_d6lhf")
+lifetime = 0.8
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+
+[node name="TileVisual" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_tvf7g")
+hframes = 4
+frame = 3
+script = ExtResource("4_uq1ms")
+
+[connection signal="timeout" from="BianoWaitTimer" to="." method="_on_biano_wait_timer_timeout"]
+[connection signal="timeout" from="AfterProjectileTimer" to="." method="_on_after_projectile_timer_timeout"]
+[connection signal="timeout" from="SpawnVisualsTimer" to="." method="_on_spawn_visuals_timer_timeout"]

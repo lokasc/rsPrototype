@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://yw7j6gt8ycx8"]
+
+[ext_resource type="Script" path="res://ver_1/character/enemy/boss/Biano/biano_escape_fall.gd" id="1_yotmh"]
+[ext_resource type="Texture2D" uid="uid://v8a8trryuops" path="res://assets/bosses/HitCircles.png" id="2_sbbhh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bccri"]
+radius = 35.8232
+
+[node name="BianoEscapeFall" type="Node2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_yotmh")
+hitbox_end_scale = 20
+fly_time = 1.0
+sky_move_time = 2.0
+time_to_fall = 1.0
+
+[node name="Container" type="Node2D" parent="."]
+
+[node name="HitBox" type="Area2D" parent="Container"]
+scale = Vector2(0.656, 0.301)
+collision_layer = 0
+collision_mask = 2
+
+[node name="ShadowSprite" type="Sprite2D" parent="Container/HitBox"]
+texture = ExtResource("2_sbbhh")
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Container/HitBox"]
+shape = SubResource("CircleShape2D_bccri")
