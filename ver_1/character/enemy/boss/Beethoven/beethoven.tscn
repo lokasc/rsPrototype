@@ -38,6 +38,7 @@ zoning_strike = NodePath("ZoningStrike")
 bodyguard = NodePath("BeeBodyguard")
 pump_fake = NodePath("BeethovenPumpFake")
 dash = NodePath("BeethovenDash")
+weight_2 = 0.2
 main_state = NodePath("BeethovenIdle")
 max_health = 5000.0
 speed = 100

@@ -157,8 +157,12 @@ func _on_biano_wait_timer_timeout() -> void:
 	biano_spawn_pattern()
 
 func _on_after_projectile_timer_timeout() -> void:
-	state_change.emit(self, "BianoIdle")
-	pass
+	if boss.falling_tiles_count >= 3:
+		state_change.emit(self, "BianoIdle")
+		return
+	else:
+		boss.falling_tiles_count += 1
+		state_change.emit(self, "BnBRain")
 
 #endregion
 

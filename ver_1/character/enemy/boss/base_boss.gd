@@ -1,6 +1,8 @@
 class_name BaseBoss
 extends BaseEnemy
 
+signal changed_from_idle
+
 @export_category("Attacks")
 @export var main_state : BossAbility
 
@@ -44,6 +46,8 @@ func on_state_change(state_old, state_new_name:String):
 	if !new_state:
 		return
 	
+	check_change_from_idle(new_state)
+	
 	if current_state:
 		current_state.exit()
 	
@@ -63,8 +67,16 @@ func state_change_from_any(state_new_name : String):
 	if !new_state:
 		return
 	
+	check_change_from_idle(new_state)
+	
 	if current_state:
 		current_state.exit()
 	
 	new_state.enter()
 	current_state = new_state
+
+# a conditional to check for changed_from_idle signal
+func check_change_from_idle(new_state):
+	if current_state.name == main_state.name:
+		if new_state.name != main_state.name:
+			changed_from_idle.emit()

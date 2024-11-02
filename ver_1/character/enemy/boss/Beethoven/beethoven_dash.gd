@@ -45,7 +45,7 @@ func exit() -> void:
 	super()
 	time = 0
 	boss.hide_warning.emit()
-	hitbox.monitoing = false
+	hitbox.monitoring = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func update(delta: float) -> void:

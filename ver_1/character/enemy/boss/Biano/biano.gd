@@ -11,22 +11,27 @@ signal died
 @export var escape : BossAbility
 
 @export_subgroup("Stress Heuristic")
-@export var cutoff : float # how much can I take. 
-@export var hit_frequency : int # How many times I get hit consequetively.
-@export var hit_time_frame : float # How long am I checking for?
+@export var stress_threshold : float
+# WARNING: w1 + w2 must not exceed 1
+@export var weight_1 : float # hit count weight
+@export var weight_2 : float # total dmg weight
 
+var current_stress : float = 0
+var hit_count : int = 0
+var total_dmg_taken : float = 0# in this current phase until we take another action
+var request_cd : float = 20 # how long until you can request again (well if you keep on calling request, you will break the game)
 
-
-# array and time stamps. 
-# hm not actually too sure then here, ill have to think but its an array that leads to 
-# I also want this to be exponential, ill have a think once i sit back down.
+# Stress formula: w1 * num_of_attacks * 100 + w2 * total_dmg_done
+# where w1 + w2 == 1
+# the phase is within the current phase
+# resets once idle turns into something other state.
 
 @onready var hitbox : Area2D = $HitBox
 @onready var collidebox : CollisionShape2D = $CollisionBox
 
+# the number of times falling tiles is use before a slam is done.
+var falling_tiles_count : int = 0
 var ally : BaseBoss
-
-
 
 func _enter_tree() -> void:
 	super()
@@ -38,13 +43,17 @@ func _ready() -> void:
 	init_duo_signals()
 	sprite = $Sprite2D
 	x_scale = sprite.scale.x
+	changed_from_idle.connect(reset_stress)
+	hit.connect(update_stress)
 
 # process your states here
 func _process(delta: float) -> void:
 	super(delta)
 	
+	
 	if Input.is_action_just_pressed("attack"):
 		request_assistance.emit()
+
 
 #override this to add your states in 
 func _init_states():
@@ -53,9 +62,6 @@ func _init_states():
 	_parse_abilities(rain)
 	_parse_abilities(escape)
 	super()
-
-func on_hit(area : Area2D) -> void:
-	if !multiplayer.is_server(): return
 
 func assign_duo_boss():
 	var other : BaseBoss = GameManager.Instance.spawner.get_enemy_from_id(22)
@@ -66,18 +72,30 @@ func assign_duo_boss():
 	other.ally = self
 	ally = other
 
-func try_follow_up():
-	# maybe we want a heuristic? 
-	# if we are in the falling biano state we cannot do it. 
-	# Scope Creep: We can only do it if biano finishes firing the tiles.
-	
-	if current_state.name == "BianoEscapeFall": return
-	state_change_from_any("BianoCoveringFire")
-
-func on_request_assistance(): 
-	pass
-
 func init_duo_signals():
 	if ally == null: return
 	ally.zoning_strike.hit.connect(try_follow_up)
 	ally.request_assistance.connect(on_request_assistance)
+
+func try_follow_up():
+	if current_state.name == "BianoEscapeFall": return
+	state_change_from_any("BianoCoveringFire")
+
+func on_request_assistance():
+	pass
+
+#region stress & assistance
+func reset_stress():
+	current_stress = 0
+	hit_count = 0
+	total_dmg_taken = 0
+
+func update_stress(p_dmg):
+	hit_count += 1
+	total_dmg_taken += p_dmg
+	
+	current_stress = hit_count*100 * weight_1 + total_dmg_taken * weight_2
+	
+	if current_stress >= stress_threshold:
+		request_assistance.emit()
+#endregion
