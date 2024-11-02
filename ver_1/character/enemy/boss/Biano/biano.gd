@@ -72,8 +72,6 @@ func try_follow_up():
 	# Scope Creep: We can only do it if biano finishes firing the tiles.
 	
 	if current_state.name == "BianoEscapeFall": return
-	
-	
 	state_change_from_any("BianoCoveringFire")
 
 func on_request_assistance(): 

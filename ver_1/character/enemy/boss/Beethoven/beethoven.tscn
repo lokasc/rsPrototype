@@ -51,14 +51,23 @@ amplitutde = 1.0
 speed = 100.0
 
 [node name="ZoningStrike" parent="." instance=ExtResource("2_2fnb1")]
+initial_dmg = 30.0
 
 [node name="BeethovenPumpFake" parent="." instance=ExtResource("4_g6vtx")]
 
 [node name="BeethovenDash" parent="." instance=ExtResource("5_c0de1")]
-desired_time = 2.0
+position = Vector2(-4.76837e-07, -5.68434e-14)
+initial_dmg = 12.0
+
+[node name="Rectangle" parent="BeethovenDash/Area2D" index="0"]
+position = Vector2(120, -65)
+scale = Vector2(12, 12)
+
+[node name="Circle" parent="BeethovenDash/Area2D" index="1"]
+position = Vector2(9.53674e-07, -10)
+scale = Vector2(16.5, 16.5)
 
 [node name="BeeBodyguard" parent="." instance=ExtResource("6_asokl")]
-scale = Vector2(1, 1)
 dive_speed = 1000.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -106,3 +115,5 @@ offset = Vector2(150, 0)
 [node name="WarningTimer" type="Timer" parent="."]
 
 [connection signal="timeout" from="WarningTimer" to="." method="_on_warning_timer_timeout"]
+
+[editable path="BeethovenDash"]

@@ -90,6 +90,7 @@ dive_cutoff = 400.0
 [node name="AreaDive" type="Area2D" parent="."]
 scale = Vector2(95, 95)
 collision_mask = 2
+monitoring = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AreaDive"]
 self_modulate = Color(1, 0, 0, 1)

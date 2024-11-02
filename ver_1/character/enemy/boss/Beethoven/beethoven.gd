@@ -70,6 +70,7 @@ func assign_duo_boss():
 
 func init_duo_signals():
 	if ally == null: return
+	ally.escape.hit.connect(try_follow_up)
 	ally.request_assistance.connect(on_request_assistance)
 	ally.init_duo_signals() # IMPORTANT: BIANO MUST SPAWN BEFORE BEETHOVEN
 
@@ -89,6 +90,12 @@ func _on_warning_timer_timeout() -> void:
 	pass
 #endregion
 
+# need to decide heuristics but for now we always follow up.
+func try_follow_up(player_id):
+	if current_state.name == "BeeBodyguard": return
+	
+	state_change_from_any("BeethovenDash")
+	global_position = GameManager.Instance.get_player(player_id).global_position
 
 func on_request_assistance():
 	if current_state is BeeBodyguard: return

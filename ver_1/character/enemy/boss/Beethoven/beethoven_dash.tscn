@@ -1,12 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4rt4xx1w00se"]
+[gd_scene load_steps=5 format=3 uid="uid://c4rt4xx1w00se"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/Beethoven/beethoven_dash.gd" id="1_6e26h"]
 
 [sub_resource type="Curve" id="Curve_38srw"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.508902, 0), 3.60872, 3.60872, 0, 0, Vector2(0.520772, 0), 1.78895, 1.78895, 0, 0, Vector2(0.764095, 1), 1.88083, 0.0, 0, 0]
-point_count = 4
+_data = [Vector2(0, 0), 0.0, -1.82739, 0, 0, Vector2(0.252591, 0.00485671), 1.65786, 1.65786, 0, 0, Vector2(0.5, 1), 1.07761, 1.07761, 0, 0]
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f80g2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lorg1"]
+radius = 9.17087
 
 [node name="BeethovenDash" type="Node2D"]
 script = ExtResource("1_6e26h")
 offset = 200.0
+desired_time = 2.0
 y_curve = SubResource("Curve_38srw")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="Rectangle" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_f80g2")
+
+[node name="Circle" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_lorg1")
+debug_color = Color(0.817907, 0.404933, 3.85046e-07, 0.42)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

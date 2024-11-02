@@ -16,11 +16,11 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	super()
 	$Area2D.visible = false
+	$Area2D.monitoring = true
 
 func enter() -> void:
 	super()
 	target = choose_player()
-	
 	$Area2D.visible = false
 	$WaitTimer.stop()
 	$LingerTimer.stop()

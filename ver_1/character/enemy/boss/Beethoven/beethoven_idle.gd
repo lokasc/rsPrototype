@@ -76,9 +76,9 @@ func exit() -> void:
 func decide_attack() -> void:
 	var decision = rng.randi_range(0,2)
 	if decision == 0 or decision == 1:
-		state_change.emit(self, "BeethovenDash")
-	else:
 		state_change.emit(self, "ZoningStrike")
+	else:
+		state_change.emit(self, "BeethovenDash")
 
 func check_if_player_in_range() -> void:
 	if target.global_position.distance_to(global_position) <= melee_range:

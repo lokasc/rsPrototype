@@ -6,6 +6,10 @@ extends BossAbility
 # Visuals: Biano flys up quickly, turns off their visuals, leaving a black circle to indicate his shadow.
 # Then comes down slamming.
 
+signal hit(player_int) # sends player id.
+var players_hit = 0
+var player_hitted_id : int = 0
+
 @export var inner_circle_radius : float = 200
 @export var outer_circle_radius : float = 250
 
@@ -41,6 +45,8 @@ func _ready() -> void:
 
 func enter() -> void:
 	super()
+	players_hit = 0
+	player_hitted_id = 0
 	boss.invulnerable = true
 	is_flying = true
 	new_position = decide_new_location()
@@ -57,8 +63,10 @@ func enter() -> void:
 
 func exit() -> void:
 	super() # starts cd here.
+	players_hit = 0
 	boss.sprite.visible = true
 	shadow_sprite.visible = false
+	boss.invulnerable = false
 
 func update(_delta: float) -> void:
 	super(_delta)
@@ -68,7 +76,7 @@ func update(_delta: float) -> void:
 func physics_update(_delta: float) -> void:
 	super(_delta)
 	if is_flying:
-		print("in flying")
+		#print("in flying")
 		
 		boss.sprite.position.y = move_toward(boss.sprite.position.y, boss.sprite.position.y-2000, fly_speed * _delta)
 		
@@ -79,7 +87,7 @@ func physics_update(_delta: float) -> void:
 			shadow_sprite.visible = true
 	
 	if is_moving:
-		print("in moving")
+		#print("in moving")
 		boss.global_position = boss.global_position.move_toward(new_position, _delta*sky_move_speed)
 		
 		
@@ -91,7 +99,7 @@ func physics_update(_delta: float) -> void:
 	
 	if is_falling:
 		
-		print("in falling")
+		#print("in falling")
 		boss.sprite.position.y = move_toward(boss.sprite.position.y, 0, fall_speed * _delta)
 		# Modify scale and color over time
 		
@@ -104,6 +112,7 @@ func physics_update(_delta: float) -> void:
 		if boss.sprite.position.y >= 0:
 			shadow_sprite.self_modulate = Color(1,1,1,1)
 			container.scale = Vector2(hitbox_end_scale, hitbox_end_scale)
+			boss.invulnerable = false
 			on_slam()
 
 # Takes the furtherest position from the players
@@ -119,7 +128,17 @@ func on_slam():
 	
 	for area : Area2D in circle_hitbox.get_overlapping_areas():
 		_on_hit_box_area_entered(area)
+		players_hit += 1
 	
+	if players_hit == 1:
+		hit.emit(player_hitted_id)
+		pass
+	
+	# if we hit two people, we want to randomly select one:
+	if players_hit >= 2:
+		print("I've hit two people!")
+		var x = rng.randi_range(0,1)
+		hit.emit(GameManager.Instance.players[x].id)
 	
 	is_falling = false
 	is_flying = false
@@ -137,3 +156,4 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 	if !multiplayer.is_server(): return
 	
 	character.add_status("Knockback", [250, boss.global_position, 15])
+	player_hitted_id = character.id

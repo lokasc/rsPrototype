@@ -10,8 +10,10 @@ var old_pos : Vector2
 
 ## Distance at which Biano is likely to jump away
 @export var fear_distance : float = 100
-
 @export var off_time_after_attack : float = 0.5
+
+# the number of times falling tiles is use before a slam is done.
+var falling_tiles_count : int = 0
 var current_off_time : float = 0
 var on_cd_time : bool = false
 
@@ -49,12 +51,22 @@ func decide_attack() -> void:
 			#state_change.emit(self, "BianoEscapeFall")
 			#return
 	
-	
 	last_used_atk = boss.idle
+	
+	# Move to a new location after using falling tiles for 3 times (3 Bars) 
+	# (Moving to the new location takes 1 new bar)
+	if falling_tiles_count >= 3:
+		falling_tiles_count = 0
+		state_change.emit(self, "BianoEscapeFall")
+		return
+	else:
+		falling_tiles_count += 1
+		state_change.emit(self, "BnBRain")
+	
 	
 	#state_change.emit(self, "BnBRain")
 	#state_change.emit(self, "BianoCoveringFire")
-	state_change.emit(self, "BianoEscapeFall")
+	#state_change.emit(self, "BianoEscapeFall")
 
 # if the player is not in range, we check after a interval 
 func check_if_player_in_range() -> void:

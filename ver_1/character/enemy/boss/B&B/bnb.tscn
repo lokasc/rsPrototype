@@ -1,10 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://ns7nfwyvbnq8"]
+[gd_scene load_steps=15 format=3 uid="uid://ns7nfwyvbnq8"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/bnb.gd" id="1_rwux8"]
 [ext_resource type="PackedScene" uid="uid://celg8r4rn4dgm" path="res://ver_1/character/enemy/boss/B&B/bnb_slam.tscn" id="2_7nmc2"]
 [ext_resource type="PackedScene" uid="uid://cioljtydwmxxg" path="res://ver_1/character/enemy/boss/B&B/bnb_rain.tscn" id="3_cf4r5"]
 [ext_resource type="PackedScene" uid="uid://cj873jqq3y6ol" path="res://ver_1/character/enemy/boss/B&B/bnb_ring.tscn" id="4_lyvfk"]
-[ext_resource type="PackedScene" uid="uid://dx20go3g8f7e3" path="res://ver_1/character/enemy/boss/B&B/bnb_projectile.tscn" id="4_yiwhg"]
 [ext_resource type="Texture2D" uid="uid://sawcsqocstmg" path="res://assets/bosses/bnb/Biano.png" id="6_guti8"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="7_18tij"]
 [ext_resource type="Texture2D" uid="uid://cl8mxxadfv78b" path="res://assets/bosses/bnb/Beethoven2.png" id="7_jl8nu"]
@@ -56,7 +55,6 @@ is_tgt = true
 
 [node name="BnBRain" parent="." instance=ExtResource("3_cf4r5")]
 is_tgt = true
-projectile_scene = ExtResource("4_yiwhg")
 height = 100.0
 num_per_attack = 10
 offset_from_center = 200.0

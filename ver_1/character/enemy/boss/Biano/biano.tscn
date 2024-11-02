@@ -42,6 +42,7 @@ char_name = "Biano"
 fear_distance = 50.0
 
 [node name="BianoCoveringFire" parent="." instance=ExtResource("3_qy6rg")]
+p_dmg = 20.0
 p_spd = 500.0
 
 [node name="BnBRain" parent="." instance=ExtResource("4_0x53s")]

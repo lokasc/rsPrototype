@@ -10,6 +10,7 @@ initial_dmg = 60.0
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
+monitoring = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 polygon = PackedVector2Array(301, 1, 213, 262, 576, 624, 987, 170, 982, -241, 604, -647, 245, -371)
