@@ -35,6 +35,9 @@ properties/6/replication_mode = 0
 properties/7/path = NodePath(".:height")
 properties/7/spawn = true
 properties/7/replication_mode = 0
+properties/8/path = NodePath(".:tile_scale")
+properties/8/spawn = true
+properties/8/replication_mode = 1
 
 [node name="RingProjectile" type="Node2D" node_paths=PackedStringArray("circle_container")]
 scale = Vector2(2, 2)

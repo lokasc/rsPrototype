@@ -4,6 +4,7 @@ extends Node2D
 @export var dmg : float # connct to boss...
 @export var spd : float # connct to boss...
 @export var height : float # Distance it needs to travel before disappearing.
+@export var tile_scale : Vector2 # set by the instantiator if not, results to 0. 
 
 
 @export var circle_container : Node2D
@@ -32,9 +33,12 @@ func _ready() -> void:
 		circle_container.global_position.y += height
 		dist_travelled = 0
 		expanding_circle.scale = Vector2.ZERO
+		
 	else:
 		projectile_container.get_child(0).frame = randi_range(0,2)
 		circle_container.visible = false
+		if tile_scale != Vector2.ZERO:
+			projectile_container.scale = tile_scale
 
 func _process(delta: float) -> void:
 	if is_rain:

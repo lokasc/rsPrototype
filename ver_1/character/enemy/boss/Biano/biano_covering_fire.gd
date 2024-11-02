@@ -44,6 +44,7 @@ func spawn_projectile(gpos : Vector2) -> void:
 	
 	copy.dmg = p_dmg
 	copy.spd = p_spd
+	copy.tile_scale = projectile_scale
 	
 	copy.initial_boss_atk = boss.initial_atk
 	copy.boss_atk = boss.char_stats.atk

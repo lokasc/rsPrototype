@@ -49,11 +49,6 @@ func _ready() -> void:
 # process your states here
 func _process(delta: float) -> void:
 	super(delta)
-	
-	
-	if Input.is_action_just_pressed("attack"):
-		request_assistance.emit()
-
 
 #override this to add your states in 
 func _init_states():
@@ -82,7 +77,9 @@ func try_follow_up():
 	state_change_from_any("BianoCoveringFire")
 
 func on_request_assistance():
-	pass
+	if current_state.name == "BianoEscapeFall": return
+	state_change_from_any("BianoCoveringFire")
+
 
 #region stress & assistance
 func reset_stress():

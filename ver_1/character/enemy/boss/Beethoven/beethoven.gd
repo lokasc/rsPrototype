@@ -56,9 +56,6 @@ func _ready() -> void:
 # process your states here
 func _process(delta: float) -> void:
 	super(delta)
-	
-	if Input.is_action_just_pressed("attack"):
-		request_assistance.emit()
 
 func _physics_process(delta : float) -> void:
 	if frozen: return
