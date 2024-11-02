@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c3vtdiit6y6fr"]
+[gd_scene load_steps=15 format=3 uid="uid://c3vtdiit6y6fr"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/Biano/biano.gd" id="1_yh4o6"]
 [ext_resource type="PackedScene" uid="uid://dvq0mknnbaeaj" path="res://ver_1/character/enemy/boss/Biano/biano_idle.tscn" id="2_0ep1u"]
@@ -24,11 +24,22 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7rlu2"]
+size = Vector2(3230, 1000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bn6w4"]
+size = Vector2(2000, 4588.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3xrig"]
+size = Vector2(2084.98, 4095)
+
 [node name="Biano" type="CharacterBody2D" node_paths=PackedStringArray("idle", "covering_fire", "rain", "escape", "main_state")]
 scale = Vector2(0.2, 0.2)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_yh4o6")
+time_to_start_dance_sequence = 2.0
+solo_frequency = 3.0
 idle = NodePath("BianoIdle")
 covering_fire = NodePath("BianoCoveringFire")
 rain = NodePath("BnBRain")
@@ -99,5 +110,46 @@ debug_color = Color(0, 0.592183, 0.742917, 0.42)
 replication_config = SubResource("SceneReplicationConfig_t27sw")
 
 [node name="StatusHolder" parent="." instance=ExtResource("3_q0mwj")]
+
+[node name="ArenaWalls" type="Node2D" parent="."]
+position = Vector2(5, 0)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="ArenaWalls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
+position = Vector2(-5, 1765)
+shape = SubResource("RectangleShape2D_7rlu2")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
+position = Vector2(-2.5, -2000)
+shape = SubResource("RectangleShape2D_7rlu2")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
+position = Vector2(2500, 0)
+shape = SubResource("RectangleShape2D_bn6w4")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
+position = Vector2(-2500, 0)
+shape = SubResource("RectangleShape2D_bn6w4")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
+position = Vector2(1859.03, 1859.03)
+rotation = 0.785398
+shape = SubResource("RectangleShape2D_3xrig")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
+position = Vector2(-1859.03, 1859.03)
+rotation = 2.35619
+shape = SubResource("RectangleShape2D_3xrig")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
+position = Vector2(1859.03, -1859.03)
+rotation = 2.35619
+shape = SubResource("RectangleShape2D_3xrig")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
+position = Vector2(-1859.03, -1859.03)
+rotation = 0.785398
+shape = SubResource("RectangleShape2D_3xrig")
 
 [editable path="BnBRain"]

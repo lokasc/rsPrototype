@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=4 uid="uid://difu5ygtvcd7q"]
+
+[ext_resource type="TileSet" uid="uid://c6h2xyay8oksc" path="res://assets/map/tilemaps/floor_decals.tres" id="2_emxdc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y66ta"]
+size = Vector2(8697.5, 1000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3cy7"]
+size = Vector2(8757.5, 557.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c6f2r"]
+size = Vector2(281.75, 4588.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3g1ev"]
+size = Vector2(463.5, 4588.75)
+
+[node name="DuoDanceWall" type="Node2D"]
+top_level = true
+
+[node name="Node2D" type="Node2D" parent="."]
+scale = Vector2(0.08, 0.08)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Node2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
+position = Vector2(-12.5, 1200)
+shape = SubResource("RectangleShape2D_y66ta")
+debug_color = Color(0.942673, 6.44952e-06, 0.605079, 0.42)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
+position = Vector2(0, -1316.25)
+shape = SubResource("RectangleShape2D_q3cy7")
+debug_color = Color(0.942673, 6.44952e-06, 0.605079, 0.42)
+
+[node name="Middle" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
+position = Vector2(2000, 0)
+shape = SubResource("RectangleShape2D_c6f2r")
+debug_color = Color(0.942673, 6.44952e-06, 0.605079, 0.42)
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
+position = Vector2(-2000, -45)
+shape = SubResource("RectangleShape2D_3g1ev")
+debug_color = Color(0.942673, 6.44952e-06, 0.605079, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(-223, -22)
+tile_map_data = PackedByteArray("AAABAP7/BgAAAAAAAAABAP//BgAAAAAAAAABAAAABgAAAAAAAAABAAEABgAAAAAAAAAMAP7/BgAAAAAAAAAMAP//BgAAAAAAAAAMAAAABgAAAAAAAAAMAAEABgAAAAAAAAAEAPz/BgADAAAAAAAFAPz/BgADAAAAAAAGAPz/BgADAAAAAAAHAPz/BgADAAAAAAAIAPz/BgADAAAAAAACAPz/BgADAAAAAAAKAPz/BgADAAAAAAAAAAIABgADAAAAAAD//wIABgADAAAAAAABAAIABgADAAAAAAACAAIABgADAAAAAAADAAIABgADAAAAAAAEAAIABgADAAAAAAAFAAIABgADAAAAAAAGAAIABgADAAAAAAAHAAIABgADAAAAAAAIAAIABgADAAAAAAAJAAIABgADAAAAAAAKAAIABgADAAAAAAALAAIABgADAAAAAAAMAAIABgADAAAAAAANAAIABgADAAAAAAA=")
+tile_set = ExtResource("2_emxdc")

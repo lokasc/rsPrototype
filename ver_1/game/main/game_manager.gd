@@ -129,8 +129,8 @@ func start_game():
 			hero.char_stats.maxhp = 1000000
 			hero.current_health = 1000000
 	if spawn_boss:
-		spawner.custom_spawn("res://ver_1/character/enemy/boss/B&B/bnb.tscn", Vector2(451,35))
-		#spawner.custom_spawn("res://ver_1/character/enemy/boss/Biano/biano.tscn", Vector2(0,55))
+		#spawner.custom_spawn("res://ver_1/character/enemy/boss/B&B/bnb.tscn", Vector2(0,0))
+		spawner.custom_spawn("res://ver_1/character/enemy/boss/Biano/biano.tscn", Vector2(0,35))
 		#spawner.custom_spawn("res://ver_1/character/enemy/boss/Beethoven/beethoven.tscn", Vector2(0,35))
 	if dont_spawn_enemies: 
 		return
@@ -363,7 +363,92 @@ func tween_camera_to_pos(_gpos : Vector2, time : float, delay : float = 0):
 	tween.tween_property(player_cam, "global_position", player_cam.global_position, 0).set_delay(delay)
 	tween.finished.connect(reset_cam_pos)
 
-
 func reset_cam_pos():
 	local_player.camera.position = Vector2.ZERO
 	ui.turn_off_cinematic_bars()
+
+#region BnB Phase 2 centralised code
+# These will be moved if there is a centralized script for the two (which I dont think we should separate or sth) 
+var dance_sequence_started : bool
+var dance_second_solo_started : bool
+var dance_duo_started : bool
+var dance_positions : Array[Vector2] = [Vector2(200,0), Vector2(-200,0)]
+var duo_dance_positions : Array[Vector2] = [Vector2(50,0), Vector2(-50, 0)]
+var dance_scene : PackedScene = load("res://ver_1/character/enemy/boss/dance_walls.tscn")
+var duo_dance_scene : PackedScene = load("res://ver_1/character/enemy/boss/duo_dance_wall.tscn")
+var live_duo_scene
+
+# this will also be called on the clientside
+# this is for the first solo, so the server is blacked while the other player tells you where.
+func start_dance_sequence():
+	if dance_sequence_started: return
+	dance_sequence_started = true
+	local_player.camera.zoom = Vector2.ONE
+	
+	live_duo_scene = duo_dance_scene.instantiate()
+	live_duo_scene.global_position = Vector2.ZERO
+	map.add_child(live_duo_scene)
+	live_duo_scene.set_process(false)
+	live_duo_scene.visible = false
+	
+	for x in players.size(): # players .size() is multiplayer safe
+		var copy = dance_scene.instantiate()
+		copy.global_position = dance_positions[x]
+		copy.name = copy.name +  str(players[x].get_multiplayer_authority())
+		map.add_child(copy)
+		
+	
+	if multiplayer.get_unique_id() == 1:
+		map.get_node("DanceWalls" + str(1)).get_node("BlackSprite").visible = true
+	
+	# only execute teleport if you are on the server.
+	if multiplayer.is_server():
+		for x in players.size():
+			players[x].teleport.rpc(dance_positions[x])
+
+func start_second_solo():
+	if dance_second_solo_started: return
+	dance_second_solo_started = true
+	
+	# if for some reason theres only one person, dont do anything
+	if players.size() == 1: return 
+	
+	# turn on black cover for player 2
+	if multiplayer.get_unique_id() == players[1].get_multiplayer_authority():
+		map.get_node("DanceWalls" + str(multiplayer.get_unique_id())).get_node("BlackSprite").visible = true
+	
+	# turn off black cover for player 1 (server)
+	if multiplayer.is_server():
+		map.get_node("DanceWalls" + str(1)).get_node("BlackSprite").visible = false
+	
+	
+func start_dance_duo():
+	if dance_duo_started: return
+	
+	
+	# remove all black covers and cut the middle collider from each scene
+	for x in players.size():
+		var personal_dance_wall = map.get_node("DanceWalls" + str(players[x].get_multiplayer_authority()))
+		personal_dance_wall.get_node("BlackSprite").visible = false
+		personal_dance_wall.queue_free()
+	
+	live_duo_scene.set_process(true)
+	live_duo_scene.visible = true
+	
+	# teleport players just incase the duo borders are spawned outside the player's location.
+	if multiplayer.is_server():
+		for x in players.size():
+			players[x].teleport.rpc(duo_dance_positions[x])
+
+func end_dance_sequence():
+	local_player.camera.zoom = Vector2(1.5, 1.5)
+	dance_sequence_started = false
+	dance_second_solo_started = false
+	dance_duo_started = false
+	live_duo_scene.queue_free()
+
+func boss_duo_defeated():
+	map.get_node("ArenaBuildings").visible = false
+	if map.has_node("ArenaWalls"):
+		map.get_node("ArenaWalls").queue_free()
+#endregion

@@ -20,7 +20,7 @@ var beat_duration : float ## how many seconds a beat is (or till the next beat)
 var counter : int = 0 ## used for switching songs with m1
 
 # Latency
-var time
+var time = 0
 var time_begin
 var time_delay
 var previous_time = 0
@@ -70,8 +70,8 @@ func _process(delta: float) -> void:
 	if !is_playing: return
 	process_actual_audio_time()
 	
-	if Input.is_action_just_pressed("attack"):
-		print(prev_beat, " : ", get_current_beat_time_elapsed(), " INPUT")
+	#if Input.is_action_just_pressed("attack"):
+		#print(prev_beat, " : ", get_current_beat_time_elapsed(), " INPUT")
 
 ## Is the current moment on beat? (Accounting for grace)
 func is_on_beat() -> bool:
@@ -247,6 +247,7 @@ func change_bg(type : BG_TRANSITION_TYPE) -> void:
 			current_global_bg_clip = type
 			
 			if !is_current_clip_global(): return
+			
 			
 			playback.switch_to_clip_by_name("bnb_p2")
 			current_bg_clip = type

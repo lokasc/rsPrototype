@@ -1,0 +1,79 @@
+[gd_scene load_steps=7 format=4 uid="uid://c4ds6reuf84ca"]
+
+[ext_resource type="Texture2D" uid="uid://bj87if3xp5tym" path="res://assets/common/icon.svg" id="1_dodr2"]
+[ext_resource type="TileSet" uid="uid://c6h2xyay8oksc" path="res://assets/map/tilemaps/floor_decals.tres" id="1_xmm2b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y66ta"]
+size = Vector2(8697.5, 1000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3cy7"]
+size = Vector2(8757.5, 790)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c6f2r"]
+size = Vector2(281.75, 4588.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3g1ev"]
+size = Vector2(463.5, 4588.75)
+
+[node name="DanceWalls" type="Node2D"]
+top_level = true
+
+[node name="BlackSprite" type="Node2D" parent="."]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="BlackSprite"]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(-6535, -73)
+scale = Vector2(100, 100)
+texture = ExtResource("1_dodr2")
+
+[node name="Sprite2D2" type="Sprite2D" parent="BlackSprite"]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(579, -6560)
+scale = Vector2(100, 100)
+texture = ExtResource("1_dodr2")
+
+[node name="Sprite2D3" type="Sprite2D" parent="BlackSprite"]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(6482, -97)
+scale = Vector2(100, 100)
+texture = ExtResource("1_dodr2")
+
+[node name="Sprite2D4" type="Sprite2D" parent="BlackSprite"]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(4466, 6566)
+scale = Vector2(100, 100)
+texture = ExtResource("1_dodr2")
+
+[node name="Node2D" type="Node2D" parent="."]
+scale = Vector2(0.08, 0.08)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Node2D"]
+scale = Vector2(1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
+position = Vector2(2738.75, 1255)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_y66ta")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
+position = Vector2(2708.75, -1495)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_q3cy7")
+
+[node name="Middle" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
+position = Vector2(1340.88, -10)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_c6f2r")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
+position = Vector2(-1444.25, -45)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_3g1ev")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(-14, 0)
+tile_map_data = PackedByteArray("AAD8//v/BgACAAAAAAD9//v/BgACAAAAAAD+//v/BgACAAAAAAD///v/BgACAAAAAAAAAPv/BgACAAAAAAABAPv/BgACAAAAAAACAPv/BgACAAAAAAADAPz/BgACAAAAAAADAP3/BgACAAAAAAADAP7/BgACAAAAAAADAP//BgACAAAAAAD8//z/BgACAAAAAAD8//3/BgACAAAAAAD8//7/BgACAAAAAAD8////BgACAAAAAAD8/wAABgACAAAAAAD8/wMABgACAAAAAAD9/wMABgACAAAAAAD+/wMABgACAAAAAAD//wMABgACAAAAAAAAAAMABgACAAAAAAABAAMABgACAAAAAAACAAMABgACAAAAAAADAAMABgACAAAAAAADAAAABgACAAAAAAADAAEABgACAAAAAAADAAIABgACAAAAAAD8/wEABgACAAAAAAD8/wIABgACAAAAAAADAPv/BgACAAAAAAA=")
+tile_set = ExtResource("1_xmm2b")
