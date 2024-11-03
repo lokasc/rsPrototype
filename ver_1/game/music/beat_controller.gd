@@ -6,6 +6,7 @@ extends Node
 const BPM = 120 ## Beats per minute
 
 signal on_beat ## signal for executing things on to the beat. 
+signal mimic_looped ## signal for when the mimic song loops
 
 static var Instance : BeatController
 
@@ -23,7 +24,8 @@ var counter : int = 0 ## used for switching songs with m1
 var time = 0
 var time_begin
 var time_delay
-var previous_time = 0
+var curr_playback_pos = 0
+var prev_playback_pos = 0
 
 # Clips
 enum BG_TRANSITION_TYPE {
@@ -34,6 +36,7 @@ enum BG_TRANSITION_TYPE {
 	BNB_P2,
 	BNB_P3,
 	BNB_FILL,
+	BNB_PHASE_TWO,
 	LOW_HP, # local -> only player can hear it
 	DEAD,  # local
 	}
@@ -113,17 +116,21 @@ func process_actual_audio_time():
 	# One to play music, the other to track. (there might be multiple audio delay)
 	time = $MimicPlayer.get_playback_position() + AudioServer.get_time_since_last_mix()
 	time -= AudioServer.get_output_latency()
-	#print(time)
+	
+	# check if you can get previous time
 	# Calculate the current beat of the song.
 	current_beat = floor(time/0.5)
 	process_beat()
-	
+	process_loop()
+	#print(time)
 	# Get the current beat in the song without software clock (delta)
 
 func process_beat() -> void:
 	# detect looping by comparing the prev and current val:
 	if prev_beat == max_beats && current_beat == 0: 
 		prev_beat = -1
+		
+		mimic_looped.emit()
 	
 	# return early if we are still in the same beat 
 	if prev_beat >= current_beat: return
@@ -132,6 +139,14 @@ func process_beat() -> void:
 	#print(prev_beat, " : ", get_current_beat_time_elapsed())
 	prev_beat = current_beat
 	on_beat.emit()
+
+func process_loop():
+	curr_playback_pos = $MimicPlayer.get_playback_position()
+	#print(curr_playback_pos)
+	if curr_playback_pos < prev_playback_pos:
+		mimic_looped.emit()
+	
+	prev_playback_pos = curr_playback_pos
 
 # returns time enslapased in the current beat, 0.0-0.5 where 0.0 is onbeat
 func get_current_beat_time_elapsed() -> float:
@@ -259,6 +274,15 @@ func change_bg(type : BG_TRANSITION_TYPE) -> void:
 			if !is_current_clip_global(): return
 			
 			playback.switch_to_clip_by_name("bnb_p3")
+			current_bg_clip = type
+		
+		BG_TRANSITION_TYPE.BNB_PHASE_TWO:
+			if multiplayer.is_server(): stc_change_bg_music.rpc(type)
+			current_global_bg_clip = type
+			
+			if !is_current_clip_global(): return
+			
+			playback.switch_to_clip_by_name("bnb_p2_intro")
 			current_bg_clip = type
 		
 		BG_TRANSITION_TYPE.LOW_HP:

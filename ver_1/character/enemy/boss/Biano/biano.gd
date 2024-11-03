@@ -4,8 +4,17 @@ extends BaseBoss
 signal request_assistance
 signal died
 
-@export var time_to_start_dance_sequence : float # The exact time when the solo starts.
-@export var solo_frequency : float = 16 # How long each solo lasts (16Bars for first two)
+@export var time_to_start_dance_sequence : float = 128# The exact time when the solo starts. (8s + 128s)
+@export var first_solo_time : float = 32 # How long the first solo lasts
+@export var second_solo_time : float = 36
+@export var duo_solo_time : float = 36
+var start_time
+var track_duration : float = 232 # to check for looping (without the intro) 232
+var looped_times : int = 0
+var mimic_track_time : float = 320.05 # mimic length
+var mimic_previous_time : float = 0
+var current_mimic_time : float = 0
+
 var requested : bool
 var requested_second_solo : bool
 var requested_duo_dance : bool
@@ -58,26 +67,57 @@ func _ready() -> void:
 	arena_walls.reparent(GameManager.Instance.map)
 	arena_walls.global_scale = Vector2(0.5, 0.5)
 	GameManager.Instance.map.get_node("ArenaBuildings").visible = true
+	GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.BNB_PHASE_TWO)
+	start_time = GameManager.Instance.bc.time + 8 # account for intro
+	GameManager.Instance.bc.mimic_looped.connect(check_for_looping)
+	
 
 # process your states here
 func _process(delta: float) -> void:
 	super(delta)
-	#print(GameManager.Instance.bc.time, " : ", multiplayer.is_server())
-	if GameManager.Instance.bc.time >= time_to_start_dance_sequence && !requested:
+	if get_time_passed() >= start_time + time_to_start_dance_sequence && !requested:
 		requested = true
 		GameManager.Instance.start_dance_sequence()
+		print("start_dance_sequence")
+		if looped_times > 0:
+			print("WE LOOP STARTED",get_time_passed())
+		#print((GameManager.Instance.bc.time + (looped_times*mimic_track_time)))
+		
 	
-	if !requested_second_solo && requested && GameManager.Instance.bc.time >= time_to_start_dance_sequence + solo_frequency:
+	if !requested_second_solo && requested && get_time_passed()  >= start_time + time_to_start_dance_sequence + first_solo_time:
 		requested_second_solo = true
 		GameManager.Instance.start_second_solo()
-	
-	if !requested_duo_dance && requested_second_solo && GameManager.Instance.bc.time >= time_to_start_dance_sequence + solo_frequency + solo_frequency:
+		print("start_second_solo")
+		#print((GameManager.Instance.bc.time + (looped_times*mimic_track_time)))
+	#
+	if !requested_duo_dance && requested_second_solo && get_time_passed()>= start_time + time_to_start_dance_sequence + first_solo_time + second_solo_time:
 		requested_duo_dance = true
 		GameManager.Instance.start_dance_duo()
+		print("start_dance_duo")
+		#print((GameManager.Instance.bc.time + (looped_times*mimic_track_time)))
 	
-	if !requested_end && requested_duo_dance && GameManager.Instance.bc.time >= time_to_start_dance_sequence + solo_frequency + solo_frequency + solo_frequency:
+	# End the last sequence.
+	if !requested_end && requested_duo_dance && get_time_passed() >= start_time + time_to_start_dance_sequence + first_solo_time + second_solo_time + duo_solo_time:
 		requested_end = true
 		GameManager.Instance.end_dance_sequence()
+		print("end_dance_sequence")
+		#print((GameManager.Instance.bc.time + (looped_times*mimic_track_time)))
+	
+	# Check for looping and reset,
+	if requested_end && get_time_passed() >= start_time + track_duration:
+		start_time = get_time_passed()
+		requested_end = false
+		requested = false
+		requested_duo_dance = false
+		requested_second_solo = false
+		print("reseted")
+		#print((GameManager.Instance.bc.time + (looped_times*mimic_track_time)))
+
+func check_for_looping():
+	looped_times += 1
+
+func get_time_passed() -> float:
+	return GameManager.Instance.bc.time + looped_times * mimic_track_time
 
 #override this to add your states in 
 func _init_states():

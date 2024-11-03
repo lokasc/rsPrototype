@@ -17,5 +17,5 @@ void fragment() {
 	if (flash_speed != 0.0 && COLOR.rgb == vec3(1,1,1)){
 		COLOR.rgb = mix(vec3(1,1,1), end_color, anim());
 	}
-	
+
 }

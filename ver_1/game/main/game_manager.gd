@@ -131,7 +131,7 @@ func start_game():
 	if spawn_boss:
 		#spawner.custom_spawn("res://ver_1/character/enemy/boss/B&B/bnb.tscn", Vector2(0,0))
 		spawner.custom_spawn("res://ver_1/character/enemy/boss/Biano/biano.tscn", Vector2(0,35))
-		#spawner.custom_spawn("res://ver_1/character/enemy/boss/Beethoven/beethoven.tscn", Vector2(0,35))
+		spawner.custom_spawn("res://ver_1/character/enemy/boss/Beethoven/beethoven.tscn", Vector2(0,35))
 	if dont_spawn_enemies: 
 		return
 	spawner._start_timer()
@@ -388,7 +388,7 @@ func start_dance_sequence():
 	live_duo_scene = duo_dance_scene.instantiate()
 	live_duo_scene.global_position = Vector2.ZERO
 	map.add_child(live_duo_scene)
-	live_duo_scene.set_process(false)
+	live_duo_scene.process_mode = Node.PROCESS_MODE_DISABLED # disable static collisions
 	live_duo_scene.visible = false
 	
 	for x in players.size(): # players .size() is multiplayer safe
@@ -424,7 +424,7 @@ func start_second_solo():
 	
 func start_dance_duo():
 	if dance_duo_started: return
-	
+	GameManager.Instance.bc
 	
 	# remove all black covers and cut the middle collider from each scene
 	for x in players.size():
@@ -432,7 +432,7 @@ func start_dance_duo():
 		personal_dance_wall.get_node("BlackSprite").visible = false
 		personal_dance_wall.queue_free()
 	
-	live_duo_scene.set_process(true)
+	live_duo_scene.process_mode = Node.PROCESS_MODE_INHERIT
 	live_duo_scene.visible = true
 	
 	# teleport players just incase the duo borders are spawned outside the player's location.

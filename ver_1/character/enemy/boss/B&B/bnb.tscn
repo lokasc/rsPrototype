@@ -46,7 +46,7 @@ slam = NodePath("BnBSlam")
 rain = NodePath("BnBRain")
 ring = NodePath("BnBRing")
 main_state = NodePath("BnBSlam")
-max_health = 10000.0
+max_health = 300.0
 dmg = 100.0
 char_name = "BnB"
 
@@ -54,7 +54,6 @@ char_name = "BnB"
 is_tgt = true
 
 [node name="BnBRain" parent="." instance=ExtResource("3_cf4r5")]
-is_tgt = true
 height = 100.0
 num_per_attack = 10
 offset_from_center = 200.0

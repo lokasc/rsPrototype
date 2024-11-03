@@ -13,7 +13,7 @@ size = Vector2(8757.5, 790)
 size = Vector2(281.75, 4588.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3g1ev"]
-size = Vector2(463.5, 4588.75)
+size = Vector2(301, 4588.75)
 
 [node name="DanceWalls" type="Node2D"]
 top_level = true
@@ -49,26 +49,21 @@ texture = ExtResource("1_dodr2")
 scale = Vector2(0.08, 0.08)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Node2D"]
-scale = Vector2(1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
 position = Vector2(2738.75, 1255)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_y66ta")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
 position = Vector2(2708.75, -1495)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_q3cy7")
 
 [node name="Middle" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
 position = Vector2(1340.88, -10)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_c6f2r")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
-position = Vector2(-1444.25, -45)
-scale = Vector2(1, 1)
+position = Vector2(-1525.5, -45)
 shape = SubResource("RectangleShape2D_3g1ev")
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D"]

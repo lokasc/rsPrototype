@@ -18,3 +18,5 @@ bus = &"MainMusic"
 stream = ExtResource("3_7ah1u")
 volume_db = -80.0
 bus = &"MainMusic"
+
+[connection signal="finished" from="MimicPlayer" to="." method="_on_mimic_player_finished"]
