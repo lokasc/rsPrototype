@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c3vtdiit6y6fr"]
+[gd_scene load_steps=16 format=3 uid="uid://c3vtdiit6y6fr"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/Biano/biano.gd" id="1_yh4o6"]
 [ext_resource type="PackedScene" uid="uid://dvq0mknnbaeaj" path="res://ver_1/character/enemy/boss/Biano/biano_idle.tscn" id="2_0ep1u"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://db0dofn3ah4i5" path="res://ver_1/character/enemy/boss/Biano/biano_covering_fire.tscn" id="3_qy6rg"]
 [ext_resource type="PackedScene" uid="uid://cioljtydwmxxg" path="res://ver_1/character/enemy/boss/B&B/bnb_rain.tscn" id="4_0x53s"]
 [ext_resource type="PackedScene" uid="uid://yw7j6gt8ycx8" path="res://ver_1/character/enemy/boss/Biano/biano_escape_fall.tscn" id="5_grjrp"]
+[ext_resource type="PackedScene" uid="uid://bh3s24sct2w7" path="res://ver_1/character/enemy/boss/idle_dance.tscn" id="6_7jqnf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8h38y"]
 radius = 140.089
@@ -33,7 +34,7 @@ size = Vector2(2000, 4588.75)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3xrig"]
 size = Vector2(2084.98, 4095)
 
-[node name="Biano" type="CharacterBody2D" node_paths=PackedStringArray("idle", "covering_fire", "rain", "escape", "main_state")]
+[node name="Biano" type="CharacterBody2D" node_paths=PackedStringArray("idle", "covering_fire", "rain", "escape", "idle_dance", "main_state")]
 scale = Vector2(0.2, 0.2)
 collision_layer = 4
 collision_mask = 0
@@ -42,6 +43,7 @@ idle = NodePath("BianoIdle")
 covering_fire = NodePath("BianoCoveringFire")
 rain = NodePath("BnBRain")
 escape = NodePath("BianoEscapeFall")
+idle_dance = NodePath("IdleDance")
 stress_threshold = 500.0
 weight_1 = 0.7
 weight_2 = 0.3
@@ -76,6 +78,8 @@ dmg = 20.0
 scale = Vector2(15, 15)
 
 [node name="BianoEscapeFall" parent="." instance=ExtResource("5_grjrp")]
+
+[node name="IdleDance" parent="." instance=ExtResource("6_7jqnf")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_3cjxf")

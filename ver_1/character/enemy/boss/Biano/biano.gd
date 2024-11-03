@@ -25,6 +25,10 @@ var requested_end : bool
 @export var covering_fire : BossAbility
 @export var rain : BossAbility # use BnBRain to switch due to file name
 @export var escape : BossAbility
+@export_subgroup("Dance")
+@export var idle_dance : BossAbility
+@export var solo_dance : BossAbility
+@export var duo_dance : BossAbility
 
 @export_subgroup("Stress Heuristic")
 @export var stress_threshold : float
@@ -81,9 +85,7 @@ func _process(delta: float) -> void:
 		print("start_dance_sequence")
 		if looped_times > 0:
 			print("WE LOOP STARTED",get_time_passed())
-		#print((GameManager.Instance.bc.time + (looped_times*mimic_track_time)))
 		
-	
 	if !requested_second_solo && requested && get_time_passed()  >= start_time + time_to_start_dance_sequence + first_solo_time:
 		requested_second_solo = true
 		GameManager.Instance.start_second_solo()
@@ -125,6 +127,9 @@ func _init_states():
 	_parse_abilities(covering_fire)
 	_parse_abilities(rain)
 	_parse_abilities(escape)
+	_parse_abilities(idle_dance)
+	_parse_abilities(solo_dance)
+	_parse_abilities(duo_dance)
 	super()
 
 func assign_duo_boss():
@@ -163,12 +168,4 @@ func update_stress(p_dmg):
 	
 	if current_stress >= stress_threshold:
 		request_assistance.emit()
-#endregion
-
-#region dance battle
-# logic for dance here.
-# always pick the server, and let them have no eyes.
-func execute_first_solo():
-	pass
-
 #endregion

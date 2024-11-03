@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bh3s24sct2w7"]
+
+[ext_resource type="Script" path="res://ver_1/character/enemy/boss/idle_dance.gd" id="1_vv3qv"]
+
+[node name="IdleDance" type="Node2D"]
+script = ExtResource("1_vv3qv")
