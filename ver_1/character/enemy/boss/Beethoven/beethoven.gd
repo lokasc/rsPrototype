@@ -111,6 +111,7 @@ func _process(delta: float) -> void:
 	if !requested_end && requested_duo_dance && get_time_passed() >= start_time + time_to_start_dance_sequence + first_solo_time + second_solo_time + duo_solo_time:
 		requested_end = true
 		GameManager.Instance.end_dance_sequence()
+		state_change_from_any("BeethovenIdle")
 		#print("end_dance_sequence")
 		#print((GameManager.Instance.bc.time + (looped_times*mimic_track_time)))
 	
@@ -121,7 +122,6 @@ func _process(delta: float) -> void:
 		requested = false
 		requested_duo_dance = false
 		requested_second_solo = false
-		state_change_from_any("BeethovenIdle")
 		#print("reseted")
 		#print((GameManager.Instance.bc.time + (looped_times*mimic_track_time)))
 
