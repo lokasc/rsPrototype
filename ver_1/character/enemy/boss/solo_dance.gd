@@ -16,9 +16,12 @@ extends BossAbility
 @export var projectile_scale : Vector2
 @export var projectile_scene : PackedScene = preload("res://ver_1/character/enemy/boss/B&B/bnb_projectile.tscn")
 
-var current_interval : float = 0.75
+var interval_changes_per_side_change = 2 # we change 3 times then we change the interval
+var intervals : Array[float] = [0.75, 0.75, 0.5, 0.25]
+var intervals_index : int = 0
+var current_interval : float
+var side_change_counts = 0
 var current_proj_time = 0
-
 
 var current_side = 0
 var prev_side = -1
@@ -30,6 +33,10 @@ var bot_spawn_x_pos : Array[float] = [25, 75, 125, 175] # these are x positions 
 # the height of the box is 150
 # the width of the box is 200 
 # we can fit 4 projectiles
+func _ready() -> void:
+	super()
+	current_interval = intervals[0]
+	intervals_index = 0
 
 func enter() -> void:
 	super()
@@ -80,6 +87,16 @@ func select_target():
 
 func decide_side():
 	if !multiplayer.is_server(): return
+	
+	# gradually increase the frequencies of tiles
+	side_change_counts += 1
+	if side_change_counts >= interval_changes_per_side_change:
+		side_change_counts = 0
+		intervals_index += 1
+		intervals_index = min(intervals_index, intervals.size() - 1)
+		current_interval = intervals[intervals_index]
+		#print(current_interval)
+	
 	while true:
 		current_side = rng.randi_range(0, 3)
 		if prev_side != current_side:

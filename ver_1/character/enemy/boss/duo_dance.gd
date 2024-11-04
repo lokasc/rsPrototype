@@ -17,7 +17,11 @@ signal changed_side(side)
 @export var projectile_scale : Vector2
 @export var projectile_scene : PackedScene = preload("res://ver_1/character/enemy/boss/B&B/bnb_projectile.tscn")
 
-var current_interval : float = 0.75
+var interval_changes_per_side_change = 3 # we change 3 times then we change the interval
+var intervals : Array[float] = [0.75, 0.5, 0.25]
+var intervals_index : int = 0
+var current_interval : float
+var side_change_counts = 0
 var current_proj_time = 0
 
 var ally_side = -1
@@ -31,9 +35,10 @@ var bot_spawn_x_pos : Array[float] = [9.375, 28.125, 46.875, 65.625] # these are
 # the width of the box is 300
 # we can fit 4 projectiles
 
-
 func _ready() -> void:
 	super()
+	current_interval = intervals[0]
+	intervals_index = 0
 
 func enter() -> void:
 	super()
@@ -78,6 +83,16 @@ func spawn_projectile(gpos : Vector2, direction : Vector2) -> void:
 
 func decide_side():
 	if !multiplayer.is_server(): return
+	
+	# gradually increase the frequencies of tiles
+	side_change_counts += 1
+	if side_change_counts >= interval_changes_per_side_change:
+		side_change_counts = 0
+		intervals_index += 1
+		intervals_index = min(intervals_index, intervals.size() - 1)
+		current_interval = intervals[intervals_index]
+		#print(current_interval)
+	
 	while true:
 		current_side = rng.randi_range(0, 5)
 		
