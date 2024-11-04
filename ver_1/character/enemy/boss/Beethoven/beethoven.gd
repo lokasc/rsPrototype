@@ -6,8 +6,22 @@ signal hide_warning
 
 signal request_assistance # asks Biano to start "covering fire"
 
-@onready var hitbox : Area2D = $HitBox
-@onready var collidebox : CollisionShape2D = $CollisionBox
+var time_to_start_dance_sequence : float# The exact time when the solo starts. (8s + 128s)
+var first_solo_time : float # How long the first solo lasts
+var second_solo_time : float
+var duo_solo_time : float
+
+var start_time
+var track_duration : float = 232 # to check for looping (without the intro) 232
+var looped_times : int = 0
+var mimic_track_time : float = 320.05 # mimic length
+var mimic_previous_time : float = 0
+var current_mimic_time : float = 0
+
+var requested : bool
+var requested_second_solo : bool
+var requested_duo_dance : bool
+var requested_end : bool
 
 @export var indicator : Sprite2D
 @export_subgroup("abilities")
@@ -16,6 +30,10 @@ signal request_assistance # asks Biano to start "covering fire"
 @export var bodyguard : BeeBodyguard
 @export var pump_fake : BossAbility
 @export var dash : BossAbility
+@export_subgroup("Dance")
+@export var idle_dance : BossAbility
+@export var solo_dance : BossAbility
+@export var duo_dance : BossAbility
 
 @export_subgroup("Stress Heuristic")
 @export var stress_threshold : float = 500 
@@ -24,6 +42,8 @@ signal request_assistance # asks Biano to start "covering fire"
 @export var weight_1 : float = 0.7# hit count weight
 @export var weight_2 : float = 0.3# total dmg weight
 
+@onready var hitbox : Area2D = $HitBox
+@onready var collidebox : CollisionShape2D = $CollisionBox
 
 var current_stress : float = 0
 var hit_count : int = 0
@@ -52,10 +72,64 @@ func _ready() -> void:
 	x_scale = sprite.scale.x
 	changed_from_idle.connect(reset_stress)
 	hit.connect(update_stress)
+	
+	start_time = ally.start_time
+	time_to_start_dance_sequence = ally.time_to_start_dance_sequence
+	first_solo_time = ally.first_solo_time
+	second_solo_time = ally.second_solo_time
+	duo_solo_time = ally.duo_solo_time
+	
+	GameManager.Instance.bc.mimic_looped.connect(check_for_looping)
 
-# process your states here
 func _process(delta: float) -> void:
 	super(delta)
+	if get_time_passed() >= start_time + time_to_start_dance_sequence && !requested:
+		requested = true
+		GameManager.Instance.start_dance_sequence()
+		state_change_from_any("IdleDance")
+		
+		#print("start_dance_sequence")
+		if looped_times > 0:
+			print("WE LOOP STARTED",get_time_passed())
+		
+	if !requested_second_solo && requested && get_time_passed()  >= start_time + time_to_start_dance_sequence + first_solo_time:
+		requested_second_solo = true
+		GameManager.Instance.start_second_solo()
+		state_change_from_any("SoloDance")
+		#print("start_second_solo")
+		#print((GameManager.Instance.bc.time + (looped_times*mimic_track_time)))
+	#
+	if !requested_duo_dance && requested_second_solo && get_time_passed()>= start_time + time_to_start_dance_sequence + first_solo_time + second_solo_time:
+		requested_duo_dance = true
+		GameManager.Instance.start_dance_duo()
+		state_change_from_any("DuoDance")
+		#state_change_from_any("IdleDance") # need to rechange this to DuoDance (when implemented).
+		#print("start_dance_duo")
+		#print((GameManager.Instance.bc.time + (looped_times*mimic_track_time)))
+	
+	# End the last sequence.
+	if !requested_end && requested_duo_dance && get_time_passed() >= start_time + time_to_start_dance_sequence + first_solo_time + second_solo_time + duo_solo_time:
+		requested_end = true
+		GameManager.Instance.end_dance_sequence()
+		#print("end_dance_sequence")
+		#print((GameManager.Instance.bc.time + (looped_times*mimic_track_time)))
+	
+	# Check for looping and reset,
+	if requested_end && get_time_passed() >= start_time + track_duration:
+		start_time = get_time_passed()
+		requested_end = false
+		requested = false
+		requested_duo_dance = false
+		requested_second_solo = false
+		state_change_from_any("BeethovenIdle")
+		#print("reseted")
+		#print((GameManager.Instance.bc.time + (looped_times*mimic_track_time)))
+
+func check_for_looping():
+	looped_times += 1
+
+func get_time_passed() -> float:
+	return GameManager.Instance.bc.time + looped_times * mimic_track_time
 
 func _physics_process(delta : float) -> void:
 	if frozen: return
@@ -68,6 +142,9 @@ func _init_states():
 	_parse_abilities(bodyguard)
 	_parse_abilities(pump_fake)
 	_parse_abilities(dash)
+	_parse_abilities(idle_dance)
+	_parse_abilities(solo_dance)
+	_parse_abilities(duo_dance)
 	super()
 
 
@@ -110,13 +187,13 @@ func _on_warning_timer_timeout() -> void:
 # need to decide heuristics but for now we always follow up.
 func try_follow_up(player_id):
 	if current_state.name == "BeeBodyguard": return
-	
+	if current_state == duo_dance || current_state == idle_dance || current_state == solo_dance: return
 	state_change_from_any("BeethovenDash")
 	global_position = GameManager.Instance.get_player(player_id).global_position
 
 func on_request_assistance():
 	if current_state is BeeBodyguard: return
-	
+	if current_state == duo_dance || current_state == idle_dance || current_state == solo_dance: return
 	state_change_from_any("BeeBodyguard")
 
 #region stress & assistance

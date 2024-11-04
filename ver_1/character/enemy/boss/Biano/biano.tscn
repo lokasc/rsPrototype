@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c3vtdiit6y6fr"]
+[gd_scene load_steps=18 format=3 uid="uid://c3vtdiit6y6fr"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/Biano/biano.gd" id="1_yh4o6"]
 [ext_resource type="PackedScene" uid="uid://dvq0mknnbaeaj" path="res://ver_1/character/enemy/boss/Biano/biano_idle.tscn" id="2_0ep1u"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://cioljtydwmxxg" path="res://ver_1/character/enemy/boss/B&B/bnb_rain.tscn" id="4_0x53s"]
 [ext_resource type="PackedScene" uid="uid://yw7j6gt8ycx8" path="res://ver_1/character/enemy/boss/Biano/biano_escape_fall.tscn" id="5_grjrp"]
 [ext_resource type="PackedScene" uid="uid://bh3s24sct2w7" path="res://ver_1/character/enemy/boss/idle_dance.tscn" id="6_7jqnf"]
+[ext_resource type="PackedScene" uid="uid://bm436kn6ywdfp" path="res://ver_1/character/enemy/boss/solo_dance.tscn" id="7_00l37"]
+[ext_resource type="PackedScene" uid="uid://curwic0sq8nm8" path="res://ver_1/character/enemy/boss/duo_dance.tscn" id="8_xyl6a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8h38y"]
 radius = 140.089
@@ -34,16 +36,22 @@ size = Vector2(2000, 4588.75)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3xrig"]
 size = Vector2(2084.98, 4095)
 
-[node name="Biano" type="CharacterBody2D" node_paths=PackedStringArray("idle", "covering_fire", "rain", "escape", "idle_dance", "main_state")]
+[node name="Biano" type="CharacterBody2D" node_paths=PackedStringArray("idle", "covering_fire", "rain", "escape", "idle_dance", "solo_dance", "duo_dance", "main_state")]
 scale = Vector2(0.2, 0.2)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_yh4o6")
+time_to_start_dance_sequence = -8.0
+first_solo_time = 4.0
+second_solo_time = 4.0
+duo_solo_time = 100.0
 idle = NodePath("BianoIdle")
 covering_fire = NodePath("BianoCoveringFire")
 rain = NodePath("BnBRain")
 escape = NodePath("BianoEscapeFall")
 idle_dance = NodePath("IdleDance")
+solo_dance = NodePath("SoloDance")
+duo_dance = NodePath("DuoDance")
 stress_threshold = 500.0
 weight_1 = 0.7
 weight_2 = 0.3
@@ -80,6 +88,11 @@ scale = Vector2(15, 15)
 [node name="BianoEscapeFall" parent="." instance=ExtResource("5_grjrp")]
 
 [node name="IdleDance" parent="." instance=ExtResource("6_7jqnf")]
+
+[node name="SoloDance" parent="." instance=ExtResource("7_00l37")]
+
+[node name="DuoDance" parent="." instance=ExtResource("8_xyl6a")]
+is_biano = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_3cjxf")

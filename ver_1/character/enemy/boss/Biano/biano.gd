@@ -74,7 +74,7 @@ func _ready() -> void:
 	GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.BNB_PHASE_TWO)
 	start_time = GameManager.Instance.bc.time + 8 # account for intro
 	GameManager.Instance.bc.mimic_looped.connect(check_for_looping)
-	
+
 
 # process your states here
 func _process(delta: float) -> void:
@@ -82,6 +82,8 @@ func _process(delta: float) -> void:
 	if get_time_passed() >= start_time + time_to_start_dance_sequence && !requested:
 		requested = true
 		GameManager.Instance.start_dance_sequence()
+		state_change_from_any("SoloDance")
+		
 		print("start_dance_sequence")
 		if looped_times > 0:
 			print("WE LOOP STARTED",get_time_passed())
@@ -89,20 +91,23 @@ func _process(delta: float) -> void:
 	if !requested_second_solo && requested && get_time_passed()  >= start_time + time_to_start_dance_sequence + first_solo_time:
 		requested_second_solo = true
 		GameManager.Instance.start_second_solo()
-		print("start_second_solo")
+		state_change_from_any("IdleDance")
+		#print("start_second_solo")
 		#print((GameManager.Instance.bc.time + (looped_times*mimic_track_time)))
 	#
 	if !requested_duo_dance && requested_second_solo && get_time_passed()>= start_time + time_to_start_dance_sequence + first_solo_time + second_solo_time:
 		requested_duo_dance = true
 		GameManager.Instance.start_dance_duo()
-		print("start_dance_duo")
+		state_change_from_any("DuoDance")
+		#print("start_dance_duo")
 		#print((GameManager.Instance.bc.time + (looped_times*mimic_track_time)))
 	
 	# End the last sequence.
 	if !requested_end && requested_duo_dance && get_time_passed() >= start_time + time_to_start_dance_sequence + first_solo_time + second_solo_time + duo_solo_time:
 		requested_end = true
 		GameManager.Instance.end_dance_sequence()
-		print("end_dance_sequence")
+		state_change_from_any("BianoIdle")
+		#print("end_dance_sequence")
 		#print((GameManager.Instance.bc.time + (looped_times*mimic_track_time)))
 	
 	# Check for looping and reset,
@@ -112,7 +117,7 @@ func _process(delta: float) -> void:
 		requested = false
 		requested_duo_dance = false
 		requested_second_solo = false
-		print("reseted")
+		#print("reseted")
 		#print((GameManager.Instance.bc.time + (looped_times*mimic_track_time)))
 
 func check_for_looping():
@@ -148,10 +153,12 @@ func init_duo_signals():
 
 func try_follow_up():
 	if current_state.name == "BianoEscapeFall": return
+	if current_state == duo_dance || current_state == idle_dance || current_state == solo_dance: return
 	state_change_from_any("BianoCoveringFire")
 
 func on_request_assistance():
 	if current_state.name == "BianoEscapeFall": return
+	if current_state == duo_dance || current_state == idle_dance || current_state == solo_dance: return
 	state_change_from_any("BianoCoveringFire")
 
 #region stress & assistance
