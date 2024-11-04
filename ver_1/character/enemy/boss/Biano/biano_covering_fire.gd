@@ -35,11 +35,12 @@ func exit() -> void:
 func update(_delta: float) -> void:
 	super(_delta)
 
-
 func physics_update(_delta: float) -> void:
 	super(_delta)
 
 func spawn_projectile(gpos : Vector2) -> void:
+	if !multiplayer.is_server(): return
+	
 	var copy = projectile_scene.instantiate()
 	
 	copy.dmg = p_dmg
