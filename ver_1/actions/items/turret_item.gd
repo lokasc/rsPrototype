@@ -75,6 +75,7 @@ func spawn_turret(spawn_location : Vector2) -> void:
 	
 func on_destroy_turret(p_turret) -> void:
 	turret_list.erase(p_turret)
+	if !multiplayer.is_server(): return
 	p_turret.queue_free()
 
 func set_turret_stats(new_turret : Turret) -> void:

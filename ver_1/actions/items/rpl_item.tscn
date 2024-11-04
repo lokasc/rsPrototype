@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://ganlbxewr41"]
+
+[ext_resource type="Script" path="res://ver_1/actions/items/rpl_item.gd" id="1_tfrxg"]
+
+[node name="rpl_item" type="Node2D"]
+script = ExtResource("1_tfrxg")
+shooting_period = 4.0
+picking_duration = 1.0
+projectile_id_array = Array[int]([1, 1, 1, 1, 2, 2, 2, 3, 3, 4])
+projectile_1_speed = 200
+projectile_1_size = 0.3
+projectile_2_dmg = 20.0
+projectile_2_size = 0.7
+projectile_2_amount = 10
+projectile_2_range = 150.0
+projectile_3_speed = 500
+projectile_3_dmg = 30.0
+projectile_3_size = 0.5
+projectile_3_amount = 30
+projectile_3_spread = 25
+asc_2_aoe_multiplier = 1.5
+asc_2_dur_multiplier = 1.5
+asc_2_dmg_multiplier = 1.5
+asc_3_dmg_multiplier = 1.5
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -60.0
+offset_right = 20.0
+offset_bottom = -37.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelTimer" type="Timer" parent="."]
+
+[node name="Proj2Timer" type="Timer" parent="."]
+
+[node name="Proj3Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="LabelTimer" to="." method="_on_label_timer_timeout"]

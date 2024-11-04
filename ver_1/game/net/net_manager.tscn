@@ -15,7 +15,7 @@ trebbie_scene = ExtResource("2_escgf")
 bass_scene = ExtResource("3_q7t8h")
 
 [node name="SpawnablesSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://ver_1/character/enemy/Shooter/projectile.tscn", "res://ver_1/character/enemy/boss/B&B/bnb_projectile.tscn")
+_spawnable_scenes = PackedStringArray("res://ver_1/character/enemy/Shooter/shooter_projectile.tscn", "res://ver_1/character/enemy/boss/B&B/bnb_projectile.tscn", "res://ver_1/actions/items/rpl_projectiles/rpl_projectile_1.tscn", "res://ver_1/actions/items/rpl_projectiles/rpl_projectile_2.tscn")
 spawn_path = NodePath("../Spawnables")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]

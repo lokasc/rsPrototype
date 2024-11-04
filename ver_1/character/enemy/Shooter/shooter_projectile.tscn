@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://3qhplft0kbjb"]
+[gd_scene load_steps=5 format=3 uid="uid://rlrx01gxnre0"]
 
-[ext_resource type="Script" path="res://ver_1/character/enemy/Shooter/projectile.gd" id="1_3osvl"]
-[ext_resource type="Texture2D" uid="uid://dhey1d0ulfppm" path="res://assets/map/tilemaps/decals/Plaza.png" id="2_dfuqk"]
+[ext_resource type="Script" path="res://ver_1/character/enemy/Shooter/shooter_projectile.gd" id="1_aynin"]
+[ext_resource type="Texture2D" uid="uid://dhey1d0ulfppm" path="res://assets/map/tilemaps/decals/Plaza.png" id="2_dorj3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gefsn"]
 radius = 20.025
@@ -20,18 +20,17 @@ properties/3/path = NodePath(".:position")
 properties/3/spawn = true
 properties/3/replication_mode = 0
 
-[node name="Projectile" type="Node2D"]
-script = ExtResource("1_3osvl")
-speed = 10.0
+[node name="ShooterProjectile" type="Node2D"]
+script = ExtResource("1_aynin")
 
-[node name="AnimatedSprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.364706, 0, 1, 1)
 scale = Vector2(0.045, 0.045)
-texture = ExtResource("2_dfuqk")
+texture = ExtResource("2_dorj3")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_gefsn")

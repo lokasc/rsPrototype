@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://bbb82cq1whdjb"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/Shooter/shooter.gd" id="1_ofxrg"]
-[ext_resource type="PackedScene" uid="uid://3qhplft0kbjb" path="res://ver_1/character/enemy/Shooter/projectile.tscn" id="2_jj34l"]
+[ext_resource type="PackedScene" uid="uid://rlrx01gxnre0" path="res://ver_1/character/enemy/Shooter/shooter_projectile.tscn" id="2_fnkvc"]
 [ext_resource type="Texture2D" uid="uid://bqp1o7iap6knb" path="res://assets/enemies/OneShot.png" id="3_j6hkx"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="4_luwop"]
 
@@ -63,7 +63,7 @@ projectile_speed = 70
 projectile_dmg = 30.0
 projectile_size = 1.2
 shooting_period = 2.0
-projectile_scene = ExtResource("2_jj34l")
+projectile_scene = ExtResource("2_fnkvc")
 max_health = 200.0
 speed = 40
 dmg = 10.0
