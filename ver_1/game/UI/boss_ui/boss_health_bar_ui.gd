@@ -28,10 +28,7 @@ func _process(delta: float) -> void:
 		animation_logic(delta)
 	
 	if is_started:
-		if !multiplayer.is_server() && boss:
-			if boss.current_health == null:
-				return
-			value = boss.current_health
+		value = boss.current_health
 
 func animation_logic(delta):
 	current_time += delta

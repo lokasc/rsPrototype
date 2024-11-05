@@ -18,6 +18,7 @@ extends Control
 
 # Boss UI
 @onready var boss_health_bar : BossHealthBarUI = player_ui_layer.find_child("BossHealthBarUI")
+@onready var boss_health_bar_duo : BossHealthBarUI = player_ui_layer.find_child("BossHealthBarUI2")
 @onready var cinematic_bars = player_ui_layer.find_child("CinematicBars")
 
 # Abilities, Stats & Items
@@ -47,6 +48,8 @@ func _ready() -> void:
 	hide_player_ui()
 	update_max_xp(GameManager.Instance.max_xp)
 	boss_health_bar.visible = false
+	boss_health_bar_duo.visible = false
+	
 	cinematic_bars.visible = false
 
 func update_xp(xp : int):
@@ -160,6 +163,12 @@ func set_stat_ui(_stat : BaseStatCard, hero : BaseHero):
 
 #region boss_ui
 func set_boss_ui(_boss : BaseBoss):
+	if boss_health_bar.boss:
+		print("SECOND BOSS")
+		boss_health_bar_duo.set_up(_boss)
+		boss_health_bar_duo.visible = true
+		return
+	
 	boss_health_bar.set_up(_boss)
 	boss_health_bar.visible = true
 
