@@ -188,6 +188,8 @@ func turn_on_cinematic_bars(id):
 
 func turn_off_cinematic_bars(id):
 	for x in player_ui_layer.get_children():
+		# do not turn on ability bars.
+		if x is BeatVisualizer: continue
 		x.visible = true
 	cinematic_bars.visible = false
 	

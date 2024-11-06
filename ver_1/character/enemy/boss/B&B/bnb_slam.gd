@@ -68,7 +68,7 @@ func calculate_fill_time() -> void:
 			GameManager.Instance.boss_cinematic_camera_move(self.boss.char_id, self.global_position, 4, 4)
 			
 			# Waits until camera gets to the middle then shakes.
-			await get_tree().create_timer(5).timeout # I AM NOT QUITE SURE WHETHER THIS LINE OF CODE WILL BREAK EVERYTHING INCLUDING SYNC AND TIMING.
+			await get_tree().create_timer(4.5).timeout # I AM NOT QUITE SURE WHETHER THIS LINE OF CODE WILL BREAK EVERYTHING INCLUDING SYNC AND TIMING.
 			GameManager.Instance.screen_shake(8, 2)
 		2:
 			# Set the piano scream/battlecry for the remaining time left + mp3 fill time.
