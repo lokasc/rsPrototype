@@ -81,9 +81,9 @@ func calculate_fill_time() -> void:
 			GameManager.Instance.bc.interactive_resource.set_clip_auto_advance_next_clip(6, 4)
 			GameManager.Instance.boss_cinematic_camera_move(self.boss.char_id, self.global_position, active_duration-4, 4)
 			
-			
-			await get_tree().create_timer(active_duration-4+1).timeout
-			GameManager.Instance.screen_shake(8, 2)
+			# Waits until camera gets to the middle then shakes.
+			await get_tree().create_timer(active_duration-4).timeout
+			GameManager.Instance.screen_shake(8, 1.2)
 		3:
 			# Set the piano scream/battlecry for the remaining time left + mp3 fill time.
 			active_duration = GameManager.Instance.bc.get_time_til_next_bar() + 4
@@ -95,5 +95,5 @@ func calculate_fill_time() -> void:
 			GameManager.Instance.boss_cinematic_camera_move(self.boss.char_id, self.global_position, active_duration-4, 4)
 			
 			
-			await get_tree().create_timer(active_duration-4+1).timeout
-			GameManager.Instance.screen_shake(8, 2)
+			await get_tree().create_timer(active_duration-4).timeout
+			GameManager.Instance.screen_shake(12, 3)
