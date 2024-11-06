@@ -86,7 +86,6 @@ func ring_pattern() -> void:
 		spawn_projectile(spawn_position)
 	rand_color += 1
 	rand_color = rand_color%4
-	pass
 
 func spawn_pattern() -> void:
 	if !multiplayer.is_server(): return
@@ -111,14 +110,13 @@ func spawn_projectile(gpos : Vector2) -> void:
 	copy.global_position = gpos
 	copy.look_at(global_position)
 	copy.rotate(deg_to_rad(180-90))
-	
-	if rand_color == 0:
-		copy.modulate = Color(255,0,0)
-	if rand_color == 1:
-		copy.modulate = Color(0,255,0)
-	if rand_color == 2:
-		copy.modulate = Color(0,0,255)
-	
+
+	#if rand_color == 0:
+		#copy.modulate = Color(255,0,0)
+	#if rand_color == 1:
+		#copy.modulate = Color(0,255,0)
+	#if rand_color == 2:
+		#copy.modulate = Color(0,0,255)
 	
 	GameManager.Instance.net.spawnable_path.add_child(copy, true)
 	# spawn in network node.
