@@ -24,10 +24,13 @@ func enter() -> void:
 
 func update(delta) -> void:
 	s_current_time += delta
+	# ensure that player cannot move during the animation, due to kb also altering this bool during the slam.
+	GameManager.Instance.local_player.input.canMove = false
 	if s_current_time >= active_duration:
 		on_slam_animation_finish()
 
 func exit() -> void:
+	GameManager.Instance.local_player.input.canMove = true
 	slam_area.monitoring = false
 	slam_area.get_child(0).debug_color = Color("aafbfa40")
 	s_current_time = 0
@@ -83,7 +86,7 @@ func calculate_fill_time() -> void:
 			
 			# Waits until camera gets to the middle then shakes.
 			await get_tree().create_timer(active_duration-4).timeout
-			GameManager.Instance.screen_shake(8, 1.2)
+			GameManager.Instance.screen_shake(8, 1.25)
 		3:
 			# Set the piano scream/battlecry for the remaining time left + mp3 fill time.
 			active_duration = GameManager.Instance.bc.get_time_til_next_bar() + 4

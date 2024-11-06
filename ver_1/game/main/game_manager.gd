@@ -132,9 +132,9 @@ func start_game():
 			hero.char_stats.maxhp = 1000000
 			hero.current_health = 1000000
 	if spawn_boss:
-		#spawner.custom_spawn("res://ver_1/character/enemy/boss/B&B/bnb.tscn", Vector2(0,0))
-		spawner.custom_spawn("res://ver_1/character/enemy/boss/Biano/biano.tscn", Vector2(0,35))
-		spawner.custom_spawn("res://ver_1/character/enemy/boss/Beethoven/beethoven.tscn", Vector2(0,35))
+		spawner.custom_spawn("res://ver_1/character/enemy/boss/B&B/bnb.tscn", Vector2(0,0))
+		#spawner.custom_spawn("res://ver_1/character/enemy/boss/Biano/biano.tscn", Vector2(0,35))
+		#spawner.custom_spawn("res://ver_1/character/enemy/boss/Beethoven/beethoven.tscn", Vector2(0,35))
 	if dont_spawn_enemies: 
 		return
 	spawner._start_timer()
@@ -364,9 +364,9 @@ func tween_camera_to_pos(id, _gpos : Vector2, time : float, delay : float = 0):
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(local_player.camera, "global_position", _gpos, time)
 	tween.tween_property(player_cam, "global_position", player_cam.global_position, 0).set_delay(delay)
-	tween.finished.connect(reset_cam_pos.bind(id))
+	tween.finished.connect(on_tween_finish.bind(id))
 
-func reset_cam_pos(id):
+func on_tween_finish(id):
 	local_player.camera.position = Vector2.ZERO
 	ui.turn_off_cinematic_bars(id)
 
@@ -403,6 +403,7 @@ func start_dance_sequence():
 	
 	if multiplayer.get_unique_id() == 1:
 		map.get_node("DanceWalls" + str(1)).get_node("BlackSprite").visible = true
+		pass
 	
 	# only execute teleport if you are on the server.
 	if multiplayer.is_server():
