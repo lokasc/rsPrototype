@@ -58,7 +58,7 @@ func _physics_process(delta: float) -> void:
 		global_position += transform.y * delta * spd
 		dist_travelled += delta * spd
 		if dist_travelled >= 1000:
-			queue_free()
+			on_destory_projectile()
 
 func on_projectile_land():
 	if !multiplayer.is_server(): return
@@ -80,3 +80,8 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 	character.take_damage(boss_atk/initial_boss_atk * dmg)
 	visible = false
 	call_deferred("queue_free")
+
+func on_destory_projectile():
+	visible = false
+	if multiplayer.is_server():
+		queue_free()
