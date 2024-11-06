@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/Beethoven/beethoven.gd" id="1_a4kde"]
 [ext_resource type="PackedScene" uid="uid://ck6a1wk6xj4e2" path="res://ver_1/character/enemy/boss/Beethoven/bee_zoning_strike.tscn" id="2_2fnb1"]
 [ext_resource type="PackedScene" uid="uid://deu84e8eevafj" path="res://ver_1/character/enemy/boss/Beethoven/beethoven_idle.tscn" id="2_6tg8c"]
-[ext_resource type="Texture2D" uid="uid://m0w7duynn73" path="res://assets/bosses/bee/bee.png" id="2_fa11c"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="3_g7paf"]
 [ext_resource type="PackedScene" uid="uid://b8ojvm7c0x1wr" path="res://ver_1/character/enemy/boss/Beethoven/special/beethoven_pumpfake.tscn" id="4_g6vtx"]
 [ext_resource type="PackedScene" uid="uid://c4rt4xx1w00se" path="res://ver_1/character/enemy/boss/Beethoven/beethoven_dash.tscn" id="5_c0de1"]
@@ -12,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dc3v3w646tlvf" path="res://assets/common/indicators/WarningIndication.png" id="8_8bpn6"]
 [ext_resource type="PackedScene" uid="uid://bm436kn6ywdfp" path="res://ver_1/character/enemy/boss/solo_dance.tscn" id="8_kqy0q"]
 [ext_resource type="PackedScene" uid="uid://curwic0sq8nm8" path="res://ver_1/character/enemy/boss/duo_dance.tscn" id="9_3rype"]
+[ext_resource type="Texture2D" uid="uid://cl8mxxadfv78b" path="res://assets/bosses/bnb/Beethoven2.png" id="10_do15i"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8h38y"]
 radius = 140.357
@@ -84,10 +84,9 @@ is_biano = false
 [node name="DuoDance" parent="." instance=ExtResource("9_3rype")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(70, -10)
-texture = ExtResource("2_fa11c")
-offset = Vector2(0, 3)
-region_enabled = true
+position = Vector2(26, -10)
+scale = Vector2(4, 4)
+texture = ExtResource("10_do15i")
 region_rect = Rect2(41, 0, 329, 382)
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]

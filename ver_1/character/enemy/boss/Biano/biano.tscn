@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/Biano/biano.gd" id="1_yh4o6"]
 [ext_resource type="PackedScene" uid="uid://dvq0mknnbaeaj" path="res://ver_1/character/enemy/boss/Biano/biano_idle.tscn" id="2_0ep1u"]
-[ext_resource type="Texture2D" uid="uid://ddxghwpdca1is" path="res://assets/bosses/biano/piano.png" id="2_3cjxf"]
 [ext_resource type="PackedScene" uid="uid://c48dnnj6ck6nx" path="res://ver_1/status_effects/status_holder.tscn" id="3_q0mwj"]
 [ext_resource type="PackedScene" uid="uid://db0dofn3ah4i5" path="res://ver_1/character/enemy/boss/Biano/biano_covering_fire.tscn" id="3_qy6rg"]
 [ext_resource type="PackedScene" uid="uid://cioljtydwmxxg" path="res://ver_1/character/enemy/boss/B&B/bnb_rain.tscn" id="4_0x53s"]
@@ -10,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bh3s24sct2w7" path="res://ver_1/character/enemy/boss/idle_dance.tscn" id="6_7jqnf"]
 [ext_resource type="PackedScene" uid="uid://bm436kn6ywdfp" path="res://ver_1/character/enemy/boss/solo_dance.tscn" id="7_00l37"]
 [ext_resource type="PackedScene" uid="uid://curwic0sq8nm8" path="res://ver_1/character/enemy/boss/duo_dance.tscn" id="8_xyl6a"]
+[ext_resource type="Texture2D" uid="uid://sawcsqocstmg" path="res://assets/bosses/bnb/Biano.png" id="9_f31kq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8h38y"]
 radius = 140.089
@@ -91,7 +91,8 @@ scale = Vector2(15, 15)
 is_biano = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_3cjxf")
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("9_f31kq")
 offset = Vector2(0, 3)
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
