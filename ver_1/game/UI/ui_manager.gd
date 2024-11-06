@@ -178,16 +178,19 @@ func stc_set_boss_ui(id : int):
 	var _boss = GameManager.Instance.spawner.get_enemy_from_id(id)
 	set_boss_ui(_boss)
 
-
 # Turns everything off in player container but the timer.
-func turn_on_cinematic_bars():
+func turn_on_cinematic_bars(id):
 	for x in player_ui_layer.get_children():
 		x.visible = false
 	cinematic_bars.visible = true
 	boss_health_bar.visible = true
+	if id == 22: boss_health_bar_duo.visible = true
 
-func turn_off_cinematic_bars():
+func turn_off_cinematic_bars(id):
 	for x in player_ui_layer.get_children():
 		x.visible = true
 	cinematic_bars.visible = false
+	
+	# turn off 2nd health bar if the beethoven isnt present.
+	if id != 22: boss_health_bar_duo.visible = false
 #endregion

@@ -68,7 +68,7 @@ func _ready() -> void:
 	hit.connect(update_stress)
 	
 	# Activate and bring out arena walls
-	arena_walls.reparent(GameManager.Instance.map)
+	arena_walls.call_deferred("reparent", GameManager.Instance.map)
 	arena_walls.global_scale = Vector2(0.5, 0.5)
 	GameManager.Instance.map.get_node("ArenaBuildings").visible = true
 	GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.BNB_PHASE_TWO)

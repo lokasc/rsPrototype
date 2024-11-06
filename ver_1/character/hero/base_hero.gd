@@ -233,6 +233,8 @@ func to_clients_player_died():
 	
 	# Currently, music is handled by the server 
 	# TODO: Music handled by the client
+	
+	if GameManager.Instance.is_boss_battle: return
 	if id == 1: GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.LOW_HP)
 	else: GameManager.Instance.bc.stc_change_bg_music.rpc_id(id, BeatController.BG_TRANSITION_TYPE.LOW_HP)
 
@@ -251,12 +253,16 @@ func check_low_health():
 func on_enter_low_health():
 	# change bg
 	# and modulate the screen a bit.
+	# currently this is a bug that conflicts with the boss music tracks
+	
+	if GameManager.Instance.is_boss_battle: return
 	
 	if id == 1: GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.LOW_HP)
 	else: GameManager.Instance.bc.stc_change_bg_music.rpc_id(id, BeatController.BG_TRANSITION_TYPE.LOW_HP)
 
 func on_exit_low_health():
 	# change bg
+	if GameManager.Instance.is_boss_battle: return
 	
 	if id == 1: GameManager.Instance.bc.change_bg_from_local_to_global()
 	else: GameManager.Instance.bc.stc_change_bg_to_global.rpc_id(id)

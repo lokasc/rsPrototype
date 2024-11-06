@@ -18,6 +18,7 @@ func _ready() -> void:
 	super()
 	_init_states()
 	initial_atk = char_stats.atk
+	GameManager.Instance.is_boss_battle = true
 
 
 func _process(_delta: float) -> void:
@@ -80,3 +81,7 @@ func check_change_from_idle(new_state):
 	if current_state.name == main_state.name:
 		if new_state.name != main_state.name:
 			changed_from_idle.emit()
+
+func death():
+	super()
+	GameManager.Instance.is_boss_battle = false

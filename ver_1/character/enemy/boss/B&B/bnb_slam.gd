@@ -65,7 +65,7 @@ func calculate_fill_time() -> void:
 			var intro_duration = 8
 			active_duration = intro_duration
 			GameManager.Instance.bc.change_bg(BeatController.BG_TRANSITION_TYPE.BNB_INTRO)
-			GameManager.Instance.boss_cinematic_camera_move(self.global_position, 4, 4)
+			GameManager.Instance.boss_cinematic_camera_move(self.boss.char_id, self.global_position, 4, 4)
 			
 			# Waits until camera gets to the middle then shakes.
 			await get_tree().create_timer(5).timeout # I AM NOT QUITE SURE WHETHER THIS LINE OF CODE WILL BREAK EVERYTHING INCLUDING SYNC AND TIMING.
@@ -78,7 +78,7 @@ func calculate_fill_time() -> void:
 			# Turns on auto-advance for fill and go to phase 2 right after
 			GameManager.Instance.bc.interactive_resource.set_clip_auto_advance(6 ,AudioStreamInteractive.AUTO_ADVANCE_ENABLED)
 			GameManager.Instance.bc.interactive_resource.set_clip_auto_advance_next_clip(6, 4)
-			GameManager.Instance.boss_cinematic_camera_move(self.global_position, active_duration-4, 4)
+			GameManager.Instance.boss_cinematic_camera_move(self.boss.char_id, self.global_position, active_duration-4, 4)
 			
 			
 			await get_tree().create_timer(active_duration-4+1).timeout
@@ -91,7 +91,7 @@ func calculate_fill_time() -> void:
 			# Turns on auto-advance for fill and go to phase 3 right after
 			GameManager.Instance.bc.interactive_resource.set_clip_auto_advance(6 ,AudioStreamInteractive.AUTO_ADVANCE_ENABLED)
 			GameManager.Instance.bc.interactive_resource.set_clip_auto_advance_next_clip(6, 5)
-			GameManager.Instance.boss_cinematic_camera_move(self.global_position, active_duration-4, 4)
+			GameManager.Instance.boss_cinematic_camera_move(self.boss.char_id, self.global_position, active_duration-4, 4)
 			
 			
 			await get_tree().create_timer(active_duration-4+1).timeout

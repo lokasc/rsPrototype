@@ -45,6 +45,9 @@ var action_selected : bool
 var players_selection_ready : int
 var char_selected : bool = false
 
+# For game state
+var is_boss_battle = false
+
 var net : NetManager
 var spawner : EnemySpawner
 var ui : UIManager
@@ -344,9 +347,9 @@ func is_local_player(id : int):
 		return false
 
 # Turns on cinematic bars and tween camera.
-func boss_cinematic_camera_move(_gpos : Vector2, time : float, delay : float = 0):
-	tween_camera_to_pos(_gpos, time, delay)
-	ui.turn_on_cinematic_bars()
+func boss_cinematic_camera_move(id ,_gpos : Vector2, time : float, delay : float = 0):
+	tween_camera_to_pos(id, _gpos, time, delay)
+	ui.turn_on_cinematic_bars(id)
 
 # Shakes all players camera by given strength and fade (how long it returns to normal)
 # Time to completion= strength/fade
@@ -354,18 +357,18 @@ func screen_shake(strength : float, fade : float):
 	local_player.camera.start_shake(strength, fade)
 
 # tweens the player's camera to a given position, pauses for x seconds, then instantly goes back to the original position
-func tween_camera_to_pos(_gpos : Vector2, time : float, delay : float = 0):
+func tween_camera_to_pos(id, _gpos : Vector2, time : float, delay : float = 0):
 	var player_cam = local_player.camera
 	var tween = player_cam.create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(local_player.camera, "global_position", _gpos, time)
 	tween.tween_property(player_cam, "global_position", player_cam.global_position, 0).set_delay(delay)
-	tween.finished.connect(reset_cam_pos)
+	tween.finished.connect(reset_cam_pos.bind(id))
 
-func reset_cam_pos():
+func reset_cam_pos(id):
 	local_player.camera.position = Vector2.ZERO
-	ui.turn_off_cinematic_bars()
+	ui.turn_off_cinematic_bars(id)
 
 #region BnB Phase 2 centralised code
 # These will be moved if there is a centralized script for the two (which I dont think we should separate or sth) 
