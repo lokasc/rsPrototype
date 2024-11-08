@@ -24,6 +24,7 @@ func _ready() -> void:
 	super()
 	# the boss var is initialized yet, gotta use a different method.
 	area_bodyguard.call_deferred("reparent", get_parent(), true)
+	area_bodyguard.monitorable = false 
 
 func enter() -> void:
 	super()
@@ -41,6 +42,7 @@ func exit() -> void:
 	$BGTimer.stop()
 	$AreaDive.monitoring = false
 	area_bodyguard.monitoring = false
+	area_bodyguard.monitorable = false #players can hit this and do x2 damage
 	$AreaDive/AnimatedSprite2D.visible = false
 	$AreaDive/AnimatedSprite2D.stop()
 	boss.ally.invulnerable = false
@@ -116,13 +118,11 @@ func _on_linger_timer_timeout() -> void:
 	# Start protecting 
 	boss.ally.invulnerable = true
 	area_bodyguard.monitoring = true
+	area_bodyguard.monitorable = true
 	area_bg_sprite.visible = true
 	
 	# move hitbox to the middle of two bosses
 	area_bodyguard.global_position = (boss.global_position + boss.ally.global_position)/2
 
 func _on_bg_timer_timeout() -> void:
-	boss.ally.invulnerable = false
-	area_bg_sprite.visible = false
-	area_bodyguard.monitoring = false
 	state_change.emit(self, "BeethovenIdle")
