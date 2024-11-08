@@ -65,7 +65,7 @@ p_spd = 400.0
 projectile_scale = Vector2(1, 1.5)
 
 [node name="BnBRain" parent="." instance=ExtResource("4_0x53s")]
-position = Vector2(0, -130)
+position = Vector2(0, -60)
 is_tgt = true
 wait_time = 1.5
 biano_num_per_attack = 10
