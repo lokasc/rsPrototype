@@ -131,6 +131,7 @@ func on_hit(area : Area2D):
 		character.take_damage(get_multiplied_atk())
 		character.hit.disconnect(lifesteal)
 	if character is BaseHero:
+		if character == hero: return # we dont want trebbie to heal self with dash.
 		character.gain_health(hero.tip_heal_amount)
 
 # Increments level by 1, override virtual func to change upgrade logic.

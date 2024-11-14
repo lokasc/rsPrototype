@@ -9,8 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://cl8mxxadfv78b" path="res://assets/bosses/bnb/Beethoven2.png" id="7_jl8nu"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ttgp"]
-radius = 70.0
-height = 287.5
+radius = 82.5
+height = 320.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1m36h"]
 radius = 175.0
@@ -42,7 +42,6 @@ size = Vector2(2084.98, 4095)
 
 [node name="Beethoven&Biano" type="CharacterBody2D" node_paths=PackedStringArray("slam", "rain", "ring", "main_state")]
 scale = Vector2(0.8, 0.8)
-collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_rwux8")
 slam = NodePath("BnBSlam")
@@ -90,8 +89,10 @@ position = Vector2(35.9167, 0)
 texture = ExtResource("7_jl8nu")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
+position = Vector2(-17.5, 6.25)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_4ttgp")
+debug_color = Color(0.958516, 0, 0.526709, 0.42)
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 4
