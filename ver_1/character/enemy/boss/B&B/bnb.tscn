@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ns7nfwyvbnq8"]
+[gd_scene load_steps=16 format=3 uid="uid://ns7nfwyvbnq8"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/bnb.gd" id="1_rwux8"]
 [ext_resource type="PackedScene" uid="uid://celg8r4rn4dgm" path="res://ver_1/character/enemy/boss/B&B/bnb_slam.tscn" id="2_7nmc2"]
@@ -29,7 +29,10 @@ properties/1/spawn = true
 properties/1/replication_mode = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t7k3g"]
-size = Vector2(3230, 1000)
+size = Vector2(3230, 1163.31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_csq1v"]
+size = Vector2(3230, 944.557)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cldfg"]
 size = Vector2(2000, 4588.75)
@@ -46,7 +49,7 @@ slam = NodePath("BnBSlam")
 rain = NodePath("BnBRain")
 ring = NodePath("BnBRing")
 main_state = NodePath("BnBSlam")
-max_health = 300.0
+max_health = 14000.0
 dmg = 100.0
 char_name = "BnB"
 
@@ -66,12 +69,13 @@ dmg = 20.0
 
 [node name="BnBRing" parent="." instance=ExtResource("4_lyvfk")]
 is_tgt = true
-num_per_attack = 22
+num_per_attack = 12
 offset_from_center = 10.0
 frequency = 2.0
 rest_time = 2.0
 atk_time = 2.0
-speed = 110.0
+speed = 130.0
+dmg = 7.5
 spawn_time_array = Array[float]([0.25, 0.375, 0.5, 0.75, 1.25, 1.375, 1.5, 1.75])
 
 [node name="Sprites" type="Node2D" parent="."]
@@ -113,16 +117,17 @@ replication_config = SubResource("SceneReplicationConfig_t27sw")
 [node name="StatusHolder" parent="." instance=ExtResource("7_18tij")]
 
 [node name="ArenaWalls" type="Node2D" parent="."]
+scale = Vector2(0.62, 0.62)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="ArenaWalls"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
-position = Vector2(-2.5, 2000)
+position = Vector2(-2.5, 1936.49)
 shape = SubResource("RectangleShape2D_t7k3g")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
-position = Vector2(-2.5, -2000)
-shape = SubResource("RectangleShape2D_t7k3g")
+position = Vector2(-2.01613, -2032.76)
+shape = SubResource("RectangleShape2D_csq1v")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="ArenaWalls/StaticBody2D"]
 position = Vector2(2500, 0)

@@ -64,6 +64,8 @@ func phase_three_logic(delta):
 	ring.update(delta)
 
 func on_hit(area : Area2D) -> void:
+	return # we dont want damage here.
+	
 	if !multiplayer.is_server(): return
 	# typecasting
 	var hero = area.get_parent() as BaseHero
