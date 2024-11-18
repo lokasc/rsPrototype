@@ -26,6 +26,9 @@ height = 155.0
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath(".:current_health")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7rlu2"]
 size = Vector2(3230, 1000)

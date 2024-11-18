@@ -168,6 +168,8 @@ func reset_stress():
 	total_dmg_taken = 0
 
 func update_stress(p_dmg):
+	# dont let client decide on requesting assistance.
+	if !multiplayer.is_server(): return
 	hit_count += 1
 	total_dmg_taken += p_dmg
 	

@@ -28,6 +28,9 @@ height = 160.0
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath(".:current_health")
+properties/1/spawn = true
+properties/1/replication_mode = 2
 
 [node name="Beethoven" type="CharacterBody2D" node_paths=PackedStringArray("indicator", "idle", "zoning_strike", "bodyguard", "pump_fake", "dash", "idle_dance", "solo_dance", "duo_dance", "main_state")]
 scale = Vector2(0.2, 0.2)

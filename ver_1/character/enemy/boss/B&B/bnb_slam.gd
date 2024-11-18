@@ -42,6 +42,7 @@ func on_slam_animation_finish() -> void:
 func change_state_phase_one() -> void:
 	#printerr(boss.phase)
 	if boss.phase == 1:
+		#state_change.emit(self, "BnBRain")
 		state_change.emit(self, "BnBRing")
 	elif boss.phase == 2:
 		state_change.emit(self, "BnBRain")
