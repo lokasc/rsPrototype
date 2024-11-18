@@ -67,6 +67,11 @@ func exit() -> void:
 	boss.sprite.visible = true
 	shadow_sprite.visible = false
 	boss.invulnerable = false
+	
+	# reset all state
+	is_flying = false
+	is_moving = false
+	is_falling = false
 
 func update(_delta: float) -> void:
 	super(_delta)
@@ -92,7 +97,7 @@ func physics_update(_delta: float) -> void:
 		
 		
 		if boss.global_position == new_position:
-
+		
 			is_moving = false
 			boss.sprite.visible = true
 			is_falling = true
@@ -117,8 +122,10 @@ func physics_update(_delta: float) -> void:
 
 # Takes the furtherest position from the players
 func decide_new_location() -> Vector2:
-	# Spawning at a random circle edge:
+	# causes inner state bugs when client retrieves a different value than server.
+	if !multiplayer.is_server(): return Vector2.ZERO
 	
+	# Spawning at a random circle edge:
 	var angle = rng.randf_range(0, TAU)
 	var rand_radius = rng.randf_range(inner_circle_radius, outer_circle_radius)
 	return rand_radius * Vector2.from_angle(angle)
