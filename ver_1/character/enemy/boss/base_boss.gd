@@ -3,8 +3,10 @@ extends BaseEnemy
 
 signal changed_from_idle
 
-@export_category("Attacks")
+@export_category("Multiplayer")
 @export var main_state : BossAbility
+#This variable syncs boss states via rpcs, you can turn this off if the boss is deterministic enough.
+@export var use_rpc_sync : bool = false
 
 # STATEMACHINE
 var states : Dictionary = {}
@@ -43,26 +45,29 @@ func _parse_abilities(x : BossAbility):
 		x.state_change.connect(on_state_change)
 
 func on_state_change(state_old, state_new_name:String):
+	# dont allow clients to control their states if they're using use_rpc_sync
+	if !multiplayer.is_server() && use_rpc_sync: return
+	
 	var new_state = states.get(state_new_name.to_lower())
 	if !new_state:
 		return
-	
 	check_change_from_idle(new_state)
 	
-	if current_state:
-		current_state.exit()
-	
+	if current_state: current_state.exit()
 	new_state.enter()
 	
-	#print("State Change! ",current_state, " : ", new_state)
+	# Changes state using rpcs. [Client]
+	if use_rpc_sync: stc_state_change.rpc(state_new_name.to_lower())
 	current_state = new_state
 
 func state_change_from_any(state_new_name : String):
+	# currently only bnb uses null, thus its safe from desync
 	if state_new_name == "null":
 		current_state.exit()
 		current_state = null
 		return
 	
+	if !multiplayer.is_server() && use_rpc_sync: return
 	
 	var new_state = states.get(state_new_name.to_lower())
 	if !new_state:
@@ -70,10 +75,9 @@ func state_change_from_any(state_new_name : String):
 	
 	check_change_from_idle(new_state)
 	
-	if current_state:
-		current_state.exit()
-	
+	if current_state: current_state.exit()
 	new_state.enter()
+	if use_rpc_sync: stc_state_change.rpc(state_new_name.to_lower())
 	current_state = new_state
 
 # a conditional to check for changed_from_idle signal
@@ -85,3 +89,25 @@ func check_change_from_idle(new_state):
 func death():
 	super()
 	GameManager.Instance.is_boss_battle = false
+
+#region multiplayer state sync
+
+# this could be better by sending an int instead of a string.
+@rpc("authority", "reliable", "call_remote")
+func stc_state_change(state_new_name):
+	# takes state-index and then changes state 
+	var new_state = states.get(state_new_name.to_lower())
+	if !new_state:
+		return
+
+	if current_state:
+		current_state.exit()
+	new_state.enter()
+	current_state = new_state
+	#print(current_state)
+
+#if multiplayer.is_server():
+		#print("SERVER Change! ",current_state, " : ", new_state)
+	#else:
+		#print("CLIENT Change! ",current_state, " : ", new_state)
+#endregion

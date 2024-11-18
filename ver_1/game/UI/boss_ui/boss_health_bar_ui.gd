@@ -41,6 +41,8 @@ func animation_logic(delta):
 		is_animating = false
 
 func on_hit(dmg):
+	# sometimes this bugs out.
+	if !boss: return
 	is_animating = false
 	value = boss.current_health
 

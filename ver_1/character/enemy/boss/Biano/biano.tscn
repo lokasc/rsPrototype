@@ -29,6 +29,9 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:current_health")
 properties/1/spawn = true
 properties/1/replication_mode = 2
+properties/2/path = NodePath(".:use_rpc_sync")
+properties/2/spawn = true
+properties/2/replication_mode = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7rlu2"]
 size = Vector2(3230, 1000)
@@ -55,6 +58,7 @@ stress_threshold = 500.0
 weight_1 = 0.7
 weight_2 = 0.3
 main_state = NodePath("BianoIdle")
+use_rpc_sync = true
 max_health = 5000.0
 dmg = 10.0
 char_name = "Biano"

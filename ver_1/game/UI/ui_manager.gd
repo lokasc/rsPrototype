@@ -164,7 +164,6 @@ func set_stat_ui(_stat : BaseStatCard, hero : BaseHero):
 #region boss_ui
 func set_boss_ui(_boss : BaseBoss):
 	if boss_health_bar.boss:
-		print("SECOND BOSS")
 		boss_health_bar_duo.set_up(_boss)
 		boss_health_bar_duo.visible = true
 		return
