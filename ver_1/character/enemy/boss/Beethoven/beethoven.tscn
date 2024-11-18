@@ -34,6 +34,24 @@ properties/1/replication_mode = 2
 properties/2/path = NodePath(".:use_rpc_sync")
 properties/2/spawn = true
 properties/2/replication_mode = 0
+properties/3/path = NodePath("ZoningStrike:linger_time")
+properties/3/spawn = true
+properties/3/replication_mode = 0
+properties/4/path = NodePath("ZoningStrike:wait_time")
+properties/4/spawn = true
+properties/4/replication_mode = 0
+properties/5/path = NodePath("BeethovenDash:offset")
+properties/5/spawn = true
+properties/5/replication_mode = 0
+properties/6/path = NodePath("BeethovenDash:dash_count")
+properties/6/spawn = true
+properties/6/replication_mode = 0
+properties/7/path = NodePath("BeethovenDash:desired_time")
+properties/7/spawn = true
+properties/7/replication_mode = 0
+properties/8/path = NodePath("BeeBodyguard:bodyguard_duration")
+properties/8/spawn = true
+properties/8/replication_mode = 0
 
 [node name="Beethoven" type="CharacterBody2D" node_paths=PackedStringArray("indicator", "idle", "zoning_strike", "bodyguard", "pump_fake", "dash", "idle_dance", "solo_dance", "duo_dance", "main_state")]
 scale = Vector2(0.2, 0.2)
