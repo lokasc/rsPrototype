@@ -39,8 +39,6 @@ func _ready() -> void:
 		circle_container.visible = false
 		if tile_scale != Vector2.ZERO:
 			projectile_container.scale = tile_scale
-	
-	print("Projectile",dmg)
 
 func _process(delta: float) -> void:
 	if is_rain:
