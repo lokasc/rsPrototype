@@ -134,6 +134,10 @@ func init_steam() -> void:
 	if !Steam.isSubscribed(): 
 		printerr("Steam is not on, or we dont have this game")
 		get_tree().quit()
+	Steam.setGlobalConfigValueInt32(Steam.NETWORKING_CONFIG_SEND_BUFFER_SIZE, 1048576)
+	Steam.setGlobalConfigValueInt32(Steam.NETWORKING_CONFIG_RECV_BUFFER_SIZE, 1048576)
+	
+	
 
 func _on_lobby_created(connect: int, lobby_id):
 	if connect != 1: return
