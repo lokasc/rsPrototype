@@ -50,6 +50,18 @@ properties/7/replication_mode = 0
 properties/8/path = NodePath("BianoEscapeFall:time_to_fall")
 properties/8/spawn = true
 properties/8/replication_mode = 0
+properties/9/path = NodePath(".:time_to_start_dance_sequence")
+properties/9/spawn = true
+properties/9/replication_mode = 0
+properties/10/path = NodePath(".:first_solo_time")
+properties/10/spawn = true
+properties/10/replication_mode = 0
+properties/11/path = NodePath(".:second_solo_time")
+properties/11/spawn = true
+properties/11/replication_mode = 0
+properties/12/path = NodePath(".:duo_solo_time")
+properties/12/spawn = true
+properties/12/replication_mode = 0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7rlu2"]
 size = Vector2(3230, 1000)
@@ -65,6 +77,7 @@ scale = Vector2(0.2, 0.2)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_yh4o6")
+time_to_start_dance_sequence = 1.0
 idle = NodePath("BianoIdle")
 covering_fire = NodePath("BianoCoveringFire")
 rain = NodePath("BnBRain")

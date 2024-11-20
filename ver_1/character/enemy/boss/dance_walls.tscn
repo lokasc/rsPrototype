@@ -18,6 +18,7 @@ tile_map_data = PackedByteArray("AAADAP3/BAABAAAAAAADAP7/BAABAAAAAAADAP//BAABAAA
 tile_set = ExtResource("1_xmm2b")
 
 [node name="BlackSprite" type="Node2D" parent="."]
+visible = false
 z_index = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="BlackSprite"]
