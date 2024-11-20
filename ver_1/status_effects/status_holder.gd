@@ -61,3 +61,11 @@ func tell_clients_add_status(effect_name, arg):
 			statuses.append(copy)
 			add_child(copy, true)
 			copy.on_added()
+
+# simple fix for now, could be expanded or condensed.
+@rpc("call_local")
+func tell_clients_to_remove_status(status_name):
+	match status_name:
+		"Knockback":
+			for x in statuses:
+				if x is Knockback: remove_status(x)

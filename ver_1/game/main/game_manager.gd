@@ -409,9 +409,7 @@ func start_dance_sequence():
 	if multiplayer.is_server():
 		for x in players.size():
 			# check if we are being knocked while teleporting.
-			for status in players[x].status_holder.get_children():
-				if status is Knockback: players[x].status_holder.remove_status(status)
-		
+			players[x].status_holder.tell_clients_to_remove_status.rpc("Knockback")
 			players[x].teleport.rpc(dance_positions[x])
 
 func start_second_solo():
