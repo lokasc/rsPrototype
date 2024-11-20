@@ -64,6 +64,7 @@ func enter() -> void:
 func exit() -> void:
 	super() # starts cd here.
 	players_hit = 0
+	boss.sprite.position.y = original_y_pos
 	boss.sprite.visible = true
 	shadow_sprite.visible = false
 	boss.invulnerable = false

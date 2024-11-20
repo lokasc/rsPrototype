@@ -132,9 +132,9 @@ func start_game():
 			hero.char_stats.maxhp = 1000000
 			hero.current_health = 1000000
 	if spawn_boss:
-		spawner.custom_spawn("res://ver_1/character/enemy/boss/B&B/bnb.tscn", Vector2(0,0))
-		#spawner.custom_spawn("res://ver_1/character/enemy/boss/Biano/biano.tscn", Vector2(0,35))
-		#spawner.custom_spawn("res://ver_1/character/enemy/boss/Beethoven/beethoven.tscn", Vector2(0,35))
+		#spawner.custom_spawn("res://ver_1/character/enemy/boss/B&B/bnb.tscn", Vector2(0,0))
+		spawner.custom_spawn("res://ver_1/character/enemy/boss/Biano/biano.tscn", Vector2(0,35))
+		spawner.custom_spawn("res://ver_1/character/enemy/boss/Beethoven/beethoven.tscn", Vector2(-10,25))
 	if dont_spawn_enemies: 
 		return
 	spawner._start_timer()
@@ -408,6 +408,10 @@ func start_dance_sequence():
 	# only execute teleport if you are on the server.
 	if multiplayer.is_server():
 		for x in players.size():
+			# check if we are being knocked while teleporting.
+			for status in players[x].status_holder.get_children():
+				if status is Knockback: players[x].status_holder.remove_status(status)
+		
 			players[x].teleport.rpc(dance_positions[x])
 
 func start_second_solo():
