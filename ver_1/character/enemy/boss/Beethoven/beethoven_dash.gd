@@ -65,7 +65,7 @@ func physics_update(delta: float) -> void:
 		# Limit Time 
 		time = min(time + delta, desired_time)
 		
-		if !is_direction_changed && time >= 0.25:
+		if !is_direction_changed && time >= 0.35:
 			is_direction_changed = true
 			# Show hitbox
 			hitbox.monitoring = true
