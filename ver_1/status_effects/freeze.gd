@@ -38,6 +38,10 @@ func on_removed() -> void:
 	character.hitbox.monitoring = true
 
 func freeze():
+	if "invulnerable" in character:
+		if character.invulnerable == true:  
+			holder.remove_status(self)
+	
 	if "can_move" in character:
 		character.frozen = true
 		character.can_move = false
