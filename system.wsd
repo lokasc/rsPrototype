@@ -4,23 +4,20 @@
 class GameManager{
     + float timer
     + bool is_started
-    + BeatController bc
-    + NetManager net
-    + is_paused
-
     - PlayerScene[] players
-    PlayerScene get_other_player(id)
-    ----------------------------------
-    void rand_choose_actions()
-    void show_cards()
-    void add_item_rpc(BaseItem)
-    -------
-    void respawn_player()
-    ------------------------
-    void start_game()
-    void pause_game()
-    void end_game()
-    void add_player()
+
+    + void start_game()
+    + void pause_game()
+    + void end_game()
+    + void is_local_player()
+    + void screen_shake()
+  __Character Selection__
+    +void on_character_select()
+    +void stc_request_spawn()
+  __Selection Sequence__
+    +void start_level_up_sequence()
+    +int[] choose_action()
+    +RPC parse_action_card()
 }
 
 
@@ -29,10 +26,25 @@ class EnemySpawner{
 }
 
 class BeatController{
-    + int bpm_change_signal
-    + int BPM
-    + bool is_on_beat()
-    + void change_bpm()
+    +signal on_beat
+    +float grace_time
+    +float beat_duration
+    +bool is_playing
+    +bool is_on_beat()
+    +TransitionType current_bg_clip
+
+  __Calculate Beat__
+    -void process_actual_audio_time()
+    -void process_beat()
+    -void process_loops()
+    +float get_time_til_next_bar()
+    +float get_current_beat_time_elapsed()
+
+  __Transitions__
+    +void change_bg()
+    +RPC stc_change_bg_music()
+    +RPC stc_start_music()
+
 }   
 
 class NetManager{
@@ -41,120 +53,45 @@ class NetManager{
 
 }
 
-class Ability {
-    +String name
-    +String type
-    *State[] states 
- 
-    void ability_logic()
-    void reset()
-}
-
-class HeroScene{
-  +Animations anims
-  +MultiplayerSynchronizer input
-  +StateMachine state_machine
-  
-  + Action attack
-  + Ability ability1
-  + Ability ability2
-  + Ability ultimate
-  + Ability passive
-
-  void innit(HeroResource)
-  void add_item()
-  void on_death()
-}
-
-class BaseState{
-    +StateMachine sm
-    +args[] any_arguement_that_is_needed
-    void enter()
-    void update()
-    void exit()
-}
-
-class StateMachine{
-    +BaseState[] states
-   -BaseState _current_state
-   ---------------------------
-   signal change_state(self, new_state)
-}
-
-class IdleState{
-  
-}
-
-class AutoState{
-
-}
-
-StateMachine <|-- BaseState : needs
-BaseState <|-- IdleState
-
-class Action{
-    +String name
-    +String description
-    +int cooldown
-    +int level
-   
-    +State item_state
-   
-    void upgrade()
+class VFXManager{
+    + TextPopUp text_pop_scene
+    + int object_limit
+    + void spawn_object()
+    + void get_object()
+    + void release_object()
 }
 
 
-class ActionSet{
-  +HeroScene owner
-  + Item item1
-  + Item item2
-  + Item item3
-  + Item item4
-  + Action attack
-  + Ability ability1
-  + Ability ability2
-  + Ability ultimate
-  + Ability passive
+class UIManager{
+  __Selection Sequence__
+    +void build_selection_container()
+    +void on_client_selection_container()
+  __PlayerUI__
+    +void set_ability_ui()
+    +void set_item_ui()
+    +void set_stat_ui()
+    +void update_xp(new_xp)
+  __BossUI__
+    +RPC stc_set_boss_ui()
+    +void turn_off_cinematic_bars()
+    +void turn_on_cinematic_bars()
+
 }
 
-
-
-
-class Character{
-  +Stat char_stats
-  +String name
-}
-class UIManager(){
-  void set_item_ui(Item)
-}
-
-
-class Item {
-    +Stat stats
-   
-   
-    void any_item_logic()
-}
 
 class Stat{
-    +int maxhp
-    +int spd
-    +int aoe
-    +int dur
-    +int rgn
-    +int anyotherstat
-    +String name
-}
-
-
-class Enemy{
-  void path()
-  void decide()
-}
-
-
-class ActionHelper{
-    +void SpawnCircle( function )
+    +float maxhp
+    +float aoe
+    +float arm
+    +float atk
+    +float spd
+    +float pickup
+    +float music
+    +float health_shield_gain
+    +float duration
+    +float atk_multiplier
+    +float shields
+    +float lifesteal
 }
 
 'This class spawns a pop_up text of whatever you want
@@ -168,13 +105,177 @@ class TextPopUp{
     +void set_text(text, gpos,color = DEFAULT_COLOR, duration = DEFAULT_COLOR)
 }
 
-Character <|-- Enemy
-Character <|-- HeroScene
-Action <|-- Item : is
-Action <|-- Ability : is
-HeroScene *-- ActionSet : part of
-GameManager *-- BeatController
-GameManager *-- NetManager 
-GameManager *-- EnemySpawner
+
+GameManager *-- UIManager : part of
+GameManager *-- BeatController : part of
+GameManager *-- NetManager : part of
+GameManager *-- EnemySpawner : part of
+GameManager *-- VFXManager : part of
+VFXManager *-- TextPopUp : part of
+'Inheritance for abilities and actions
+BaseAction *-- Stat : part of
+BaseAction <|-- BaseStatCard : is
+BaseStatCard <|-- MaxHPCard : is
+BaseAction <|-- BaseItem : is
+BaseAction <|-- BaseAbility : is
+BaseItem <|-- TurretItem : is
+BaseAbility <|-- TrebbieAttack : is
+BaseAbility <|-- BossAbility : is
+BossAbility <|-- BianoCoveringFire : is
+
+class BaseAction{
+    +String action_name
+    +String description
+    +String card_desc
+    +int level
+    +Stats action_stats
+   
+    void upgrade()
+}
+
+class BaseStatCard{
+    +float amount_per_upgrade
+}
+
+class BaseItem{
+    +void initialize_item()
+}
+
+class BaseAbility{
+    -bool is_on_cd
+    -bool is_synced
+    -int timing
+    +signal state_change
+    +signal cooldown_finish
+    +signal ability_used
+
+    +void enter()
+    +void exit()
+    +void update()
+    +void physics_update()
+}
+
+class BossAbility{
+    +BaseBoss boss
+    +void choose_closest_player()
+}
+
+'For player characters
+BaseCharacter <|-- BaseEnemy : is
+BaseEnemy <|-- RangedEnemy : is
+BaseEnemy <|-- BaseBoss : is
+BaseBoss <|-- BnB : is
+BaseCharacter <|-- BaseHero : is
+BaseHero <|-- Trebbie : is
+BaseCharacter *-- Stat : part of
+BaseHero *-- BaseAbility : part of
+BaseHero *-- BaseItem : part of
+BaseHero *-- BaseStatCard : part of
+BaseBoss *-- BossAbility : part of
+
+
+class BaseCharacter{
+      +string char_name
+      +int char_id
+      +Stat char_stats
+      +StatusHolder _status_holder
+      +float current_health
+      +float current_shield
+
+      +void take_damage(_dmg)
+}
+
+class BaseEnemy{
+    +BaseHero target
+    +void init()
+    +void chek_death()
+    +void flash_sprite()
+
+    __Path Finding__
+      +float update_period
+      +float update_offset
+      +void move_to_target()
+      +void get_closest_enemy()
+    __XP__
+      +int xp_worth
+      +int xp_drop_spread
+}
+
+class BaseBoss{
+  +signal changed_from_idle
+  +BaseAbility[] states
+  +BaseAbility _current_state
+  +BaseAbility _initial_state
+
+  +void on_state_change()
+  +void state_change_from_any()
+  +RPC stc_state_change()
+}
+
+class BaseHero{
+    +MultiplayerSyncPlayerInput _input
+    +PlayerCamera _cam
+    +BaseAbility[] states
+    +BaseAbility _current_state
+    +BaseAbility _initial_state
+  __Action Set __
+    +BaseAbility basic_attack
+    +BaseAbility ability_1
+    +BaseAbility ability_2
+    +BaseItem[] items
+    +BaseStatCard[] stat_cards
+  __Stats and Items__
+    +void add_item()
+    +void add_stat()
+    +BaseAction get_action()
+    +void upgrade_action()
+    +bool is_stats_full()
+    +bool is_items_full()
+  __
+    +void process_items()
+    +void on_state_change()
+    +void gain_shield()
+    +void check_death()
+    +void on_level_up()
+    +void check_low_health()
+    +void on_enter_low_health()
+    +void on_exit_low_health()
+}
+
+
+BaseCharacter *-- StatusHolder : part of
+StatusHolder *-- BaseStatus : part of
+BaseStatus <|-- FreezeStatus : is
+BaseStatus <|-- KnockbackStatus : is
+
+class StatusHolder{
+    +BaseStatus[] statuses
+    +BaseCharacter _char
+    +void add_status()
+    +void _update_statuses()
+    +void remove_status()
+    +RPC tell_clients_add_status()
+}
+
+class BaseStatus{
+    +StatusHolder _holder
+    +BaseCharacter _char
+    +void on_added()
+    +void on_removed()
+    +void on_update()
+    +void on_physics_update()
+}
+
+class FreezeStatus{
+    +float unfreeze_dmg
+    +float dmg_threshold
+    +void freeze()
+    +void unfreeze()
+}
+
+class KnockbackStatus{
+    +float strength
+    +float decay_time
+}
 
 @enduml
