@@ -13,11 +13,14 @@ radius = 9.17087
 
 [node name="BeethovenDash" type="Node2D"]
 script = ExtResource("1_6e26h")
+initial_dmg = 30.0
 offset = 200.0
-desired_time = 2.0
+desired_time = 1.0
 y_curve = SubResource("Curve_38srw")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
 
 [node name="Rectangle" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_f80g2")

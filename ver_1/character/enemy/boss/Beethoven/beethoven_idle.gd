@@ -30,6 +30,7 @@ func enter() -> void:
 	
 	while true:
 		target = GameManager.Instance.players.pick_random()
+		if !target.is_alive() && GameManager.Instance.players.size() == 1: break
 		if !target.is_alive(): continue
 		break
 	
