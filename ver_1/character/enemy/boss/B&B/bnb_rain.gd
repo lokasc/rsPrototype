@@ -94,6 +94,7 @@ func spawn_near_players() -> void:
 	var rotation_vec : Vector2
 	
 	for player in GameManager.Instance.players:
+		if !player.is_alive(): continue
 		for x in biano_num_per_attack:
 			# Add a random position point within range.
 			rand_position.x = randf_range(-range_from_player, range_from_player)
@@ -142,6 +143,7 @@ func biano_spawn_pattern():
 	var rotation_vec : Vector2
 	
 	for player in GameManager.Instance.players:
+		if !player.is_alive(): continue
 		for x in biano_num_per_attack:
 			# Add a random position point within range.
 			rand_position.x = randf_range(-range_from_player, range_from_player)

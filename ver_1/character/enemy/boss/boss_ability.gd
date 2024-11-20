@@ -45,6 +45,7 @@ func choose_player() -> BaseHero:
 	var closest_pos = 1000000
 	
 	for x in GameManager.Instance.players:
+		if !x.is_alive(): continue
 		if closest_pos > global_position.distance_to(x.global_position):
 			closest_player = x
 	

@@ -28,7 +28,11 @@ func enter() -> void:
 		on_cd_time = true
 		current_off_time = 0
 	
-	target = GameManager.Instance.players.pick_random()
+	while true:
+		target = GameManager.Instance.players.pick_random()
+		if !target.is_alive(): continue
+		break
+	
 	old_pos = boss.global_position
 	current_delta = 0
 
