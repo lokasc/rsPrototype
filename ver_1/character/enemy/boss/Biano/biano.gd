@@ -78,6 +78,7 @@ func _ready() -> void:
 
 # process your states here
 func _process(delta: float) -> void:
+	super(delta)
 	if get_time_passed() >= start_time + time_to_start_dance_sequence && !requested:
 		requested = true
 		GameManager.Instance.start_dance_sequence()
@@ -118,10 +119,7 @@ func _process(delta: float) -> void:
 		requested_second_solo = false
 		#print("reseted")
 		#print((GameManager.Instance.bc.time + (looped_times*mimic_track_time)))
-	if frozen: return
-	super(delta)
 func _physics_process(delta: float) -> void:
-	if frozen : return
 	super(delta)
 	
 func check_for_looping():
