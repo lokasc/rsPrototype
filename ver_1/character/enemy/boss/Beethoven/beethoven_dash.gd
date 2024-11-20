@@ -98,4 +98,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		
 	if !character: return 	# do not execute on non-characters or nulls
 	character.take_damage(boss.char_stats.atk/boss.initial_atk * initial_dmg)
-	character.add_status("Knockback", [250, global_position, 15])
+	
+	# dont apply knockback if already have.
+	if character.status_holder.has_status("Knockback"): return
+	character.add_status("Knockback", [175, global_position, 10])
