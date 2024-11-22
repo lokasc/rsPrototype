@@ -658,6 +658,7 @@ _data = {
 z_index = 1
 collision_layer = 2
 script = ExtResource("1_m8vi0")
+armour = 1.05
 basic_attack = NodePath("BassheartAttack")
 ability_1 = NodePath("BassheartFreeze")
 ability_2 = NodePath("BassheartJump")

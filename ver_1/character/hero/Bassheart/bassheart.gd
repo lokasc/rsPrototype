@@ -44,7 +44,7 @@ extends BaseHero
 @export var is_empowered : bool = false
 
 # The percentage of damage that is healed by the player
-var lifesteal : float = 0.01
+var lifesteal : float = 0.0125
 var is_personal_camera : bool = true
 
 @onready var particles : GPUParticles2D = $Sprites/GPUParticles2D

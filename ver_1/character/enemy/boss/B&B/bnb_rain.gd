@@ -95,7 +95,7 @@ func spawn_near_players() -> void:
 	
 	for player in GameManager.Instance.players:
 		if !player.is_alive(): continue
-		for x in biano_num_per_attack:
+		for x in num_per_player:
 			# Add a random position point within range.
 			rand_position.x = randf_range(-range_from_player, range_from_player)
 			rand_position.y = randf_range(-range_from_player, range_from_player)
@@ -131,6 +131,7 @@ func bnb_update_loop(_delta : float) -> void:
 
 #region falling tiles attack (Biano normal attack)
 func biano_update_loop(_delta :float) -> void:
+	# We dont use this but we use timers for some bloody reason.
 	pass
 
 # For each player, we spawn a few around them.
