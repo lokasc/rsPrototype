@@ -63,8 +63,8 @@ is_tgt = true
 
 [node name="BnBRain" parent="." instance=ExtResource("3_cf4r5")]
 height = 100.0
-num_per_attack = 10
-offset_from_center = 150.0
+num_per_attack = 8
+offset_from_center = 175.0
 rain_range = 700.0
 frequency = 3.0
 num_per_player = 2
