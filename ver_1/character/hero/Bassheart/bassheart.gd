@@ -1,8 +1,9 @@
 class_name Bassheart
 extends BaseHero
 
-@export_category("Stats")
+@export_category("Initial Stats")
 ## The damage the attack does, it also affects damage done by other abilities and items
+
 @export var damage : float = 70
 
 ## The maximum hp the player has
@@ -11,11 +12,12 @@ extends BaseHero
 ## The amount of shields the hero starts with
 @export var shields : float = 0
 
-## The damage taken is reduced by dmg/armour
-@export var armour : float = 1.0
-
 ## The movement speed of the hero
 @export var speed : int = 150
+
+@export_group("Secondary Stats")
+## The damage taken is reduced by dmg/armour
+@export var armour : float = 1.0
 
 ## The cooldown of all actions (attack, abilities and items)
 @export var cooldown : float = 1.0
@@ -35,7 +37,7 @@ extends BaseHero
 ## The multiplier applied to music sync effects, greater the number, the better the effect
 @export var music_multiplier : float = 1
 
-@export_category("Passive")
+@export_group("Passive")
 @export var meter : int = 0
 ## Determines how much meter gained from damage
 @export var meter_multiplier : float = 1

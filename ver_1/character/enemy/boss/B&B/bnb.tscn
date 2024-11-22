@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ns7nfwyvbnq8"]
+[gd_scene load_steps=17 format=3 uid="uid://ns7nfwyvbnq8"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/B&B/bnb.gd" id="1_rwux8"]
 [ext_resource type="PackedScene" uid="uid://celg8r4rn4dgm" path="res://ver_1/character/enemy/boss/B&B/bnb_slam.tscn" id="2_7nmc2"]
@@ -13,8 +13,11 @@ radius = 82.5
 height = 320.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1m36h"]
-radius = 175.0
-height = 460.0
+radius = 75.0
+height = 342.5
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dghsl"]
+radius = 47.5164
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_papkv"]
 radius = 72.5
@@ -51,7 +54,7 @@ slam = NodePath("BnBSlam")
 rain = NodePath("BnBRain")
 ring = NodePath("BnBRing")
 main_state = NodePath("BnBSlam")
-max_health = 14000.0
+max_health = 12000.0
 dmg = 100.0
 char_name = "BnB"
 
@@ -71,13 +74,13 @@ dmg = 20.0
 
 [node name="BnBRing" parent="." instance=ExtResource("4_lyvfk")]
 is_tgt = true
-num_per_attack = 12
+num_per_attack = 6
 offset_from_center = 10.0
 frequency = 2.0
 rest_time = 2.0
 atk_time = 2.0
-speed = 130.0
-dmg = 7.5
+speed = 150.0
+dmg = 5.0
 spawn_time_array = Array[float]([0.25, 0.375, 0.5, 0.75, 1.25, 1.375, 1.5, 1.75])
 
 [node name="Sprites" type="Node2D" parent="."]
@@ -95,18 +98,32 @@ texture = ExtResource("7_jl8nu")
 position = Vector2(-17.5, 6.25)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_4ttgp")
-debug_color = Color(0.958516, 0, 0.526709, 0.42)
+debug_color = Color(2.79158e-06, 0.586993, 0.769326, 0.42)
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(-5, -36.25)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_1m36h")
 debug_color = Color(0.930156, 0.224969, 0.360381, 0.42)
 
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(-16.25, 32.5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_1m36h")
+debug_color = Color(0.930156, 0.224969, 0.360381, 0.42)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(181.25, -81.25)
+rotation = 1.5708
+shape = SubResource("CircleShape2D_dghsl")
+debug_color = Color(0.930156, 0.224969, 0.360381, 0.42)
+
 [node name="HitBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 

@@ -10,8 +10,8 @@ extends BossAbility
 @onready var spawn_path = get_parent().get_parent()
 
 @export_category("Attack settings")
-@export var num_per_attack : int
-@export var offset_from_center : float
+@export var num_per_attack : int = 8
+@export var offset_from_center : float = 10
 @export var frequency : float # How many attacks per second.
 
 @export_subgroup("Pattern Settings")
@@ -23,8 +23,8 @@ var current_rest_time : float = 0
 var is_resting : bool = false
 
 @export_category("Projectile settings")
-@export var speed : float
-@export var dmg : float
+@export var speed : float = 150
+@export var dmg : float = 7.5
 
 var attack_count : int
 
@@ -82,6 +82,11 @@ func ring_pattern() -> void:
 		# decide random direction vector.
 		rand_rotation = randf_range(0,360)
 		rotation_vec = Vector2.UP.rotated(rand_rotation)
+		spawn_position = global_position + offset_from_center * rotation_vec
+		spawn_projectile(spawn_position)
+
+	for x in GameManager.Instance.players:
+		rotation_vec = global_position.direction_to(x.global_position)
 		spawn_position = global_position + offset_from_center * rotation_vec
 		spawn_projectile(spawn_position)
 	rand_color += 1

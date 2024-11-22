@@ -19,6 +19,8 @@ extends BaseAbility
 @export_category("Beat Sync Stats")
 ## the area multiplier of the hitbox
 @export var beat_sync_multiplier : float
+
+## the increase in damage per recast
 @export var recast_buff_inc : float
 
 ## The time window where it checks if the player pressed the same ability button and it's on beat for a recast
