@@ -82,7 +82,7 @@ amplitutde = 1.0
 speed = 100.0
 
 [node name="ZoningStrike" parent="." instance=ExtResource("2_2fnb1")]
-initial_dmg = 30.0
+initial_dmg = 25.0
 
 [node name="BeethovenPumpFake" parent="." instance=ExtResource("4_g6vtx")]
 
@@ -100,6 +100,7 @@ position = Vector2(9.53674e-07, -10)
 scale = Vector2(16.5, 16.5)
 
 [node name="BeeBodyguard" parent="." instance=ExtResource("6_asokl")]
+dive_dmg = 50.0
 dive_speed = 1000.0
 
 [node name="IdleDance" parent="." instance=ExtResource("7_vhytk")]
