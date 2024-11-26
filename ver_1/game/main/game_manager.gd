@@ -121,7 +121,7 @@ func start_game():
 	bc.stc_start_music.rpc(Time.get_unix_time_from_system())
 	if spawn_dummy:
 		# for testing.
-		spawner.custom_spawn("res://ver_1/character/enemy/Dummy/dummy.tscn", Vector2(0,0))
+		spawner.custom_spawn("res://ver_1/character/enemy/Dummy/dummy.tscn", Vector2(-800,-450))
 		#spawner.custom_spawn("res://ver_1/character/enemy/MajorBug/major_bug.tscn", Vector2(651,335))
 		#spawner.custom_spawn("res://ver_1/character/enemy/MinorBug/minor_bug.tscn", Vector2(651,235))
 		spawner.custom_spawn("res://ver_1/character/enemy/Shooter/shooter.tscn", Vector2(651,132))
@@ -394,6 +394,7 @@ func start_dance_sequence():
 	live_duo_scene.process_mode = Node.PROCESS_MODE_DISABLED # disable static collisions
 	live_duo_scene.visible = false
 	
+	#create a dance map for each player
 	for x in players.size(): # players .size() is multiplayer safe
 		var copy = dance_scene.instantiate()
 		copy.global_position = dance_positions[x]
