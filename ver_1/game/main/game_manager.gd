@@ -124,9 +124,10 @@ func start_game():
 		spawner.custom_spawn("res://ver_1/character/enemy/Dummy/dummy.tscn", Vector2(-800,-450))
 		#spawner.custom_spawn("res://ver_1/character/enemy/MajorBug/major_bug.tscn", Vector2(651,335))
 		#spawner.custom_spawn("res://ver_1/character/enemy/MinorBug/minor_bug.tscn", Vector2(651,235))
-		spawner.custom_spawn("res://ver_1/character/enemy/Shooter/shooter.tscn", Vector2(651,132))
-		spawner.custom_spawn("res://ver_1/character/enemy/Shooter/shooter.tscn", Vector2(651,136))
-		spawner.custom_spawn("res://ver_1/character/enemy/Shooter/shooter.tscn", Vector2(651,133))
+		#spawner.custom_spawn("res://ver_1/character/enemy/Shooter/shooter.tscn", Vector2(651,132))
+		#spawner.custom_spawn("res://ver_1/character/enemy/Shooter/shooter.tscn", Vector2(651,136))
+		#spawner.custom_spawn("res://ver_1/character/enemy/Shooter/shooter.tscn", Vector2(651,133))
+		
 	if infinite_health:
 		for hero : BaseHero in players:
 			hero.char_stats.maxhp = 1000000
