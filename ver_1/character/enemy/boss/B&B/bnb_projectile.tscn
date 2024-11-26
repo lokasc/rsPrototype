@@ -37,7 +37,13 @@ properties/7/spawn = true
 properties/7/replication_mode = 0
 properties/8/path = NodePath(".:tile_scale")
 properties/8/spawn = true
-properties/8/replication_mode = 1
+properties/8/replication_mode = 0
+properties/9/path = NodePath(".:is_dance")
+properties/9/spawn = true
+properties/9/replication_mode = 0
+properties/10/path = NodePath(".:color_index")
+properties/10/spawn = true
+properties/10/replication_mode = 0
 
 [node name="RingProjectile" type="Node2D" node_paths=PackedStringArray("circle_container")]
 scale = Vector2(2, 2)
@@ -45,6 +51,7 @@ script = ExtResource("1_yh5rt")
 dmg = 40.0
 spd = 20.0
 circle_container = NodePath("CircleContainer")
+dance_max_dist = 210.0
 
 [node name="CircleContainer" type="Node2D" parent="."]
 modulate = Color(1, 1, 1, 0.556863)

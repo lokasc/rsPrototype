@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bm436kn6ywdfp"]
+[gd_scene load_steps=3 format=3 uid="uid://bm436kn6ywdfp"]
 
 [ext_resource type="Script" path="res://ver_1/character/enemy/boss/solo_dance.gd" id="1_hhi7d"]
+[ext_resource type="Texture2D" uid="uid://dc3v3w646tlvf" path="res://assets/common/indicators/WarningIndication.png" id="2_28o86"]
 
 [node name="SoloDance" type="Node2D"]
 script = ExtResource("1_hhi7d")
@@ -8,4 +9,18 @@ is_biano = true
 
 [node name="SideChangeTimer" type="Timer" parent="."]
 
+[node name="SelectSideTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="VisualEndTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="SideWarningIndicator" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_28o86")
+offset = Vector2(200, 0)
+
 [connection signal="timeout" from="SideChangeTimer" to="." method="_on_side_change_timer_timeout"]
+[connection signal="timeout" from="SelectSideTimer" to="." method="_on_select_side_timer_timeout"]
+[connection signal="timeout" from="VisualEndTimer" to="." method="_on_visual_end_timer_timeout"]
