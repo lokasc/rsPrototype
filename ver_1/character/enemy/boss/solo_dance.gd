@@ -21,7 +21,7 @@ extends BossAbility
 
 @onready var side_visual = $SideWarningIndicator
 
-var interval_changes_per_side_change = 2 # we change 3 times then we change the interval
+var interval_changes_per_side_change = 2 # we change 2 times then we change the interval
 var intervals : Array[float] = [0.75, 0.75, 0.5, 0.25]
 var intervals_index : int = 0
 var current_interval : float
@@ -127,7 +127,7 @@ func increase_frequency():
 	
 	# gradually increase the frequencies of tiles
 	side_change_counts += 1
-	if side_change_counts >= interval_changes_per_side_change:
+	if side_change_counts > interval_changes_per_side_change:
 		side_change_counts = 0
 		intervals_index += 1
 		intervals_index = min(intervals_index, intervals.size() - 1)
