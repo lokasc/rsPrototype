@@ -16,13 +16,13 @@ extends BossAbility
 @export_group("Projectile settings")
 @export var p_dmg : float = 10
 @export var p_spd : float = 200
-@export var projectile_scale : Vector2
+@export var projectile_scale : Vector2 = Vector2(1.1, 1.1)
 @export var projectile_scene : PackedScene = preload("res://ver_1/character/enemy/boss/B&B/bnb_projectile.tscn")
 
 @onready var side_visual = $SideWarningIndicator
 
 var interval_changes_per_side_change = 2 # we change 2 times then we change the interval
-var intervals : Array[float] = [0.75, 0.75, 0.5, 0.25]
+var intervals : Array[float] = [0.85, 0.65, 0.55, 0.45]
 var intervals_index : int = 0
 var current_interval : float
 var side_change_counts = 0
@@ -33,8 +33,8 @@ var current_side = 0 # current we are on
 
 var target : BaseHero
 var rng = RandomNumberGenerator.new()
-var right_spawn_y_pos : Array[float] = [18.75, 56.25, 93.75, 131.25]
-var bot_spawn_x_pos : Array[float] = [25, 75, 125, 175] # these are x positions for spawning on the bottom or top.
+var right_spawn_y_pos : Array[float] = [30.5, 75, 119.5] # y positions for spawning on the right or left.
+var bot_spawn_x_pos : Array[float] = [55, 100, 145] # these are x positions for spawning on the bottom or top.
 var _color_index : int = 0
 
 
@@ -85,8 +85,7 @@ func spawn_projectile(gpos : Vector2, direction : Vector2, color_index : int) ->
 	
 	# this projectiles specific damn thing
 	copy.is_dance = true
-	copy.color_index = color_index
-	
+	copy.color_index = color_index+1
 	
 	copy.dmg = p_dmg
 	copy.spd = p_spd
@@ -114,7 +113,7 @@ func select_target():
 
 func decide_side():
 	if !multiplayer.is_server(): return
-	
+
 	# if the next side is gay or sth. 
 	while true:
 		next_side = rng.randi_range(0, 3)
@@ -197,7 +196,6 @@ func activate_visual(index):
 
 func _on_visual_end_timer_timeout() -> void:
 	side_visual.visible = false
-
 
 # shoot projectiles based on the side you are on.
 func shooting_pattern():

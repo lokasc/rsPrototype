@@ -5,7 +5,7 @@ signal request_assistance
 signal died
 
 @export var time_to_start_dance_sequence : float = 128# The exact time when the solo starts. (8s + 128s)
-@export var first_solo_time : float = 32 # How long the first solo lasts
+@export var first_solo_time : float = 34 # How long the first solo lasts
 @export var second_solo_time : float = 36
 @export var duo_solo_time : float = 36
 var start_time

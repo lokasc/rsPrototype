@@ -14,16 +14,15 @@ top_level = true
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = 2
-tile_map_data = PackedByteArray("AAADAP3/BAABAAAAAAADAP7/BAABAAAAAAADAP//BAABAAAAAAD8//3/BAABAAAAAAD8//7/BAABAAAAAAD8////BAABAAAAAAD8/wAABAABAAAAAAADAAAABAABAAAAAAADAAEABAABAAAAAAADAAIABAABAAAAAAD8/wEABAABAAAAAAD8/wIABAABAAAAAAD9/wIABAABAAAAAAD+/wIABAABAAAAAAD//wIABAABAAAAAAAAAAIABAABAAAAAAABAAIABAABAAAAAAACAAIABAABAAAAAAD9//3/BAABAAAAAAD+//3/BAABAAAAAAD///3/BAABAAAAAAAAAP3/BAABAAAAAAABAP3/BAABAAAAAAACAP3/BAABAAAAAAA=")
+tile_map_data = PackedByteArray("AAD9/wIABAABAAAAAAD+/wIABAABAAAAAAD//wIABAABAAAAAAAAAAIABAABAAAAAAABAAIABAABAAAAAAACAAIABAABAAAAAAD9//3/BAABAAAAAAD+//3/BAABAAAAAAD///3/BAABAAAAAAAAAP3/BAABAAAAAAABAP3/BAABAAAAAAACAP3/BAABAAAAAAD9//7/BAABAAAAAAD9////BAABAAAAAAD9/wAABAABAAAAAAD9/wEABAABAAAAAAACAP7/BAABAAAAAAACAP//BAABAAAAAAACAAAABAABAAAAAAACAAEABAABAAAAAAA=")
 tile_set = ExtResource("1_xmm2b")
 
 [node name="BlackSprite" type="Node2D" parent="."]
-visible = false
 z_index = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="BlackSprite"]
 self_modulate = Color(0, 0, 0, 1)
-position = Vector2(-6520, -70)
+position = Vector2(-6489, -70)
 scale = Vector2(100, 100)
 texture = ExtResource("1_dodr2")
 
@@ -35,7 +34,7 @@ texture = ExtResource("1_dodr2")
 
 [node name="Sprite2D3" type="Sprite2D" parent="BlackSprite"]
 self_modulate = Color(0, 0, 0, 1)
-position = Vector2(6520, -99)
+position = Vector2(6489, -99)
 scale = Vector2(100, 100)
 texture = ExtResource("1_dodr2")
 
@@ -50,12 +49,12 @@ texture = ExtResource("1_dodr2")
 [node name="StaticBody2D2" type="StaticBody2D" parent="Node2D"]
 
 [node name="Left" type="CollisionShape2D" parent="Node2D/StaticBody2D2"]
-position = Vector2(-110, 0)
+position = Vector2(-80, 0)
 scale = Vector2(1, 9.2)
 shape = SubResource("RectangleShape2D_pyibb")
 
 [node name="Left2" type="CollisionShape2D" parent="Node2D/StaticBody2D2"]
-position = Vector2(112.5, 0)
+position = Vector2(80, 0)
 scale = Vector2(1, 9.2)
 shape = SubResource("RectangleShape2D_pyibb")
 

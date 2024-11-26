@@ -102,7 +102,7 @@ func change_color(x : int):
 			modulate = Color.RED
 		2:
 			#blue
-			modulate = Color.BLUE
+			modulate = Color.CYAN
 		3:
 			#red
 			modulate = Color.GREEN
