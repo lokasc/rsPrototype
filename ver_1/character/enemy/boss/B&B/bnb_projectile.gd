@@ -7,8 +7,7 @@ extends Node2D
 @export var tile_scale : Vector2 # set by the instantiator if not, results to 0.
 @export var circle_container : Node2D
 @export_subgroup("Dance specific")
-@export var dance_max_dist : float = 220
-
+@export var dance_max_dist : float = 295
 
 var is_dance : bool = false # is this used for solo dance?
 var color_index : int = 0 # colors used to tint projectiles.
@@ -106,3 +105,4 @@ func change_color(x : int):
 		3:
 			#red
 			modulate = Color.GREEN
+		

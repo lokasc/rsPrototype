@@ -13,6 +13,8 @@ extends BossAbility
 @export var change_side_time : float = 4 # How long in seconds until you change sides?
 @export var visual_end_time : float = 2 # How long will the visual last?
 
+@export var position_offset : float = 75 # How much do I move the spawn position back?
+
 @export_group("Projectile settings")
 @export var p_dmg : float = 10
 @export var p_spd : float = 200
@@ -204,17 +206,17 @@ func shooting_pattern():
 	
 	match current_side:
 		0: # spawn pos is on the left
-			spawn_pos = Vector2(boss.global_position.x ,get_random_y_spawn() - 75)
+			spawn_pos = Vector2(boss.global_position.x - position_offset,get_random_y_spawn() - 75)
 			spawn_direction = Vector2.RIGHT
 		1: # spawn pos is right
-			spawn_pos = Vector2(boss.global_position.x, get_random_y_spawn() - 75)
+			spawn_pos = Vector2(boss.global_position.x + position_offset, get_random_y_spawn() - 75)
 			spawn_direction = Vector2.LEFT
 		2: # spawn pos is up 
-			spawn_pos = Vector2(get_random_x_spawn() + 100, boss.global_position.y)
+			spawn_pos = Vector2(get_random_x_spawn() + 100, boss.global_position.y - position_offset)
 			spawn_direction = Vector2.DOWN
 			if !is_biano: spawn_pos.x = -spawn_pos.x
 		3: # Spawn pos is down
-			spawn_pos = Vector2(get_random_x_spawn() + 100, boss.global_position.y)
+			spawn_pos = Vector2(get_random_x_spawn() + 100, boss.global_position.y + position_offset)
 			spawn_direction = Vector2.UP
 			if !is_biano: spawn_pos.x = -spawn_pos.x
 	
