@@ -70,7 +70,7 @@ solo_dance = NodePath("SoloDance")
 duo_dance = NodePath("DuoDance")
 main_state = NodePath("BeethovenIdle")
 use_rpc_sync = true
-max_health = 5000.0
+max_health = 8000.0
 speed = 100
 dmg = 1.0
 char_name = "Beethoven"
@@ -83,13 +83,15 @@ speed = 100.0
 
 [node name="ZoningStrike" parent="." instance=ExtResource("2_2fnb1")]
 initial_dmg = 25.0
+wait_time = 0.75
+linger_time = 0.5
 
 [node name="BeethovenPumpFake" parent="." instance=ExtResource("4_g6vtx")]
 
 [node name="BeethovenDash" parent="." instance=ExtResource("5_c0de1")]
 position = Vector2(-4.76837e-07, -5.68434e-14)
 initial_dmg = 12.0
-desired_time = 1.5
+desired_time = 2.0
 
 [node name="Rectangle" parent="BeethovenDash/Area2D" index="0"]
 position = Vector2(120, -65)
