@@ -18,7 +18,7 @@ signal changed_side(side)
 @export var projectile_scene : PackedScene = preload("res://ver_1/character/enemy/boss/B&B/bnb_projectile.tscn")
 
 var interval_changes_per_side_change = 3 # we change 3 times then we change the interval
-var intervals : Array[float] = [0.75, 0.5, 0.25]
+var intervals : Array[float] = [1, 0.75, 0.5]
 var intervals_index : int = 0
 var current_interval : float
 var side_change_counts = 0

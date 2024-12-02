@@ -18,27 +18,34 @@ extends BossAbility
 @export var rest_time : float # How long u rest for after attacking.
 @export var atk_time : float # How long ur attacking for until you get into rest
 
-var current_atk_time : float = 0
-var current_rest_time : float = 0
-var is_resting : bool = false
-
 @export_category("Projectile settings")
 @export var speed : float = 150
 @export var dmg : float = 7.5
 
-var attack_count : int
-
 @export var spawn_time_array : Array[float] = [0.25, 0.375, 0.5, 1.25]
+
+var attack_count : int
+var current_atk_time : float = 0
+var current_rest_time : float = 0
+var is_resting : bool = false
 var rand_color = 0
+
 
 func enter() -> void:
 	super()
 	attack_count = 0
 	current_time = 0
 	rand_color = 0
-	
+
+# we reset temp values because firing timings will be off otherwise.
 func exit() -> void:
 	super() # starts cd here.
+	attack_count = 0
+	current_time = 0
+	rand_color = 0
+	is_resting = false
+	current_atk_time = 0
+	current_rest_time = 0
 
 func update(_delta: float) -> void:
 	super(_delta)

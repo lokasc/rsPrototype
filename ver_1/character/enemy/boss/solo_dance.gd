@@ -24,7 +24,7 @@ extends BossAbility
 @onready var side_visual = $SideWarningIndicator
 
 var interval_changes_per_side_change = 2 # we change 2 times then we change the interval
-var intervals : Array[float] = [0.85, 0.65, 0.55, 0.45]
+var intervals : Array[float] = [1, 0.85, 0.7, 0.55]
 var intervals_index : int = 0
 var current_interval : float
 var side_change_counts = 0
