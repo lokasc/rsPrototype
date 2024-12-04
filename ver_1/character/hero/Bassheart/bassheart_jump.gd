@@ -66,7 +66,7 @@ func _init() -> void:
 
 func _enter_tree() -> void:
 	action_icon_path = "res://assets/icons/bassheart_jump_icon.png"
-	desc = "Jump towards a location providing shields to allies when landing.\nBeat Sync: Provides additional shields.\nEmpowered: Provides additional shields and does damage"
+	desc = "Become invincible and jump towards a location providing shields to allies when landing.\nBeat Sync: Provides additional shields.\nEmpowered: Provides additional shields and does damage"
 
 func _ready() -> void:
 	super()

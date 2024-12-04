@@ -30,7 +30,7 @@ func _init():
 
 func _enter_tree():
 	action_icon_path = "res://assets/icons/trebbie_dash_icon.png"
-	desc = "Dash towards mouse direction.\nBeat Sync: Reduces cooldown by 70%"
+	desc = "Become invincible and dash towards mouse direction.\nBeat Sync: Reduces cooldown by 70%"
 
 func _ready() -> void:
 	super()
