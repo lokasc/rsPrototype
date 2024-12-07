@@ -27,7 +27,7 @@ var use_steam : bool:
 # This controls the entire application
 func _ready() -> void:
 	hide_ui_at_start()
-	
+	use_steam = true
 	if fullscreen_on_start: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 func hide_ui_at_start():
@@ -96,7 +96,10 @@ func _on_quit_label_pressed() -> void:
 	get_tree().quit()
 
 func _on_steam_check_box_pressed() -> void:
-	use_steam = !use_steam
+	GameManager.Instance.spawn_boss = !GameManager.Instance.spawn_boss
+	pass
+	# this is only for the boss build only.
+	#use_steam = !use_steam
 
 # Create a lobby
 func _on_host_button_pressed() -> void:

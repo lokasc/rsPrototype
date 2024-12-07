@@ -7,6 +7,7 @@
 
 [node name="Main" type="Node" node_paths=PackedStringArray("main_control_node", "main_vbox", "play_options", "join_lobby_container", "use_steam_button", "play_button", "join_button", "setting_button", "quit_button")]
 script = ExtResource("1_1mqlp")
+fullscreen_on_start = true
 main_control_node = NodePath("MainMenuUI")
 main_vbox = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer")
 play_options = NodePath("MainMenuUI/SplashScreenUI/PlayOptionsContainer")
@@ -52,6 +53,7 @@ size_flags_stretch_ratio = 3.19
 layout_mode = 2
 button_pressed = true
 text = "Use Steam?"
+text = "Skip to Boss?"
 
 [node name="PlayButton" type="Button" parent="MainMenuUI/SplashScreenUI/VBoxContainer"]
 layout_mode = 2

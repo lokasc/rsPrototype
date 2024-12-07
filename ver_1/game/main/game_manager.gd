@@ -12,7 +12,7 @@ var is_host : bool # this var is so that we can see in testing.
 @export var dont_spawn_enemies : bool = false
 @export var no_music : bool = false
 @export var spawn_dummy : bool = false
-@export var spawn_boss : bool = false
+var spawn_boss : bool = false # we remove from inspector as it can conflict with the checkbox in mm.
 @export var quick_leveling : bool = false
 @export var infinite_health : bool = false
 
