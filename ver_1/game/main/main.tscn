@@ -7,6 +7,7 @@
 
 [node name="Main" type="Node" node_paths=PackedStringArray("main_control_node", "main_vbox", "play_options", "join_lobby_container", "use_steam_button", "play_button", "join_button", "setting_button", "quit_button")]
 script = ExtResource("1_1mqlp")
+fullscreen_on_start = true
 main_control_node = NodePath("MainMenuUI")
 main_vbox = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer")
 play_options = NodePath("MainMenuUI/SplashScreenUI/PlayOptionsContainer")
@@ -18,6 +19,7 @@ setting_button = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer/SettingsButto
 quit_button = NodePath("MainMenuUI/SplashScreenUI/VBoxContainer/QuitButton")
 
 [node name="GameManager" parent="." instance=ExtResource("4_444we")]
+spawn_boss = true
 
 [node name="MainMenuUI" type="Control" parent="."]
 z_index = 10

@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="ActionResource" load_steps=4 format=3 uid="uid://bxxr340x5kv31"]
+[gd_resource type="Resource" script_class="ActionResource" load_steps=5 format=3 uid="uid://bxxr340x5kv31"]
 
 [ext_resource type="PackedScene" uid="uid://h52vrgcs0ig2" path="res://ver_1/actions/items/aoe_item.tscn" id="1_15elk"]
 [ext_resource type="Script" path="res://ver_1/game/card_selection/actions_resource.gd" id="1_xcvxu"]
 [ext_resource type="PackedScene" uid="uid://cr1h2yqjdv1hn" path="res://ver_1/actions/items/dog_item.tscn" id="2_0dwti"]
+[ext_resource type="PackedScene" uid="uid://v0at42vajw4j" path="res://ver_1/actions/items/turret_item.tscn" id="3_ucw6f"]
 
 [resource]
 script = ExtResource("1_xcvxu")
-items = Array[PackedScene]([ExtResource("1_15elk"), ExtResource("2_0dwti")])
+items = Array[PackedScene]([ExtResource("1_15elk"), ExtResource("2_0dwti"), ExtResource("3_ucw6f")])
 stats = Array[Resource]([])

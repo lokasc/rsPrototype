@@ -44,7 +44,9 @@ func change_state_phase_one() -> void:
 	if boss.phase == 1:
 		#state_change.emit(self, "BnBRain")
 		state_change.emit(self, "BnBRing")
+		#print("Start Time", GameManager.Instance.time)
 	elif boss.phase == 2:
+		#print("Kill time",GameManager.Instance.time)
 		state_change.emit(self, "BnBRain")
 	elif boss.phase == 3:
 		boss.state_change_from_any("null")

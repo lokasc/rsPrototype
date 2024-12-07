@@ -25,7 +25,7 @@ height = 160.0
 radius = 27.6134
 
 [node name="Dummy" type="CharacterBody2D"]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.25, 0.25)
 collision_layer = 4
 script = ExtResource("1_t3ry6")
 char_name = "Dummy"
@@ -65,6 +65,7 @@ shape = SubResource("CircleShape2D_gmdls")
 debug_color = Color(0, 0.592183, 0.742917, 0.42)
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -18.0
 offset_top = -286.0
 offset_right = 22.0
@@ -72,11 +73,13 @@ offset_bottom = -149.0
 theme_override_font_sizes/font_size = 100
 
 [node name="TextPopUp" parent="." instance=ExtResource("4_jtw5c")]
+visible = false
 offset_left = -48.0
 offset_top = -115.0
 offset_right = 47.0
 offset_bottom = -92.0
 theme_override_font_sizes/normal_font_size = 100
+DEFAULT_COLOR = Color(1, 1, 1, 0)
 
 [connection signal="delta_synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_delta_synchronized"]
 [connection signal="synchronized" from="MultiplayerSynchronizer" to="." method="_on_multiplayer_synchronizer_synchronized"]
