@@ -115,6 +115,7 @@ shape = SubResource("RectangleShape2D_ycke3")
 debug_color = Color(0, 0.984314, 0.701961, 0.411765)
 
 [node name="PulsingBuildingContainers" type="Node2D" parent="."]
+visible = false
 script = ExtResource("5_2wrrv")
 
 [node name="Type1Building1" type="Sprite2D" parent="PulsingBuildingContainers"]

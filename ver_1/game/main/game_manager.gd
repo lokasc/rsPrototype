@@ -136,8 +136,6 @@ func start_game():
 		#spawner.custom_spawn("res://ver_1/character/enemy/boss/B&B/bnb.tscn", Vector2(0,0))
 		spawner.custom_spawn("res://ver_1/character/enemy/boss/Biano/biano.tscn", Vector2(0,35))
 		spawner.custom_spawn("res://ver_1/character/enemy/boss/Beethoven/beethoven.tscn", Vector2(-10,25))
-		# we set this because otherwise, players can level up and desync boss music
-		dont_spawn_enemies = true 
 	if dont_spawn_enemies: 
 		return
 	spawner._start_timer()
