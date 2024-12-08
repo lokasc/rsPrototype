@@ -58,7 +58,7 @@ func _init() -> void:
 # WARNING: Child nodes have not entered the tree yet. 
 func _enter_tree() -> void:
 	action_icon_path = "res://assets/icons/bassheart_freeze_icon.png"
-	desc = "Freezes enemies towards mouse direction.\nDealing enough damage to frozen enemies will do additionall damage.\nBeat Sync: Increases the range.\nEmpowered: Increases range and freeze duration"
+	desc = "Freezes enemies towards mouse direction.\nDealing enough damage to frozen enemies will do additional damage.\nBeat Sync: Increases range.\nEmpowered: Increases range and freeze duration"
 
 func _ready() -> void:
 	super()

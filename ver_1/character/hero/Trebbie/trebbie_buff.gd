@@ -54,7 +54,7 @@ func _init() -> void:
 func _enter_tree() -> void:
 	a_stats.dur = active_duration
 	action_icon_path = "res://assets/icons/trebbie_buff_icon.png"
-	desc = "Increases damage and heal/shield gain for allies in an area.\nBeat Sync: Reapplies buff with increasing area \nup to maximum of 3"
+	desc = "Increases damage and heal/shield gain for players in the area.\nBeat Sync: Increase buff multiplier and area \nup to 3 times"
 
 func _ready() -> void:
 	super()
