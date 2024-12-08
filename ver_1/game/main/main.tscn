@@ -52,7 +52,6 @@ size_flags_stretch_ratio = 3.19
 [node name="SteamCheckBox" type="CheckButton" parent="MainMenuUI/SplashScreenUI/VBoxContainer"]
 layout_mode = 2
 button_pressed = true
-text = "Use Steam?"
 text = "Skip to Boss?"
 
 [node name="PlayButton" type="Button" parent="MainMenuUI/SplashScreenUI/VBoxContainer"]

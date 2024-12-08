@@ -165,6 +165,7 @@ func spawn_boss(_boss : BaseBoss, location : Vector2):
 		remove_all_children()
 	
 	_boss.global_position = location
+	#spawn_path.call_deferred("add_child", _boss, true)
 	spawn_path.add_child(_boss, true)
 	GameManager.Instance.ui.stc_set_boss_ui.rpc(_boss.char_id)
 

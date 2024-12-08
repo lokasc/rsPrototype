@@ -24,7 +24,7 @@ func _ready() -> void:
 	super()
 	# the boss var is initialized yet, gotta use a different method.
 	area_bodyguard.call_deferred("reparent", get_parent(), true)
-	area_bodyguard.monitorable = false 
+	area_bodyguard.set_deferred("monitorable", false)
 
 func enter() -> void:
 	super()
