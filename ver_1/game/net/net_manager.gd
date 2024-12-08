@@ -49,19 +49,19 @@ func _ready():
 
 # Called by Main
 func peer_type_switch(main_use_steam):
-	print(main_use_steam)
+	#print(main_use_steam)
 	if main_use_steam:
 		use_steam = true
 		init_steam()
 		steam_peer = SteamMultiplayerPeer.new()
 		_connect_steam_signals()
 		enet_peer = null
-		print("Using Steam!")
+		#print("Using Steam!")
 	else:
 		use_steam = false
 		enet_peer = ENetMultiplayerPeer.new()
 		steam_peer = null
-		print("Using ENET!")
+		#print("Using ENET!")
 
 # wrapper for steam & enet
 func host_pressed():

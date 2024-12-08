@@ -27,6 +27,8 @@ var use_steam : bool:
 # This controls the entire application
 func _ready() -> void:
 	hide_ui_at_start()
+	use_steam_button.button_pressed = true # we do this because we dont want to change the functionality of Reset()
+	_on_steam_check_box_pressed() # called because the UI doesn't reflect game state
 	use_steam = true
 	if fullscreen_on_start: DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
@@ -97,6 +99,12 @@ func _on_quit_label_pressed() -> void:
 
 func _on_steam_check_box_pressed() -> void:
 	GameManager.Instance.spawn_boss = !GameManager.Instance.spawn_boss
+	print(GameManager.Instance.spawn_boss)
+	if GameManager.Instance.spawn_boss:
+		use_steam_button.text = "Skip to Boss? (ON)"
+	else:
+		use_steam_button.text = "Skip to Boss? (OFF)"
+	
 	pass
 	# this is only for the boss build only.
 	#use_steam = !use_steam
